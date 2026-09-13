@@ -1,0 +1,15 @@
+{
+  "notes": "UK ₹750/kg is the default configurable rate, not a claim that duty/VAT is included.",
+  "rates": [
+    {
+      "id": "uk-inr-per-kg",
+      "zone": "UK",
+      "country": "GB",
+      "perKgCharge": 750,
+      "currency": "INR",
+      "minimumWeightKg": 1,
+      "includesCustomsDuty": false,
+      "includesVat": false
+    }
+  ]
+}

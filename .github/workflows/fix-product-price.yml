@@ -1,0 +1,64 @@
+name: Fix product price
+
+on:
+  workflow_dispatch:
+    inputs:
+      slug:
+        description: Product slug
+        required: true
+        default: cumin-seed-whole-100g
+      price:
+        description: Sale price (USD)
+        required: true
+        default: "9.99"
+      compare:
+        description: Compare-at / MRP (USD)
+        required: true
+        default: "10.99"
+      category:
+        description: Category slug (optional)
+        required: false
+        default: whole-spices
+      environment:
+        description: Dynamo environment suffix
+        required: true
+        default: prod
+        type: choice
+        options:
+          - prod
+          - staging
+          - dev
+
+env:
+  AWS_REGION: us-east-1
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: ".nvmrc"
+          cache: npm
+
+      - run: npm ci
+      - run: npm run build -w @spicycorner/shared
+
+      - uses: aws-actions/configure-aws-credentials@v6
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Patch product in DynamoDB
+        env:
+          ENVIRONMENT: ${{ inputs.environment }}
+        run: |
+          npx tsx scripts/fix-product-price.ts \
+            --slug "${{ inputs.slug }}" \
+            --price "${{ inputs.price }}" \
+            --compare "${{ inputs.compare }}" \
+            --category "${{ inputs.category }}"

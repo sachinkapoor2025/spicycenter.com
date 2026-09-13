@@ -1,0 +1,75 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+:root {
+  --foreground: #1f1a17;
+  --background: #f7f1e8;
+  --primary: #2c1810;
+  --nav: #c45c26;
+  --accent: #d4a017;
+  --muted: #6b5e55;
+  --fog: rgba(44, 24, 16, 0.04);
+  --fog-warm: rgba(196, 92, 38, 0.08);
+  --fog-violet: rgba(212, 160, 23, 0.08);
+}
+
+body {
+  color: var(--foreground);
+  background:
+    radial-gradient(ellipse 90% 55% at 8% -8%, var(--fog-warm), transparent 55%),
+    radial-gradient(ellipse 70% 45% at 92% 0%, var(--fog-violet), transparent 50%),
+    var(--background);
+  min-height: 100vh;
+  font-family: "Source Sans 3", system-ui, sans-serif;
+}
+
+@layer components {
+  .btn-nav {
+    @apply inline-flex items-center justify-center rounded-full bg-nav text-white font-semibold text-sm px-4 py-2 hover:bg-[#a74c1e] transition whitespace-nowrap;
+  }
+  .btn-nav-active {
+    @apply bg-primary;
+  }
+  .btn-cart {
+    @apply inline-flex items-center justify-center rounded-full bg-nav text-white font-semibold text-sm px-5 py-2.5 hover:bg-[#a74c1e] transition disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-lg bg-nav text-white font-bold px-6 py-3 hover:bg-[#a74c1e] transition shadow-card;
+  }
+  .btn-outline {
+    @apply inline-flex items-center justify-center rounded-lg border-2 border-nav text-nav font-semibold px-6 py-3 hover:bg-nav hover:text-white transition;
+  }
+  .hero-slide-in {
+    animation: hero-fade-in 0.45s ease-out;
+  }
+  .card-spice {
+    @apply bg-white border border-[#eadfce] rounded-xl shadow-sm hover:shadow-card hover:border-[#dcc9a8] transition;
+  }
+  .spice-panel {
+    background-image:
+      linear-gradient(135deg, rgba(196, 92, 38, 0.06), transparent 40%),
+      linear-gradient(225deg, rgba(44, 24, 16, 0.04), transparent 45%);
+  }
+  .section-divider {
+    @apply border-t border-[#eadfce];
+  }
+  .spice-heading {
+    @apply text-primary font-bold tracking-tight font-serif;
+  }
+}
+
+@keyframes hero-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-accent-glow {
+  animation: none;
+}

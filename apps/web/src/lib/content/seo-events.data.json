@@ -1,0 +1,9 @@
+{
+  "hubPath": "/spice-guide",
+  "disclaimer": "SpicyCorner does not sell event tickets and does not invent local festival listings.",
+  "keywordsBySubcategory": {},
+  "relatedProductCategories": [
+    { "label": "Whole spices", "href": "/spices/whole-spices" },
+    { "label": "Bulk spices", "href": "/bulk-spices" }
+  ]
+}

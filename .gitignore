@@ -1,0 +1,12 @@
+node_modules
+.env
+.env.local
+apps/api/.env
+apps/web/.env.local
+**/.env
+!**/.env.example
+.aws-sam
+infrastructure/.aws-sam
+.DS_Store
+* 2.ts
+* 2.tsx

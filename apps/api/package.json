@@ -1,0 +1,35 @@
+{
+  "name": "@spicycorner/api",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx watch --env-file=.env src/local.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "node --import tsx --test src/lib/eprolo-sign.test.ts"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.716.0",
+    "@aws-sdk/client-lambda": "^3.716.0",
+    "@aws-sdk/client-s3": "^3.716.0",
+    "@aws-sdk/client-secrets-manager": "^3.716.0",
+    "@aws-sdk/client-sesv2": "^3.716.0",
+    "@aws-sdk/lib-dynamodb": "^3.716.0",
+    "@aws-sdk/s3-request-presigner": "^3.716.0",
+    "@spicycorner/shared": "*",
+    "esbuild": "^0.25.12",
+    "nodemailer": "^6.9.16",
+    "razorpay": "^2.9.5",
+    "sharp": "^0.33.5",
+    "stripe": "^17.5.0",
+    "uuid": "^11.0.3"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.146",
+    "@types/node": "^22.10.2",
+    "@types/nodemailer": "^6.4.17",
+    "@types/uuid": "^10.0.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}

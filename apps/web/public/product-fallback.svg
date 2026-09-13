@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="Halloween product">
+  <rect width="400" height="400" fill="#fff7ed"/>
+  <circle cx="200" cy="210" r="88" fill="#ff6b00"/>
+  <ellipse cx="200" cy="118" rx="18" ry="28" fill="#1a0a2e"/>
+  <path fill="#1a0a2e" d="M152 205c8-28 32-44 48-44s40 16 48 44c-14 10-32 16-48 16s-34-6-48-16z"/>
+  <circle cx="176" cy="198" r="10" fill="#1a0a2e"/>
+  <circle cx="224" cy="198" r="10" fill="#1a0a2e"/>
+  <path fill="#1a0a2e" d="M176 248c12 18 36 18 48 0-6 10-16 16-24 16s-18-6-24-16z"/>
+  <text x="200" y="340" text-anchor="middle" font-family="system-ui,sans-serif" font-size="18" font-weight="600" fill="#1a0a2e">HalloweenReady</text>
+</svg>

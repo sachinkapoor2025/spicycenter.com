@@ -1,0 +1,4582 @@
+[
+  {
+    "productSlug": "cumin-whole-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 426.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "cumin-whole-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 426.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "cumin-whole-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 426.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "cumin-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 426.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "cumin-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 426.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "cumin-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 426.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "cumin-roasted-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 426.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "black-cumin-whole-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "black-cumin-whole-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "black-cumin-whole-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "turmeric-whole-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 196.8,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "turmeric-whole-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 196.8,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "turmeric-whole-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 196.8,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "turmeric-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 196.8,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "turmeric-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 196.8,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "turmeric-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 196.8,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "black-pepper-whole-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 738,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "black-pepper-whole-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 738,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "black-pepper-whole-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 738,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "black-pepper-crushed-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 738,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "black-pepper-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 738,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "black-pepper-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 738,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "black-pepper-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 738,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "green-cardamom-whole-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 3444,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "green-cardamom-whole-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 3444,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "green-cardamom-whole-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 3444,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "green-cardamom-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 3444,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "green-cardamom-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 3444,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "green-cardamom-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 3444,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "black-cardamom-whole-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 1476,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "black-cardamom-whole-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 1476,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "black-cardamom-whole-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 1476,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "coriander-whole-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 229.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "coriander-whole-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 229.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "coriander-whole-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 229.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "coriander-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 229.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "coriander-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 229.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "coriander-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 229.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "kashmiri-chilli-whole-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 393.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "kashmiri-chilli-whole-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 393.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "kashmiri-chilli-whole-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 393.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "kashmiri-chilli-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 393.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "kashmiri-chilli-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 393.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "kashmiri-chilli-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 393.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "kashmiri-chilli-flakes-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 393.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "fenugreek-seeds-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 147.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "fenugreek-seeds-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 147.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "fenugreek-seeds-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 147.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "fenugreek-leaves-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 147.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "fenugreek-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 147.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "fenugreek-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 147.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "fenugreek-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 147.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "clove-whole-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 902,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "clove-whole-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 902,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "clove-whole-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 902,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "clove-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 902,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "clove-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 902,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "clove-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 902,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "cassia-whole-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 393.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "cassia-whole-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 393.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "cassia-whole-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 393.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "cassia-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 393.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "cassia-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 393.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "cassia-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 393.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "cinnamon-whole-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 1312,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "cinnamon-whole-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 1312,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "cinnamon-whole-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 1312,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "cinnamon-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 1312,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "cinnamon-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 1312,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "cinnamon-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 1312,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "fennel-seeds-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 262.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "fennel-seeds-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 262.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "fennel-seeds-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 262.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "fennel-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 262.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "fennel-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 262.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "fennel-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 262.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "mustard-seeds-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 131.2,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "mustard-seeds-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 131.2,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "mustard-seeds-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 131.2,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "mustard-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 131.2,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "mustard-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 131.2,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "mustard-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 131.2,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "nigella-seeds-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "nigella-seeds-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "nigella-seeds-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "ajwain-seeds-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 246,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "ajwain-seeds-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 246,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "ajwain-seeds-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 246,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "star-anise-whole-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 574,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "star-anise-whole-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 574,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "star-anise-whole-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 574,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "star-anise-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 574,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "star-anise-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 574,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "star-anise-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 574,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "indian-bay-leaf-leaves-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "indian-bay-leaf-whole-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "indian-bay-leaf-whole-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "indian-bay-leaf-whole-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "mace-whole-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 1804,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "mace-whole-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 1804,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "mace-whole-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 1804,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "mace-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 1804,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "mace-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 1804,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "mace-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 1804,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "nutmeg-whole-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 738,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "nutmeg-whole-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 738,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "nutmeg-whole-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 738,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "nutmeg-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 738,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "nutmeg-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 738,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "nutmeg-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 738,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "dried-ginger-whole-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "dried-ginger-whole-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "dried-ginger-whole-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "dried-ginger-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "dried-ginger-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "dried-ginger-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "dried-galangal-whole-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "dried-galangal-whole-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "dried-galangal-whole-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "dried-galangal-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "dried-galangal-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "dried-galangal-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "asafoetida-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 1476,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "asafoetida-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 1476,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "asafoetida-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 1476,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "amchur-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 262.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "amchur-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 262.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "amchur-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 262.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "amchur-whole-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 262.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "amchur-whole-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 262.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "amchur-whole-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 262.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "tamarind-whole-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 147.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "tamarind-whole-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 147.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "tamarind-whole-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 147.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "tamarind-blend-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 147.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "tamarind-blend-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 147.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "long-pepper-whole-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "long-pepper-whole-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "long-pepper-whole-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "long-pepper-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "long-pepper-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "long-pepper-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "cubeb-whole-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "cubeb-whole-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "cubeb-whole-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "poppy-seed-seeds-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "poppy-seed-seeds-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "poppy-seed-seeds-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "sesame-seeds-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 213.2,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "sesame-seeds-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 213.2,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "sesame-seeds-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 213.2,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "anise-seeds-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "anise-seeds-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "anise-seeds-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "caraway-seeds-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "caraway-seeds-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "caraway-seeds-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "dill-seed-seeds-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "dill-seed-seeds-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "dill-seed-seeds-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "celery-seed-seeds-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "celery-seed-seeds-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "celery-seed-seeds-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "dried-curry-leaves-leaves-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "dried-mint-leaves-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "dried-garlic-flakes-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 295.2,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "dried-garlic-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 295.2,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "dried-garlic-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 295.2,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "dried-garlic-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 295.2,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "kokum-whole-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "kokum-whole-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "kokum-whole-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "white-pepper-whole-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "white-pepper-whole-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "white-pepper-whole-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "white-pepper-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "white-pepper-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "white-pepper-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "dried-red-chilli-whole-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "dried-red-chilli-whole-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "dried-red-chilli-whole-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "dried-red-chilli-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "dried-red-chilli-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "dried-red-chilli-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "dried-red-chilli-flakes-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "dried-red-chilli-crushed-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "byadgi-chilli-whole-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "byadgi-chilli-whole-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "byadgi-chilli-whole-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "byadgi-chilli-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "byadgi-chilli-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "byadgi-chilli-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "byadgi-chilli-flakes-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "guntur-sannam-whole-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "guntur-sannam-whole-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "guntur-sannam-whole-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "guntur-sannam-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "guntur-sannam-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "guntur-sannam-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "guntur-sannam-flakes-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "guntur-teja-whole-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "guntur-teja-whole-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "guntur-teja-whole-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "guntur-teja-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "guntur-teja-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "guntur-teja-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "guntur-teja-flakes-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "s4-chilli-whole-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "s4-chilli-whole-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "s4-chilli-whole-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "s4-chilli-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "s4-chilli-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "s4-chilli-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "s4-chilli-flakes-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "s10-chilli-whole-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "s10-chilli-whole-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "s10-chilli-whole-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "s10-chilli-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "s10-chilli-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "s10-chilli-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "s10-chilli-flakes-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "resham-patti-whole-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "resham-patti-whole-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "resham-patti-whole-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "resham-patti-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "resham-patti-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "resham-patti-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "resham-patti-flakes-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "mathania-chilli-whole-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "mathania-chilli-whole-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "mathania-chilli-whole-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "mathania-chilli-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "mathania-chilli-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "mathania-chilli-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "mathania-chilli-flakes-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "jwala-chilli-whole-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "jwala-chilli-whole-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "jwala-chilli-whole-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "jwala-chilli-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "jwala-chilli-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "jwala-chilli-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "jwala-chilli-flakes-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "sankeshwari-chilli-whole-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "sankeshwari-chilli-whole-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "sankeshwari-chilli-whole-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "sankeshwari-chilli-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "sankeshwari-chilli-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "sankeshwari-chilli-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "sankeshwari-chilli-flakes-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "mundu-chilli-whole-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "mundu-chilli-whole-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "mundu-chilli-whole-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "mundu-chilli-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "mundu-chilli-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "mundu-chilli-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "mundu-chilli-flakes-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "ramnad-mundu-whole-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "ramnad-mundu-whole-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "ramnad-mundu-whole-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "ramnad-mundu-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "ramnad-mundu-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "ramnad-mundu-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "ramnad-mundu-flakes-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "kanthari-chilli-whole-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "kanthari-chilli-whole-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "kanthari-chilli-whole-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "kanthari-chilli-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "kanthari-chilli-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "kanthari-chilli-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "kanthari-chilli-flakes-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "bhut-jolokia-whole-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "bhut-jolokia-whole-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "bhut-jolokia-whole-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "bhut-jolokia-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "bhut-jolokia-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "bhut-jolokia-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "bhut-jolokia-flakes-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "boria-chilli-whole-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "boria-chilli-whole-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "boria-chilli-whole-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "boria-chilli-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "boria-chilli-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "boria-chilli-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "boria-chilli-flakes-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "dhani-chilli-whole-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "dhani-chilli-whole-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "dhani-chilli-whole-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "dhani-chilli-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "dhani-chilli-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "dhani-chilli-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "dhani-chilli-flakes-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "salem-chilli-whole-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "salem-chilli-whole-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "salem-chilli-whole-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "salem-chilli-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "salem-chilli-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "salem-chilli-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "salem-chilli-flakes-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "wonder-hot-chilli-whole-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "wonder-hot-chilli-whole-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "wonder-hot-chilli-whole-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "wonder-hot-chilli-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "wonder-hot-chilli-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "wonder-hot-chilli-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "wonder-hot-chilli-flakes-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "longi-chilli-whole-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "longi-chilli-whole-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "longi-chilli-whole-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "longi-chilli-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "longi-chilli-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "longi-chilli-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "longi-chilli-flakes-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "tomato-chilli-whole-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "tomato-chilli-whole-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "tomato-chilli-whole-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "tomato-chilli-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "tomato-chilli-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "tomato-chilli-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "tomato-chilli-flakes-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "round-chilli-whole-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "round-chilli-whole-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "round-chilli-whole-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "round-chilli-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "round-chilli-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "round-chilli-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "round-chilli-flakes-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 344.4,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "garam-masala-blend-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "garam-masala-blend-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "garam-masala-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "garam-masala-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "garam-masala-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "chaat-masala-blend-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "chaat-masala-blend-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "chaat-masala-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "chaat-masala-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "chaat-masala-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "biryani-masala-blend-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "biryani-masala-blend-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "biryani-masala-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "biryani-masala-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "biryani-masala-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "tandoori-masala-blend-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "tandoori-masala-blend-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "tandoori-masala-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "tandoori-masala-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "tandoori-masala-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "chicken-masala-blend-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "chicken-masala-blend-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "chicken-masala-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "chicken-masala-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "chicken-masala-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "meat-masala-blend-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "meat-masala-blend-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "meat-masala-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "meat-masala-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "meat-masala-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "fish-masala-blend-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "fish-masala-blend-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "fish-masala-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "fish-masala-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "fish-masala-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "curry-masala-blend-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "curry-masala-blend-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "curry-masala-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "curry-masala-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "curry-masala-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "kitchen-king-blend-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "kitchen-king-blend-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "kitchen-king-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "kitchen-king-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "kitchen-king-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "chole-masala-blend-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "chole-masala-blend-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "chole-masala-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "chole-masala-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "chole-masala-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "rajma-masala-blend-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "rajma-masala-blend-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "rajma-masala-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "rajma-masala-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "rajma-masala-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "pav-bhaji-masala-blend-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "pav-bhaji-masala-blend-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "pav-bhaji-masala-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "pav-bhaji-masala-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "pav-bhaji-masala-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "sambar-masala-blend-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "sambar-masala-blend-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "sambar-masala-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "sambar-masala-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "sambar-masala-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "rasam-powder-blend-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "rasam-powder-blend-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "rasam-powder-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "rasam-powder-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "rasam-powder-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "madras-curry-powder-blend-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "madras-curry-powder-blend-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "madras-curry-powder-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "madras-curry-powder-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "madras-curry-powder-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "vindaloo-masala-blend-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "vindaloo-masala-blend-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "vindaloo-masala-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "vindaloo-masala-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "vindaloo-masala-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "korma-masala-blend-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "korma-masala-blend-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "korma-masala-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "korma-masala-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "korma-masala-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "butter-chicken-masala-blend-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "butter-chicken-masala-blend-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "butter-chicken-masala-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "butter-chicken-masala-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "butter-chicken-masala-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "tikka-masala-blend-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "tikka-masala-blend-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "tikka-masala-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "tikka-masala-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "tikka-masala-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "chettinad-masala-blend-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "chettinad-masala-blend-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "chettinad-masala-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "chettinad-masala-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "chettinad-masala-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "goda-masala-blend-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "goda-masala-blend-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "goda-masala-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "goda-masala-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "goda-masala-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "kolhapuri-masala-blend-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "kolhapuri-masala-blend-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "kolhapuri-masala-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "kolhapuri-masala-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "kolhapuri-masala-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "malvani-masala-blend-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "malvani-masala-blend-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "malvani-masala-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "malvani-masala-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "malvani-masala-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "panch-phoron-blend-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "panch-phoron-blend-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "panch-phoron-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "panch-phoron-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "panch-phoron-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "pickle-masala-blend-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "pickle-masala-blend-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "pickle-masala-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "pickle-masala-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "pickle-masala-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "tea-masala-blend-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "tea-masala-blend-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "tea-masala-powder-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "tea-masala-powder-25kg",
+    "minQuantityKg": 25,
+    "maxQuantityKg": 25,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "25kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "tea-masala-powder-50kg",
+    "minQuantityKg": 50,
+    "maxQuantityKg": 50,
+    "pricePerKg": 311.6,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "50kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "fenugreek-leaves-leaves-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  },
+  {
+    "productSlug": "dried-coriander-leaves-leaves-10kg",
+    "minQuantityKg": 10,
+    "maxQuantityKg": 10,
+    "pricePerKg": 328,
+    "currency": "INR",
+    "grade": "Standard",
+    "packaging": "10kg bag",
+    "effectiveFrom": "2026-09-13"
+  }
+]

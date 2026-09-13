@@ -1,0 +1,1037 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: SpicyCorner (spicycenter.com) — serverless stack
+
+Parameters:
+  Environment:
+    Type: String
+    Default: dev
+    AllowedValues: [dev, staging, prod]
+  DomainName:
+    Type: String
+    Default: ""
+  StripeSecretArn:
+    Type: String
+    Default: ""
+  StripeSecretKey:
+    Type: String
+    Default: ""
+    NoEcho: true
+  StripeWebhookSecret:
+    Type: String
+    Default: ""
+    NoEcho: true
+  RazorpaySecretArn:
+    Type: String
+    Default: ""
+  RazorpayKeyId:
+    Type: String
+    Default: ""
+    NoEcho: true
+  RazorpayKeySecret:
+    Type: String
+    Default: ""
+    NoEcho: true
+  RazorpayWebhookSecret:
+    Type: String
+    Default: ""
+    NoEcho: true
+    Description: Razorpay webhook signing secret (Dashboard → Webhooks). Required so captured payments mark orders paid without relying on browser redirect.
+  SmtpPassword:
+    Type: String
+    Default: ""
+    NoEcho: true
+    Description: SMTP password for order@spicycorner.com (contact & order emails)
+  MarketingSmtpPassword:
+    Type: String
+    Default: ""
+    NoEcho: true
+    Description: Marketing SMTP password (Mailercloud) for /admin/email campaigns
+  UspsClientId:
+    Type: String
+    Default: ""
+    NoEcho: true
+  UspsClientSecret:
+    Type: String
+    Default: ""
+    NoEcho: true
+  UspsSecretArn:
+    Type: String
+    Default: ""
+    Description: Optional Secrets Manager ARN with { clientId, clientSecret, ... }
+  UspsBaseUrl:
+    Type: String
+    Default: "https://apis.usps.com"
+  UspsCrid:
+    Type: String
+    Default: ""
+  UspsMid:
+    Type: String
+    Default: ""
+  UspsEpsAccountNumber:
+    Type: String
+    Default: ""
+    NoEcho: true
+  UspsPaymentAuthorizationToken:
+    Type: String
+    Default: ""
+    NoEcho: true
+    Description: Optional USPS payment authorization token for label purchase (leave empty if unused)
+  LoadTestMode:
+    Type: String
+    Default: "false"
+    AllowedValues: ["true", "false"]
+    Description: When true, stub Stripe/Razorpay/USPS/SMTP for k6 load tests (staging only)
+  EnableVendorApi:
+    Type: String
+    Default: "false"
+    AllowedValues: ["true", "false"]
+    Description: Deploy Orange County vendor HTTP API (optional; leave false for SpicyCorner)
+  OrangeCountyVendorApiKey:
+    Type: String
+    Default: ""
+    NoEcho: true
+    Description: API key for Orange County vendor order feed (X-Vendor-Api-Key); only used when EnableVendorApi=true
+  WhatsAppToken:
+    Type: String
+    Default: ""
+    NoEcho: true
+    Description: Meta WhatsApp Cloud API permanent token (optional)
+  WhatsAppPhoneNumberId:
+    Type: String
+    Default: ""
+    Description: Meta WhatsApp phone number ID (optional)
+  WhatsAppTemplateName:
+    Type: String
+    Default: ""
+    Description: Optional approved Meta template name for out-of-session messages
+  WhatsAppTemplateLang:
+    Type: String
+    Default: "en"
+  TwilioAccountSid:
+    Type: String
+    Default: ""
+    NoEcho: true
+  TwilioAuthToken:
+    Type: String
+    Default: ""
+    NoEcho: true
+  TwilioWhatsAppFrom:
+    Type: String
+    Default: ""
+    Description: e.g. whatsapp:+14155238886 (optional Twilio WhatsApp sender)
+  CjApiKey:
+    Type: String
+    Default: ""
+    NoEcho: true
+    Description: CJ Dropshipping API Key (My CJ → Authorization → API). Not the website password.
+  EproloOpenApiKey:
+    Type: String
+    Default: ""
+    NoEcho: true
+    Description: Eprolo Open API key from the Eprolo account manager (openApiKey).
+  EproloOpenApiSecret:
+    Type: String
+    Default: ""
+    NoEcho: true
+    Description: Eprolo Open API secret from the Eprolo account manager (openApiSecret).
+
+Conditions:
+  VendorApiEnabled: !Equals [!Ref EnableVendorApi, "true"]
+
+Globals:
+  Function:
+    Runtime: nodejs20.x
+    Timeout: 29
+    MemorySize: 1024
+    Architectures: [arm64]
+    Environment:
+      Variables:
+        PRODUCTS_TABLE: !Ref ProductsTable
+        ORDERS_TABLE: !Ref OrdersTable
+        CARTS_TABLE: !Ref CartsTable
+        CUSTOMERS_TABLE: !Ref CustomersTable
+        EVENTS_TABLE: !Ref EventsTable
+        CONFIG_TABLE: !Ref ConfigTable
+        EMAIL_CAMPAIGNS_TABLE: !Ref EmailCampaignsTable
+        REMINDER_EMAILS_TABLE: !Ref ReminderEmailsTable
+        PENDING_PAYMENT_UNSUB_TABLE: !Ref PendingPaymentUnsubTable
+        UPLOAD_BUCKET: !Ref UploadBucket
+        USER_POOL_ID: !Ref UserPool
+        USER_POOL_CLIENT_ID: !Ref UserPoolClient
+        ENVIRONMENT: !Ref Environment
+        LOAD_TEST_MODE: !Ref LoadTestMode
+        STRIPE_SECRET_KEY: !Ref StripeSecretKey
+        STRIPE_WEBHOOK_SECRET: !Ref StripeWebhookSecret
+        RAZORPAY_SECRET_ARN: !Ref RazorpaySecretArn
+        RAZORPAY_KEY_ID: !Ref RazorpayKeyId
+        RAZORPAY_KEY_SECRET: !Ref RazorpayKeySecret
+        RAZORPAY_WEBHOOK_SECRET: !Ref RazorpayWebhookSecret
+        CLOUDFRONT_DOMAIN: !GetAtt CloudFrontDistribution.DomainName
+        SMTP_HOST: mail.spicycenter.com
+        SMTP_PORT: "465"
+        SMTP_SECURE: "true"
+        SMTP_USER: order@spicycorner.com
+        SMTP_FROM: order@spicycorner.com
+        NOTIFY_EMAIL: order@spicycorner.com,order@usarakhi.com,priya.yadav@mydgv.com
+        SMTP_PASS: !Ref SmtpPassword
+        SITE_URL: https://www.spicycenter.com
+        SES_AWS_REGION: us-east-1
+        # Legacy SES_* names used only as marketing From fallbacks — keep as verified Sender ID.
+        SES_FROM_EMAIL: email@spicycorner.com
+        SES_REPLY_TO: email@spicycorner.com
+        # Marketing only (Mailercloud). Never point at smtp.spicycenter.com — that mailbox
+        # is reserved for transactional order/coupon/contact mail (SMTP_* above).
+        MARKETING_TRANSPORT: smtp
+        MARKETING_SMTP_HOST: smtp-prod.mailrcld.com
+        MARKETING_SMTP_PORT: "587"
+        MARKETING_SMTP_SECURE: "false"
+        MARKETING_SMTP_USER: order@spicycorner.com
+        MARKETING_SMTP_PASS: !Ref MarketingSmtpPassword
+        MARKETING_FROM_EMAIL: email@spicycorner.com
+        USPS_CLIENT_ID: !Ref UspsClientId
+        USPS_CLIENT_SECRET: !Ref UspsClientSecret
+        USPS_SECRET_ARN: !Ref UspsSecretArn
+        USPS_BASE_URL: !Ref UspsBaseUrl
+        USPS_CRID: !Ref UspsCrid
+        USPS_MID: !Ref UspsMid
+        USPS_EPS_ACCOUNT_NUMBER: !Ref UspsEpsAccountNumber
+        USPS_PAYMENT_AUTHORIZATION_TOKEN: !Ref UspsPaymentAuthorizationToken
+        ORANGE_COUNTY_VENDOR_API_KEY: !Ref OrangeCountyVendorApiKey
+        WHATSAPP_TOKEN: !Ref WhatsAppToken
+        WHATSAPP_PHONE_NUMBER_ID: !Ref WhatsAppPhoneNumberId
+        WHATSAPP_TEMPLATE_NAME: !Ref WhatsAppTemplateName
+        WHATSAPP_TEMPLATE_LANG: !Ref WhatsAppTemplateLang
+        TWILIO_ACCOUNT_SID: !Ref TwilioAccountSid
+        TWILIO_AUTH_TOKEN: !Ref TwilioAuthToken
+        TWILIO_WHATSAPP_FROM: !Ref TwilioWhatsAppFrom
+        CJ_API_KEY: !Ref CjApiKey
+        EPROLO_OPEN_API_KEY: !Ref EproloOpenApiKey
+        EPROLO_OPEN_API_SECRET: !Ref EproloOpenApiSecret
+        CJ_IMPORT_WORKER_FUNCTION: !Sub spicycorner-cj-import-${Environment}
+
+Resources:
+  ProductsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub spicycorner-products-${Environment}
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: PK
+          AttributeType: S
+        - AttributeName: SK
+          AttributeType: S
+        - AttributeName: GSI1PK
+          AttributeType: S
+        - AttributeName: GSI1SK
+          AttributeType: S
+      KeySchema:
+        - AttributeName: PK
+          KeyType: HASH
+        - AttributeName: SK
+          KeyType: RANGE
+      GlobalSecondaryIndexes:
+        - IndexName: GSI1
+          KeySchema:
+            - AttributeName: GSI1PK
+              KeyType: HASH
+            - AttributeName: GSI1SK
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+      PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: true
+      SSESpecification:
+        SSEEnabled: true
+
+  OrdersTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub spicycorner-orders-${Environment}
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: PK
+          AttributeType: S
+        - AttributeName: SK
+          AttributeType: S
+        - AttributeName: GSI1PK
+          AttributeType: S
+        - AttributeName: GSI1SK
+          AttributeType: S
+        - AttributeName: GSI2PK
+          AttributeType: S
+        - AttributeName: GSI2SK
+          AttributeType: S
+        - AttributeName: GSI3PK
+          AttributeType: S
+        - AttributeName: GSI3SK
+          AttributeType: S
+      KeySchema:
+        - AttributeName: PK
+          KeyType: HASH
+        - AttributeName: SK
+          KeyType: RANGE
+      GlobalSecondaryIndexes:
+        - IndexName: GSI1
+          KeySchema:
+            - AttributeName: GSI1PK
+              KeyType: HASH
+            - AttributeName: GSI1SK
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+        - IndexName: GSI2
+          KeySchema:
+            - AttributeName: GSI2PK
+              KeyType: HASH
+            - AttributeName: GSI2SK
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+        - IndexName: GSI3
+          KeySchema:
+            - AttributeName: GSI3PK
+              KeyType: HASH
+            - AttributeName: GSI3SK
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+      PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: true
+      SSESpecification:
+        SSEEnabled: true
+
+  CartsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub spicycorner-carts-${Environment}
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: PK
+          AttributeType: S
+        - AttributeName: SK
+          AttributeType: S
+        - AttributeName: GSI1PK
+          AttributeType: S
+        - AttributeName: GSI1SK
+          AttributeType: S
+      KeySchema:
+        - AttributeName: PK
+          KeyType: HASH
+        - AttributeName: SK
+          KeyType: RANGE
+      GlobalSecondaryIndexes:
+        - IndexName: GSI1
+          KeySchema:
+            - AttributeName: GSI1PK
+              KeyType: HASH
+            - AttributeName: GSI1SK
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+      TimeToLiveSpecification:
+        AttributeName: expiresAt
+        Enabled: true
+      SSESpecification:
+        SSEEnabled: true
+
+  CustomersTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub spicycorner-customers-${Environment}
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: PK
+          AttributeType: S
+        - AttributeName: SK
+          AttributeType: S
+        - AttributeName: GSI1PK
+          AttributeType: S
+        - AttributeName: GSI1SK
+          AttributeType: S
+      KeySchema:
+        - AttributeName: PK
+          KeyType: HASH
+        - AttributeName: SK
+          KeyType: RANGE
+      GlobalSecondaryIndexes:
+        - IndexName: GSI1
+          KeySchema:
+            - AttributeName: GSI1PK
+              KeyType: HASH
+            - AttributeName: GSI1SK
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+      PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: true
+      SSESpecification:
+        SSEEnabled: true
+
+  EventsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub spicycorner-events-${Environment}
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: PK
+          AttributeType: S
+        - AttributeName: SK
+          AttributeType: S
+        - AttributeName: GSI1PK
+          AttributeType: S
+        - AttributeName: GSI1SK
+          AttributeType: S
+      KeySchema:
+        - AttributeName: PK
+          KeyType: HASH
+        - AttributeName: SK
+          KeyType: RANGE
+      GlobalSecondaryIndexes:
+        - IndexName: GSI1
+          KeySchema:
+            - AttributeName: GSI1PK
+              KeyType: HASH
+            - AttributeName: GSI1SK
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+      TimeToLiveSpecification:
+        AttributeName: expiresAt
+        Enabled: true
+      SSESpecification:
+        SSEEnabled: true
+
+  ConfigTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub spicycorner-config-${Environment}
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: PK
+          AttributeType: S
+        - AttributeName: SK
+          AttributeType: S
+      KeySchema:
+        - AttributeName: PK
+          KeyType: HASH
+        - AttributeName: SK
+          KeyType: RANGE
+      SSESpecification:
+        SSEEnabled: true
+
+  EmailCampaignsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub spicycorner-email-campaigns-${Environment}
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: PK
+          AttributeType: S
+        - AttributeName: SK
+          AttributeType: S
+        - AttributeName: GSI1PK
+          AttributeType: S
+        - AttributeName: GSI1SK
+          AttributeType: S
+        - AttributeName: GSI2PK
+          AttributeType: S
+        - AttributeName: GSI2SK
+          AttributeType: S
+      KeySchema:
+        - AttributeName: PK
+          KeyType: HASH
+        - AttributeName: SK
+          KeyType: RANGE
+      GlobalSecondaryIndexes:
+        - IndexName: GSI1
+          KeySchema:
+            - AttributeName: GSI1PK
+              KeyType: HASH
+            - AttributeName: GSI1SK
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+        - IndexName: GSI2
+          KeySchema:
+            - AttributeName: GSI2PK
+              KeyType: HASH
+            - AttributeName: GSI2SK
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+      SSESpecification:
+        SSEEnabled: true
+
+  ReminderEmailsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub spicycorner-reminder-emails-${Environment}
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: PK
+          AttributeType: S
+        - AttributeName: SK
+          AttributeType: S
+        - AttributeName: GSI1PK
+          AttributeType: S
+        - AttributeName: GSI1SK
+          AttributeType: S
+      KeySchema:
+        - AttributeName: PK
+          KeyType: HASH
+        - AttributeName: SK
+          KeyType: RANGE
+      GlobalSecondaryIndexes:
+        - IndexName: GSI1
+          KeySchema:
+            - AttributeName: GSI1PK
+              KeyType: HASH
+            - AttributeName: GSI1SK
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+      SSESpecification:
+        SSEEnabled: true
+
+  # Opt-out list for pending-payment reminder emails only (not SES marketing).
+  PendingPaymentUnsubTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub spicycorner-pending-payment-unsub-${Environment}
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: PK
+          AttributeType: S
+        - AttributeName: SK
+          AttributeType: S
+      KeySchema:
+        - AttributeName: PK
+          KeyType: HASH
+        - AttributeName: SK
+          KeyType: RANGE
+      SSESpecification:
+        SSEEnabled: true
+
+  UploadBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      NotificationConfiguration:
+        EventBridgeConfiguration:
+          EventBridgeEnabled: true
+      CorsConfiguration:
+        CorsRules:
+          - AllowedHeaders: ["*"]
+            AllowedMethods: [GET, PUT, POST]
+            AllowedOrigins: ["*"]
+            MaxAge: 3600
+
+
+  UploadBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref UploadBucket
+      PolicyDocument:
+        Statement:
+          - Sid: CloudFrontRead
+            Effect: Allow
+            Principal:
+              Service: cloudfront.amazonaws.com
+            Action: s3:GetObject
+            Resource: !Sub ${UploadBucket.Arn}/*
+            Condition:
+              StringEquals:
+                AWS:SourceArn: !Sub arn:aws:cloudfront::${AWS::AccountId}:distribution/${CloudFrontDistribution}
+
+  CloudFrontOriginAccessControl:
+    Type: AWS::CloudFront::OriginAccessControl
+    Properties:
+      OriginAccessControlConfig:
+        Name: !Sub spicycorner-oac-${Environment}
+        OriginAccessControlOriginType: s3
+        SigningBehavior: always
+        SigningProtocol: sigv4
+
+  CloudFrontDistribution:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Enabled: true
+        DefaultRootObject: index.html
+        Origins:
+          - Id: S3Origin
+            DomainName: !GetAtt UploadBucket.RegionalDomainName
+            S3OriginConfig:
+              OriginAccessIdentity: ""
+            OriginAccessControlId: !Ref CloudFrontOriginAccessControl
+        DefaultCacheBehavior:
+          TargetOriginId: S3Origin
+          ViewerProtocolPolicy: redirect-to-https
+          AllowedMethods: [GET, HEAD, OPTIONS]
+          CachedMethods: [GET, HEAD]
+          Compress: true
+          # CachingOptimized — long TTL, no query/cookie forwarding (images are immutable keys).
+          CachePolicyId: 658327ea-f89d-4fab-a63d-7e88639e58f6
+
+  SesDomainIdentity:
+    Type: AWS::SES::EmailIdentity
+    Properties:
+      EmailIdentity: spicycenter.com
+      DkimSigningAttributes:
+        NextSigningKeyLength: RSA_2048_BIT
+
+  UserPool:
+    Type: AWS::Cognito::UserPool
+    Properties:
+      UserPoolName: !Sub spicycorner-users-${Environment}
+      AutoVerifiedAttributes: [email]
+      UsernameAttributes: [email]
+      AccountRecoverySetting:
+        RecoveryMechanisms:
+          - Name: verified_email
+            Priority: 1
+      EmailConfiguration:
+        EmailSendingAccount: COGNITO_DEFAULT
+      VerificationMessageTemplate:
+        DefaultEmailOption: CONFIRM_WITH_CODE
+        EmailSubject: Verify your SpicyCorner account
+        EmailMessage: |
+          Welcome to SpicyCorner!
+
+          Your verification code is {####}.
+
+          This code expires in 24 hours. If you did not create an account, you can ignore this email.
+
+          — SpicyCorner Team
+          https://www.spicycenter.com
+      Policies:
+        PasswordPolicy:
+          MinimumLength: 8
+          RequireLowercase: true
+          RequireNumbers: true
+          RequireSymbols: false
+          RequireUppercase: true
+      Schema:
+        - Name: email
+          Required: true
+          Mutable: true
+        - Name: name
+          Required: false
+          Mutable: true
+
+  UserPoolClient:
+    Type: AWS::Cognito::UserPoolClient
+    Properties:
+      ClientName: !Sub spicycorner-web-${Environment}
+      UserPoolId: !Ref UserPool
+      GenerateSecret: false
+      ExplicitAuthFlows:
+        - ALLOW_USER_SRP_AUTH
+        - ALLOW_REFRESH_TOKEN_AUTH
+        - ALLOW_USER_PASSWORD_AUTH
+      SupportedIdentityProviders: [COGNITO]
+      PreventUserExistenceErrors: ENABLED
+
+  AdminGroup:
+    Type: AWS::Cognito::UserPoolGroup
+    Properties:
+      GroupName: admin
+      UserPoolId: !Ref UserPool
+      Description: Admin portal access
+
+  SuperAdminGroup:
+    Type: AWS::Cognito::UserPoolGroup
+    Properties:
+      GroupName: super-admin
+      UserPoolId: !Ref UserPool
+      Description: Super admin — full admin access plus delete testing records
+
+  EmailGroup:
+    Type: AWS::Cognito::UserPoolGroup
+    Properties:
+      GroupName: email
+      UserPoolId: !Ref UserPool
+      Description: Legacy email group — marketing email is now under /admin/email for all admins
+
+  VendorGroup:
+    Type: AWS::Cognito::UserPoolGroup
+    Properties:
+      GroupName: vendor
+      UserPoolId: !Ref UserPool
+      Description: Vendor portal — sees only their assigned orders, inventory, and warehouses
+
+  ApiFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub spicycorner-api-${Environment}
+      Handler: index.handler
+      CodeUri: ..
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref ProductsTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref OrdersTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref CartsTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref CustomersTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref EventsTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref ConfigTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref EmailCampaignsTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref ReminderEmailsTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref PendingPaymentUnsubTable
+        - S3CrudPolicy:
+            BucketName: !Ref UploadBucket
+        - Statement:
+            - Effect: Allow
+              Action:
+                - secretsmanager:GetSecretValue
+                - ssm:GetParameter
+              Resource: "*"
+            - Effect: Allow
+              Action:
+                - ses:SendEmail
+                - ses:SendRawEmail
+                - ses:SendTemplatedEmail
+                - ses:SendBulkEmail
+                - ses:SendBulkTemplatedEmail
+                - sesv2:SendEmail
+                - sesv2:SendBulkEmail
+                - ses:GetAccountSendingEnabled
+                - sesv2:GetAccount
+                - sesv2:GetEmailIdentity
+              Resource: "*"
+            - Effect: Allow
+              Action:
+                - lambda:InvokeFunction
+              Resource: !Sub arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:spicycorner-cj-import-${Environment}
+      Events:
+        ApiRoot:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref HttpApi
+            Path: /{proxy+}
+            Method: ANY
+        ApiHealth:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref HttpApi
+            Path: /health
+            Method: GET
+    Metadata:
+      BuildMethod: makefile
+
+  CjImportWorkerFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub spicycorner-cj-import-${Environment}
+      Handler: cj-import-worker.handler
+      CodeUri: ..
+      Timeout: 900
+      MemorySize: 1024
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref ProductsTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref ConfigTable
+        - S3CrudPolicy:
+            BucketName: !Ref UploadBucket
+        - Statement:
+            - Effect: Allow
+              Action:
+                - lambda:InvokeFunction
+              Resource: !Sub arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:spicycorner-cj-import-${Environment}
+    Metadata:
+      BuildMethod: makefile
+
+  # Upload-time WebP variants (thumb/card/gallery/zoom). S3 event → EventBridge → Lambda.
+  # Not Lambda@Edge: peak GET traffic must not pay for resize.
+  ImageOptimizeFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub spicycorner-image-optimize-${Environment}
+      Handler: index.handler
+      CodeUri: ..
+      Timeout: 120
+      MemorySize: 2048
+      Policies:
+        - S3CrudPolicy:
+            BucketName: !Ref UploadBucket
+      Events:
+        ObjectCreated:
+          Type: EventBridgeRule
+          Properties:
+            Pattern:
+              source:
+                - aws.s3
+              detail-type:
+                - Object Created
+              detail:
+                bucket:
+                  name:
+                    - !Ref UploadBucket
+    Metadata:
+      BuildMethod: makefile
+
+  # Optional Orange County vendor order feed (EnableVendorApi=true). Off by default for SpicyCorner.
+  # Storefront/admin traffic stays on HttpApi — vendors cannot reach those routes here.
+  #
+  # Retain policies: do NOT delete this API if the stack is updated/replaced or this
+  # resource is temporarily removed — keeps the vendor Base URL stable.
+  # Never rename the logical ID `VendorHttpApi` (that forces a new API id / URL).
+  VendorHttpApi:
+    Type: AWS::Serverless::HttpApi
+    Condition: VendorApiEnabled
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Properties:
+      Name: !Sub spicycorner-vendor-http-api-${Environment}
+      StageName: !Ref Environment
+      CorsConfiguration:
+        AllowMethods: ["GET", "POST", "OPTIONS"]
+        AllowHeaders: ["Content-Type", "X-Vendor-Api-Key"]
+        AllowOrigins: ["*"]
+
+  VendorApiFunction:
+    Type: AWS::Serverless::Function
+    Condition: VendorApiEnabled
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Properties:
+      FunctionName: !Sub spicycorner-vendor-api-${Environment}
+      Handler: vendor-api.handler
+      CodeUri: ..
+      Environment:
+        Variables:
+          ORDERS_TABLE: !Ref OrdersTable
+          ENVIRONMENT: !Ref Environment
+          ORANGE_COUNTY_VENDOR_API_KEY: !Ref OrangeCountyVendorApiKey
+          SITE_URL: https://www.spicycenter.com
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref OrdersTable
+        - Statement:
+            - Effect: Allow
+              Action:
+                - dynamodb:Query
+              Resource:
+                - !GetAtt OrdersTable.Arn
+                - !Sub "${OrdersTable.Arn}/index/*"
+      Events:
+        VendorListOrders:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref VendorHttpApi
+            Path: /vendors/orange-county/orders
+            Method: GET
+        VendorGetOrder:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref VendorHttpApi
+            Path: /vendors/orange-county/orders/{orderId}
+            Method: GET
+        VendorPostShipment:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref VendorHttpApi
+            Path: /vendors/orange-county/orders/{orderId}/shipment
+            Method: POST
+        VendorPostTracking:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref VendorHttpApi
+            Path: /vendors/orange-county/orders/{orderId}/tracking
+            Method: POST
+        VendorPostShipmentByBody:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref VendorHttpApi
+            Path: /vendors/orange-county/shipment
+            Method: POST
+        VendorPostTrackingByBody:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref VendorHttpApi
+            Path: /vendors/orange-county/tracking
+            Method: POST
+        VendorHealth:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref VendorHttpApi
+            Path: /health
+            Method: GET
+    Metadata:
+      BuildMethod: makefile
+
+  ReviewEmailsCronFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub spicycorner-review-emails-${Environment}
+      Handler: scheduled.handler
+      Timeout: 180
+      MemorySize: 512
+      CodeUri: ..
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref OrdersTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref CartsTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref CustomersTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref ConfigTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref PendingPaymentUnsubTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref EventsTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref ProductsTable
+      Events:
+        EmailJobsEvery15Minutes:
+          Type: Schedule
+          Properties:
+            Schedule: rate(15 minutes)
+            Description: Review emails + abandoned cart + pending-payment reminders
+            Enabled: true
+        RazorpayReconcileHourly:
+          Type: Schedule
+          Properties:
+            Schedule: rate(1 hour)
+            Description: Reconcile Razorpay captured payments stuck in pending_payment (webhook safety net)
+            Enabled: true
+            Input: '{"task":"razorpayReconcile"}'
+        HomepageRankingHourly:
+          Type: Schedule
+          Properties:
+            Schedule: rate(1 hour)
+            Description: Rebuild homepage product ranking snapshot from daily rollups
+            Enabled: true
+            Input: '{"task":"homepageRanking"}'
+    Metadata:
+      BuildMethod: makefile
+
+  SesEmailCronFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub spicycorner-ses-email-${Environment}
+      Handler: ses-scheduled.handler
+      Timeout: 120
+      MemorySize: 512
+      CodeUri: ..
+      Environment:
+        Variables:
+          EMAIL_CAMPAIGNS_TABLE: !Ref EmailCampaignsTable
+          CONFIG_TABLE: !Ref ConfigTable
+          ENVIRONMENT: !Ref Environment
+          SITE_URL: https://www.spicycenter.com
+          SES_AWS_REGION: us-east-1
+          SES_FROM_EMAIL: email@spicycorner.com
+          SES_REPLY_TO: email@spicycorner.com
+          MARKETING_FROM_EMAIL: email@spicycorner.com
+          MARKETING_TRANSPORT: smtp
+          MARKETING_SMTP_HOST: smtp-prod.mailrcld.com
+          MARKETING_SMTP_PORT: "587"
+          MARKETING_SMTP_SECURE: "false"
+          MARKETING_SMTP_USER: order@spicycorner.com
+          MARKETING_SMTP_PASS: !Ref MarketingSmtpPassword
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref EmailCampaignsTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref ConfigTable
+        - Statement:
+            - Effect: Allow
+              Action:
+                - ses:SendEmail
+                - ses:SendRawEmail
+                - sesv2:SendEmail
+                - sesv2:SendBulkEmail
+                - sesv2:GetAccount
+              Resource: "*"
+      Events:
+        EveryMinuteSesQueue:
+          Type: Schedule
+          Properties:
+            Schedule: rate(1 minute)
+            Description: SES campaign scheduler + queue sender (respects daily/rate limits)
+            Enabled: true
+    Metadata:
+      BuildMethod: makefile
+
+  BounceSyncFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub spicycorner-bounce-sync-${Environment}
+      Handler: bounce-sync.handler
+      Timeout: 120
+      MemorySize: 512
+      CodeUri: ..
+      Environment:
+        Variables:
+          EMAIL_CAMPAIGNS_TABLE: !Ref EmailCampaignsTable
+          ENVIRONMENT: !Ref Environment
+          SITE_URL: https://www.spicycenter.com
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref EmailCampaignsTable
+      Events:
+        HourlyBounceSync:
+          Type: Schedule
+          Properties:
+            Schedule: rate(1 hour)
+            Description: Promote hard-bounced marketing recipients onto SUPPRESS# skip list
+            Enabled: true
+    Metadata:
+      BuildMethod: makefile
+
+  HttpApi:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      StageName: !Ref Environment
+      CorsConfiguration:
+        AllowMethods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]
+        AllowHeaders: ["Content-Type", "Authorization", "X-Session-Id"]
+        AllowOrigins: ["*"]
+
+Outputs:
+  ApiUrl:
+    Description: HTTP API endpoint (storefront + admin — not for vendors)
+    Value: !Sub https://${HttpApi}.execute-api.${AWS::Region}.amazonaws.com/${Environment}
+  VendorApiUrl:
+    Condition: VendorApiEnabled
+    Description: Orange County vendor order API only (X-Vendor-Api-Key)
+    Value: !Sub https://${VendorHttpApi}.execute-api.${AWS::Region}.amazonaws.com/${Environment}
+  ProductsTableName:
+    Value: !Ref ProductsTable
+  OrdersTableName:
+    Value: !Ref OrdersTable
+  CartsTableName:
+    Value: !Ref CartsTable
+  CustomersTableName:
+    Value: !Ref CustomersTable
+  EventsTableName:
+    Value: !Ref EventsTable
+  ConfigTableName:
+    Value: !Ref ConfigTable
+  UserPoolId:
+    Value: !Ref UserPool
+  UserPoolClientId:
+    Value: !Ref UserPoolClient
+  UploadBucketName:
+    Value: !Ref UploadBucket
+  CloudFrontDomain:
+    Value: !GetAtt CloudFrontDistribution.DomainName

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="SpicyCorner">
+  <rect width="128" height="128" rx="64" fill="#2c1810"/>
+  <circle cx="64" cy="64" r="38" fill="#c45c26"/>
+  <circle cx="64" cy="64" r="18" fill="#d4a017"/>
+  <text x="64" y="118" text-anchor="middle" fill="#f7f1e8" font-size="14" font-family="Georgia, serif">SC</text>
+</svg>

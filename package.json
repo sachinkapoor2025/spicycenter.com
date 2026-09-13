@@ -1,0 +1,54 @@
+{
+  "name": "spicycorner",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w @spicycorner/web",
+    "dev:api": "npm run dev -w @spicycorner/api",
+    "dev:all": "concurrently -n api,web -c blue,green \"npm run dev:api\" \"npm run dev\"",
+    "db:up": "docker compose up -d",
+    "db:down": "docker compose down",
+    "db:setup": "tsx scripts/setup-local-db.ts",
+    "catalog:generate": "node scripts/generate-spice-catalog.mjs",
+    "seed": "tsx scripts/seed.ts",
+    "restore:admin-images": "tsx scripts/restore-admin-product-images.ts",
+    "seed:inventory": "tsx scripts/seed-inventory.ts",
+    "fix:seo-descriptions": "tsx scripts/fix-seo-descriptions.ts",
+    "migrate:images": "tsx scripts/migrate-images-to-s3.ts",
+    "import:backup-images": "tsx scripts/import-backup-product-images.ts",
+    "sync:public-uploads": "tsx scripts/sync-public-uploads.ts",
+    "rewrite:product-images": "tsx scripts/rewrite-product-image-urls.ts",
+    "migrate:multitable": "tsx scripts/migrate-to-multitable.ts",
+    "setup:local": "npm run db:up && sleep 3 && npm run db:setup && npm run seed",
+    "build": "npm run build -w @spicycorner/shared && npm run build -w @spicycorner/api && npm run build -w @spicycorner/web",
+    "lint": "npm run lint -w @spicycorner/web && npm run lint -w @spicycorner/api",
+    "typecheck": "npm run typecheck -w @spicycorner/shared && npm run typecheck -w @spicycorner/api && npm run typecheck -w @spicycorner/web",
+    "restore:product-images": "tsx scripts/restore-product-images-from-pitr.ts",
+    "reconcile:s3-images": "tsx scripts/reconcile-s3-product-images.ts",
+    "backfill:image-variants": "tsx scripts/backfill-image-variants.ts",
+    "load:warmup": "k6 run scripts/load/warmup.js",
+    "load:browse": "k6 run scripts/load/browse.js",
+    "load:mixed": "k6 run scripts/load/mixed.js",
+    "load:spike": "k6 run scripts/load/spike.js",
+    "load:ssr": "k6 run scripts/load/ssr.js",
+    "load:local": "node scripts/load/run-local.mjs",
+    "load:smoke": "bash scripts/load/smoke.sh",
+    "test": "npm run test -w @spicycorner/shared"
+  },
+  "devDependencies": {
+    "@aws-sdk/client-dynamodb": "^3.716.0",
+    "@aws-sdk/client-s3": "^3.716.0",
+    "@aws-sdk/lib-dynamodb": "^3.716.0",
+    "concurrently": "^9.1.2",
+    "sharp": "^0.35.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "xlsx": "^0.18.5"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

@@ -1,0 +1,56 @@
+[
+  {
+    "slug": "cumin-vs-black-cumin",
+    "a": "cumin",
+    "b": "black-cumin",
+    "title": "Cumin vs black cumin"
+  },
+  {
+    "slug": "cumin-vs-caraway",
+    "a": "cumin",
+    "b": "caraway",
+    "title": "Cumin vs caraway"
+  },
+  {
+    "slug": "cassia-vs-cinnamon",
+    "a": "cassia",
+    "b": "cinnamon",
+    "title": "Cassia vs cinnamon"
+  },
+  {
+    "slug": "green-cardamom-vs-black-cardamom",
+    "a": "green-cardamom",
+    "b": "black-cardamom",
+    "title": "Green cardamom vs black cardamom"
+  },
+  {
+    "slug": "kashmiri-chilli-vs-byadgi-chilli",
+    "a": "kashmiri-chilli",
+    "b": "byadgi-chilli",
+    "title": "Kashmiri chilli vs Byadgi chilli"
+  },
+  {
+    "slug": "guntur-chilli-vs-teja-chilli",
+    "a": "guntur-sannam",
+    "b": "guntur-teja",
+    "title": "Guntur Sannam vs Teja chilli"
+  },
+  {
+    "slug": "whole-spices-vs-ground-spices",
+    "a": "cumin",
+    "b": "cumin",
+    "title": "Whole spices vs ground spices"
+  },
+  {
+    "slug": "garam-masala-vs-curry-powder",
+    "a": "garam-masala",
+    "b": "madras-curry-powder",
+    "title": "Garam masala vs curry powder"
+  },
+  {
+    "slug": "indian-bay-leaf-vs-mediterranean-bay-leaf",
+    "a": "indian-bay-leaf",
+    "b": "indian-bay-leaf",
+    "title": "Indian bay leaf vs Mediterranean bay leaf"
+  }
+]

@@ -1,0 +1,196 @@
+name: Deploy
+
+# Three jobs, same as before:
+#   build       — compile/typecheck shared + API + web
+#   deploy-api  — SAM (Lambda / API Gateway)
+#   deploy-web  — Next.js production build; AWS Amplify publishes the live site
+on:
+  push:
+    branches:
+      - main
+      - dev
+      - "feature/**"
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  AWS_REGION: us-east-1
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: ".nvmrc"
+          cache: npm
+      - run: npm ci
+      - run: npm run build -w @spicycorner/shared
+      - run: npm run typecheck
+
+  deploy-api:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    needs: build
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: ".nvmrc"
+          cache: npm
+      - run: npm ci
+      - run: npm run build -w @spicycorner/shared
+
+      - uses: aws-actions/configure-aws-credentials@v6
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - uses: aws-actions/setup-sam@v3
+
+      - name: SAM Deploy
+        working-directory: infrastructure
+        env:
+          RAZORPAY_KEY_ID: ${{ secrets.RAZOR_KEY_ID }}
+          RAZORPAY_KEY_SECRET: ${{ secrets.RAZOR_KEY_SECRET }}
+          RAZORPAY_WEBHOOK_SECRET: ${{ secrets.RAZORPAY_WEBHOOK_SECRET }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+          STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
+          USPS_CLIENT_ID: ${{ secrets.USPS_CLIENT_ID }}
+          USPS_CLIENT_SECRET: ${{ secrets.USPS_CLIENT_SECRET }}
+          USPS_SECRET_ARN: ${{ secrets.USPS_SECRET_ARN }}
+          USPS_BASE_URL: ${{ secrets.USPS_BASE_URL }}
+          USPS_CRID: ${{ secrets.USPS_CRID }}
+          USPS_MID: ${{ secrets.USPS_MID }}
+          USPS_EPS_ACCOUNT_NUMBER: ${{ secrets.USPS_EPS_ACCOUNT_NUMBER }}
+          USPS_PAYMENT_AUTHORIZATION_TOKEN: ${{ secrets.USPS_PAYMENT_AUTHORIZATION_TOKEN }}
+          ORANGE_COUNTY_VENDOR_API_KEY: ${{ secrets.ORANGE_COUNTY_VENDOR_API_KEY }}
+          WHATSAPP_TOKEN: ${{ secrets.WHATSAPP_TOKEN }}
+          WHATSAPP_PHONE_NUMBER_ID: ${{ secrets.WHATSAPP_PHONE_NUMBER_ID }}
+          WHATSAPP_TEMPLATE_NAME: ${{ secrets.WHATSAPP_TEMPLATE_NAME }}
+          WHATSAPP_TEMPLATE_LANG: ${{ secrets.WHATSAPP_TEMPLATE_LANG }}
+          TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
+          TWILIO_AUTH_TOKEN: ${{ secrets.TWILIO_AUTH_TOKEN }}
+          TWILIO_WHATSAPP_FROM: ${{ secrets.TWILIO_WHATSAPP_FROM }}
+          MARKETING_SMTP_PASS: ${{ secrets.MARKETING_SMTP_PASS }}
+          CJ_API_KEY: ${{ secrets.CJ_API_KEY }}
+          EPROLO_OPEN_API_KEY: ${{ secrets.EPROLO_OPEN_API_KEY }}
+          EPROLO_OPEN_API_SECRET: ${{ secrets.EPROLO_OPEN_API_SECRET }}
+        run: |
+          # Omit empty WhatsApp/Twilio/marketing overrides so a prior SAM deploy's values are not wiped.
+          BASE_URL="${USPS_BASE_URL:-https://apis.usps.com}"
+          EXTRA=""
+          [ -n "${WHATSAPP_TOKEN:-}" ] && EXTRA="$EXTRA WhatsAppToken=${WHATSAPP_TOKEN}"
+          [ -n "${WHATSAPP_PHONE_NUMBER_ID:-}" ] && EXTRA="$EXTRA WhatsAppPhoneNumberId=${WHATSAPP_PHONE_NUMBER_ID}"
+          [ -n "${WHATSAPP_TEMPLATE_NAME:-}" ] && EXTRA="$EXTRA WhatsAppTemplateName=${WHATSAPP_TEMPLATE_NAME}"
+          [ -n "${WHATSAPP_TEMPLATE_LANG:-}" ] && EXTRA="$EXTRA WhatsAppTemplateLang=${WHATSAPP_TEMPLATE_LANG}"
+          [ -n "${TWILIO_ACCOUNT_SID:-}" ] && EXTRA="$EXTRA TwilioAccountSid=${TWILIO_ACCOUNT_SID}"
+          [ -n "${TWILIO_AUTH_TOKEN:-}" ] && EXTRA="$EXTRA TwilioAuthToken=${TWILIO_AUTH_TOKEN}"
+          [ -n "${TWILIO_WHATSAPP_FROM:-}" ] && EXTRA="$EXTRA TwilioWhatsAppFrom=${TWILIO_WHATSAPP_FROM}"
+          if [ -n "${SMTP_PASSWORD:-}" ]; then
+            EXTRA="$EXTRA SmtpPassword=${SMTP_PASSWORD}"
+          else
+            echo "::warning::SMTP_PASSWORD secret is empty — keeping the previously deployed order@spicycorner.com password so cart/order emails keep sending."
+          fi
+          if [ -n "${MARKETING_SMTP_PASS:-}" ]; then
+            EXTRA="$EXTRA MarketingSmtpPassword=${MARKETING_SMTP_PASS}"
+          else
+            echo "::warning::MARKETING_SMTP_PASS secret is empty — marketing campaigns need Mailercloud credentials in Admin → Email → Settings (or set the GitHub secret)."
+          fi
+          [ -n "${RAZORPAY_WEBHOOK_SECRET:-}" ] && EXTRA="$EXTRA RazorpayWebhookSecret=${RAZORPAY_WEBHOOK_SECRET}"
+          [ -n "${CJ_API_KEY:-}" ] && EXTRA="$EXTRA CjApiKey=${CJ_API_KEY}"
+          [ -n "${EPROLO_OPEN_API_KEY:-}" ] && EXTRA="$EXTRA EproloOpenApiKey=${EPROLO_OPEN_API_KEY}"
+          [ -n "${EPROLO_OPEN_API_SECRET:-}" ] && EXTRA="$EXTRA EproloOpenApiSecret=${EPROLO_OPEN_API_SECRET}"
+          sam build --cached --parallel --config-env prod && sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --config-env prod \
+            --capabilities CAPABILITY_IAM CAPABILITY_NAMED_IAM \
+            --parameter-overrides "\
+          Environment=prod \
+          EnableVendorApi=false \
+          RazorpayKeyId=${RAZORPAY_KEY_ID} \
+          RazorpayKeySecret=${RAZORPAY_KEY_SECRET} \
+          StripeSecretKey=${STRIPE_SECRET_KEY} \
+          StripeWebhookSecret=${STRIPE_WEBHOOK_SECRET} \
+          UspsClientId=${USPS_CLIENT_ID} \
+          UspsClientSecret=${USPS_CLIENT_SECRET} \
+          UspsSecretArn=${USPS_SECRET_ARN} \
+          UspsBaseUrl=${BASE_URL} \
+          UspsCrid=${USPS_CRID} \
+          UspsMid=${USPS_MID} \
+          UspsEpsAccountNumber=${USPS_EPS_ACCOUNT_NUMBER} \
+          UspsPaymentAuthorizationToken=${USPS_PAYMENT_AUTHORIZATION_TOKEN} \
+          OrangeCountyVendorApiKey=${ORANGE_COUNTY_VENDOR_API_KEY}${EXTRA}"
+
+      # Catalog import OVERWRITES product records and has wiped admin-uploaded images.
+      # Run manually only: Actions → Import SpicyCorner Catalog (workflow_dispatch).
+
+  deploy-web:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    needs: deploy-api
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: ".nvmrc"
+          cache: npm
+      - run: npm ci
+      - uses: aws-actions/configure-aws-credentials@v6
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+          aws-region: ${{ env.AWS_REGION }}
+      - name: Export SAM outputs for web build
+        run: |
+          output() {
+            aws cloudformation describe-stacks \
+              --stack-name spicycorner-prod \
+              --query "Stacks[0].Outputs[?OutputKey=='$1'].OutputValue | [0]" \
+              --output text
+          }
+
+          echo "NEXT_PUBLIC_API_URL=$(output ApiUrl)" >> "$GITHUB_ENV"
+          echo "NEXT_PUBLIC_COGNITO_USER_POOL_ID=$(output UserPoolId)" >> "$GITHUB_ENV"
+          echo "NEXT_PUBLIC_COGNITO_CLIENT_ID=$(output UserPoolClientId)" >> "$GITHUB_ENV"
+          echo "NEXT_PUBLIC_CDN_URL=https://$(output CloudFrontDomain)" >> "$GITHUB_ENV"
+      - run: npm run build -w @spicycorner/shared
+      - run: npm run build -w @spicycorner/web
+        env:
+          NEXT_PUBLIC_SITE_URL: ${{ secrets.NEXT_PUBLIC_SITE_URL }}
+          NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY }}
+          NEXT_PUBLIC_RAZORPAY_KEY_ID: ${{ secrets.RAZOR_KEY_ID }}
+          NEXT_PUBLIC_COGNITO_REGION: ${{ env.AWS_REGION }}
+          NEXT_PUBLIC_USD_INR_RATE: ${{ secrets.NEXT_PUBLIC_USD_INR_RATE }}
+          NEXT_PUBLIC_META_PIXEL_ID: ${{ secrets.NEXT_PUBLIC_META_PIXEL_ID }}
+          NEXT_PUBLIC_CLARITY_ID: ${{ secrets.NEXT_PUBLIC_CLARITY_ID }}
+          NEXT_PUBLIC_GTM_ID: ${{ secrets.NEXT_PUBLIC_GTM_ID }}
+          NEXT_PUBLIC_GA4_ID: ${{ secrets.NEXT_PUBLIC_GA4_ID }}
+
+      - name: Start Amplify release
+        env:
+          AMPLIFY_APP_ID: ${{ secrets.AMPLIFY_APP_ID }}
+        run: |
+          set -euo pipefail
+          BRANCH="${GITHUB_REF_NAME}"
+          APP_ID="${AMPLIFY_APP_ID:-}"
+          if [ -z "$APP_ID" ]; then
+            APP_ID=$(aws amplify list-apps --query "apps[?contains(name, 'spicycenter') || contains(name, 'spicycorner')].appId | [0]" --output text 2>/dev/null || true)
+          fi
+          if [ -z "$APP_ID" ] || [ "$APP_ID" = "None" ]; then
+            echo "::warning::No Amplify app id. Connect GitHub repo sachinkapoor2025/spicycenter.com in AWS Amplify (amplify.yml) so the storefront deploys."
+            echo "Next.js production build succeeded; SAM stack spicycorner-prod is the API."
+            exit 0
+          fi
+          echo "Starting Amplify RELEASE on app $APP_ID branch $BRANCH"
+          aws amplify start-job --app-id "$APP_ID" --branch-name "$BRANCH" --job-type RELEASE

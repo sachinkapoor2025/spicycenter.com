@@ -1,0 +1,3 @@
+# Results exports (k6 --summary-export). Do not commit large run artifacts.
+*
+!.gitignore

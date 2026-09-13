@@ -1,0 +1,75 @@
+[
+  {
+    "slug": "jeera-rice",
+    "title": "Jeera rice",
+    "spiceIds": [
+      "cumin"
+    ],
+    "cuisine": "North Indian",
+    "summary": "Basmati tempered with cumin seeds."
+  },
+  {
+    "slug": "dal-tadka",
+    "title": "Dal tadka",
+    "spiceIds": [
+      "cumin",
+      "turmeric",
+      "asafoetida",
+      "dried-red-chilli"
+    ],
+    "cuisine": "North Indian",
+    "summary": "Lentils finished with a spice tempering."
+  },
+  {
+    "slug": "biryani",
+    "title": "Biryani",
+    "spiceIds": [
+      "green-cardamom",
+      "black-cardamom",
+      "clove",
+      "cassia",
+      "indian-bay-leaf",
+      "cumin",
+      "saffron"
+    ],
+    "cuisine": "Indian",
+    "summary": "Layered rice; spices vary by region."
+  },
+  {
+    "slug": "curry",
+    "title": "Everyday Indian curry base",
+    "spiceIds": [
+      "cumin",
+      "coriander",
+      "turmeric",
+      "kashmiri-chilli"
+    ],
+    "cuisine": "Indian",
+    "summary": "Cumin, coriander, turmeric and chilli as a starting masala."
+  },
+  {
+    "slug": "masala-chai",
+    "title": "Masala chai",
+    "spiceIds": [
+      "green-cardamom",
+      "clove",
+      "cassia",
+      "dried-ginger"
+    ],
+    "cuisine": "Indian",
+    "summary": "Tea spices; recipes vary by household."
+  },
+  {
+    "slug": "sambar",
+    "title": "Sambar",
+    "spiceIds": [
+      "sambar-masala",
+      "tamarind",
+      "dried-curry-leaves",
+      "mustard",
+      "asafoetida"
+    ],
+    "cuisine": "South Indian",
+    "summary": "Lentil-vegetable stew with tamarind and mustard tempering."
+  }
+]
