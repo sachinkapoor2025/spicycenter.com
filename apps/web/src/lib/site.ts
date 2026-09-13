@@ -100,7 +100,13 @@ export function whatsappChatUrl(message = "Hi SpicyCorner, I have a question abo
   return `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(message)}`;
 }
 
-export const testimonials = [] as const;
+export const testimonials: readonly {
+  name: string;
+  rating: number;
+  text: string;
+  timeAgo: string;
+  image?: string;
+}[] = [];
 
 export const faqs = [
   {

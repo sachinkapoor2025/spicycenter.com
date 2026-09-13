@@ -63,6 +63,7 @@ export default function TemplatesPage() {
       setMessage("Premium spice template installed — edit images, categories, and CTAs below.");
     } else if (updated.includes(SPICE_PREMIUM_TEMPLATE_ID)) {
       setMessage("Premium spice template upgraded with visual editor fields.");
+    }
     return list;
   }, [api]);
 

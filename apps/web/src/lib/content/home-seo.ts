@@ -24,6 +24,11 @@ export const homeSeoContent = {
     paragraphs: [
       "Choose a spice, pack size and grade. Retail checkout is standard. Bulk from 10kg can quote.",
     ],
+    steps: [
+      "Pick a spice and pack size.",
+      "Confirm shipping on the product page.",
+      "Checkout with Stripe or Razorpay where enabled.",
+    ],
   },
   whyUs: {
     heading: "Why SpicyCorner",

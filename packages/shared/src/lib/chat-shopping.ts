@@ -213,31 +213,28 @@ export function slotQuickActions(slot: string): ChatQuickAction[] {
       { id: "cat-masala", label: "Masalas", message: "I need masala blends" },
       { id: "cat-bulk", label: "Bulk 10kg+", message: "I want to buy spices in bulk" },
     ];
-    ];
   }
   if (slot === "audience") {
     return [
-      { id: "aud-women", label: "Women", message: "For women" },
-      { id: "aud-men", label: "Men", message: "For men" },
-      { id: "aud-kids", label: "Kids", message: "For kids" },
-      { id: "aud-couples", label: "Couples", message: "For couples" },
+      { id: "aud-home", label: "Home kitchen", message: "For home cooking" },
+      { id: "aud-restaurant", label: "Restaurant", message: "For a restaurant kitchen" },
+      { id: "aud-wholesale", label: "Wholesale", message: "I buy spices wholesale" },
       { id: "aud-unsure", label: "Not sure", message: "Not sure, surprise me" },
     ];
   }
   if (slot === "style") {
     return [
-      { id: "st-scary", label: "Scary", message: "Scary" },
-      { id: "st-gothic", label: "Gothic", message: "Gothic" },
-      { id: "st-classic", label: "Classic", message: "Classic" },
-      { id: "st-funny", label: "Funny", message: "Funny" },
-      { id: "st-surprise", label: "Surprise me", message: "Surprise me" },
+      { id: "st-whole", label: "Whole", message: "Whole spices" },
+      { id: "st-ground", label: "Ground", message: "Ground powders" },
+      { id: "st-hot", label: "Hot", message: "Hot chillies" },
+      { id: "st-mild", label: "Mild", message: "Mild spices" },
     ];
   }
   if (slot === "partySize") {
     return [
-      { id: "ps-8", label: "Under 10", message: "About 8 guests" },
-      { id: "ps-20", label: "10–25", message: "About 20 guests" },
-      { id: "ps-40", label: "25+", message: "About 40 guests" },
+      { id: "ps-10", label: "10kg", message: "About 10kg" },
+      { id: "ps-25", label: "25kg", message: "About 25kg" },
+      { id: "ps-50", label: "50kg+", message: "About 50kg" },
     ];
   }
   return [];

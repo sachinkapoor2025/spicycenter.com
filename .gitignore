@@ -10,3 +10,5 @@ infrastructure/.aws-sam
 .DS_Store
 * 2.ts
 * 2.tsx
+packages/*/dist
+**/*.tsbuildinfo

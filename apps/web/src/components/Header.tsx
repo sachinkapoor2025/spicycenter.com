@@ -32,7 +32,7 @@ function RegionsMenu({ onNavigate }: { onNavigate?: () => void }) {
       {open && (
         <div className="absolute top-full right-0 pt-1.5 z-[100]">
           <div className="min-w-[220px] max-h-[min(70vh,360px)] overflow-y-auto rounded-lg border border-slate-200 bg-white py-1 shadow-xl">
-            {regionLinks.map}((c) => (
+            {regionLinks.map((c) => (
               <Link
                 key={c.slug}
                 href={`/indian-spice-regions/${c.slug}`}
@@ -260,7 +260,7 @@ export function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`btn-nav shrink-0 px-3 py-1.5 text-[13px] ${isActive(item.href, "category" in item ? item.category : undefined) ? "btn-nav-active" : ""}`}
+                className={`btn-nav shrink-0 px-3 py-1.5 text-[13px] ${isActive(item.href) ? "btn-nav-active" : ""}`}
               >
                 {item.label}
               </Link>
@@ -305,7 +305,7 @@ export function Header() {
                 href={item.href}
                 onClick={closeMenu}
                 className={`block rounded-lg px-4 py-3 text-sm font-semibold ${
-                  isActive(item.href, "category" in item ? item.category : undefined)
+                  isActive(item.href)
                     ? "bg-nav text-white"
                     : "text-primary hover:bg-orange-50 hover:text-nav"
                 }`}
@@ -339,7 +339,7 @@ export function Header() {
                 </button>
                 {citiesOpen && (
                   <div className="mt-1 ml-2 border-l-2 border-slate-100 pl-2 space-y-1">
-                    {regionLinks.map}((c) => (
+                    {regionLinks.map((c) => (
                       <Link
                         key={c.slug}
                         href={`/indian-spice-regions/${c.slug}`}

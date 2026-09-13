@@ -6,8 +6,6 @@ export function legalMeta(path: string, title: string, description: string): Met
   return pageMetadata({ title, description, path });
 }
 
-import type { ReactNode } from "react";
-
 export function LegalShell({ title, children }: { title: string; children: ReactNode }) {
   return (
     <article className="max-w-3xl mx-auto px-4 py-10 prose">

@@ -47,3 +47,7 @@ export const categoryContent: Record<string, CategoryContent> = {
     ],
   },
 };
+
+export function getCategoryContent(slug: string): CategoryContent | undefined {
+  return categoryContent[slug];
+}

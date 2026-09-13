@@ -66,3 +66,9 @@ export const blogPosts: BlogPost[] = [
     ],
   },
 ];
+
+export function listAllBlogPosts(): BlogPost[] {
+  return [...blogPosts].sort((a, b) =>
+    a.publishedAt < b.publishedAt ? 1 : a.publishedAt > b.publishedAt ? -1 : 0
+  );
+}
