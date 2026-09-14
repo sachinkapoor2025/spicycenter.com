@@ -3,7 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { pageMetadata } from "@/lib/seo";
 import { JsonLd } from "@/components/JsonLd";
-import { faqs, exploreCategories, packSizes, regionLinks, site } from "@/lib/site";
+import { faqs, exploreCategories, packSizes, regionLinks, site, homeBanners } from "@/lib/site";
+import { HomeBannerSlider } from "@/components/HomeBannerSlider";
 import { loadMarketPrices, loadSpiceEntities } from "@/lib/spice-data";
 import { getCatalogProducts } from "@/lib/catalog-fallback";
 import { faqJsonLd } from "@/lib/seo";
@@ -28,32 +29,7 @@ export default function HomePage() {
     <div>
       <JsonLd data={faqJsonLd(faqs)} />
 
-      <section className="relative overflow-hidden min-h-[28rem] md:min-h-[36rem]">
-        <Image
-          src="/images/hero-spices.jpg"
-          alt="Bowls of Indian spices on a wooden kitchen table"
-          fill
-          priority
-          className="object-cover object-right"
-          sizes="100vw"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#2c1810]/90 via-[#2c1810]/55 to-transparent" />
-        <div className="relative max-w-7xl mx-auto px-4 py-16 md:py-24">
-          <p className="text-xs tracking-[0.28em] text-accent mb-3">AUTHENTIC INDIAN SPICES</p>
-          <h1 className="font-serif text-4xl md:text-6xl leading-tight text-white max-w-xl">
-            From India<br />
-            <span className="text-accent">to your kitchen</span>
-          </h1>
-          <p className="mt-5 text-lg text-white/85 max-w-lg">
-            Pure spices. Richer flavours. Retail packs for home cooks and 10kg+ bags for restaurants, grocers and importers in the UK and Europe.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Link href="/spices" className="btn-primary">Shop spices →</Link>
-            <Link href="/wholesale" className="btn-outline border-white text-white hover:bg-white hover:text-primary">Buy in bulk</Link>
-          </div>
-          <p className="mt-4 text-sm text-white/65">Whole spices, ground masalas, Indian chillies — 100g to 50kg+.</p>
-        </div>
-      </section>
+      <HomeBannerSlider banners={homeBanners} />
 
       <section className="border-b border-[#eadfce] bg-white/70">
         <div className="max-w-7xl mx-auto px-4 py-6 grid grid-cols-2 md:grid-cols-4 gap-4 text-center text-sm text-primary">

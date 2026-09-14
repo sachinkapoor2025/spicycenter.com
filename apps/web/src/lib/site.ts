@@ -110,16 +110,19 @@ export const cityLinks: CityLink[] = [];
 
 export const homeBanners = [
   {
-    src: "",
-    alt: "Wooden spice counter with cumin, turmeric, cardamom, chilli, coriander, pepper, cinnamon, cloves and saffron",
+    src: "/images/banner-1.jpg",
+    alt: "Every spice for every kitchen — SpicyCorner kitchen counter with labelled spice jars",
     href: "/spices",
-    eyebrow: "YOUR INDIAN SPICE CORNER",
-    title: "THE WORLD OF",
-    titleAccent: "INDIAN SPICES",
-    description:
-      "Authentic Indian spices sourced from India's spice-growing regions — available in retail packs and bulk quantities.",
-    cta: "Shop spices",
-    pill: "Retail 100g–5kg · Bulk from 10kg",
+  },
+  {
+    src: "/images/banner-2.jpg",
+    alt: "Spices for a better tomorrow — bowls of Indian spices and labelled jars",
+    href: "/spices",
+  },
+  {
+    src: "/images/banner-3.jpg",
+    alt: "Authentic Indian spices from our farms to your kitchen",
+    href: "/spices",
   },
 ] as const;
 
