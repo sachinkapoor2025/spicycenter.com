@@ -40,7 +40,7 @@ export async function seedIfEmpty() {
   }
 
   const timestamp = now();
-  console.log(`Seeding in-memory DB: ${catalog.products.length} SpicyCorner products...`);
+  console.log(`Seeding in-memory DB: ${catalog.products.length} SpicyCenter products...`);
 
   const categories = catalog.categories;
 
@@ -93,5 +93,5 @@ export async function seedIfEmpty() {
     })
   );
 
-  console.log("SpicyCorner demo data ready.");
+  console.log("SpicyCenter demo data ready.");
 }

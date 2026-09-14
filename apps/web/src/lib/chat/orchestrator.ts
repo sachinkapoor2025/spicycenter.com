@@ -163,7 +163,7 @@ export async function runShoppingAssistant(input: {
         : "";
     return {
       blocks: [
-        textBlock(`Hi! 🎃 I'm your SpicyCorner shopping assistant. With thousands of spice products, I can help you find exactly what you're looking for.${cartHint}`),
+        textBlock(`Hi! 🎃 I'm your SpicyCenter shopping assistant. With thousands of spice products, I can help you find exactly what you're looking for.${cartHint}`),
         textBlock("What are you shopping for?"),
         actionsBlock(welcomeQuickActions()),
       ],
@@ -229,7 +229,7 @@ export async function runShoppingAssistant(input: {
     const hits = searchSiteContent(userText);
     const when = /when is spice/i.test(userText)
       ? "spice is celebrated every year on your requested date. In 2026 that’s a Saturday. 🎃"
-      : "Here are useful SpicyCorner guides.";
+      : "Here are useful SpicyCenter guides.";
     return {
       blocks: [
         textBlock(when),

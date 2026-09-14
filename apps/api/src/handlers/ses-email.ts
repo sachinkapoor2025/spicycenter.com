@@ -62,7 +62,7 @@ function defaultSettings(): SesSettings {
   const port = Number(process.env.MARKETING_SMTP_PORT || 587);
   return sesSettingsSchema.parse({
     awsRegion: process.env.SES_AWS_REGION || process.env.AWS_REGION || "us-east-1",
-    defaultSenderName: "SpicyCorner",
+    defaultSenderName: "SpicyCenter",
     // Mailercloud verified Sender ID (From). SMTP login user may differ (smtpUser).
     defaultSenderEmail:
       process.env.MARKETING_FROM_EMAIL || process.env.SES_FROM_EMAIL || "email@spicycorner.com",
@@ -1269,7 +1269,7 @@ export async function sendTest(event: APIGatewayProxyEventV2) {
     }
 
     const settings = await loadSettings();
-    const fromName = (campaign.senderName || settings.defaultSenderName || "SpicyCorner").trim();
+    const fromName = (campaign.senderName || settings.defaultSenderName || "SpicyCenter").trim();
     // From must be Mailercloud verified Sender ID (email@spicycorner.com), not SMTP login.
     const fromEmail = (
       campaign.senderEmail ||
@@ -1829,7 +1829,7 @@ async function sendQueuedEmail(
     subject: content.subject,
     html,
     text: htmlToText(html),
-    fromName: (campaign.senderName || settings.defaultSenderName || "SpicyCorner").trim(),
+    fromName: (campaign.senderName || settings.defaultSenderName || "SpicyCenter").trim(),
     fromEmail: (
       campaign.senderEmail ||
       settings.defaultSenderEmail ||

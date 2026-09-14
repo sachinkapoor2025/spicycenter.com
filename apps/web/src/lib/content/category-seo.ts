@@ -22,7 +22,7 @@ export const categoryPageSeo: Record<string, CategoryPageSeo> = Object.fromEntri
         description: meta.description,
         h1: meta.h1,
         alt: meta.alt,
-        keywords: [...new Set([meta.primaryKeyword, ...kws, "SpicyCorner", "spicycenter.com"])].join(
+        keywords: [...new Set([meta.primaryKeyword, ...kws, "SpicyCenter", "spicycenter.com"])].join(
           ", "
         ),
       },

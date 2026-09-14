@@ -59,7 +59,7 @@ export const productSchema = z.object({
     .optional(),
   /**
    * Public storefront flag: show dry-fruit / chocolate add-on picker.
-   * Set by API after stripping vendorSlug (true for SpicyCorner, false for OC).
+   * Set by API after stripping vendorSlug (true for SpicyCenter, false for OC).
    */
   allowsAddons: z.boolean().optional(),
   /** Snapshot of products inside a hamper (name/image/price for PDP + cart). */

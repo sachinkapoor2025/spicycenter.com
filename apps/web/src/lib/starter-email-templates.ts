@@ -33,7 +33,7 @@ export const STARTER_EMAIL_TEMPLATES: StarterEmailTemplateMeta[] = [
   {
     templateId: SPICE_PREMIUM_TEMPLATE_ID,
     name: "Premium spices (Editable)",
-    subject: "Indian spices from SpicyCorner",
+    subject: "Indian spices from SpicyCenter",
     layout: PREMIUM_MARKETING_EMAIL_LAYOUT,
     contentFields: DEFAULT_PREMIUM_MARKETING_EMAIL_CONTENT,
     preserveAdminEdits: true,

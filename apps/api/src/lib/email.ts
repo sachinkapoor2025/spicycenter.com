@@ -34,7 +34,7 @@ import {
 } from "./whatsapp";
 
 const DEFAULT_NOTIFY = ORDER_SMTP_USER;
-const SITE_NAME = "SpicyCorner";
+const SITE_NAME = "SpicyCenter";
 
 /** order@ = order notifications; orders@ = reminders / high-volume transactional. */
 export type TransactionalMailbox = "order" | "orders";
@@ -59,7 +59,6 @@ function smtpConfigured(): boolean {
 }
 
 function smtpUser(_mailbox: TransactionalMailbox = "order"): string {
-  // Always authenticate as order@spicycorner.com unless SMTP_USER is overridden.
   return process.env.SMTP_USER?.trim() || DEFAULT_NOTIFY;
 }
 
@@ -91,7 +90,7 @@ function transportConfigs(
 ): SMTPTransport.Options[] {
   const authUser = smtpUser(mailbox);
   const pass = smtpPassword()!;
-  const preferredPort = Number(process.env.SMTP_PORT?.trim() || "465");
+  const preferredPort = Number(process.env.SMTP_PORT?.trim() || "587");
   const preferredSecure = process.env.SMTP_SECURE?.trim()
     ? process.env.SMTP_SECURE === "true"
     : preferredPort === 465;
@@ -193,7 +192,7 @@ export async function sendNewsletterEmails(input: {
     to: input.email,
     subject: `Your Discount of the Day: ${pct}% off — ${SITE_NAME}`,
     mailbox: "orders",
-    text: `You spun the Discount of the Day wheel at SpicyCorner!
+    text: `You spun the Discount of the Day wheel at SpicyCenter!
 
 Your exclusive code:
 
@@ -209,7 +208,7 @@ https://www.spicycenter.com/products
 spice season is August 28 — order early for on-time delivery.
 
 — ${SITE_NAME} Team
-order@spicycorner.com`,
+${notifyAddress()}`,
   });
 
   const waPhone = input.metadata?.phone?.trim();
@@ -308,6 +307,8 @@ function formatLeadSource(source?: string): string {
       return "Checkout";
     case "product":
       return "Product page";
+    case "wholesale":
+      return "Wholesale quote";
     default:
       return source ?? "Website";
   }
@@ -376,6 +377,97 @@ https://www.spicycenter.com`,
   return { ok: true };
 }
 
+export async function sendListSignupEmails(input: {
+  email: string;
+  page?: string;
+  metadata?: Record<string, string>;
+}): Promise<EmailSendResult> {
+  if (!smtpConfigured()) {
+    return { ok: false, skipped: true, error: "SMTP not configured on server" };
+  }
+
+  const admin = await sendEmail({
+    to: adminNotifyAddresses(),
+    subject: `[${SITE_NAME}] Newsletter signup — ${input.email}`,
+    text: [
+      "Source: Newsletter signup",
+      `Email: ${input.email}`,
+      input.page ? `Page: ${input.page}` : null,
+      input.metadata ? `Details: ${JSON.stringify(input.metadata)}` : null,
+    ]
+      .filter(Boolean)
+      .join("\n"),
+    replyTo: input.email,
+  });
+  if (!admin.ok) return admin;
+
+  const customer = await sendEmail({
+    to: input.email,
+    subject: `You're on the list — ${SITE_NAME}`,
+    text: `Hi,
+
+Thank you for joining the SpicyCenter list. We'll send spice arrivals, recipes and flavour notes for UK and European kitchens.
+
+— ${SITE_NAME} Team
+https://www.spicycenter.com
+${notifyAddress()}`,
+  });
+  if (!customer.ok) {
+    console.error("Newsletter signup auto-reply failed:", customer.error);
+  }
+  return { ok: true };
+}
+
+export async function sendWholesaleQuoteEmails(input: {
+  name: string;
+  email: string;
+  phone?: string;
+  page?: string;
+  metadata?: Record<string, string>;
+}): Promise<EmailSendResult> {
+  if (!smtpConfigured()) {
+    return { ok: false, skipped: true, error: "SMTP not configured on server" };
+  }
+
+  const metaLines = Object.entries(input.metadata ?? {})
+    .filter(([, v]) => v?.trim())
+    .map(([k, v]) => `${k}: ${v}`);
+
+  const admin = await sendEmail({
+    to: adminNotifyAddresses(),
+    subject: `[${SITE_NAME}] Wholesale quote from ${input.name || input.email}`,
+    text: [
+      "Source: Wholesale quote form",
+      `Name: ${input.name}`,
+      `Email: ${input.email}`,
+      input.phone ? `Phone: ${input.phone}` : null,
+      input.page ? `Page: ${input.page}` : null,
+      "",
+      ...metaLines,
+    ]
+      .filter(Boolean)
+      .join("\n"),
+    replyTo: input.email,
+  });
+  if (!admin.ok) return admin;
+
+  const customer = await sendEmail({
+    to: input.email,
+    subject: `We received your wholesale enquiry — ${SITE_NAME}`,
+    text: `Hi ${input.name},
+
+Thank you for your wholesale enquiry. We received your details and will reply with a quote. Prices depend on grade, origin, crop, packaging and market.
+
+— ${SITE_NAME} Team
+https://www.spicycenter.com
+${notifyAddress()}`,
+  });
+  if (!customer.ok) {
+    console.error("Wholesale auto-reply failed:", customer.error);
+  }
+  return { ok: true };
+}
+
 export async function notifyAdminLead(lead: LeadCaptureInput): Promise<EmailSendResult> {
   const message = lead.metadata?.message?.trim();
   const isContact = lead.source === "contact";
@@ -391,6 +483,16 @@ export async function notifyAdminLead(lead: LeadCaptureInput): Promise<EmailSend
     });
   }
 
+  if (lead.source === "wholesale" && lead.email) {
+    return sendWholesaleQuoteEmails({
+      name: lead.name || lead.metadata?.contactName || lead.metadata?.company || "Wholesale enquiry",
+      email: lead.email,
+      phone: lead.phone,
+      page: lead.page,
+      metadata: lead.metadata,
+    });
+  }
+
   if (lead.source === "newsletter") {
     const coupon =
       lead.metadata?.couponCode && lead.metadata?.couponExpiresAt
@@ -400,6 +502,13 @@ export async function notifyAdminLead(lead: LeadCaptureInput): Promise<EmailSend
             discountPercent: Number(lead.metadata.discountPercent ?? WELCOME_DISCOUNT_PERCENT),
           }
         : undefined;
+    if (lead.email && !coupon) {
+      return sendListSignupEmails({
+        email: lead.email,
+        page: lead.page,
+        metadata: lead.metadata,
+      });
+    }
     if (lead.email) {
       return sendNewsletterEmails({
         email: lead.email,
@@ -552,10 +661,10 @@ export async function notifyAdminOrderPlaced(order: Order): Promise<EmailSendRes
     const total = `${order.currency} ${order.total.toFixed(2)}`;
     customer = await sendEmail({
       to: customerEmail,
-      subject: `Complete your SpicyCorner order — #${shortId}`,
+      subject: `Complete your SpicyCenter order — #${shortId}`,
       text: `Hi ${name},
 
-We saved your SpicyCorner checkout. Payment is still pending.
+We saved your SpicyCenter checkout. Payment is still pending.
 
 Order ID: ${shortId}
 Total: ${total}
@@ -1052,7 +1161,7 @@ export async function sendReviewRequestEmail(order: Order): Promise<EmailSendRes
 
 We hope your spice order #${shortId} arrived safely and made spice special!
 
-We're SpicyCorner — dedicated to spice and spice traditions — and your feedback helps other shoppers trust us for SpicyCorner delivery.
+We're SpicyCenter — dedicated to spice and spice traditions — and your feedback helps other shoppers trust us for SpicyCenter delivery.
 
 Would you take 30 seconds to share your experience?
 ${reviewUrl}
@@ -1138,7 +1247,7 @@ Valid until: ${expiryLabel}
 spice season is August 28 — order early for on-time USA delivery.
 
 — ${SITE_NAME} Team
-order@spicycorner.com`;
+${notifyAddress()}`;
 
   const emailResult = await sendEmail({
     to: input.email,
@@ -1202,8 +1311,8 @@ export async function sendAdminAbandonedCouponEmails(input: {
 
 ${
   input.confirmedSale || extreme
-    ? "Thank you for confirming your SpicyCorner order. Here is your reserved discount:"
-    : "Thank you for considering SpicyCorner. We've reserved a personal discount for you:"
+    ? "Thank you for confirming your SpicyCenter order. Here is your reserved discount:"
+    : "Thank you for considering SpicyCenter. We've reserved a personal discount for you:"
 }
 
 Coupon code: ${input.code}
@@ -1219,14 +1328,14 @@ Questions? Reply to this email or WhatsApp us.
 — ${SITE_NAME} Team
 ${siteUrl()}`;
 
-  // Same inbox list as order/contact alerts (order@spicycorner.com + team) — not marketing SMTP.
+  // Same inbox list as order/contact alerts — not marketing SMTP.
   // Always include the admin who generated the coupon (especially for extreme discounts).
   const notifyTo = [
     ...adminNotifyAddresses()
       .split(",")
       .map((s) => s.trim().toLowerCase())
       .filter(Boolean),
-    "order@spicycorner.com",
+    DEFAULT_NOTIFY.toLowerCase(),
     input.createdByAdminEmail.trim().toLowerCase(),
   ]
     .filter(Boolean)
@@ -1259,7 +1368,7 @@ ${input.customerEmail ? "Customer was emailed this coupon." : "No customer email
   const customer = input.customerEmail
     ? await sendEmail({
         to: input.customerEmail,
-        subject: `${saleTag}Your ${input.discountPercent}% SpicyCorner coupon (${input.code}) — valid ${hoursLabel}`,
+        subject: `${saleTag}Your ${input.discountPercent}% SpicyCenter coupon (${input.code}) — valid ${hoursLabel}`,
         text: customerText,
         replyTo: notifyAddress(),
       })

@@ -1,7 +1,7 @@
 import { site, navItems, faqs, whatsappChatUrl } from "@/lib/site";
 import { siteUrl } from "@/lib/env";
 
-const OFF_TOPIC_REPLY = `I'm here to help with SpicyCorner — Indian spices, bulk orders, shipping, and checkout. Is there a spice I can help you find?
+const OFF_TOPIC_REPLY = `I'm here to help with SpicyCenter — Indian spices, bulk orders, shipping, and checkout. Is there a spice I can help you find?
 
 Browse: [All Products](${siteUrl}/products) · [WhatsApp](${whatsappChatUrl()})`;
 
@@ -18,7 +18,7 @@ function deliveryReply(): string {
 }
 
 function spiceReply(): string {
-  return `SpicyCorner is an Indian spice shop — whole spices, powders, chillies, masalas, and bulk packs.\n\nStart here: [Shop spices](${siteUrl}/spices) · [Spice guide](${siteUrl}/spice-guide) · [Wholesale](${siteUrl}/wholesale)`;
+  return `SpicyCenter is an Indian spice shop — whole spices, powders, chillies, masalas, and bulk packs.\n\nStart here: [Shop spices](${siteUrl}/spices) · [Spice guide](${siteUrl}/spice-guide) · [Wholesale](${siteUrl}/wholesale)`;
 }
 
 function orderWorldwideReply(): string {
@@ -30,7 +30,7 @@ function paymentReply(): string {
 }
 
 function greetingReply(): string {
-  return `Welcome to SpicyCorner. I can help you find Indian spices, bulk packs, or shipping answers.\n\n- [Whole spices](${siteUrl}/spices/whole-spices)\n- [Chillies](${siteUrl}/spices/indian-chillies)\n- [Wholesale](${siteUrl}/wholesale)`;
+  return `Welcome to SpicyCenter. I can help you find Indian spices, bulk packs, or shipping answers.\n\n- [Whole spices](${siteUrl}/spices/whole-spices)\n- [Chillies](${siteUrl}/spices/indian-chillies)\n- [Wholesale](${siteUrl}/wholesale)`;
 }
 
 function findFaqMatch(query: string): string | null {

@@ -11,7 +11,7 @@
  * Auth: X-Vendor-Api-Key
  *
  * Item `price` / order `orderValue` are vendor fulfill / purchase amounts (vendorCost),
- * not SpicyCorner retail selling prices.
+ * not SpicyCenter retail selling prices.
  */
 import { GetCommand, QueryCommand, PutCommand } from "@aws-sdk/lib-dynamodb";
 import type { APIGatewayProxyEventV2 } from "aws-lambda";
@@ -340,7 +340,7 @@ async function persistVendorOrderUpdate(
     (multi &&
     patch.fulfillmentVendorSlug === VENDOR_ORANGE_COUNTY &&
     !allVendorsHaveTracking(vendorFulfillments)
-      ? "Orange County shipped; SpicyCorner fulfillment still pending"
+      ? "Orange County shipped; SpicyCenter fulfillment still pending"
       : "Updated by Orange County vendor API");
 
   const historyEntry: OrderStatusHistoryEntry | null = statusChanged

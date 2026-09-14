@@ -258,7 +258,7 @@ export async function fulfillOrderWithCj(
         shippingAddress: addr.line1,
         shippingAddress2: addr.line2 || "",
         email: addr.email,
-        remark: `SpicyCorner ${order.orderNumber || order.orderId}`,
+        remark: `SpicyCenter ${order.orderNumber || order.orderId}`,
         logisticName,
         fromCountryCode,
         platform: "API",

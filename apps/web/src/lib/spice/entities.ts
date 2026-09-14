@@ -277,7 +277,7 @@ export const SPICE_ENTITIES: SpiceEntity[] = [
     botanicalFamily: "Lauraceae",
     shortDescription: "Delicate inner bark. Distinct from cassia, which is often sold as dalchini in India.",
     description:
-      "In Indian retail, “dalchini” often means cassia. SpicyCorner keeps cinnamon (Cinnamomum verum) and cassia (Cinnamomum cassia / C. tamala-related trade names) as separate entities so labels stay accurate.",
+      "In Indian retail, “dalchini” often means cassia. SpicyCenter keeps cinnamon (Cinnamomum verum) and cassia (Cinnamomum cassia / C. tamala-related trade names) as separate entities so labels stay accurate.",
     growingRegions: ["Kerala"],
     flavourProfile: "Sweet, delicate, citrus-woody",
     aromaProfile: "Soft, sweet bark",
@@ -960,7 +960,7 @@ function masala(id: string, name: string, hindi: string, aliases: string[], regi
     botanicalName: "Blend (multiple spices)",
     botanicalFamily: "n/a",
     shortDescription: `${name} is an Indian spice blend. Ingredient lists on packs are the legal composition.`,
-    description: `${name} is a prepared Indian masala. Recipes vary by producer. SpicyCorner lists typical culinary use only. Allergen and ingredient declarations on the pack / product record are authoritative.`,
+    description: `${name} is a prepared Indian masala. Recipes vary by producer. SpicyCenter lists typical culinary use only. Allergen and ingredient declarations on the pack / product record are authoritative.`,
     growingRegions: regions,
     flavourProfile: "House blend — see product ingredients",
     aromaProfile: "Roasted spice blend",

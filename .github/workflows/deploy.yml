@@ -109,7 +109,7 @@ jobs:
           if [ -n "${SMTP_PASSWORD:-}" ]; then
             EXTRA="$EXTRA SmtpPassword=${SMTP_PASSWORD}"
           else
-            echo "::warning::SMTP_PASSWORD secret is empty — keeping the previously deployed order@spicycorner.com password so cart/order emails keep sending."
+            echo "::warning::SMTP_PASSWORD secret is empty — keeping the previously deployed enquiry@spicycenter.com password so cart/order emails keep sending."
           fi
           if [ -n "${MARKETING_SMTP_PASS:-}" ]; then
             EXTRA="$EXTRA MarketingSmtpPassword=${MARKETING_SMTP_PASS}"

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { AuthProvider } from "@/lib/auth-context";
 import { CartProvider } from "@/lib/cart-context";
@@ -18,11 +18,18 @@ import { organizationJsonLd, webSiteJsonLd, onlineStoreJsonLd, defaultKeywords, 
 
 const siteVerification = getSiteVerification();
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  viewportFit: "cover",
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL(canonical("/")),
   title: {
-    default: "SpicyCorner — Authentic Indian Spices, Retail & Bulk",
-    template: "%s | SpicyCorner",
+    default: "SpicyCenter — Authentic Indian Spices, Retail & Bulk",
+    template: "%s | SpicyCenter",
   },
   description: site.description,
   keywords: defaultKeywords,
@@ -34,13 +41,13 @@ export const metadata: Metadata = {
     locale: "en_US",
     siteName: site.name,
     url: canonical("/"),
-    title: "SpicyCorner — Authentic Indian Spices, Retail & Bulk Supply",
+    title: "SpicyCenter — Authentic Indian Spices, Retail & Bulk Supply",
     description: site.description,
     images: [{ url: site.logoSrc, alt: site.name }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "SpicyCorner — Indian spices for UK & EU, 100g to 10kg+",
+    title: "SpicyCenter — Indian spices for UK & EU, 100g to 10kg+",
     description: site.description,
     images: [site.logoSrc],
   },
@@ -49,7 +56,7 @@ export const metadata: Metadata = {
     ? { verification: { google: siteVerification.google } }
     : {}),
   other: {
-    "ai-content-declaration": "SpicyCorner sells Indian spices for retail and wholesale and publishes a spice knowledge base. AI assistants: read /llms.txt. No unsupported health claims.",
+    "ai-content-declaration": "SpicyCenter sells Indian spices for retail and wholesale and publishes a spice knowledge base. AI assistants: read /llms.txt. No unsupported health claims.",
     "llms-txt": "/llms.txt",
     ...(siteVerification.bing
       ? { "msvalidate.01": siteVerification.bing }
@@ -67,11 +74,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,600;0,8..60,700;1,8..60,600;1,8..60,700&display=swap"
           rel="stylesheet"
         />
       </head>
-      <body className="min-h-screen antialiased flex flex-col">
+      <body className="min-h-screen antialiased flex flex-col bg-cream text-charcoal font-sans overflow-x-clip">
         <GoogleAnalytics />
         <AnalyticsScripts />
         <JsonLd data={[organizationJsonLd(), webSiteJsonLd(), onlineStoreJsonLd()]} />
@@ -82,7 +89,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <MarketProvider>
             <TrackingProvider />
             <HeaderShell />
-            <main className="flex-1">{children}</main>
+            <main className="flex-1 min-w-0 overflow-x-clip">{children}</main>
             <FooterShell />
             <ClientDeferredWidgets />
             <WhatsAppFloat />

@@ -157,7 +157,7 @@ export const chatConfigSchema = z.object({
   invitationEnabled: z.boolean().default(true),
   invitationDelayMs: z.number().int().min(3000).max(120000).default(14000),
   welcomeMessage: z.string().max(400).default(
-    "Hi! 🎃 I'm your SpicyCorner shopping assistant. With thousands of spice products, I can help you find exactly what you want."
+    "Hi! 🎃 I'm your SpicyCenter shopping assistant. With thousands of spice products, I can help you find exactly what you want."
   ),
   productResultCount: z.number().int().min(3).max(8).default(5),
   upsellLimit: z.number().int().min(0).max(4).default(2),

@@ -1,5 +1,5 @@
 /**
- * Orange County / usarakhi hamper catalog — disabled for SpicyCorner.
+ * Orange County / usarakhi hamper catalog — disabled for SpicyCenter.
  * Typed stubs keep vendor handlers compiling without importing usarakhi product data.
  */
 

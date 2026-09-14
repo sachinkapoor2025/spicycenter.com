@@ -38,7 +38,7 @@ export function WholesaleQuoteForm() {
       <textarea name="message" placeholder="Message" className="border rounded px-3 py-2 min-h-24" />
       <button className="btn-primary" type="submit">Request wholesale quote</button>
       {status === "ok" && <p className="text-sm text-green-800">Quote request received. We will reply by email.</p>}
-      {status === "err" && <p className="text-sm text-red-800">Could not send. Email hello@spicycenter.com.</p>}
+      {status === "err" && <p className="text-sm text-red-800">Could not send. Email enquiry@spicycenter.com.</p>}
     </form>
   );
 }

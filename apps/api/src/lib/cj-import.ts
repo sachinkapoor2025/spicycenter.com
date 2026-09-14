@@ -294,7 +294,7 @@ export async function importCjProduct(
     ...(chosen?.lengthIn ? { lengthIn: chosen.lengthIn } : {}),
     ...(chosen?.widthIn ? { widthIn: chosen.widthIn } : {}),
     ...(chosen?.heightIn ? { heightIn: chosen.heightIn } : {}),
-    seoTitle: `${name} | SpicyCorner`,
+    seoTitle: `${name} | SpicyCenter`,
     seoDescription: description.slice(0, 160),
     PK: productKeys.pk(slug),
     SK: productKeys.sk(),

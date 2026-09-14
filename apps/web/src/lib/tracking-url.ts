@@ -13,7 +13,7 @@ export function carrierTrackingUrl(trackingNumber: string, carrier?: string): st
   if (c.includes("dhl")) {
     return `https://www.dhl.com/us-en/home/tracking.html?tracking-id=${encodeURIComponent(tn)}`;
   }
-  // Default: USPS (primary SpicyCorner carrier) + generic fallback for unknown labels.
+  // Default: USPS (primary SpicyCenter carrier) + generic fallback for unknown labels.
   if (c.includes("usps") || c.includes("postal") || !c) {
     return `https://tools.usps.com/go/TrackConfirmAction?tLabels=${encodeURIComponent(tn)}`;
   }

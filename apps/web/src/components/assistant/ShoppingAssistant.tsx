@@ -319,12 +319,12 @@ export function ShoppingAssistant() {
       {open && !minimized && (
         <section
           role="dialog"
-          aria-label="SpicyCorner personal shopping assistant"
+          aria-label="SpicyCenter personal shopping assistant"
           className="fixed z-[80] flex flex-col overflow-hidden border border-white/10 bg-primary shadow-2xl max-md:inset-x-0 max-md:bottom-0 max-md:top-[max(0.5rem,env(safe-area-inset-top))] max-md:rounded-t-2xl md:bottom-[5.5rem] md:right-5 md:h-[min(700px,calc(100vh-7rem))] md:w-[min(100vw-2rem,420px)] md:rounded-2xl"
         >
           <header className="flex items-center justify-between gap-2 border-b border-white/10 px-4 py-3">
             <div className="min-w-0">
-              <p className="text-sm font-semibold text-white">SpicyCorner</p>
+              <p className="text-sm font-semibold text-white">SpicyCenter</p>
               <p className="truncate text-xs text-white/60">Personal spice Assistant</p>
               <p className="hidden truncate text-[11px] text-white/45 sm:block">
                 Here to help you find the perfect spice products 🎃
@@ -431,7 +431,7 @@ export function ShoppingAssistant() {
           onClick={() => (open && !minimized ? setMinimized(true) : void handleOpen())}
           aria-label={open && !minimized ? "Minimize spice assistant" : "Find your spice look"}
           aria-expanded={open && !minimized}
-          className="fixed right-4 bottom-[4.75rem] z-[80] flex h-11 items-center justify-center gap-1.5 rounded-xl bg-primary px-3.5 text-white shadow-[0_4px_12px_rgba(24,58,104,0.45)] ring-2 ring-white/20 hover:scale-105 active:scale-95 transition-transform whitespace-nowrap"
+          className="fixed right-4 bottom-[4.75rem] z-[80] flex h-11 w-11 sm:w-auto items-center justify-center gap-1.5 rounded-xl bg-primary px-0 sm:px-3.5 text-white shadow-[0_4px_12px_rgba(44,24,16,0.45)] ring-2 ring-white/20 hover:scale-105 active:scale-95 transition-transform"
         >
           {open && !minimized ? (
             <svg className="h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -440,7 +440,7 @@ export function ShoppingAssistant() {
           ) : (
             <>
               <span aria-hidden className="shrink-0 text-base leading-none">🌶</span>
-              <span className="text-sm font-semibold leading-none">Ask about spices</span>
+              <span className="hidden sm:inline text-sm font-semibold leading-none">Ask about spices</span>
             </>
           )}
         </button>

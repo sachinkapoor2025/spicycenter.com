@@ -63,9 +63,9 @@ export function orderConfirmationSubcopy(status: string): string {
     case ORDER_STATUS.SHIPPED:
       return "Your spice order is on the way. Use the tracking details below to follow your shipment.";
     case ORDER_STATUS.DELIVERED:
-      return "Your gift has arrived. We hope your brother loves it — thank you for choosing SpicyCorner.";
+      return "Your gift has arrived. We hope your brother loves it — thank you for choosing SpicyCenter.";
     case ORDER_STATUS.COMPLETE:
-      return "Thank you for shopping spice with SpicyCorner.";
+      return "Thank you for shopping spice with SpicyCenter.";
     case ORDER_STATUS.ACCEPTED:
       return "We've confirmed your order and our team is preparing it for USA dispatch.";
     case ORDER_STATUS.PROCESSING:

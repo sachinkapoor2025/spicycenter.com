@@ -246,7 +246,7 @@ export function ExitIntentPopup() {
         setError(
           err instanceof Error
             ? err.message
-            : "Could not spin right now. Try again or email order@spicycorner.com."
+            : "Could not spin right now. Try again or email enquiry@spicycenter.com."
         );
       }
     })();

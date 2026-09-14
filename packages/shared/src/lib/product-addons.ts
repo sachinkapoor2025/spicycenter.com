@@ -14,7 +14,7 @@ export type ProductAddonDef = {
 /** Max packs of a single add-on per cart line. */
 export const MAX_PRODUCT_ADDON_QUANTITY = 10;
 
-/** Fixed SpicyCorner PDP add-on catalog (USD). Not Dynamo SKUs. */
+/** Fixed SpicyCenter PDP add-on catalog (USD). Not Dynamo SKUs. */
 export const PRODUCT_ADDONS: readonly ProductAddonDef[] = [
   {
     id: "badam-100g",

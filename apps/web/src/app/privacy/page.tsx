@@ -5,7 +5,7 @@ import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
   title: "Privacy Policy",
-  description: `How ${site.name} collects, uses, and protects your information when you shop at SpicyCorner.`,
+  description: `How ${site.name} collects, uses, and protects your information when you shop at SpicyCenter.`,
   path: "/privacy",
 });
 

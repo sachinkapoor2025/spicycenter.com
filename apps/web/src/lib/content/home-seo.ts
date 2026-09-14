@@ -2,7 +2,7 @@ export const homeSeoContent = {
   intro: {
     heading: "Shop Indian spices — retail packs and 10kg+ bulk",
     paragraphs: [
-      "SpicyCorner is an Indian spice marketplace and encyclopaedia. Buy 100g kitchen packs or 10kg wholesale bags from the same catalogue.",
+      "SpicyCenter is an Indian spice marketplace and encyclopaedia. Buy 100g kitchen packs or 10kg wholesale bags from the same catalogue.",
       "Primary market is the United Kingdom. Indicative Indian market prices are not your invoice price.",
       "Search understands jeera, cumin, botanical names and 25kg.",
     ],
@@ -31,7 +31,7 @@ export const homeSeoContent = {
     ],
   },
   whyUs: {
-    heading: "Why SpicyCorner",
+    heading: "Why SpicyCenter",
     bullets: [
       "Spice entities with real varieties and forms",
       "Retail and wholesale together",

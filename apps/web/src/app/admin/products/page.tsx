@@ -851,7 +851,7 @@ export default function AdminProductsPage() {
                     "RAK-001",
                     "50",
                     "spice,decoration",
-                    "Premium spice Decoration | SpicyCorner",
+                    "Premium spice Decoration | SpicyCenter",
                     "Shop premium Indian spices with USA delivery",
                     "true",
                   ],

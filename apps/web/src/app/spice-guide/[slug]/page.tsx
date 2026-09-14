@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { pageMetadata } from "@/lib/seo";
+import { pageMetadata, faqJsonLd } from "@/lib/seo";
 import { JsonLd } from "@/components/JsonLd";
 import { getSpiceBySlug, loadMarketPrices, loadSpiceEntities } from "@/lib/spice-data";
 import { getCatalogProducts } from "@/lib/catalog-fallback";
-import { faqJsonLd } from "@/lib/seo";
+import { InternalLinksSection } from "@/components/InternalLinksSection";
+import { spiceHubLinks } from "@/lib/seo/spice-hub-links";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -64,6 +65,11 @@ export default async function SpiceGuidePage({ params }: Props) {
       <p className="text-sm text-muted"><Link href="/spice-guide">Spice guide</Link> / {spice.canonicalName}</p>
       <h1 className="spice-heading text-4xl mt-2">What is {spice.canonicalName}?</h1>
       <p className="mt-3 text-lg text-muted">{spice.shortDescription}</p>
+      <p className="mt-4 text-[15px] leading-relaxed">
+        <strong>Short answer:</strong> {spice.canonicalName}
+        {spice.hindiName ? ` (Hindi: ${spice.hindiName})` : ""}
+        {spice.botanicalName ? ` is ${spice.botanicalName}` : ""}. {spice.flavourProfile}. Culinary use only — not a medicine.
+      </p>
 
       <div className="mt-8 overflow-x-auto card-spice">
         <table className="w-full text-sm">
@@ -101,7 +107,7 @@ export default async function SpiceGuidePage({ params }: Props) {
       </Block>
       <Block title="Traditional uses">
         <p>{spice.traditionalUses || "Recorded in culinary tradition. Traditional use is not scientific evidence of a medical effect."}</p>
-        <p className="text-sm text-muted mt-2">SpicyCorner does not claim that spices cure, treat or prevent disease.</p>
+        <p className="text-sm text-muted mt-2">SpicyCenter does not claim that spices cure, treat or prevent disease.</p>
       </Block>
       <Block title="Storage and shelf life">
         <p>{spice.storage} {spice.shelfLife}</p>
@@ -152,6 +158,7 @@ export default async function SpiceGuidePage({ params }: Props) {
         </div>
         <Link href={`/bulk-spices/${spice.slug}`} className="inline-block mt-3 font-semibold text-nav">Bulk {spice.canonicalName} →</Link>
       </Block>
+      <InternalLinksSection groups={spiceHubLinks(spice.slug, spice.canonicalName)} title={`${spice.canonicalName} — shop, wholesale and UK`} />
     </article>
   );
 }

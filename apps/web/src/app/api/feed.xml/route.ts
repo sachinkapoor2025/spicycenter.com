@@ -78,7 +78,7 @@ export async function GET() {
   <g:price>${price} ${currency}</g:price>
   <g:availability>${availability}</g:availability>
   <g:condition>new</g:condition>
-  <g:brand>SpicyCorner</g:brand>
+  <g:brand>SpicyCenter</g:brand>
   <g:google_product_category>632</g:google_product_category>
   <g:shipping>
     <g:country>US</g:country>
@@ -92,7 +92,7 @@ export async function GET() {
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">
 <channel>
-<title>SpicyCorner — spice Decorations, Spices & Spice packs</title>
+<title>SpicyCenter — spice Decorations, Spices & Spice packs</title>
 <link>${escapeXml(site)}</link>
 <description>Indian spices, spices, and spice packs. International shipping — delivering in 5–7 days.</description>
 ${items}

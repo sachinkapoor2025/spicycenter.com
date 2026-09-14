@@ -42,7 +42,7 @@ interface AddToCartControlProps {
   variant?: "default" | "detail";
   /** Called before add — use to save name/email immediately (not debounced). */
   getContact?: () => { name?: string; email?: string; phone?: string };
-  /** Selected product add-ons with quantities (SpicyCorner only). */
+  /** Selected product add-ons with quantities (SpicyCenter only). */
   addons?: ProductAddonSelection[];
   /** CJ Dropshipping variant id. */
   cjVid?: string;

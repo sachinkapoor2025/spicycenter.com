@@ -80,18 +80,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const data = await api<{ category: Category }>(`/categories/${slug}`, { revalidate: false });
     const c = data.category;
     return pageMetadata({
-      title: `${c.name} | SpicyCorner`,
+      title: `${c.name} | SpicyCenter`,
       description:
         c.seoDescription ??
         c.description?.slice(0, 160) ??
-        `Shop ${c.name} at SpicyCorner. Delivering in 5–7 days — confirm shipping on each product page.`,
+        `Shop ${c.name} at SpicyCenter. Delivering in 5–7 days — confirm shipping on each product page.`,
       path,
     });
   } catch {
     const name = fallback?.name ?? slug.replace(/-/g, " ");
     return pageMetadata({
-      title: `${name} | SpicyCorner`,
-      description: `Shop ${name} at SpicyCorner. Delivering in 5–7 days.`,
+      title: `${name} | SpicyCenter`,
+      description: `Shop ${name} at SpicyCenter. Delivering in 5–7 days.`,
       path,
     });
   }
@@ -141,7 +141,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
   const rich = getCategoryRichContent(slug);
   const shipsTo = pickShipsToCities(slug, 3);
   const heroSrc = category?.image ? resolveImageUrl(category.image) : null;
-  const heroAlt = pageSeo?.alt ?? `${name} — SpicyCorner`;
+  const heroAlt = pageSeo?.alt ?? `${name} — SpicyCenter`;
 
   const crumbs = [
     { label: "Home", href: "/" },
@@ -160,7 +160,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
             description: pageSeo?.description ?? baseDescription,
           }),
           itemListJsonLd(
-            `${name} — SpicyCorner`,
+            `${name} — SpicyCenter`,
             products.map((p) => ({ name: p.name, path: `/products/${p.slug}` }))
           ),
           ...(rich ? [faqJsonLd(rich.faqs)] : []),
@@ -258,7 +258,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
           </section>
 
           <section className="mt-10 p-6 bg-slate-50 rounded-xl spice-panel">
-            <h2 className="font-semibold text-primary mb-3">Why order {name} from SpicyCorner?</h2>
+            <h2 className="font-semibold text-primary mb-3">Why order {name} from SpicyCenter?</h2>
             <ul className="grid sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-2 text-sm text-slate-600">
               <li className="flex gap-2">
                 <span className="text-nav shrink-0">✓</span>

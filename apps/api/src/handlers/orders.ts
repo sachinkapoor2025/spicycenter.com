@@ -172,12 +172,13 @@ export async function captureLead(event: APIGatewayProxyEventV2) {
   const emailRequired =
     leadPayload.source === "contact" ||
     leadPayload.source === "review" ||
+    leadPayload.source === "wholesale" ||
     (leadPayload.source === "newsletter" && Boolean(email));
 
   if (emailRequired && emailResult.skipped) {
     console.error("Email skipped — SMTP not configured:", leadPayload.source);
     return badRequest(
-      "Email is not configured on the server yet. Please contact us on WhatsApp or at order@spicycorner.com."
+      "Email is not configured on the server yet. Please contact us on WhatsApp or at enquiry@spicycenter.com."
     );
   }
 
@@ -185,7 +186,7 @@ export async function captureLead(event: APIGatewayProxyEventV2) {
     console.error("Lead email failed:", leadPayload.source, emailResult.error);
     return badRequest(
       emailResult.error ??
-        "Your message was saved but email could not be sent. Please WhatsApp us or email order@spicycorner.com directly."
+        "Your message was saved but email could not be sent. Please WhatsApp us or email enquiry@spicycenter.com directly."
     );
   }
 
@@ -659,7 +660,7 @@ export async function updateOrderStatus(event: APIGatewayProxyEventV2) {
     !allVendorsHaveTracking(vendorFulfillments)
   ) {
     return badRequest(
-      "This order has multiple vendors. Add tracking for Orange County and SpicyCorner before marking Shipped, or save each vendor tracking first."
+      "This order has multiple vendors. Add tracking for Orange County and SpicyCenter before marking Shipped, or save each vendor tracking first."
     );
   }
   if (

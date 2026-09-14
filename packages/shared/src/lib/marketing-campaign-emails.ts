@@ -1,5 +1,5 @@
 /**
- * Conversion-focused marketing email templates for SpicyCorner.
+ * Conversion-focused marketing email templates for SpicyCenter.
  *
  * Edit the CONFIG objects below to update images, copy, CTAs, and links —
  * then rebuild / open Admin → Email → Templates to sync starters.
@@ -42,13 +42,13 @@ export type CampaignBenefit = {
 export const FREE_SHIPPING_EMAIL_CONFIG = {
   templateId: "free-shipping-above-7",
   name: "Free Shipping Above $7",
-  subject: "FREE SHIPPING on Orders Above $7 — SpicyCorner",
+  subject: "FREE SHIPPING on Orders Above $7 — SpicyCenter",
   preheader: "Free shipping on orders above $7. Indian spices & spices, ships from the USA.",
   logoUrl: LOGO,
   logoHref: SITE,
   heroImageUrl: HERO,
   heroImageHref: SHOP,
-  heroImageAlt: "SpicyCorner — Free shipping on spice orders above $7",
+  heroImageAlt: "SpicyCenter — Free shipping on spice orders above $7",
   offerEyebrow: "SPICE OFFER",
   offerHeadline: "FREE SHIPPING",
   offerSubhead: "On Orders Above $7",
@@ -56,7 +56,7 @@ export const FREE_SHIPPING_EMAIL_CONFIG = {
     "Stock up on Indian spices, spices, and spice packs — and enjoy free domestic shipping when your order is $7 or more. Ships from the USA. No customs delays.",
   ctaText: "Shop spices",
   ctaHref: SHOP,
-  benefitsHeading: "Why Shop SpicyCorner",
+  benefitsHeading: "Why Shop SpicyCenter",
   benefits: [
     { icon: "🚚", title: "Fast USA Delivery", description: "2–5 business days to all 50 states." },
     { icon: "✨", title: "Seasonal Selection", description: "Decor, spices, and spice packs." },
@@ -107,7 +107,7 @@ export const FREE_SHIPPING_EMAIL_CONFIG = {
   facebookIconUrl: FB,
   instagramUrl: "https://www.instagram.com/spicycorner/",
   instagramIconUrl: IG,
-  copyrightText: "© 2026 SpicyCorner. All Rights Reserved.",
+  copyrightText: "© 2026 SpicyCenter. All Rights Reserved.",
   unsubscribeLabel: "Unsubscribe",
 } as const;
 
@@ -121,7 +121,7 @@ export const STARTING_PRICE_EMAIL_CONFIG = {
   logoHref: SITE,
   heroImageUrl: HERO,
   heroImageHref: SHOP,
-  heroImageAlt: "spice deals — SpicyCorner",
+  heroImageAlt: "spice deals — SpicyCenter",
   urgencyText: "⚡ Limited Time Offer",
   offerEyebrow: "SPICE DEAL",
   offerHeadline: "Spooky Season Deals",
@@ -240,7 +240,7 @@ export const STARTING_PRICE_EMAIL_CONFIG = {
   facebookIconUrl: FB,
   instagramUrl: "https://www.instagram.com/spicycorner/",
   instagramIconUrl: IG,
-  copyrightText: "© 2026 SpicyCorner. All Rights Reserved.",
+  copyrightText: "© 2026 SpicyCenter. All Rights Reserved.",
   unsubscribeLabel: "Unsubscribe",
 } as const;
 
@@ -256,7 +256,7 @@ export const SHOP_MORE_SAVE_MORE_EMAIL_CONFIG = {
   logoTagline: "spice Decorations & Spice packs",
   heroImageUrl: `${SITE}/banners/bannerpage1.png`,
   heroImageHref: SITE_SHORT,
-  heroImageAlt: "Shop More, Save More — SpicyCorner",
+  heroImageAlt: "Shop More, Save More — SpicyCenter",
   offerEyebrow: "SPICE SPECIAL",
   offerHeadline: "Shop More, Save More",
   offerSubhead: "Stock up for spice night",
@@ -369,7 +369,7 @@ export const SHOP_MORE_SAVE_MORE_EMAIL_CONFIG = {
       badge: "TIPS",
     },
   ] satisfies CampaignCard[],
-  whyHeading: "Why Choose SpicyCorner",
+  whyHeading: "Why Choose SpicyCenter",
   whySubheading: "Trusted for Indian spices and spice packs with USA delivery.",
   whyBenefits: [
     { icon: "🚚", title: "Fast USA Delivery", description: "2–5 day domestic shipping to all 50 states." },
@@ -391,7 +391,7 @@ export const SHOP_MORE_SAVE_MORE_EMAIL_CONFIG = {
   facebookIconUrl: FB,
   instagramUrl: "https://www.instagram.com/spicycorner/",
   instagramIconUrl: IG,
-  copyrightText: "© 2026 SpicyCorner. All Rights Reserved.",
+  copyrightText: "© 2026 SpicyCenter. All Rights Reserved.",
   unsubscribeLabel: "Unsubscribe",
 } as const;
 
@@ -560,7 +560,7 @@ function emailShell(opts: {
                 <tr>
                   <td align="center" style="padding:0 0 14px 0;">
                     <a href="${escAttr(f.websiteUrl)}" target="_blank" style="text-decoration:none;">
-                      <img src="${escAttr(f.logoUrl)}" width="140" alt="SpicyCorner" style="display:block;width:140px;max-width:55%;height:auto;border:0;margin:0 auto;background-color:#ffffff;border-radius:8px;padding:8px;" />
+                      <img src="${escAttr(f.logoUrl)}" width="140" alt="SpicyCenter" style="display:block;width:140px;max-width:55%;height:auto;border:0;margin:0 auto;background-color:#ffffff;border-radius:8px;padding:8px;" />
                     </a>
                   </td>
                 </tr>`
@@ -613,7 +613,7 @@ function emailShell(opts: {
           <tr>
             <td align="center" bgcolor="#fffdf8" style="padding:20px 24px 14px 24px;background-color:#fffdf8;">
               <a href="${escAttr(opts.logoHref)}" target="_blank" style="text-decoration:none;">
-                <img src="${escAttr(opts.logoUrl)}" width="168" alt="SpicyCorner — Connecting Hearts Across Borders" style="display:block;width:168px;max-width:70%;height:auto;border:0;margin:0 auto;" />
+                <img src="${escAttr(opts.logoUrl)}" width="168" alt="SpicyCenter — Connecting Hearts Across Borders" style="display:block;width:168px;max-width:70%;height:auto;border:0;margin:0 auto;" />
               </a>
               ${logoTagline}
             </td>
@@ -796,7 +796,7 @@ export function buildFreeShippingEmailHtml(
           </tr>`;
 
   return emailShell({
-    title: `${cfg.offerHeadline} | SpicyCorner`,
+    title: `${cfg.offerHeadline} | SpicyCenter`,
     preheader: cfg.preheader,
     logoUrl: cfg.logoUrl,
     logoHref: cfg.logoHref,
@@ -885,7 +885,7 @@ export function buildStartingPriceEmailHtml(
           </tr>`;
 
   return emailShell({
-    title: `${cfg.offerSubhead} | SpicyCorner`,
+    title: `${cfg.offerSubhead} | SpicyCenter`,
     preheader: cfg.preheader,
     logoUrl: cfg.logoUrl,
     logoHref: cfg.logoHref,
@@ -999,7 +999,7 @@ export function buildShopMoreSaveMoreEmailHtml(
           </tr>`;
 
   return emailShell({
-    title: `${cfg.offerHeadline} | SpicyCorner`,
+    title: `${cfg.offerHeadline} | SpicyCenter`,
     preheader: cfg.preheader,
     logoUrl: cfg.logoUrl,
     logoHref: cfg.logoHref,

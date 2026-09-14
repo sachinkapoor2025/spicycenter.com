@@ -30,7 +30,7 @@ function CustomerBadge() {
           clipRule="evenodd"
         />
       </svg>
-      SpicyCorner customer
+      SpicyCenter customer
     </span>
   );
 }
@@ -48,7 +48,7 @@ export function CustomerReviews({ showIntro = true }: CustomerReviewsProps) {
         </h2>
         {showIntro && (
           <p className="text-slate-600 text-sm md:text-base max-w-2xl mb-8 md:mb-10 leading-relaxed">
-            Real stories from customers who transformed their homes and parties with SpicyCorner decorations
+            Real stories from customers who transformed their homes and parties with SpicyCenter decorations
             and spice packs.{" "}
             <Link href="/reviews" className="text-nav font-semibold hover:underline">
               Share your review →

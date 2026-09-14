@@ -3,16 +3,16 @@ import Link from "next/link";
 import { readFileSync, existsSync } from "fs";
 import { join } from "path";
 import { pageMetadata } from "@/lib/seo";
-import { loadMarketPrices, loadSpiceEntities } from "@/lib/spice-data";
+import { loadImportedMarketPrices, loadSpiceEntities } from "@/lib/spice-data";
 
 export const metadata: Metadata = pageMetadata({
   title: "Indicative Indian spice market prices",
-  description: "Dated, sourced Indian market reference prices by spice, market and grade. Not your SpicyCorner checkout price.",
+  description: "Dated, sourced Indian market reference prices by spice, market and grade. Not your SpicyCenter checkout price.",
   path: "/spice-market-prices",
 });
 
 export default function MarketPricesPage() {
-  const prices = loadMarketPrices();
+  const prices = loadImportedMarketPrices();
   const spices = loadSpiceEntities();
   const ratesPath = ["data/shipping-rates.json", "../../data/shipping-rates.json"]
     .map((p) => join(process.cwd(), p))
@@ -26,6 +26,11 @@ export default function MarketPricesPage() {
         Indicative Indian market prices. They are not the exact purchase cost. Values vary by origin, quality, grade, market and season.
         We do not scrape third-party sites. Admin imports CSV or enters prints with source URL and date. Historical rows are never overwritten.
       </p>
+      {prices.length === 0 ? (
+        <p className="mt-8 text-muted">
+          No dated market prices have been imported yet. When a trusted source is connected, this table will list spice, market, grade, ₹/kg and source.
+        </p>
+      ) : (
       <div className="overflow-x-auto mt-8 card-spice">
         <table className="w-full text-sm">
           <thead>
@@ -37,7 +42,7 @@ export default function MarketPricesPage() {
           </thead>
           <tbody>
             {prices.map((p) => (
-              <tr key={`${p.spiceId}-${p.market}-${p.grade}`} className="border-b border-[#eadfce]">
+              <tr key={`${p.spiceId}-${p.market}-${p.grade}-${p.priceDate}`} className="border-b border-[#eadfce]">
                 <td className="p-3">
                   <Link className="text-nav" href={`/spice-guide/${p.spiceId}`}>
                     {spices.find((s) => s.id === p.spiceId)?.canonicalName ?? p.spiceId}
@@ -55,6 +60,7 @@ export default function MarketPricesPage() {
           </tbody>
         </table>
       </div>
+      )}
       {shipping && <p className="mt-6 text-xs text-muted">{shipping.notes}</p>}
     </div>
   );

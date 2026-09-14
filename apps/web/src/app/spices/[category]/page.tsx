@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const title = spice?.canonicalName ?? cat?.name ?? category;
   return pageMetadata({
     title: `${title} — Indian spices`,
-    description: spice?.shortDescription ?? `Shop ${title} from SpicyCorner.`,
+    description: spice?.shortDescription ?? `Shop ${title} from SpicyCenter.`,
     path: `/spices/${category}`,
   });
 }

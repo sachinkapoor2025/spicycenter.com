@@ -1,4 +1,4 @@
-/** Map CJ Dropshipping category names onto SpicyCorner storefront slugs. */
+/** Map CJ Dropshipping category names onto SpicyCenter storefront slugs. */
 
 const RULES: Array<{ slug: string; needles: string[] }> = [
   {

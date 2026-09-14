@@ -29,8 +29,8 @@ function RegionsMenu({ onNavigate }: { onNavigate?: () => void }) {
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-haspopup="true"
-        className={`inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-[13px] font-semibold whitespace-nowrap ${
-          open ? "bg-nav text-white" : "text-primary hover:bg-orange-50 hover:text-nav"
+        className={`inline-flex items-center gap-1 rounded-md px-3 py-1.5 text-[13px] font-semibold whitespace-nowrap ${
+          open ? "bg-nav text-white" : "text-primary hover:bg-beige hover:text-nav"
         }`}
       >
         Regions
@@ -39,12 +39,12 @@ function RegionsMenu({ onNavigate }: { onNavigate?: () => void }) {
       {open && (
         <>
           <button type="button" className="fixed inset-0 z-[90]" aria-label="Close regions menu" onClick={() => setOpen(false)} />
-          <div className="absolute top-full right-0 z-[100] mt-1 min-w-[220px] max-h-[min(70vh,360px)] overflow-y-auto rounded-lg border border-[#eadfce] bg-white py-1 shadow-xl">
+          <div className="absolute top-full right-0 z-[100] mt-1 min-w-[220px] max-h-[min(70vh,360px)] overflow-y-auto rounded-md border border-[#e6d5bc] bg-paper py-1 shadow-card">
             {regionLinks.map((c) => (
               <Link
                 key={c.slug}
                 href={`/indian-spice-regions/${c.slug}`}
-                className="block px-4 py-2.5 text-sm text-slate-700 hover:bg-amber-50 hover:text-nav whitespace-nowrap"
+                className="block px-4 py-2.5 text-sm text-earth hover:bg-beige hover:text-nav whitespace-nowrap"
                 onClick={() => {
                   setOpen(false);
                   onNavigate?.();
@@ -195,18 +195,18 @@ export function Header() {
   }, [menuOpen]);
 
   return (
-    <header className="border-b border-slate-200 bg-white sticky top-0 z-50 shadow-sm overflow-visible">
-      <div className="hidden md:block bg-primary text-white/80 text-[11px] tracking-wide">
+    <header className="border-b border-[#e6d5bc] bg-cream sticky top-0 z-[90] shadow-card overflow-visible">
+      <div className="hidden md:block bg-primary text-[#f6efe3]/85 text-[11px] tracking-[0.14em] uppercase">
         <div className="max-w-7xl mx-auto px-4 py-1.5 flex items-center justify-between gap-4">
-          <p className="truncate">Authentic Indian Spices · Retail &amp; Bulk Supply · UK &amp; EU Shipping</p>
-          <div className="flex items-center gap-3 shrink-0">
+          <p className="truncate">Authentic Indian Spices | Retail &amp; Bulk | Worldwide Shipping</p>
+          <div className="flex items-center gap-4 shrink-0 normal-case tracking-normal">
             <Link href="/faq" className="hover:text-white">Help</Link>
             <Link href="/contact" className="hover:text-white">Contact</Link>
           </div>
         </div>
       </div>
       {/* Mobile top bar */}
-      <div className="md:hidden max-w-7xl mx-auto px-3 py-3 flex items-center gap-2">
+      <div className="md:hidden max-w-7xl mx-auto px-3 py-2.5 flex items-center gap-2 min-w-0">
         <button
           type="button"
           className="p-1.5 text-nav hover:text-primary shrink-0"
@@ -217,15 +217,11 @@ export function Header() {
           <BurgerIcon />
         </button>
 
-        <SiteLogoLink size="mobile" priority onClick={closeMenu} />
+        <SiteLogoLink size="mobile" priority onClick={closeMenu} className="min-w-0" />
 
-        <div className="flex-1" />
+        <div className="flex-1 min-w-0" />
 
-        <div className="flex items-center shrink-0 gap-1">
-          <CurrencySelect variant="header" />
-          <CountrySelector compact />
-          <AccountLink className="text-nav hover:text-primary p-1.5" />
-          <WishlistLink className="text-nav hover:text-primary p-1.5" />
+        <div className="flex items-center shrink-0">
           <CartLink className="p-1.5" />
         </div>
       </div>
@@ -263,24 +259,24 @@ export function Header() {
         </div>
       </div>
 
-      <div className="md:hidden border-t border-slate-100 bg-white px-4 py-2.5">
+      <div className="md:hidden border-t border-[#e6d5bc] bg-paper px-4 py-2.5">
         <div className="max-w-7xl mx-auto">
           <SearchBar />
         </div>
       </div>
 
       {/* Desktop nav — Regions sits outside the scrolling row so the menu is not clipped */}
-      <nav className="hidden md:block border-t border-slate-100 bg-[#fbf7f1] overflow-visible">
+      <nav className="hidden md:block border-t border-[#e6d5bc] bg-paper overflow-visible">
         <div className="max-w-7xl mx-auto px-4 py-2 flex items-center gap-2">
           <div className="flex flex-nowrap items-center gap-1 flex-1 min-w-0 overflow-x-auto pb-0.5 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`shrink-0 rounded-full px-3 py-1.5 text-[13px] font-semibold whitespace-nowrap ${
+                className={`shrink-0 rounded-md px-3 py-1.5 text-[13px] font-semibold whitespace-nowrap ${
                   isActive(item.href)
                     ? "bg-nav text-white"
-                    : "text-primary hover:bg-white hover:text-nav"
+                    : "text-primary hover:bg-beige hover:text-nav"
                 }`}
               >
                 {item.label}
@@ -296,16 +292,16 @@ export function Header() {
         <>
           <button
             type="button"
-            className="md:hidden fixed inset-0 bg-black/40 z-40"
+            className="md:hidden fixed inset-0 bg-black/40 z-[60]"
             aria-label="Close menu"
             onClick={closeMenu}
           />
-          <aside className="md:hidden fixed top-0 left-0 bottom-0 w-[min(85vw,320px)] z-50 bg-white shadow-xl flex flex-col">
-            <div className="flex items-center justify-between px-4 py-4 border-b border-slate-100">
+          <aside className="md:hidden fixed top-0 left-0 bottom-0 w-[min(88vw,320px)] z-[70] bg-paper shadow-xl flex flex-col">
+            <div className="flex items-center justify-between px-4 py-4 border-b border-[#e6d5bc]">
               <span className="font-semibold text-primary">Menu</span>
               <button
                 type="button"
-                className="p-1 text-slate-500 hover:text-nav"
+                className="p-1 text-earth hover:text-nav"
                 aria-label="Close menu"
                 onClick={closeMenu}
               >
@@ -315,11 +311,22 @@ export function Header() {
               </button>
             </div>
 
-            <nav className="flex-1 overflow-y-auto px-3 py-3 space-y-1">
-              <div className="px-2 pb-2 space-y-2">
+            <nav className="flex-1 overflow-y-auto px-3 py-3 space-y-1 pb-[max(1rem,env(safe-area-inset-bottom))]">
+              <div className="px-2 pb-3 space-y-2">
                 <CurrencySelect variant="inline" />
                 <CountrySelector />
               </div>
+              <Link
+                href="/account"
+                onClick={closeMenu}
+                className={`block rounded-lg px-4 py-3 text-sm font-semibold ${
+                  pathname.startsWith("/account")
+                    ? "bg-nav text-white"
+                    : "text-primary hover:bg-beige hover:text-nav"
+                }`}
+              >
+                Account
+              </Link>
               {navItems.map((item) => (
               <Link
                 key={item.href}
@@ -328,7 +335,7 @@ export function Header() {
                 className={`block rounded-lg px-4 py-3 text-sm font-semibold ${
                   isActive(item.href)
                     ? "bg-nav text-white"
-                    : "text-primary hover:bg-orange-50 hover:text-nav"
+                    : "text-primary hover:bg-beige hover:text-nav"
                 }`}
               >
                 {item.label}
@@ -341,7 +348,7 @@ export function Header() {
               className={`block rounded-lg px-4 py-3 text-sm font-semibold ${
                 pathname === "/wishlist"
                   ? "bg-nav text-white"
-                  : "text-primary hover:bg-orange-50 hover:text-nav"
+                    : "text-primary hover:bg-beige hover:text-nav"
               }`}
             >
               Wish Lists
@@ -352,20 +359,20 @@ export function Header() {
                   type="button"
                   onClick={() => setCitiesOpen((v) => !v)}
                   className={`w-full flex items-center justify-between rounded-lg px-4 py-3 text-sm font-semibold ${
-                    citiesOpen ? "bg-nav text-white" : "text-primary hover:bg-orange-50 hover:text-nav"
+                    citiesOpen ? "bg-nav text-white" : "text-primary hover:bg-beige hover:text-nav"
                   }`}
                 >
                   Regions
                   <span className={`text-xs transition-transform ${citiesOpen ? "rotate-180" : ""}`}>▼</span>
                 </button>
                 {citiesOpen && (
-                  <div className="mt-1 ml-2 border-l-2 border-slate-100 pl-2 space-y-1">
+                  <div className="mt-1 ml-2 border-l-2 border-[#e6d5bc] pl-2 space-y-1">
                     {regionLinks.map((c) => (
                       <Link
                         key={c.slug}
                         href={`/indian-spice-regions/${c.slug}`}
                         onClick={closeMenu}
-                        className="block rounded-lg px-4 py-2.5 text-sm text-slate-700 hover:bg-amber-50 hover:text-nav"
+                        className="block rounded-md px-4 py-2.5 text-sm text-earth hover:bg-beige hover:text-nav"
                       >
                         {c.label}
                       </Link>
@@ -373,6 +380,20 @@ export function Header() {
                   </div>
                 )}
               </div>
+            <Link
+              href="/contact"
+              onClick={closeMenu}
+              className="block rounded-lg px-4 py-3 text-sm font-semibold text-primary hover:bg-beige hover:text-nav"
+            >
+              Contact
+            </Link>
+            <Link
+              href="/faq"
+              onClick={closeMenu}
+              className="block rounded-lg px-4 py-3 text-sm font-semibold text-primary hover:bg-beige hover:text-nav"
+            >
+              Help / FAQ
+            </Link>
             </nav>
           </aside>
         </>

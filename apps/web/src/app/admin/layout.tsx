@@ -392,7 +392,7 @@ function AdminLayoutInner({ children }: { children: React.ReactNode }) {
             >
               {!sidebarCollapsed && (
                 <Link href="/admin" className="px-2 text-lg font-bold text-primary truncate">
-                  SpicyCorner Admin
+                  SpicyCenter Admin
                 </Link>
               )}
               <button
@@ -471,7 +471,7 @@ function AdminLayoutInner({ children }: { children: React.ReactNode }) {
                 </svg>
               </button>
               <Link href="/admin" className="truncate font-bold text-primary">
-                SpicyCorner Admin
+                SpicyCenter Admin
               </Link>
             </div>
             <Link href="/" className="shrink-0 text-sm text-slate-500 hover:text-nav">

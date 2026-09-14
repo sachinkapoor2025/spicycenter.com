@@ -4,7 +4,19 @@ import { siteUrl } from "@/lib/env";
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
-      { userAgent: "*", allow: "/", disallow: ["/admin/", "/checkout", "/account", "/cart", "/orders/"] },
+      {
+        userAgent: "*",
+        allow: "/",
+        disallow: [
+          "/admin/",
+          "/checkout",
+          "/account",
+          "/cart",
+          "/orders/",
+          "/wishlist",
+          "/ses-email",
+        ],
+      },
       // AI / LLM crawlers — explicitly allowed for discoverability in ChatGPT, Claude, Perplexity, etc.
       { userAgent: "GPTBot", allow: "/" },
       { userAgent: "ChatGPT-User", allow: "/" },

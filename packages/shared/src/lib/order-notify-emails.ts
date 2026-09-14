@@ -1,15 +1,11 @@
-/** From-address / SMTP login for cart, payment, and order-status mail. */
-export const ORDER_SMTP_USER = "order@spicycorner.com";
+/** From-address / SMTP login for cart, payment, enquiry, and order-status mail. */
+export const ORDER_SMTP_USER = "enquiry@spicycenter.com";
 
 /**
- * Staff copies of cart/checkout, paid, and status emails.
+ * Staff copies of cart/checkout, paid, enquiry, and status emails.
  * Always unioned with NOTIFY_EMAIL so a stale Lambda env cannot drop inboxes.
  */
-export const DEFAULT_ORDER_NOTIFY_EMAILS = [
-  "order@spicycorner.com",
-  "order@usarakhi.com",
-  "priya.yadav@mydgv.com",
-] as const;
+export const DEFAULT_ORDER_NOTIFY_EMAILS = ["enquiry@spicycenter.com"] as const;
 
 export const DEFAULT_ORDER_NOTIFY_EMAIL = DEFAULT_ORDER_NOTIFY_EMAILS.join(",");
 
@@ -30,7 +26,7 @@ export function parseNotifyEmails(
   return out.length ? out : [...fallback];
 }
 
-/** Staff inboxes: env list plus the required SpicyCorner / UsaRakhi / Priya copies. */
+/** Staff inboxes: env list plus the required enquiry mailbox. */
 export function staffOrderNotifyEmails(envNotify?: string): string[] {
   return parseNotifyEmails(
     [...parseNotifyEmails(envNotify), ...DEFAULT_ORDER_NOTIFY_EMAILS].join(",")

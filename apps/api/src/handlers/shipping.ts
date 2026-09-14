@@ -220,7 +220,7 @@ export async function buyLabelForOrder(event: APIGatewayProxyEventV2) {
 
     const timestamp = now();
     let vendorFulfillments = ensureVendorFulfillments(order);
-    // USPS labels are purchased by SpicyCorner for our own inventory lines.
+    // USPS labels are purchased by SpicyCenter for our own inventory lines.
     if (orderHasVendor(order, VENDOR_SPICYCORNER)) {
       vendorFulfillments = upsertVendorFulfillment(vendorFulfillments, {
         vendorSlug: VENDOR_SPICYCORNER,

@@ -40,7 +40,7 @@ export const sendReminderEmailsSchema = z.object({
 export type SendReminderEmailsInput = z.infer<typeof sendReminderEmailsSchema>;
 
 export const DEFAULT_CHECKOUT_NUDGE_SUBJECT =
-  "Your spice cart is waiting — complete your SpicyCorner order";
+  "Your spice cart is waiting — complete your SpicyCenter order";
 
 export function defaultCheckoutNudgeHtml(opts: {
   name?: string;
@@ -56,7 +56,7 @@ export function defaultCheckoutNudgeHtml(opts: {
     <tr><td align="center">
       <table role="presentation" width="560" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:12px;overflow:hidden;border:1px solid #e2e8f0;">
         <tr><td style="background:#7c1d3a;padding:24px 28px;">
-          <p style="margin:0;font-size:22px;font-weight:700;color:#ffffff;letter-spacing:0.02em;">SpicyCorner</p>
+          <p style="margin:0;font-size:22px;font-weight:700;color:#ffffff;letter-spacing:0.02em;">SpicyCenter</p>
           <p style="margin:6px 0 0;font-size:13px;color:#fecaca;">Ship spice across the USA</p>
         </td></tr>
         <tr><td style="padding:28px;">
@@ -76,7 +76,7 @@ export function defaultCheckoutNudgeHtml(opts: {
         </td></tr>
         <tr><td style="padding:16px 28px 24px;border-top:1px solid #e2e8f0;">
           <p style="margin:0;font-size:12px;color:#94a3b8;line-height:1.5;">
-            SpicyCorner · Divit Global Ventures<br/>
+            SpicyCenter · Divit Global Ventures<br/>
             You’re receiving this because you shared your email while browsing spicycenter.com.
           </p>
         </td></tr>

@@ -1,10 +1,10 @@
 import { VENDOR_ORANGE_COUNTY } from "../constants";
 
-/** Human-readable order numbers: OC10001… (Orange County) / HW10001… (SpicyCorner). */
+/** Human-readable order numbers: OC10001… (Orange County) / HW10001… (SpicyCenter). */
 export const ORDER_NUMBER_START = 10001;
 
 export type OrderNumberPrefix = "OC" | "HW";
-/** Legacy SpicyCorner prefix still stored on older orders. */
+/** Legacy SpicyCenter prefix still stored on older orders. */
 export type LegacyOrderNumberPrefix = "US";
 export type StoredOrderNumberPrefix = OrderNumberPrefix | LegacyOrderNumberPrefix;
 

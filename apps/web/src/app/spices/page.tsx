@@ -5,6 +5,7 @@ import { getCatalogProducts } from "@/lib/catalog-fallback";
 import { loadSpiceEntities, searchSpices } from "@/lib/spice-data";
 import { parseBulkHint } from "@spicycorner/shared";
 import { exploreCategories } from "@/lib/site";
+import { InternalLinksSection } from "@/components/InternalLinksSection";
 
 export const metadata: Metadata = pageMetadata({
   title: "Shop Indian spices — retail and bulk",
@@ -60,7 +61,7 @@ export default async function SpicesIndex({
   return (
     <div className="max-w-7xl mx-auto px-4 py-10">
       <p className="text-sm text-muted"><Link href="/">Home</Link> / Shop spices</p>
-      <h1 className="spice-heading text-4xl mt-2">Shop Indian spices</h1>
+      <h1 className="spice-heading text-3xl sm:text-4xl mt-2">Shop Indian spices</h1>
       <p className="mt-3 text-muted max-w-2xl">
         Filters cover type, origin, pack and retail vs bulk. {products.length} matching SKUs.
         {q ? ` Search: “${q}”.` : ""} Whole spices for tadka, powders for everyday cooking, masalas for ready blends, and bulk bags from 10kg. Names include jeera, haldi, mirch and botanical names.
@@ -82,6 +83,15 @@ export default async function SpicesIndex({
             <p className="text-sm text-muted mt-1">Draft selling price ₹{p.price} · not a market reference</p>
           </Link>
         ))}
+        {products.length === 0 && (
+          <p className="text-muted col-span-full">
+            No SKUs matched these filters. Browse a spice type above, or open the{" "}
+            <Link href="/spice-guide" className="text-nav">
+              spice guide
+            </Link>
+            .
+          </p>
+        )}
       </div>
       {products.length > shown.length && (
         <p className="mt-6 text-sm text-muted">Showing 48 of {products.length}. Refine search or filters — listing pages are paginated so we do not load 500 images at once.</p>
@@ -96,6 +106,29 @@ export default async function SpicesIndex({
           ))}
         </div>
       </div>
+      <InternalLinksSection
+        title="UK, wholesale and spice guides"
+        groups={[
+          {
+            heading: "Shop",
+            links: [
+              { href: "/wholesale", label: "Indian spice wholesale" },
+              { href: "/wholesale/uk", label: "Wholesale UK" },
+              { href: "/spice-supplier", label: "Indian spice supplier" },
+              { href: "/uk", label: "Indian spices UK" },
+            ],
+          },
+          {
+            heading: "Popular spices",
+            links: [
+              { href: "/spices/cumin", label: "Cumin (jeera)" },
+              { href: "/spices/turmeric", label: "Turmeric" },
+              { href: "/spices/black-pepper", label: "Black pepper" },
+              { href: "/spice-guide/cumin", label: "Cumin guide" },
+            ],
+          },
+        ]}
+      />
     </div>
   );
 }

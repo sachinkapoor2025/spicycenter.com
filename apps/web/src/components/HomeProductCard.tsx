@@ -26,7 +26,7 @@ export function HomeProductCard({
   return (
     <div className="card-spice overflow-hidden relative flex h-full flex-col">
       {discount !== null && (
-        <span className="absolute top-3 left-3 z-10 bg-nav text-white text-xs font-bold px-2 py-1 rounded">
+        <span className="absolute top-3 left-3 z-10 bg-chili text-white text-xs font-bold px-2 py-1 rounded-md">
           {discount}% OFF
         </span>
       )}
@@ -35,9 +35,9 @@ export function HomeProductCard({
           <FastSellingBadge />
         </div>
       )}
-      <div className="relative aspect-square w-full shrink-0 overflow-hidden bg-slate-50">
+      <div className="relative aspect-square w-full shrink-0 overflow-hidden bg-beige p-2">
         <WishlistButton product={product} />
-        <Link href={`/products/${product.slug}`} className="absolute inset-0 block">
+        <Link href={`/products/${product.slug}`} className="absolute inset-2 block overflow-hidden rounded-md">
           <ProductImageRotator
             images={product.images ?? []}
             alt={product.name}
@@ -49,18 +49,18 @@ export function HomeProductCard({
       </div>
       <Link href={`/products/${product.slug}`} className="block flex-1">
         <div className="p-3 flex h-full flex-col">
-          <h3 className="font-semibold text-sm text-slate-900 line-clamp-2 min-h-[2.75rem] hover:text-nav">
+          <h3 className="font-serif text-[15px] text-primary line-clamp-2 min-h-[2.75rem] hover:text-nav">
             {product.name}
           </h3>
           <div className="mt-2 flex items-center gap-2 w-full">
-            <span className="text-nav font-bold">{format(product.price, product.currency)}</span>
+            <span className="text-earth font-bold">{format(product.price, product.currency)}</span>
             {product.compareAtPrice && product.compareAtPrice > product.price && (
-              <span className="text-xs text-slate-400 line-through">
+              <span className="text-xs text-muted line-through">
                 {format(product.compareAtPrice, product.currency)}
               </span>
             )}
             {discount !== null && (
-              <span className="text-xs font-semibold text-green-600 ml-auto shrink-0">{discount}% OFF</span>
+              <span className="text-xs font-semibold text-leaf ml-auto shrink-0">{discount}% OFF</span>
             )}
           </div>
         </div>

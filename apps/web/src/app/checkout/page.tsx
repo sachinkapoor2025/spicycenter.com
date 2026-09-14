@@ -234,7 +234,7 @@ function CheckoutPageInner() {
         key,
         amount: Math.round(order.total * 100),
         currency: order.currency,
-        name: "SpicyCorner",
+        name: "SpicyCenter",
         description: `Order ${order.orderId.slice(0, 8)}`,
         order_id: razorpayOrderId,
         prefill: {

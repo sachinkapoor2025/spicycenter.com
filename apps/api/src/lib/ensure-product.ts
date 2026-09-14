@@ -1,6 +1,6 @@
 /**
  * Resolve a product for storefront/cart: DynamoDB first, then auto-create from
- * bundled SpicyCorner catalog when missing.
+ * bundled SpicyCenter catalog when missing.
  */
 import { ensureCatalogProductInDb } from "./spicycorner-catalog";
 

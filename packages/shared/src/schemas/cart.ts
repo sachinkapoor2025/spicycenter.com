@@ -35,7 +35,7 @@ export const cartItemSchema = z.object({
   variantKey: z.string().max(120).optional(),
   /** Copied from product — flash / fixed deals are not coupon-eligible. */
   couponExcluded: z.boolean().optional(),
-  /** Optional SpicyCorner dry-fruit / chocolate extras on this line. */
+  /** Optional SpicyCenter dry-fruit / chocolate extras on this line. */
   addons: z.array(cartItemAddonSchema).max(20).optional(),
   /** Hamper swaps (same bundle price) plus paid extra add-ons. */
   hamperCustomization: z

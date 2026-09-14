@@ -3,7 +3,7 @@ import type { SeoLinkGroup } from "@spicycorner/shared";
 
 export function InternalLinksSection({
   groups,
-  title = "Explore SpicyCorner",
+  title = "Explore SpicyCenter",
   intro,
 }: {
   groups: SeoLinkGroup[];

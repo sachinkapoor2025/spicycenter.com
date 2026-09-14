@@ -9,7 +9,7 @@ import { getInternalLinkGroups } from "@spicycorner/shared";
 export const metadata: Metadata = pageMetadata({
   title: "Spice blog — Indian spices, bulk buying, curry notes",
   description:
-    "Culinary notes on Indian spices, whole vs ground, and UK bulk buying from SpicyCorner. Not medical advice.",
+    "Culinary notes on Indian spices, whole vs ground, and UK bulk buying from SpicyCenter. Not medical advice.",
   path: "/blog",
 });
 

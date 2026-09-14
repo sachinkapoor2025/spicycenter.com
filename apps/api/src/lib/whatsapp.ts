@@ -13,7 +13,7 @@ export type WhatsAppSendResult = {
   deepLink: string;
 };
 
-const SITE = "SpicyCorner";
+const SITE = "SpicyCenter";
 const SITE_URL = () => (process.env.SITE_URL ?? "https://www.spicycenter.com").replace(/\/$/, "");
 
 function digitsOnly(phone: string): string {
@@ -136,7 +136,7 @@ export function orderStatusWhatsAppMessage(input: {
         totalLabel: input.totalLabel ?? "",
       });
     case "accepted":
-      return `${hi}! Your SpicyCorner order #${shortId} is confirmed.${total}\n\nTrack: ${orderUrl}`;
+      return `${hi}! Your SpicyCenter order #${shortId} is confirmed.${total}\n\nTrack: ${orderUrl}`;
     case "on_hold":
       return `${hi}! Order #${shortId} is temporarily on hold while we review it.${total}\n\nWe'll update you soon. ${orderUrl}`;
     case "processing":
@@ -148,7 +148,7 @@ export function orderStatusWhatsAppMessage(input: {
       ]
         .filter(Boolean)
         .join("\n");
-      return `${hi}! Your SpicyCorner order #${shortId} has shipped!\n${track || "Tracking will appear on your order page shortly."}${total}\n\nTrack: ${orderUrl}`;
+      return `${hi}! Your SpicyCenter order #${shortId} has shipped!\n${track || "Tracking will appear on your order page shortly."}${total}\n\nTrack: ${orderUrl}`;
     }
     case "delivered":
       return `${hi}! Order #${shortId} is marked delivered. We hope you love your spice haul!\n\n${orderUrl}`;
@@ -195,7 +195,7 @@ export function contactAckWhatsAppMessage(input: { name?: string }): string {
   const hi = input.name ? `Hi ${input.name}` : "Hi";
   return `${hi}! Thanks for contacting ${SITE}. We received your message and will reply soon (usually within 24 hours).
 
-For urgent help, keep chatting here or email order@spicycorner.com.`;
+For urgent help, keep chatting here or email enquiry@spicycenter.com.`;
 }
 
 async function sendViaMeta(toDigits: string, body: string): Promise<Omit<WhatsAppSendResult, "deepLink">> {

@@ -24,7 +24,7 @@ export const blogPosts: BlogPost[] = [
       {
         paragraphs: [
           "Most North Indian curry masalas start with cumin, coriander, turmeric and chilli. Whole spices go in the oil first; powders usually follow after onion or tomato.",
-          "SpicyCorner sells the same spices in retail packs and from 10kg bulk. Indicative Indian market prices are not your checkout price.",
+          "SpicyCenter sells the same spices in retail packs and from 10kg bulk. Indicative Indian market prices are not your checkout price.",
         ],
       },
     ],

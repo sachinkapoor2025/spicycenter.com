@@ -88,10 +88,9 @@ export default function SettingsPage() {
       </p>
       <ul className="text-sm text-slate-600 list-disc pl-5 space-y-1">
         <li>
-          <strong>Website / orders / coupons</strong> — sent from <code>order@spicycorner.com</code> via{" "}
-          <code>mail.spicycenter.com</code>. Copies go to the customer,{" "}
-          <code>order@spicycorner.com</code>, <code>order@usarakhi.com</code>, and{" "}
-          <code>priya.yadav@mydgv.com</code> (server config; not edited here).
+          <strong>Website / orders / coupons / enquiries</strong> — sent from{" "}
+          <code>enquiry@spicycenter.com</code> via <code>mail.spicycenter.com</code> port 587. Copies go
+          to the customer and <code>enquiry@spicycenter.com</code> (server config; not edited here).
         </li>
         <li>
           <strong>Marketing campaigns</strong> — Mailercloud below; From ={" "}

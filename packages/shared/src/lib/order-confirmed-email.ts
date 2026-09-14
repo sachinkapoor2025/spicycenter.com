@@ -9,7 +9,7 @@ import { ORDER_STATUS } from "../constants";
 import { productImageVariantUrl } from "./image-variants";
 import { resolveProductImageUrl } from "./image-url";
 
-const SITE_NAME = "SpicyCorner";
+const SITE_NAME = "SpicyCenter";
 const DEFAULT_SITE = "https://www.spicycenter.com";
 
 const PAGE_BG = "#f3eee6";
@@ -27,9 +27,9 @@ const FB_URL = "https://www.facebook.com/spicycorner/";
 const IG_URL = "https://www.instagram.com/spicycorner/";
 const PINTEREST_URL = "https://www.pinterest.com/spicycorner/";
 const X_URL = "https://x.com/spicycorner";
-const SUPPORT_EMAIL = "support@spicycorner.com";
+const SUPPORT_EMAIL = "enquiry@spicycenter.com";
 const SUPPORT_PHONE = "+1 (669) 260-3819";
-const ORDER_EMAIL = "order@spicycorner.com";
+const ORDER_EMAIL = "enquiry@spicycenter.com";
 
 const LOGO = `${DEFAULT_SITE}/logo.png`;
 const HERO_DECOR = `${DEFAULT_SITE}/banners/bannerpage1.png`;
@@ -102,7 +102,7 @@ export const ORDER_COMPLETE_HEADING = "Your Order is Complete!";
 export const ORDER_REVIEW_HEADING = "We Value Your Feedback!";
 export const ORDER_REVIEW_CTA = "Write a Review";
 export const ORDER_SEO_BLURB =
-  "SpicyCorner is a USA spice shop for decorations, spices, and spice packs. Shoppers trust us for quality spice packs, secure checkout, and reliable shipping to all 50 states.";
+  "SpicyCenter is a USA spice shop for decorations, spices, and spice packs. Shoppers trust us for quality spice packs, secure checkout, and reliable shipping to all 50 states.";
 
 export type DeliveredNotifyKind = "delivered" | "complete";
 
@@ -437,7 +437,7 @@ function buildStatusEmailHtml(order: OrderConfirmedNotifyOrder, copy: StatusEmai
           <tr>
             <td align="center" style="padding:0;line-height:0;font-size:0;background-color:${HERO_BG};">
               <a href="${escAttr(site)}" target="_blank" style="text-decoration:none;">
-                <img class="fluid" src="${escAttr(HERO_DECOR)}" width="600" alt="SpicyCorner Indian spices, spices, and spice packs" style="display:block;width:100%;max-width:600px;height:auto;border:0;" />
+                <img class="fluid" src="${escAttr(HERO_DECOR)}" width="600" alt="SpicyCenter Indian spices, spices, and spice packs" style="display:block;width:100%;max-width:600px;height:auto;border:0;" />
               </a>
             </td>
           </tr>
@@ -447,14 +447,14 @@ function buildStatusEmailHtml(order: OrderConfirmedNotifyOrder, copy: StatusEmai
                 <tr>
                   <td align="center" bgcolor="${WHITE}" style="background-color:${WHITE};border-radius:10px;padding:10px 16px;">
                     <a href="${escAttr(site)}" target="_blank" style="text-decoration:none;">
-                      <img src="${escAttr(LOGO)}" width="168" alt="SpicyCorner" style="display:block;width:168px;max-width:70%;height:auto;border:0;margin:0 auto;" />
+                      <img src="${escAttr(LOGO)}" width="168" alt="SpicyCenter" style="display:block;width:168px;max-width:70%;height:auto;border:0;margin:0 auto;" />
                     </a>
                   </td>
                 </tr>
               </table>
               <div style="height:16px;line-height:16px;font-size:0;">&nbsp;</div>
               <div style="font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:16px;letter-spacing:3px;text-transform:uppercase;color:${GOLD};font-weight:bold;padding-bottom:10px;">
-                SpicyCorner
+                SpicyCenter
               </div>
               <div class="hero-title" style="font-family:Georgia,'Times New Roman',serif;font-size:32px;line-height:38px;font-weight:bold;color:${WHITE};letter-spacing:0.5px;">
                 ${escapeHtml(copy.heroTitle)}
@@ -557,7 +557,7 @@ function buildStatusEmailHtml(order: OrderConfirmedNotifyOrder, copy: StatusEmai
               </table>
               <div style="height:18px;line-height:18px;font-size:0;">&nbsp;</div>
               <a href="${escAttr(site)}" target="_blank" style="text-decoration:none;">
-                <img src="${escAttr(LOGO)}" width="140" alt="SpicyCorner" style="display:block;width:140px;max-width:55%;height:auto;border:0;margin:0 auto;background-color:${WHITE};border-radius:8px;padding:8px;" />
+                <img src="${escAttr(LOGO)}" width="140" alt="SpicyCenter" style="display:block;width:140px;max-width:55%;height:auto;border:0;margin:0 auto;background-color:${WHITE};border-radius:8px;padding:8px;" />
               </a>
               <div style="font-family:Georgia,'Times New Roman',serif;font-size:14px;line-height:20px;color:#f0d78c;padding:14px 0 10px 0;">
                 Indian spices, spices, and spice packs
@@ -586,7 +586,7 @@ function buildStatusEmailHtml(order: OrderConfirmedNotifyOrder, copy: StatusEmai
                 </tr>
               </table>
               <div style="font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:18px;color:#9aa8c0;padding-top:18px;">
-                &copy; 2026 SpicyCorner. All rights reserved.
+                &copy; 2026 SpicyCenter. All rights reserved.
               </div>
             </td>
           </tr>
@@ -607,7 +607,7 @@ function confirmedAfterOrderHtml(order: OrderConfirmedNotifyOrder): string {
                 Thank you for shopping with us
               </div>
               <div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:22px;color:${MUTED};max-width:460px;margin:0 auto;">
-                We appreciate your SpicyCorner order, ${escapeHtml(customerFullName(order))}. You will receive another update when packing starts and when your package ships. If you have any questions, our support team is here to help.
+                We appreciate your SpicyCenter order, ${escapeHtml(customerFullName(order))}. You will receive another update when packing starts and when your package ships. If you have any questions, our support team is here to help.
               </div>
             </td>
           </tr>`;
@@ -622,7 +622,7 @@ function deliveredAfterOrderHtml(): string {
                 ${escapeHtml(ORDER_REVIEW_HEADING)}
               </div>
               <div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:22px;color:${MUTED};max-width:460px;margin:0 auto;padding-bottom:18px;">
-                Your experience helps other customers choose SpicyCorner with confidence. Please take a moment to share how your spice order arrived.
+                Your experience helps other customers choose SpicyCenter with confidence. Please take a moment to share how your spice order arrived.
               </div>
               ${ctaButtonHtml(reviewHref, ORDER_REVIEW_CTA)}
             </td>
@@ -630,7 +630,7 @@ function deliveredAfterOrderHtml(): string {
           <tr>
             <td class="mobile-pad" align="center" style="padding:22px 28px 32px 28px;background-color:${WHITE};">
               <div style="font-family:Arial,Helvetica,sans-serif;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:${ORANGE};font-weight:bold;padding-bottom:8px;">
-                About SpicyCorner
+                About SpicyCenter
               </div>
               <div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:22px;color:${MUTED};max-width:460px;margin:0 auto;">
                 ${escapeHtml(ORDER_SEO_BLURB)}
@@ -648,7 +648,7 @@ export function buildOrderConfirmedEmailHtml(order: OrderConfirmedNotifyOrder): 
     heroTitle: "THANK YOU FOR YOUR ORDER!",
     heading: ORDER_CONFIRMED_HEADING,
     intro:
-      "Thank you for shopping with SpicyCorner. We have confirmed your order and our team is preparing it for fulfillment and USA dispatch.",
+      "Thank you for shopping with SpicyCenter. We have confirmed your order and our team is preparing it for fulfillment and USA dispatch.",
     preheader: orderConfirmedPreheader(order),
     afterOrderHtml: confirmedAfterOrderHtml(order),
   });
@@ -658,14 +658,14 @@ function deliveredCopy(kind: DeliveredNotifyKind): { heading: string; intro: str
   if (kind === "complete") {
     return {
       heading: ORDER_COMPLETE_HEADING,
-      intro: "Thank you for celebrating spice with SpicyCorner. We hope your order arrived ready for the party.",
-      statusLine: "Your SpicyCorner order is complete.",
+      intro: "Thank you for celebrating spice with SpicyCenter. We hope your order arrived ready for the party.",
+      statusLine: "Your SpicyCenter order is complete.",
     };
   }
   return {
     heading: ORDER_DELIVERED_HEADING,
     intro: "Your spice order has arrived. We hope you love your decorations, spices, and spice packs.",
-    statusLine: "Your SpicyCorner order has been delivered.",
+    statusLine: "Your SpicyCenter order has been delivered.",
   };
 }
 
@@ -734,7 +734,7 @@ Tax: ${money(t.tax)}
 ${discountLine}Total amount: ${money(t.total)}
 
 ${ORDER_REVIEW_HEADING}
-Your experience helps other customers choose SpicyCorner with confidence. Please share how your spice order arrived.
+Your experience helps other customers choose SpicyCenter with confidence. Please share how your spice order arrived.
 ${ORDER_REVIEW_CTA}: ${orderReviewUrl()}
 
 ${ORDER_SEO_BLURB}
@@ -791,7 +791,7 @@ ${orderReviewUrl()}
 
 View order: ${site}/orders/${order.orderId}
 
-Thank you for shopping with SpicyCorner.`;
+Thank you for shopping with SpicyCenter.`;
 }
 
 export function orderStatusWhatsAppDeepLink(
@@ -882,7 +882,7 @@ export function buildOrderConfirmedWhatsAppMessage(order: OrderConfirmedNotifyOr
 
   return `Hi ${first},
 
-Your SpicyCorner order is confirmed.
+Your SpicyCenter order is confirmed.
 
 Order ID: ${ref}
 
@@ -897,5 +897,5 @@ ${discountLine}Total: ${money(t.total)}
 We are preparing your order for USA dispatch.
 View order: ${site}/orders/${order.orderId}
 
-Thank you for shopping with SpicyCorner.`;
+Thank you for shopping with SpicyCenter.`;
 }

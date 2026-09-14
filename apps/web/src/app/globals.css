@@ -3,48 +3,55 @@
 @import "tailwindcss/utilities";
 
 :root {
-  --foreground: #1f1a17;
-  --background: #f7f1e8;
+  --foreground: #2a1a12;
+  --background: #f6efe3;
   --primary: #2c1810;
   --nav: #c45c26;
   --accent: #d4a017;
+  --chili: #b42318;
+  --leaf: #3f6b3a;
   --muted: #6b5e55;
-  --fog: rgba(44, 24, 16, 0.04);
-  --fog-warm: rgba(196, 92, 38, 0.08);
-  --fog-violet: rgba(212, 160, 23, 0.08);
+  --paper: #fbf6ee;
+  --fog: rgba(44, 24, 16, 0.05);
+  --fog-warm: rgba(196, 92, 38, 0.09);
+  --fog-gold: rgba(212, 160, 23, 0.08);
+}
+
+html {
+  overflow-x: clip;
 }
 
 body {
   color: var(--foreground);
-  background:
-    radial-gradient(ellipse 90% 55% at 8% -8%, var(--fog-warm), transparent 55%),
-    radial-gradient(ellipse 70% 45% at 92% 0%, var(--fog-violet), transparent 50%),
-    var(--background);
+  background-color: var(--background);
+  background-image:
+    radial-gradient(ellipse 80% 50% at 0% 0%, var(--fog-warm), transparent 55%),
+    radial-gradient(ellipse 60% 40% at 100% 0%, var(--fog-gold), transparent 50%);
   min-height: 100vh;
   font-family: "Source Sans 3", system-ui, sans-serif;
 }
 
 @layer components {
   .btn-nav {
-    @apply inline-flex items-center justify-center rounded-full bg-nav text-white font-semibold text-sm px-4 py-2 hover:bg-[#a74c1e] transition whitespace-nowrap;
+    @apply inline-flex items-center justify-center rounded-md bg-nav text-white font-semibold text-sm px-4 py-2 hover:bg-[#a74c1e] transition whitespace-nowrap;
   }
   .btn-nav-active {
     @apply bg-primary;
   }
   .btn-cart {
-    @apply inline-flex items-center justify-center rounded-full bg-nav text-white font-semibold text-sm px-5 py-2.5 hover:bg-[#a74c1e] transition disabled:opacity-50;
+    @apply inline-flex items-center justify-center rounded-md bg-nav text-white font-semibold text-sm px-5 py-2.5 hover:bg-[#a74c1e] transition disabled:opacity-50;
   }
   .btn-primary {
-    @apply inline-flex items-center justify-center rounded-lg bg-nav text-white font-bold px-6 py-3 hover:bg-[#a74c1e] transition shadow-card;
+    @apply inline-flex items-center justify-center rounded-md bg-nav text-white font-bold px-6 py-3 hover:bg-[#a74c1e] transition shadow-card w-full sm:w-auto;
   }
   .btn-outline {
-    @apply inline-flex items-center justify-center rounded-lg border-2 border-nav text-nav font-semibold px-6 py-3 hover:bg-nav hover:text-white transition;
+    @apply inline-flex items-center justify-center rounded-md border border-nav text-nav font-semibold px-6 py-3 hover:bg-nav hover:text-white transition w-full sm:w-auto;
   }
   .hero-slide-in {
     animation: hero-fade-in 0.45s ease-out;
   }
   .card-spice {
-    @apply bg-white border border-[#eadfce] rounded-xl shadow-sm hover:shadow-card hover:border-[#dcc9a8] transition;
+    @apply bg-[#fbf6ee] border border-[#e6d5bc] rounded-lg shadow-card hover:border-[#d4a017]/50 hover:shadow-lg transition;
   }
   .spice-panel {
     background-image:
@@ -52,10 +59,13 @@ body {
       linear-gradient(225deg, rgba(44, 24, 16, 0.04), transparent 45%);
   }
   .section-divider {
-    @apply border-t border-[#eadfce];
+    @apply border-t border-[#e6d5bc];
   }
   .spice-heading {
-    @apply text-primary font-bold tracking-tight font-serif;
+    @apply text-primary tracking-tight font-serif font-semibold break-words;
+  }
+  .spice-kicker {
+    @apply text-[10px] sm:text-[11px] uppercase tracking-[0.14em] sm:tracking-[0.22em] text-nav font-semibold;
   }
 }
 

@@ -405,7 +405,7 @@ async function loadSesSender(): Promise<{
   );
   const settings = (res.Item?.settings ?? {}) as Record<string, string>;
   return {
-    fromName: settings.defaultSenderName || "SpicyCorner",
+    fromName: settings.defaultSenderName || "SpicyCenter",
     fromEmail: settings.defaultSenderEmail || process.env.SES_FROM_EMAIL || "order@spicycorner.com",
     replyTo: settings.defaultReplyTo || process.env.SES_REPLY_TO || "order@spicycorner.com",
   };

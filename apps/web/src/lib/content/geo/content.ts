@@ -38,7 +38,7 @@ const COUNTRY_CONTEXT: Record<
   },
   GB: {
     spice:
-      "The United Kingdom is SpicyCorner’s primary destination market for Indian spices. England, Scotland, Wales, and Northern Ireland are constituent countries, not US-style states.",
+      "The United Kingdom is SpicyCenter’s primary destination market for Indian spices. England, Scotland, Wales, and Northern Ireland are constituent countries, not US-style states.",
     planning:
       "UK shipping is a configurable per-kilogram rate. Confirm the quote on the product page. Duty and VAT are separate unless a shipping rule includes them.",
   },
@@ -82,7 +82,7 @@ const COUNTRY_CONTEXT: Record<
 
 const DEFAULT_CONTEXT = {
   spice:
-    "SpicyCorner sells Indian spices for cooking — whole spices, powders, chillies, masalas, and 10kg+ wholesale. This is not a medical or festival site.",
+    "SpicyCenter sells Indian spices for cooking — whole spices, powders, chillies, masalas, and 10kg+ wholesale. This is not a medical or festival site.",
   planning:
     "This page exists so shoppers can browse by geography. Shipping is confirmed per product — we do not assume every SKU reaches every country listed in this directory.",
 };
@@ -98,7 +98,7 @@ function placeLabel(loc: GeoLocation): string {
 }
 
 function kindPhrase(loc: GeoLocation): string {
-  if (loc.kind === "country") return `${loc.name} is listed as a country in the SpicyCorner location directory.`;
+  if (loc.kind === "country") return `${loc.name} is listed as a country in the SpicyCenter location directory.`;
   const country = getGeoCountry(loc);
   const parent = getGeoParent(loc);
   const label = ADMIN_KIND_LABEL[loc.adminKind];
@@ -111,9 +111,9 @@ function kindPhrase(loc: GeoLocation): string {
 function shippingCopy(loc: GeoLocation, quoteable: boolean): string {
   const country = getGeoCountry(loc);
   if (quoteable) {
-    return `SpicyCorner can request a live shipping quote on product pages for destinations in ${country.name} (${loc.isoCountry}). Quotes are per item, not a blanket nationwide SLA. Catalog goods are fulfilled through international dropshipping partners — we do not claim a local warehouse in ${loc.name}.`;
+    return `SpicyCenter can request a live shipping quote on product pages for destinations in ${country.name} (${loc.isoCountry}). Quotes are per item, not a blanket nationwide SLA. Catalog goods are fulfilled through international dropshipping partners — we do not claim a local warehouse in ${loc.name}.`;
   }
-  return `SpicyCorner does not currently publish a live storefront freight quote for ${country.name} (${loc.isoCountry}). This is a shopping and planning page for spice ${loc.name}. Confirm destination support on the product page before checkout, and do not assume every SKU ships here.`;
+  return `SpicyCenter does not currently publish a live storefront freight quote for ${country.name} (${loc.isoCountry}). This is a shopping and planning page for spice ${loc.name}. Confirm destination support on the product page before checkout, and do not assume every SKU ships here.`;
 }
 
 function titleFor(loc: GeoLocation): string {
@@ -195,7 +195,7 @@ export function buildLocationContent(loc: GeoLocation): LocationPageContent {
     },
     {
       q: `Are these local event or ticket pages?`,
-      a: `No. SpicyCorner sells spices, and wholesale packs. We do not sell event tickets and we do not invent local event listings for ${loc.name}.`,
+      a: `No. SpicyCenter sells spices, and wholesale packs. We do not sell event tickets and we do not invent local event listings for ${loc.name}.`,
     },
   ];
 

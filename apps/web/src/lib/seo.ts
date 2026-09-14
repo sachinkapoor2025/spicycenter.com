@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { productMetaDescription, VERIFIED_COUNTRY_LINKS } from "@spicycorner/shared";
-import { site, testimonials } from "./site";
+import { site } from "./site";
 import { siteUrl } from "./env";
 import { extendedKeywords } from "./ai-recommendation";
 
@@ -98,9 +98,6 @@ export function productPageMetadata(opts: {
 }
 
 export function organizationJsonLd() {
-  const avgRating =
-    testimonials.reduce((sum, t) => sum + t.rating, 0) / testimonials.length;
-
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -122,32 +119,14 @@ export function organizationJsonLd() {
       name: c.name,
     })),
     knowsAbout: [
-      "spice",
       "Indian spices",
-      "Indian spices",
-      "spice supplies",
-      "spice accessories",
-      "spice bulk packs",
-      "Kids Indian spices",
-      "Adult Indian spices",
+      "wholesale Indian spices",
+      "cumin",
+      "turmeric",
+      "black pepper",
+      "masalas",
+      "UK spice supplier",
     ],
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: avgRating.toFixed(1),
-      bestRating: "5",
-      worstRating: "1",
-      reviewCount: String(testimonials.length),
-    },
-    review: testimonials.map((t) => ({
-      "@type": "Review",
-      author: { "@type": "Person", name: t.name },
-      reviewRating: {
-        "@type": "Rating",
-        ratingValue: String(t.rating),
-        bestRating: "5",
-      },
-      reviewBody: t.text,
-    })),
   };
 }
 
@@ -329,14 +308,14 @@ export function howToShopspiceJsonLd() {
     "@type": "HowTo",
     name: "How to shop spice online",
     description:
-      "Order Indian spices, and wholesale packs from SpicyCorner for international delivery in 5–7 days.",
+      "Order Indian spices, and wholesale packs from SpicyCenter for international delivery in 5–7 days.",
     totalTime: "P5D",
     step: [
       {
         "@type": "HowToStep",
         position: 1,
         name: "Browse spice collections",
-        text: "Visit SpicyCorner.com and choose Spices, Decorations, Candy & Treats, Accessories, or Spice packs.",
+        text: "Visit SpicyCenter.com and choose Spices, Decorations, Candy & Treats, Accessories, or Spice packs.",
         url: canonical("/products"),
       },
       {

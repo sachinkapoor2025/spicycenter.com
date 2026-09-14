@@ -4,7 +4,7 @@ import { formatSesError, formatSesFromAddress, SesSendError } from "./ses";
 
 describe("formatSesFromAddress", () => {
   it("formats a simple display name", () => {
-    assert.equal(formatSesFromAddress("SpicyCorner", "order@spicycorner.com"), "SpicyCorner <order@spicycorner.com>");
+    assert.equal(formatSesFromAddress("SpicyCenter", "order@spicycorner.com"), "SpicyCenter <order@spicycorner.com>");
   });
 
   it("returns bare email when name is empty", () => {
@@ -19,7 +19,7 @@ describe("formatSesFromAddress", () => {
   });
 
   it("rejects invalid from email", () => {
-    assert.throws(() => formatSesFromAddress("SpicyCorner", ""), /Invalid From email/);
+    assert.throws(() => formatSesFromAddress("SpicyCenter", ""), /Invalid From email/);
   });
 });
 

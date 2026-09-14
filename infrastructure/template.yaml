@@ -41,7 +41,7 @@ Parameters:
     Type: String
     Default: ""
     NoEcho: true
-    Description: SMTP password for order@spicycorner.com (contact & order emails)
+    Description: SMTP password for enquiry@spicycenter.com (contact, wholesale, newsletter & order emails)
   MarketingSmtpPassword:
     Type: String
     Default: ""
@@ -169,11 +169,11 @@ Globals:
         RAZORPAY_WEBHOOK_SECRET: !Ref RazorpayWebhookSecret
         CLOUDFRONT_DOMAIN: !GetAtt CloudFrontDistribution.DomainName
         SMTP_HOST: mail.spicycenter.com
-        SMTP_PORT: "465"
-        SMTP_SECURE: "true"
-        SMTP_USER: order@spicycorner.com
-        SMTP_FROM: order@spicycorner.com
-        NOTIFY_EMAIL: order@spicycorner.com,order@usarakhi.com,priya.yadav@mydgv.com
+        SMTP_PORT: "587"
+        SMTP_SECURE: "false"
+        SMTP_USER: enquiry@spicycenter.com
+        SMTP_FROM: enquiry@spicycenter.com
+        NOTIFY_EMAIL: enquiry@spicycenter.com
         SMTP_PASS: !Ref SmtpPassword
         SITE_URL: https://www.spicycenter.com
         SES_AWS_REGION: !Ref AWS::Region

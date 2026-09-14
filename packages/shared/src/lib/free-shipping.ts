@@ -165,7 +165,7 @@ export function quoteFreeShippingThreshold(input: {
   };
 }
 
-/** Default vendor bucket for catalog SKUs without `vendorSlug` (SpicyCorner). */
+/** Default vendor bucket for catalog SKUs without `vendorSlug` (SpicyCenter). */
 export const SHIPPING_VENDOR_SPICYCORNER = "spicycorner";
 
 /** Normalize cart/product vendor for per-vendor free-shipping buckets. */
@@ -251,7 +251,7 @@ function flashComboShippingQuote(
 
 /**
  * Shipping for one delivery address: evaluate tiers per vendor inside that
- * address (SpicyCorner vs Orange County, etc.), then sum.
+ * address (SpicyCenter vs Orange County, etc.), then sum.
  * Flash-combo-only buckets use a flat $1 shipping fee.
  */
 export function quoteAddressShipmentShipping(input: {

@@ -80,7 +80,7 @@ export default function AdminOrderDetailPage() {
       };
     }
     setVendorTracking(map);
-    // Keep legacy single fields in sync with SpicyCorner lane (or sole vendor).
+    // Keep legacy single fields in sync with SpicyCenter lane (or sole vendor).
     const us = rows.find((r) => r.vendorSlug === VENDOR_SPICYCORNER) ?? rows[0];
     setTrackingNumber(us?.trackingNumber ?? o.trackingNumber ?? "");
     setCarrier(us?.carrier ?? o.carrier ?? "");
@@ -396,7 +396,7 @@ export default function AdminOrderDetailPage() {
           )}
           {hasUs && (
             <span className="px-3 py-1 rounded-full text-sm font-semibold bg-slate-100 text-slate-700">
-              SpicyCorner
+              SpicyCenter
             </span>
           )}
           <span className={`px-3 py-1 rounded-full text-sm font-medium ${badgeClass(order.status)}`}>
@@ -528,7 +528,7 @@ export default function AdminOrderDetailPage() {
                         </span>
                       ) : (
                         <span className="rounded-full bg-slate-100 text-slate-700 px-2 py-0.5 text-[10px] font-semibold">
-                          SpicyCorner
+                          SpicyCenter
                         </span>
                       )}
                     </div>
@@ -811,7 +811,7 @@ export default function AdminOrderDetailPage() {
               )}
               {multiVendor && (
                 <p className="text-[11px] text-slate-500">
-                  Mixed cart: Orange County and SpicyCorner each get their own AWB. Order becomes Shipped
+                  Mixed cart: Orange County and SpicyCenter each get their own AWB. Order becomes Shipped
                   when both are filled.
                 </p>
               )}

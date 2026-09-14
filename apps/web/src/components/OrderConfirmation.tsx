@@ -293,7 +293,7 @@ export function OrderConfirmation({ order, paid }: OrderConfirmationProps) {
           <div className="mt-6 rounded-xl border border-amber-100 bg-amber-50/80 p-4 text-center">
             <p className="text-sm font-semibold text-amber-950 mb-1">Help other sisters find us</p>
             <p className="text-xs text-amber-900/90 mb-3 leading-relaxed">
-              Your review helps other shoppers choose SpicyCorner with confidence.
+              Your review helps other shoppers choose SpicyCenter with confidence.
             </p>
             <Link
               href="/reviews"
@@ -330,7 +330,7 @@ export function OrderConfirmation({ order, paid }: OrderConfirmationProps) {
             Continue shopping
           </Link>
           <a
-            href={whatsappChatUrl(`Hi SpicyCorner, I placed order #${shortOrderId}. Can you confirm dispatch timing?`)}
+            href={whatsappChatUrl(`Hi SpicyCenter, I placed order #${shortOrderId}. Can you confirm dispatch timing?`)}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center rounded-lg border-2 border-nav text-nav font-bold text-sm px-8 py-3.5 hover:bg-nav/5 transition"

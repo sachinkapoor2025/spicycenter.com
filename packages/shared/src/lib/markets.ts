@@ -31,7 +31,7 @@ export const EUROPEAN_COUNTRY_CODES = [
   "CZ",
 ] as const;
 
-export const DEFAULT_MARKET_COUNTRY = "US";
+export const DEFAULT_MARKET_COUNTRY = "GB";
 
 /** Storefront delivery is UK + listed European countries only (India is sourcing, not a shopper market). */
 export function isStorefrontDeliveryCountry(countryCode: string): boolean {
@@ -130,7 +130,7 @@ export const DEFAULT_VENDORS: VendorRecord[] = [
   {
     vendorId: VENDOR_SPICYCORNER,
     slug: VENDOR_SPICYCORNER,
-    name: "SpicyCorner",
+    name: "SpicyCenter",
     countryCode: "US",
     companyOwned: true,
     active: true,

@@ -86,7 +86,7 @@ export function ContactForm() {
         <div className="border border-slate-200 rounded-xl p-6">
           <h2 className="font-bold text-primary mb-2">WhatsApp</h2>
           <a
-            href={whatsappChatUrl("Hi SpicyCorner, I have a question about my order.")}
+            href={whatsappChatUrl("Hi SpicyCenter, I have a question about my order.")}
             target="_blank"
             rel="noopener noreferrer"
             className="text-nav hover:underline"
@@ -119,7 +119,7 @@ export function ContactForm() {
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full border border-slate-300 rounded-lg px-3 py-2"
+              className="w-full border border-slate-300 rounded-lg px-3 py-2 text-base"
               placeholder="Your name"
               required
             />
@@ -130,7 +130,7 @@ export function ContactForm() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full border border-slate-300 rounded-lg px-3 py-2"
+              className="w-full border border-slate-300 rounded-lg px-3 py-2 text-base"
               placeholder="you@email.com"
               required
             />
@@ -149,7 +149,7 @@ export function ContactForm() {
               rows={4}
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              className="w-full border border-slate-300 rounded-lg px-3 py-2"
+              className="w-full border border-slate-300 rounded-lg px-3 py-2 text-base"
               placeholder="How can we help?"
               required
             />

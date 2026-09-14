@@ -1,10 +1,10 @@
 export const site = {
-  name: "SpicyCorner",
+  name: "SpicyCenter",
   domain: "spicycenter.com",
   tagline: "Authentic Indian Spices — Retail & Bulk Supply",
   description:
-    "SpicyCorner is an Indian spice marketplace and reference site: retail packs, 10kg+ wholesale, spice knowledge, and indicative Indian market prices. Sourced from India's spice-growing regions for customers in the United Kingdom and the European Union.",
-  supportEmail: "support@spicycenter.com",
+    "SpicyCenter is an Indian spice marketplace and reference site: retail packs, 10kg+ wholesale, spice knowledge, and indicative Indian market prices. Sourced from India's spice-growing regions for customers in the United Kingdom and the European Union.",
+  supportEmail: "enquiry@spicycenter.com",
   phone: "",
   whatsapp: "919266467887",
   whatsappDisplay: "",
@@ -111,17 +111,12 @@ export const cityLinks: CityLink[] = [];
 export const homeBanners = [
   {
     src: "/images/banner-1.jpg",
-    alt: "Every spice for every kitchen — SpicyCorner kitchen counter with labelled spice jars",
+    alt: "Authentic Indian spices from our farms to your kitchen — SpicyCenter",
     href: "/spices",
   },
   {
     src: "/images/banner-2.jpg",
-    alt: "Spices for a better tomorrow — bowls of Indian spices and labelled jars",
-    href: "/spices",
-  },
-  {
-    src: "/images/banner-3.jpg",
-    alt: "Authentic Indian spices from our farms to your kitchen",
+    alt: "Spices for a better tomorrow — SpicyCenter whole and ground Indian spices",
     href: "/spices",
   },
 ] as const;
@@ -150,7 +145,7 @@ export function orderCategories<T extends { slug: string }>(categories: readonly
   return [...categories].sort((a, b) => (rank.get(a.slug) ?? 99) - (rank.get(b.slug) ?? 99));
 }
 
-export function whatsappChatUrl(message = "Hi SpicyCorner, I have a question about Indian spices."): string {
+export function whatsappChatUrl(message = "Hi SpicyCenter, I have a question about Indian spices."): string {
   return `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(message)}`;
 }
 

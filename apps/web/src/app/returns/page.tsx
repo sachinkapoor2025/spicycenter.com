@@ -5,7 +5,7 @@ import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
   title: "Returns & Satisfaction Guarantee",
-  description: `SpicyCorner returns, replacements, and satisfaction guarantee for spice orders delivered in the USA.`,
+  description: `SpicyCenter returns, replacements, and satisfaction guarantee for spice orders delivered in the USA.`,
   path: "/returns",
 });
 
@@ -27,7 +27,7 @@ export default function ReturnsPage() {
         <p>
           If your spice has not arrived within the estimated 5–7 day window, reach out on{" "}
           <a
-            href={whatsappChatUrl("Hi SpicyCorner, my order has not arrived yet.")}
+            href={whatsappChatUrl("Hi SpicyCenter, my order has not arrived yet.")}
             target="_blank"
             rel="noopener noreferrer"
             className="text-nav underline"
@@ -52,7 +52,7 @@ export default function ReturnsPage() {
           </li>
           <li>
             <a
-              href={whatsappChatUrl("Hi SpicyCorner, I need help with a return.")}
+              href={whatsappChatUrl("Hi SpicyCenter, I need help with a return.")}
               target="_blank"
               rel="noopener noreferrer"
               className="text-nav underline"

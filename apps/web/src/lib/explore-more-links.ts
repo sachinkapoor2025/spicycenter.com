@@ -15,7 +15,7 @@ const REGION_LINKS: ExploreMoreLink[] = regionLinks.map((c) => ({
   href: `/indian-spice-regions/${c.slug}`,
 }));
 
-/** Explore More link groups for SpicyCorner product pages. */
+/** Explore More link groups for SpicyCenter product pages. */
 export const EXPLORE_MORE_GROUPS: ExploreMoreGroup[] = [
   {
     heading: "Indian spice regions",

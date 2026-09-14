@@ -51,8 +51,8 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
   const params = await searchParams;
   if (params.search) {
     return pageMetadata({
-      title: `Search: ${params.search} — SpicyCorner`,
-      description: `Search results for "${params.search}" — spice products from SpicyCorner.`,
+      title: `Search: ${params.search} — SpicyCenter`,
+      description: `Search results for "${params.search}" — spice products from SpicyCenter.`,
       path: "/products",
       noIndex: true,
     });

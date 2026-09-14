@@ -59,7 +59,7 @@ export async function createRazorpayOrder(order: Order) {
     try {
       const qr = await razorpay.qrCode.create({
         type: "upi_qr",
-        name: `SpicyCorner ${order.orderId.slice(0, 8)}`,
+        name: `SpicyCenter ${order.orderId.slice(0, 8)}`,
         usage: "single_use",
         fixed_amount: true,
         payment_amount: Math.round(order.total * 100),

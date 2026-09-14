@@ -32,15 +32,14 @@ export function HomeBannerSlider({ banners }: { banners: readonly HomeBannerSlid
 
   return (
     <section
-      className="bg-[#f7f1e8] border-b border-[#eadfce]"
+      className="relative overflow-hidden border-b border-[#e6d5bc]"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       aria-label="Homepage banners"
     >
-      <div className="max-w-7xl mx-auto px-3 sm:px-4 py-4 sm:py-5">
+      <div className="relative max-w-7xl mx-auto px-2 sm:px-4 py-2 sm:py-4">
         <div className="relative">
-          {/* Keep the ChatGPT banner ratio (1024×384 = 8/3) — not a tall full-page hero */}
-          <div className="relative w-full overflow-hidden rounded-xl bg-[#1f140c] shadow-card aspect-[8/3]">
+          <div className="relative w-full overflow-hidden rounded-lg bg-[#f3eadc] shadow-card aspect-[21/7] max-h-[200px] sm:max-h-[260px] lg:max-h-[320px] mx-auto ring-1 ring-[#e6d5bc]/40">
             {banners.map((b, i) => (
               <Link
                 key={b.src}
@@ -68,7 +67,7 @@ export function HomeBannerSlider({ banners }: { banners: readonly HomeBannerSlid
               <button
                 type="button"
                 onClick={() => goTo(index - 1)}
-                className="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 z-20 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-primary shadow hover:bg-nav hover:text-white"
+                className="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 z-20 flex h-9 w-9 items-center justify-center rounded-md bg-paper/90 text-primary shadow hover:bg-nav hover:text-white"
                 aria-label="Previous banner"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
@@ -78,7 +77,7 @@ export function HomeBannerSlider({ banners }: { banners: readonly HomeBannerSlid
               <button
                 type="button"
                 onClick={() => goTo(index + 1)}
-                className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 z-20 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-primary shadow hover:bg-nav hover:text-white"
+                className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 z-20 flex h-9 w-9 items-center justify-center rounded-md bg-paper/90 text-primary shadow hover:bg-nav hover:text-white"
                 aria-label="Next banner"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>

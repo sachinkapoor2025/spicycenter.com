@@ -49,7 +49,7 @@ export default function PressPage() {
             <br />
             WhatsApp:{" "}
             <a
-              href={whatsappChatUrl("Hi SpicyCorner, media enquiry.")}
+              href={whatsappChatUrl("Hi SpicyCenter, media enquiry.")}
               target="_blank"
               rel="noopener noreferrer"
               className="text-nav underline"

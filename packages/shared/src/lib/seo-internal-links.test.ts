@@ -20,19 +20,19 @@ describe("internal link graph", () => {
 
   it("only lists quoteable countries on product pages", () => {
     const open = hrefs(getInternalLinkGroups({ type: "product", categorySlug: "whole-spices", productSlug: "cumin-seed" }));
-    assert.ok(open.includes("/countries/us"));
-    assert.equal(open.includes("/countries/fr"), false);
+    assert.ok(open.includes("/uk"));
+    assert.equal(open.includes("/countries/us"), false);
 
-    const usOnly = hrefs(
+    const ukOnly = hrefs(
       getInternalLinkGroups({
         type: "product",
         categorySlug: "whole-spices",
         productSlug: "cumin-seed",
-        availableCountryCodes: ["US"],
+        availableCountryCodes: ["GB"],
       })
     );
-    assert.ok(usOnly.includes("/countries/us"));
-    assert.equal(usOnly.includes("/countries/uk"), false);
+    assert.ok(ukOnly.includes("/uk"));
+    assert.equal(ukOnly.includes("/countries/de"), false);
   });
 
   it("picks stable city subsets so product pages do not dump every city", () => {
@@ -47,9 +47,9 @@ describe("internal link graph", () => {
     assert.ok(hrefs(groups).includes("/spices"));
   });
 
-  it("connects city pages back to the USA country page", () => {
+  it("connects city pages back to the UK hub", () => {
     const groups = getInternalLinkGroups({ type: "city", citySlug: "new-york" });
-    assert.ok(hrefs(groups).includes("/countries/us"));
+    assert.ok(hrefs(groups).includes("/uk"));
     assert.equal(hrefs(groups).includes("/cities/new-york"), false);
   });
 });

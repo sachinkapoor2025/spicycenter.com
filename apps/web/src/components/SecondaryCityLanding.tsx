@@ -16,7 +16,7 @@ export function buildSecondaryCityFaqs(city: SecondaryCity) {
     },
     {
       q: `Is there a seasonal deadline?`,
-      a: "SpicyCorner sells culinary spices year-round. There is no festival cutoff date.",
+      a: "SpicyCenter sells culinary spices year-round. There is no festival cutoff date.",
     },
   ] as const;
 }
@@ -32,7 +32,7 @@ export function SecondaryCityLanding({ city }: { city: SecondaryCity }) {
           Indian spices in {place}
         </h2>
         <p className="mb-4">
-          Shop SpicyCorner for whole spices, powders, chillies, masalas, and 10kg+ wholesale
+          Shop SpicyCenter for whole spices, powders, chillies, masalas, and 10kg+ wholesale
           with shipping to {place} when that destination is configured. Confirm the quote on each product page.
         </p>
         <p>

@@ -3,7 +3,7 @@ import { legalMeta, LegalShell } from "@/components/LegalShell";
 export const metadata = legalMeta(
   "/legal/food-information",
   "Food information",
-  "How SpicyCorner handles mandatory food information for UK and EU distance selling."
+  "How SpicyCenter handles mandatory food information for UK and EU distance selling."
 );
 
 export default function Page() {

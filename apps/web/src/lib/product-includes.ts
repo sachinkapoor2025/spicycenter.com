@@ -112,7 +112,7 @@ export function normalizeHamperIncludeLine(line: string): string[] {
 }
 
 /**
- * Customer-facing "What's included" lines for SpicyCorner product detail pages.
+ * Customer-facing "What's included" lines for SpicyCenter product detail pages.
  */
 export function getProductIncludes(product: ProductLike): string[] {
   const { description, name, categorySlug, tags, hamperContents } = product;

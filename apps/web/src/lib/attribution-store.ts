@@ -171,7 +171,7 @@ export function markChatAssistedTouch(productSlug?: string): void {
     landingPage: window.location.pathname,
     channel: "chat",
     confidence: "high",
-    confidenceReason: "Product interaction inside SpicyCorner shopping assistant",
+    confidenceReason: "Product interaction inside SpicyCenter shopping assistant",
     at: new Date().toISOString(),
   };
   const existingFirst = readJson<TrafficTouch>(FIRST_KEY) ?? undefined;

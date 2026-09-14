@@ -60,7 +60,7 @@ export function ReviewForm() {
       <div className="border border-green-200 bg-green-50 rounded-xl p-6 text-green-900">
         <p className="font-bold text-lg mb-2">Thank you for sharing!</p>
         <p className="text-sm leading-relaxed">
-          Your review was sent to the SpicyCorner owner for approval. We will contact you for permission before displaying
+          Your review was sent to the SpicyCenter owner for approval. We will contact you for permission before displaying
           it on the website.
         </p>
         <Link href="/products" className="inline-block mt-4 text-sm font-semibold text-nav hover:underline">
@@ -137,7 +137,7 @@ export function ReviewForm() {
           value={review}
           onChange={(e) => setReview(e.target.value)}
           className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm"
-          placeholder="How was delivery? Did you love your spice order? Would you recommend SpicyCorner?"
+          placeholder="How was delivery? Did you love your spice order? Would you recommend SpicyCenter?"
           required
         />
       </div>
@@ -147,7 +147,7 @@ export function ReviewForm() {
       </button>
       <p className="text-xs text-slate-500">
         Prefer WhatsApp?{" "}
-        <a href={whatsappChatUrl("Hi SpicyCorner, I'd like to share a review of my order.")} className="text-nav hover:underline">
+        <a href={whatsappChatUrl("Hi SpicyCenter, I'd like to share a review of my order.")} className="text-nav hover:underline">
           Message us with a photo
         </a>
         . We will review your submission first and ask for your permission before publishing it on {site.domain}.

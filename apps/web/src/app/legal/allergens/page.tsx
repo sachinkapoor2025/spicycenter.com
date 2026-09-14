@@ -1,6 +1,6 @@
 import { legalMeta, LegalShell } from "@/components/LegalShell";
 
-export const metadata = legalMeta("/legal/allergens", "Allergens", "Allergen information approach for SpicyCorner spices.");
+export const metadata = legalMeta("/legal/allergens", "Allergens", "Allergen information approach for SpicyCenter spices.");
 
 export default function Page() {
   return (

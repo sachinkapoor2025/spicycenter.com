@@ -36,7 +36,7 @@ export default function TermsPage() {
           </a>{" "}
           or{" "}
           <a
-            href={whatsappChatUrl("Hi SpicyCorner, I have a question about my order.")}
+            href={whatsappChatUrl("Hi SpicyCenter, I have a question about my order.")}
             target="_blank"
             rel="noopener noreferrer"
             className="text-nav underline"

@@ -113,7 +113,7 @@ async function fetchUsdRates(): Promise<{ rates: Record<DisplayCurrency, number>
 }
 
 export function CurrencyProvider({ children }: { children: ReactNode }) {
-  const [displayCurrency, setDisplayCurrencyState] = useState<DisplayCurrency>("USD");
+  const [displayCurrency, setDisplayCurrencyState] = useState<DisplayCurrency>("GBP");
   const [rates, setRates] = useState<Record<DisplayCurrency, number>>(() =>
     completeUsdRates({ INR: ENV_FALLBACK })
   );
@@ -163,6 +163,8 @@ export function CurrencyProvider({ children }: { children: ReactNode }) {
           const code = normalizeDisplayCurrency(currency);
           setDisplayCurrencyState(code);
           localStorage.setItem(STORAGE_KEY, code);
+        } else if (!saved) {
+          setDisplayCurrencyState("GBP");
         }
       } catch {
         /* keep saved or USD */

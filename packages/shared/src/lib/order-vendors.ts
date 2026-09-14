@@ -33,7 +33,7 @@ export function lineVendorKey(item: { vendorSlug?: string | null }): string {
 
 export function vendorDisplayLabel(slug: string): string {
   if (slug === VENDOR_ORANGE_COUNTY) return "Orange County";
-  if (slug === VENDOR_SPICYCORNER) return "SpicyCorner";
+  if (slug === VENDOR_SPICYCORNER) return "SpicyCenter";
   if (slug === VENDOR_CJ_DROPSHIPPING) return "CJ Dropshipping";
   if (slug === VENDOR_EPROLO) return "Eprolo";
   return slug
@@ -43,7 +43,7 @@ export function vendorDisplayLabel(slug: string): string {
     .join(" ");
 }
 
-/** Distinct fulfillment vendors present on the order (SpicyCorner implied for untagged lines). */
+/** Distinct fulfillment vendors present on the order (SpicyCenter implied for untagged lines). */
 export function orderVendorKeys(order: {
   vendorSlugs?: string[];
   items?: Array<{ vendorSlug?: string | null }>;

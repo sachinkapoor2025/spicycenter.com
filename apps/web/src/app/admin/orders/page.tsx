@@ -366,7 +366,7 @@ function AdminOrdersPageInner() {
           title="Filter by fulfillment vendor"
         >
           <option value="all">All vendors</option>
-          <option value="spicycorner">SpicyCorner</option>
+          <option value="spicycorner">SpicyCenter</option>
           {vendorOptions.map((slug) => (
             <option key={slug} value={slug}>
               {vendorFilterLabel(slug)}

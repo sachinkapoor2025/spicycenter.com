@@ -14,7 +14,7 @@ function resolvePath(relatives: string[]): string | null {
 }
 
 export function loadSpiceEntities(): SpiceEntity[] {
-  const path = resolvePath(["data/spices.json", "../../data/spices.json"]);
+  const path = resolvePath(["data/spices.json", "../../data/spices.json", "../data/spices.json"]);
   if (!path) return [];
   return JSON.parse(readFileSync(path, "utf-8")) as SpiceEntity[];
 }
@@ -25,13 +25,30 @@ export function loadMarketPrices(): MarketPrice[] {
   return JSON.parse(readFileSync(path, "utf-8")) as MarketPrice[];
 }
 
+export function hasImportedMarketPrice(price: MarketPrice): boolean {
+  return [price.averagePrice, price.minPrice, price.maxPrice].some(
+    (value) => typeof value === "number" && Number.isFinite(value)
+  );
+}
+
+export function loadImportedMarketPrices(): MarketPrice[] {
+  return loadMarketPrices().filter(hasImportedMarketPrice);
+}
+
 export function loadSpiceCatalogFile(): { categories: Category[]; products: Product[] } {
   const path = resolvePath([
+    "data/products.json",
+    "../../data/products.json",
+    "../data/products.json",
     "scripts/data/spicycenter-catalog.json",
     "../../scripts/data/spicycenter-catalog.json",
   ]);
   if (!path) return { categories: [], products: [] };
-  return JSON.parse(readFileSync(path, "utf-8"));
+  const parsed = JSON.parse(readFileSync(path, "utf-8"));
+  if (Array.isArray(parsed)) {
+    return { categories: [], products: parsed as Product[] };
+  }
+  return parsed as { categories: Category[]; products: Product[] };
 }
 
 export function getSpiceBySlug(slug: string): SpiceEntity | undefined {

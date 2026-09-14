@@ -484,7 +484,7 @@ export default function AdminCjDropshippingPage() {
           <p className="text-xs text-slate-500 mb-3">
             {totalRecords
               ? `${totalRecords} results · page ${page} of ${totalPages} · ${CATALOG_PAGE_SIZE} per page · ${selectedPids.length} selected (already-imported skipped)`
-              : "Search the CJ catalog, then import into SpicyCorner."}
+              : "Search the CJ catalog, then import into SpicyCenter."}
           </p>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3">
             {visibleProducts.map((p) => {
@@ -690,7 +690,7 @@ export default function AdminCjDropshippingPage() {
       {tab === "pricing" && (
         <section className="space-y-4">
           <p className="text-sm text-slate-600">
-            What CJ charges you (wholesale) versus what customers pay on SpicyCorner. Sale price is{" "}
+            What CJ charges you (wholesale) versus what customers pay on SpicyCenter. Sale price is{" "}
             {ORANGE_COUNTY_SALE_MARKUP}× CJ cost (~50% product margin). List/compare-at is {ORANGE_COUNTY_LIST_MARKUP}×.
             Shipping is extra.
           </p>
@@ -768,7 +768,7 @@ export default function AdminCjDropshippingPage() {
         <section className="space-y-4">
           <div className="flex flex-wrap gap-2 items-end">
             <label className="text-sm">
-              SpicyCorner order ID
+              SpicyCenter order ID
               <input
                 value={fulfillOrderId}
                 onChange={(e) => setFulfillOrderId(e.target.value)}

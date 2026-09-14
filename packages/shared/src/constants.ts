@@ -116,11 +116,11 @@ export const ORANGE_COUNTY_PRODUCT_INVENTORY = 500;
 
 /**
  * Backend-only vendor key for hamper fulfillment API / order tagging.
- * Internal vendor stub — not shown on the SpicyCorner storefront.
+ * Internal vendor stub — not shown on the SpicyCenter storefront.
  */
 export const VENDOR_ORANGE_COUNTY = "orange-county" as const;
 
-/** Default SpicyCorner fulfillment key (catalog lines without product.vendorSlug). */
+/** Default SpicyCenter fulfillment key (catalog lines without product.vendorSlug). */
 export const VENDOR_SPICYCORNER = "spicycorner" as const;
 
 /** CJ Dropshipping catalog + fulfillment vendor. */
@@ -129,7 +129,7 @@ export const VENDOR_CJ_DROPSHIPPING = "cj-dropshipping" as const;
 /** Eprolo dropshipping catalog + fulfillment vendor. */
 export const VENDOR_EPROLO = "eprolo" as const;
 
-/** Internal OC category slug stub (not used on SpicyCorner storefront). */
+/** Internal OC category slug stub (not used on SpicyCenter storefront). */
 export const ORANGE_COUNTY_CATEGORY_SLUG = "rakhi-hampers" as const;
 
 /** Curated spice gift hampers (fixed-price bundles). */

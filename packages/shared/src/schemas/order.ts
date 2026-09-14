@@ -37,7 +37,7 @@ export const shippingAddressSchema = z.object({
 });
 
 export const DEFAULT_SENDER_MESSAGE =
-  "Thank you for your SpicyCorner order — Indian spices packed for cooking.";
+  "Thank you for your SpicyCenter order — Indian spices packed for cooking.";
 
 export const checkoutShippingAddressSchema = shippingAddressSchema;
 
@@ -121,7 +121,7 @@ export const orderSchema = z.object({
   /**
    * Human-readable order number for staff, customers, and vendors.
    * Orange County fulfill orders: OC10001…
-   * All other SpicyCorner orders: HW10001… (legacy orders may still be US10001…).
+   * All other SpicyCenter orders: HW10001… (legacy orders may still be US10001…).
    */
   orderNumber: z.string().optional(),
   userId: z.string().optional(),
@@ -149,7 +149,7 @@ export const orderSchema = z.object({
   trackingNumber: z.string().optional(),
   carrier: z.string().optional(),
   /**
-   * Per-vendor fulfillment (tracking) for mixed Orange County + SpicyCorner carts.
+   * Per-vendor fulfillment (tracking) for mixed Orange County + SpicyCenter carts.
    * Legacy single-vendor orders may only have top-level trackingNumber/carrier.
    */
   vendorFulfillments: z
@@ -226,7 +226,7 @@ export const orderStatusUpdateSchema = z.object({
   status: orderStatusEnum.optional(),
   trackingNumber: z.string().optional(),
   carrier: z.string().optional(),
-  /** Upsert per-vendor tracking (mixed OC + SpicyCorner orders). */
+  /** Upsert per-vendor tracking (mixed OC + SpicyCenter orders). */
   vendorFulfillments: z
     .array(
       z.object({

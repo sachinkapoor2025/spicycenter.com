@@ -31,7 +31,7 @@ export const SES_TIMEZONES = [
 ] as const;
 
 export const DEFAULT_SENDER_MESSAGE_FOOTER = {
-  companyName: "SpicyCorner / Divit Global Ventures",
+  companyName: "SpicyCenter / Divit Global Ventures",
   companyAddress: "California, United States",
   contactEmail: "order@spicycorner.com",
   privacyUrl: "https://www.spicycenter.com/privacy",
@@ -169,7 +169,7 @@ export function resolveSesTemplateHtml(input: {
 
 export const sesSettingsSchema = z.object({
   awsRegion: z.string().min(2).max(40).default("us-east-1"),
-  defaultSenderName: z.string().min(1).max(80).default("SpicyCorner"),
+  defaultSenderName: z.string().min(1).max(80).default("SpicyCenter"),
   defaultSenderEmail: z.string().email().default("order@spicycorner.com"),
   defaultReplyTo: z.string().email().default("order@spicycorner.com"),
   dailyLimit: z.number().int().min(1).max(200_000).default(50_000),

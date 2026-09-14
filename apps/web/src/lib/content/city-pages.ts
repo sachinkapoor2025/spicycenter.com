@@ -54,7 +54,7 @@ function spiceCityContent(loc: SeoLocation): CityPageContent {
     headline: h1,
     metaExtra: description,
     intro: [
-      `Getting ready for spice in ${place}? SpicyCorner offers spices, decorations, spice packs, and novelty items with shopping pages for ${label}. Confirm delivery on each product — we do not assume every SKU ships to every address.`,
+      `Getting ready for spice in ${place}? SpicyCenter offers spices, decorations, spice packs, and novelty items with shopping pages for ${label}. Confirm delivery on each product — we do not assume every SKU ships to every address.`,
       seasonalNote,
       `Order from the catalog and enter your ${place} delivery address at checkout. Transit time comes from the product shipping quote, not a blanket nationwide SLA.`,
     ],
@@ -70,7 +70,7 @@ function spiceCityContent(loc: SeoLocation): CityPageContent {
       items: areas,
     },
     whyUs: {
-      heading: `Why ${label} Shoppers Choose SpicyCorner`,
+      heading: `Why ${label} Shoppers Choose SpicyCenter`,
       bullets: [
         "Check the product shipping quote for your destination",
         "Spices, decor, spice packs, and novelty in one store",
@@ -96,7 +96,7 @@ function spiceCityContent(loc: SeoLocation): CityPageContent {
       },
       {
         q: "Can I order from outside the USA?",
-        a: `Yes. Order on SpicyCorner.com, enter the ${place} delivery address, and pay in USD or INR. Confirm shipping on the product page.`,
+        a: `Yes. Order on SpicyCenter.com, enter the ${place} delivery address, and pay in USD or INR. Confirm shipping on the product page.`,
       },
       {
         q: `What should I know about spice in ${label}?`,

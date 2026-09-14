@@ -8,7 +8,7 @@ import { ensureStarterEmailTemplates } from "@/lib/ensure-starter-email-template
 import { SES_TIMEZONES, type SesCampaign, type SesTemplate } from "@spicycorner/shared";
 
 const DEFAULT_HTML =
-  `<h1>Hello {{name}}</h1><p>A note from SpicyCorner for {{company}}.</p><p><a href="https://www.spicycenter.com/products">Shop spices</a></p>`;
+  `<h1>Hello {{name}}</h1><p>A note from SpicyCenter for {{company}}.</p><p><a href="https://www.spicycenter.com/products">Shop spices</a></p>`;
 
 function ComposeInner() {
   const api = useApiClient();
@@ -18,7 +18,7 @@ function ComposeInner() {
 
   const [name, setName] = useState("");
   const [subject, setSubject] = useState("");
-  const [senderName, setSenderName] = useState("SpicyCorner");
+  const [senderName, setSenderName] = useState("SpicyCenter");
   const [senderEmail, setSenderEmail] = useState("email@spicycorner.com");
   const [replyTo, setReplyTo] = useState("email@spicycorner.com");
   const [htmlBody, setHtmlBody] = useState(DEFAULT_HTML);

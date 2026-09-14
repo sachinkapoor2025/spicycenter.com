@@ -1,5 +1,5 @@
 /**
- * Storefront category URLs for SpicyCorner.
+ * Storefront category URLs for SpicyCenter.
  * Uses `/categories/{slug}` — no usarakhi SEO path mapping.
  */
 import { categoryOrder } from "@/lib/site";

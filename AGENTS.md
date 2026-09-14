@@ -1,8 +1,8 @@
-# AGENTS.md — SpicyCorner / spicycenter.com
+# AGENTS.md — SpicyCenter / spicycenter.com
 
 Read `docs/ARCHITECTURE_AUDIT.md` before large changes.
 
-This is SpicyCorner infrastructure rebranded to **SpicyCorner** on domain **spicycenter.com**.
+This is SpicyCenter infrastructure on domain **spicycenter.com**. Storefront brand name is **SpicyCenter**.
 
 Keep: auth, admin, cart, checkout, orders, payments, SEO helpers, image pipeline.
 

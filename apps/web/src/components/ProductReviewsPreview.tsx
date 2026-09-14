@@ -43,7 +43,7 @@ export function ProductReviewsPreview() {
         ))}
       </ul>
       <p className="text-xs text-slate-500">
-        Real experiences from SpicyCorner customers.{" "}
+        Real experiences from SpicyCenter customers.{" "}
         <Link href="/reviews" className="text-nav font-semibold hover:underline">
           Write a review after delivery →
         </Link>

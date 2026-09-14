@@ -56,21 +56,24 @@ export function CountrySelector({ compact = false }: { compact?: boolean }) {
         onClick={() => setOpen((v) => !v)}
         className={
           compact
-            ? "flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-2.5 py-1 text-[11px] font-semibold text-slate-700 hover:border-nav"
-            : "flex items-center gap-2 rounded-full border border-slate-200 bg-orange-50 px-3 py-1.5 text-xs font-semibold text-slate-800 hover:border-nav"
+            ? "flex items-center justify-center rounded-md border border-[#e6d5bc] bg-paper h-9 w-9 text-base hover:border-nav"
+            : "flex items-center gap-2 rounded-md border border-[#e6d5bc] bg-paper px-3 py-1.5 text-xs font-semibold text-primary hover:border-nav"
         }
+        aria-label="Change delivery country"
         aria-expanded={open}
         aria-haspopup="dialog"
         aria-busy={loading}
       >
-        <span className="truncate max-w-[220px] sm:max-w-[280px]">
+        <span className={compact ? "" : "truncate max-w-[min(46vw,220px)] sm:max-w-[280px]"}>
           {compact
             ? loading
               ? "…"
               : (market?.flagEmoji ?? "🌍")
             : `Delivering to: ${label}`}
         </span>
-        <span className="text-[10px] uppercase tracking-wide text-nav">Change</span>
+        {!compact && (
+          <span className="text-[10px] uppercase tracking-wide text-nav">Change</span>
+        )}
       </button>
 
       {open && (
@@ -79,7 +82,7 @@ export function CountrySelector({ compact = false }: { compact?: boolean }) {
           <div
             role="dialog"
             aria-label="Change delivery country"
-            className="absolute right-0 z-50 mt-2 w-[min(92vw,360px)] rounded-xl border border-slate-200 bg-white p-4 shadow-xl"
+            className="absolute right-0 z-50 mt-2 w-[min(calc(100vw-1.5rem),360px)] max-w-[calc(100vw-1.5rem)] rounded-xl border border-[#e6d5bc] bg-paper p-4 shadow-xl"
           >
             <p className="text-sm font-bold text-primary mb-3">Change country / delivery location</p>
             <label className="block text-xs font-semibold text-slate-500 mb-1">Country</label>

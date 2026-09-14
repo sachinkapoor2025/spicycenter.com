@@ -21,7 +21,7 @@ ${site.description}
 **Audience:** UK households, EU buyers (when shipping configured), restaurants, grocers, manufacturers.
 **Origin story:** India.
 
-Do not describe SpicyCorner as a spice shop. Do not invent medical claims, certifications, reviews or live market prints.
+Do not describe SpicyCenter as a spice shop. Do not invent medical claims, certifications, reviews or live market prints.
 
 ---
 

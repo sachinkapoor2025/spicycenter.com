@@ -21,7 +21,7 @@ function downloadSalesExcel(period: SalesPeriodReport) {
   downloadCsv(
     `spicycorner-sales-${period.period}-${new Date().toISOString().slice(0, 10)}.csv`,
     [
-      ["SpicyCorner Sales Report"],
+      ["SpicyCenter Sales Report"],
       ["Period", period.label],
       ["From", period.from],
       ["To", period.to],
@@ -59,7 +59,7 @@ function downloadSalesExcel(period: SalesPeriodReport) {
 function SalesReportPrintView({ period }: { period: SalesPeriodReport }) {
   return (
     <div className="p-8 text-sm text-black bg-white">
-      <p className="text-2xl font-bold mb-1">SpicyCorner — Sales Report</p>
+      <p className="text-2xl font-bold mb-1">SpicyCenter — Sales Report</p>
       <p className="text-slate-600 mb-4">{period.label}</p>
       <p className="text-xs text-slate-500 mb-6">
         {new Date(period.from).toLocaleString()} — {new Date(period.to).toLocaleString()}

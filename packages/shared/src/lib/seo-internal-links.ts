@@ -39,34 +39,32 @@ export const SEO_CATEGORY_LINKS: readonly SeoLink[] = [
 ];
 
 /** Countries we can quote CJ freight for — never market unquoted destinations as shippable. */
+/** Countries this storefront actually quotes — United Kingdom and listed Europe. */
 export const VERIFIED_COUNTRY_LINKS: readonly (SeoLink & { slug: string; code: string; name: string })[] = [
-  { slug: "us", code: "US", href: "/countries/us", label: "spice in the USA", name: "United States" },
-  { slug: "uk", code: "GB", href: "/countries/uk", label: "spice in the UK", name: "United Kingdom" },
-  { slug: "ca", code: "CA", href: "/countries/ca", label: "spice in Canada", name: "Canada" },
-  { slug: "au", code: "AU", href: "/countries/au", label: "spice in Australia", name: "Australia" },
-  { slug: "de", code: "DE", href: "/countries/de", label: "spice in Germany", name: "Germany" },
+  { slug: "uk", code: "GB", href: "/uk", label: "Indian spices UK", name: "United Kingdom" },
+  { slug: "de", code: "DE", href: "/countries/de", label: "Indian spices Germany", name: "Germany" },
+  { slug: "fr", code: "FR", href: "/countries/fr", label: "Indian spices France", name: "France" },
+  { slug: "ie", code: "IE", href: "/countries/ie", label: "Indian spices Ireland", name: "Ireland" },
+  { slug: "nl", code: "NL", href: "/countries/nl", label: "Indian spices Netherlands", name: "Netherlands" },
+  { slug: "be", code: "BE", href: "/countries/be", label: "Indian spices Belgium", name: "Belgium" },
+  { slug: "es", code: "ES", href: "/countries/es", label: "Indian spices Spain", name: "Spain" },
+  { slug: "it", code: "IT", href: "/countries/it", label: "Indian spices Italy", name: "Italy" },
 ];
 
 /** High-value US metros/states already live at /cities/{slug}. */
 export const PRIORITY_CITY_LINKS: readonly SeoLink[] = [
-  { href: "/cities/new-york", label: "spice in New York" },
-  { href: "/cities/los-angeles", label: "spice in Los Angeles" },
-  { href: "/cities/chicago", label: "spice in Chicago" },
-  { href: "/cities/houston", label: "spice in Houston" },
-  { href: "/cities/miami", label: "spice in Miami" },
-  { href: "/cities/dallas", label: "spice in Dallas" },
-  { href: "/cities/seattle", label: "spice in Seattle" },
-  { href: "/cities/boston", label: "spice in Boston" },
-  { href: "/cities/california", label: "spice in California" },
-  { href: "/cities/texas", label: "spice in Texas" },
+  { href: "/uk", label: "Indian spices for the UK" },
+  { href: "/eu", label: "Indian spices for Europe" },
+  { href: "/wholesale", label: "Wholesale Indian spices" },
+  { href: "/spice-supplier", label: "Indian spice supplier" },
 ];
 
 export const PLANNING_LINKS: readonly SeoLink[] = [
-  { href: "/spices", label: "spice by location" },
-  { href: "/spice-guide", label: "spice planning guide" },
-  { href: "/spice-guide/events", label: "spice events guide" },
-  { href: "/blog", label: "spice blog" },
-  { href: "/shipping", label: "Shipping & delivery" },
+  { href: "/spices", label: "Shop Indian spices" },
+  { href: "/spice-guide", label: "Indian spice encyclopaedia" },
+  { href: "/recipes", label: "Spice recipes" },
+  { href: "/blog", label: "Spice notes" },
+  { href: "/legal/shipping", label: "Shipping & delivery" },
 ];
 
 export const FEATURED_BLOG_LINKS: readonly SeoLink[] = [
@@ -215,31 +213,28 @@ export function getInternalLinkGroups(page: InternalLinkPage): SeoLinkGroup[] {
         )
       );
       push(group("Delivery destinations", countryLinksForProduct(page.availableCountryCodes), current, 4));
-      push(group("spice near you", pickStable(PRIORITY_CITY_LINKS, page.productSlug, 4), current, 4));
+      push(group("UK & Europe hubs", pickStable(PRIORITY_CITY_LINKS, page.productSlug, 4), current, 4));
       push(planning);
       break;
     }
     case "country": {
       push(shop);
-      if (page.countrySlug === "us") push(cities);
       push(group("Other countries", VERIFIED_COUNTRY_LINKS, current, 4));
       push(planning);
       push(articles);
       break;
     }
     case "city": {
-      push(group("United States", [{ href: "/countries/us", label: "spice in the USA" }], current, 1));
+      push(group("UK & Europe", VERIFIED_COUNTRY_LINKS, current, 4));
       push(shop);
-      push(group("Nearby & popular cities", pickStable(PRIORITY_CITY_LINKS, page.citySlug, 5), current, 5));
       push(planning);
       break;
     }
     case "guide":
       push(shop);
       push(markets);
-      push(cities);
       push(articles);
-      push(group("More", [{ href: "/spice-guide/events", label: "spice events guide" }], current, 1));
+      push(group("More", [{ href: "/recipes", label: "Spice recipes" }, { href: "/wholesale", label: "Wholesale" }], current, 2));
       break;
     case "events":
       push(shop);

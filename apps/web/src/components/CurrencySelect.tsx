@@ -21,7 +21,7 @@ export function CurrencySelect({
         className={className}
         placement="header"
         triggerLabel={selected?.code ?? displayCurrency}
-        triggerClassName="inline-flex items-center rounded-full border border-slate-200 bg-white px-2 py-1 text-[11px] sm:text-xs font-bold text-slate-800 hover:border-nav focus:outline-none focus:ring-2 focus:ring-accent"
+          triggerClassName="inline-flex items-center rounded-md border border-[#e6d5bc] bg-paper px-2 py-1 text-[11px] sm:text-xs font-bold text-primary hover:border-nav focus:outline-none focus:ring-2 focus:ring-accent"
       />
     );
   }

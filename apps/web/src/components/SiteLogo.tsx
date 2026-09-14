@@ -11,8 +11,8 @@ export function SiteLogo({
   priority?: boolean;
   className?: string;
 }) {
-  const height = size === "desktop" ? 56 : 44;
-  const width = size === "desktop" ? 200 : 156;
+  const height = size === "desktop" ? 48 : 36;
+  const width = size === "desktop" ? 180 : 140;
   return (
     <span className={`inline-flex items-center ${className}`.trim()}>
       <Image
@@ -20,7 +20,7 @@ export function SiteLogo({
         alt={site.name}
         width={width}
         height={height}
-        className="h-11 md:h-14 w-auto max-w-[200px] object-contain object-left"
+        className="h-9 md:h-12 w-auto max-w-[140px] md:max-w-[180px] object-contain object-left"
         priority={priority}
       />
     </span>

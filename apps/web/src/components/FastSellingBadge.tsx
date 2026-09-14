@@ -21,7 +21,7 @@ export function FastSellingBanner({ unitsSold }: { unitsSold: number }) {
       <div>
         <p className="font-bold text-orange-900 text-sm">Fast Selling — {unitsSold}+ sisters chose this!</p>
         <p className="text-xs text-orange-800/90 mt-0.5 leading-relaxed">
-          This item is trending on SpicyCorner. {FAST_SELLING_THRESHOLD}+ sold — order soon while stock lasts.
+          This item is trending on SpicyCenter. {FAST_SELLING_THRESHOLD}+ sold — order soon while stock lasts.
         </p>
       </div>
     </div>

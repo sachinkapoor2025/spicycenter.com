@@ -43,7 +43,7 @@ export const categoryContent: Record<string, CategoryContent> = {
   },
   spices: {
     extraParagraphs: [
-      "SpicyCorner sells Indian spices for retail and wholesale. Browse whole spices, ground spices, chillies, masalas, and bulk packs.",
+      "SpicyCenter sells Indian spices for retail and wholesale. Browse whole spices, ground spices, chillies, masalas, and bulk packs.",
     ],
   },
 };

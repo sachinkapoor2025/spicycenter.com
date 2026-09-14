@@ -60,18 +60,18 @@ const CDN_FB = `${SITE}/email-templates/icons/facebook.png`;
 const CDN_IG = `${SITE}/email-templates/icons/instagram.png`;
 
 export const DEFAULT_PREMIUM_MARKETING_EMAIL_CONTENT: MarketingEmailContent = {
-  preheader: "Indian spices for retail and 10kg+ wholesale — SpicyCorner.",
+  preheader: "Indian spices for retail and 10kg+ wholesale — SpicyCenter.",
   logoUrl: `${SITE}/logo.png`,
   logoHref: SITE,
-  logoAlt: "SpicyCorner — Indian spices",
+  logoAlt: "SpicyCenter — Indian spices",
   heroImageUrl: `${SITE}/banners/bannerpage1.png`,
-  heroImageAlt: "Indian spices from SpicyCorner",
+  heroImageAlt: "Indian spices from SpicyCenter",
   heroImageHref: `${SITE}/products`,
   heroOverlayTitle: "Indian spices",
   heroOverlaySubtitle: "Whole · Ground · Chillies · Masalas · Bulk from 10kg",
   heroButtonText: "Shop spices",
   heroButtonHref: `${SITE}/products`,
-  heading: "SpicyCorner Indian spices",
+  heading: "SpicyCenter Indian spices",
   description:
     "Retail packs and wholesale from 10kg. Confirm shipping on the product page. Indicative market prices are not invoice prices.",
   categoriesHeading: "Featured Categories",
@@ -107,7 +107,7 @@ export const DEFAULT_PREMIUM_MARKETING_EMAIL_CONTENT: MarketingEmailContent = {
     },
   ],
   promiseHeading: "Our Promise",
-  promiseSubheading: "Why kitchens order from SpicyCorner.",
+  promiseSubheading: "Why kitchens order from SpicyCenter.",
   promises: [
     { icon: "🇬🇧", title: "UK-focused shipping", description: "Configurable per-kg UK rates. Confirm on the product page." },
     { icon: "📦", title: "Retail and bulk", description: "100g–5kg retail and 10kg+ wholesale." },
@@ -129,7 +129,7 @@ export const DEFAULT_PREMIUM_MARKETING_EMAIL_CONTENT: MarketingEmailContent = {
   facebookIconUrl: CDN_FB,
   instagramUrl: "https://www.instagram.com/spicycorner/",
   instagramIconUrl: CDN_IG,
-  copyrightText: "© 2026 SpicyCorner. All Rights Reserved.",
+  copyrightText: "© 2026 SpicyCenter. All Rights Reserved.",
   unsubscribeLabel: "Unsubscribe",
 };
 
@@ -212,7 +212,7 @@ function categoriesGrid(categories: MarketingEmailCategory[]): string {
   while (cats.length < 4) {
     cats.push({
       name: "Shop All",
-      description: "Browse the full SpicyCorner collection.",
+      description: "Browse the full SpicyCenter collection.",
       imageUrl: `${SITE}/logo.png`,
       href: `${SITE}/products`,
       buttonText: "Shop Now",
@@ -299,7 +299,7 @@ export function buildPremiumMarketingEmailHtml(content: MarketingEmailContent): 
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="x-apple-disable-message-reformatting" />
   <meta name="format-detection" content="telephone=no,address=no,email=no,date=no,url=no" />
-  <title>${title} | SpicyCorner</title>
+  <title>${title} | SpicyCenter</title>
   <!--[if mso]>
   <noscript>
     <xml>

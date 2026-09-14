@@ -88,7 +88,7 @@ export default function TemplatesPage() {
   const startPremiumTemplate = () => {
     setSelectedId(null);
     setName("Premium spices (Editable)");
-    setSubject("Indian spices from SpicyCorner");
+    setSubject("Indian spices from SpicyCenter");
     setLayout(PREMIUM_MARKETING_EMAIL_LAYOUT);
     setContentFields(structuredClone(DEFAULT_PREMIUM_MARKETING_EMAIL_CONTENT));
     setHtmlBody(buildPremiumMarketingEmailHtml(DEFAULT_PREMIUM_MARKETING_EMAIL_CONTENT));

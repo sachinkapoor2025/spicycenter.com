@@ -5,6 +5,7 @@ import { categoryOrder } from "@/lib/site";
 import { blogPosts } from "@/lib/content/blog-posts";
 import { allSeoLocationSlugs, seoBlogEntries, seoEventsHub } from "@/lib/content/seo-data";
 import { allCountrySeoSlugs } from "@/lib/content/country-pages";
+import { loadSpiceEntities } from "@/lib/spice-data";
 import { indexableGeoPaths } from "@/lib/content/geo";
 
 function sitemapDate(value?: string): Date {
@@ -49,7 +50,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: siteUrl, lastModified: now, changeFrequency: "daily", priority: 1 },
     { url: `${siteUrl}/products`, lastModified: now, changeFrequency: "daily", priority: 0.9 },
     { url: `${siteUrl}/spices`, lastModified: now, changeFrequency: "daily", priority: 0.95 },
-    { url: `${siteUrl}/wholesale`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
+    { url: `${siteUrl}/spice-supplier`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
+    { url: `${siteUrl}/wholesale/uk`, lastModified: now, changeFrequency: "weekly", priority: 0.85 },
+    { url: `${siteUrl}/wholesale/restaurants`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${siteUrl}/legal/food-information`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${siteUrl}/legal/allergens`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${siteUrl}/spice-guide`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
     { url: `${siteUrl}/spice-market-prices`, lastModified: now, changeFrequency: "daily", priority: 0.85 },
     { url: `${siteUrl}/spice-finder`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
@@ -108,6 +113,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const blogRoutes = mergedBlogRoutes();
 
+  const spiceGuideRoutes = loadSpiceEntities().map((s) => ({
+    url: `${siteUrl}/spice-guide/${s.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.8,
+  }));
+  const spiceShopRoutes = loadSpiceEntities().map((s) => ({
+    url: `${siteUrl}/spices/${s.slug}`,
+    lastModified: now,
+    changeFrequency: "weekly" as const,
+    priority: 0.85,
+  }));
+
   const products = await loadStorefrontProducts();
   const productRoutes = products.map((p) => ({
     url: `${siteUrl}/products/${p.slug}`,
@@ -122,6 +140,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...countryRoutes,
     ...cityRoutes,
     ...spiceRoutes,
+    ...spiceGuideRoutes,
+    ...spiceShopRoutes,
     ...blogRoutes,
     ...productRoutes,
   ];

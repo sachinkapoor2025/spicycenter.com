@@ -24,7 +24,7 @@ export const countrySeoPages: CountrySeoPage[] = [
     name: "United States",
     hreflang: "en-US",
     locale: "en_US",
-    title: "spice Spices USA | Shop Online for US Delivery",
+    title: "Indian spices USA | Shop Online for US Delivery",
     description:
       "Buy Indian spices, and wholesale packs online for the USA. Check each product’s shipping quote for delivery to your ZIP code.",
     h1: "Indian spices online in the USA",
@@ -66,7 +66,7 @@ export const countrySeoPages: CountrySeoPage[] = [
     name: "United Kingdom",
     hreflang: "en-GB",
     locale: "en_GB",
-    title: "spice Spices UK | Shop Online for UK Delivery",
+    title: "Indian spices UK | Shop Online for UK Delivery",
     description:
       "Buy Indian spices online in the UK. Check each product’s shipping quote for delivery to your postcode — availability depends on the item.",
     h1: "Indian spices online in the UK",
@@ -108,13 +108,13 @@ export const countrySeoPages: CountrySeoPage[] = [
     name: "Canada",
     hreflang: "en-CA",
     locale: "en_CA",
-    title: "spice Spices Canada | Shop Online for Canadian Delivery",
+    title: "Indian spices Canada | Shop Online for Canadian Delivery",
     description:
-      "Shop Indian spices online in Canada. Enter your postal code to check SpicyCorner delivery and fulfilment options.",
+      "Shop Indian spices online in Canada. Enter your postal code to check SpicyCenter delivery and fulfilment options.",
     h1: "Indian spices online in Canada",
     keywords: ["Indian spices Canada", "Indian spices online Canada"],
     intro:
-      "Canadian shoppers can browse the same SpicyCorner catalogue and enter a postal code to confirm whether we can deliver to their address.",
+      "Canadian shoppers can browse the same SpicyCenter catalogue and enter a postal code to confirm whether we can deliver to their address.",
     fulfillment:
       "Canada-bound catalog items use international dropshipping partners. Storefront freight quotes are available for CA on product pages when the method is offered.",
     postalLabel: "postal code",
@@ -137,9 +137,9 @@ export const countrySeoPages: CountrySeoPage[] = [
     name: "Australia",
     hreflang: "en-AU",
     locale: "en_AU",
-    title: "spice Spices Australia | Shop Online for AU Delivery",
+    title: "Indian spices Australia | Shop Online for AU Delivery",
     description:
-      "Buy Indian spices online in Australia. Check your postcode for SpicyCorner delivery estimates.",
+      "Buy Indian spices online in Australia. Check your postcode for SpicyCenter delivery estimates.",
     h1: "Indian spices online in Australia",
     keywords: ["Indian spices Australia", "Indian spices online Australia"],
     intro:
@@ -166,9 +166,9 @@ export const countrySeoPages: CountrySeoPage[] = [
     name: "India",
     hreflang: "en-IN",
     locale: "en_IN",
-    title: "spice Spices India | Shop Online for India Delivery",
+    title: "Indian spices India | Shop Online for India Delivery",
     description:
-      "Buy Indian spices online in India. SpicyCorner prefers our Punjab warehouse and INR checkout when you select India.",
+      "Buy Indian spices online in India. SpicyCenter prefers our Punjab warehouse and INR checkout when you select India.",
     h1: "Indian spices online in India",
     keywords: ["Indian spices India", "Indian spices online India"],
     intro:
@@ -195,7 +195,7 @@ export const countrySeoPages: CountrySeoPage[] = [
     name: "United Arab Emirates",
     hreflang: "en-AE",
     locale: "en_AE",
-    title: "spice Spices UAE | Dubai & Abu Dhabi Delivery",
+    title: "Indian spices UAE | Dubai & Abu Dhabi Delivery",
     description:
       "Shop Indian spices online in the UAE, including Dubai and Abu Dhabi. Confirm delivery with your address details at checkout.",
     h1: "Indian spices online in the UAE",
@@ -224,9 +224,9 @@ export const countrySeoPages: CountrySeoPage[] = [
     name: "Germany",
     hreflang: "de-DE",
     locale: "en_DE",
-    title: "spice Spices Germany | Online Delivery",
+    title: "Indian spices Germany | Online Delivery",
     description:
-      "Buy Indian spices online in Germany. SpicyCorner prefers UK/EU warehouse fulfilment when inventory allows.",
+      "Buy Indian spices online in Germany. SpicyCenter prefers UK/EU warehouse fulfilment when inventory allows.",
     h1: "Indian spices online in Germany",
     keywords: ["Indian spices Germany", "Indian spices online Germany"],
     intro:
@@ -250,27 +250,35 @@ export const countrySeoPages: CountrySeoPage[] = [
     slug: "fr",
     countryCode: "FR",
     name: "France",
-    hreflang: "fr-FR",
+    hreflang: "en-GB",
     locale: "en_FR",
-    title: "spice Spices France | Online Delivery",
+    title: "Indian spices France | Online delivery",
     description:
       "Shop Indian spices online in France with postcode serviceability and UK-warehouse preference when stock allows.",
     h1: "Indian spices online in France",
     keywords: ["Indian spices France", "Indian spices online France"],
     intro:
-      "spice is growing in France for parties and kids’ events. Choose France in the header so we do not treat Europe as a single country.",
-    fulfillment: "France is in the UK warehouse European service area when that warehouse is active.",
+      "Order Indian spices for delivery in France. Choose France in the header and enter a code postal so we do not treat Europe as a single country. English-language page — we do not pretend this is a fully French-language site.",
+    fulfillment: "France is a quoted European destination when the shipping panel on the product page returns a method. We do not claim a warehouse in every French city.",
     postalLabel: "code postal",
     sections: [
       {
         heading: "Delivery in France",
-        body: "Enter a French postal code before checkout. If UK stock cannot cover the item, we show international shipping instead of hiding the product without explanation.",
+        body: "Enter a French postal code before checkout. Confirm VAT, duty and transit on the quote. Food labelling for distance selling is documented on our food-information pages.",
+      },
+      {
+        heading: "Wholesale",
+        body: "Restaurants, grocers and importers in France can request 10kg+ lots via the wholesale form.",
       },
     ],
     faqs: [
       {
-        q: "Livrez-vous des spices d’spice en France?",
-        a: "Select France, enter your code postal, and we confirm warehouse eligibility before payment.",
+        q: "Do you ship Indian spices to France?",
+        a: "Select France, enter your code postal, and confirm the product-page shipping quote before payment. A successful quote is the only confirmation that a method is available.",
+      },
+      {
+        q: "Can restaurants order bulk spices to France?",
+        a: "Yes — wholesale starts at 10kg. Use the wholesale quote form and set the destination country to France.",
       },
     ],
   },
@@ -278,11 +286,11 @@ export const countrySeoPages: CountrySeoPage[] = [
     slug: "es",
     countryCode: "ES",
     name: "Spain",
-    hreflang: "es-ES",
+    hreflang: "en-GB",
     locale: "en_ES",
-    title: "spice Spices Spain | Online Delivery",
+    title: "Indian spices Spain | Online Delivery",
     description:
-      "Buy Indian spices online in Spain. Confirm your código postal for SpicyCorner European fulfilment.",
+      "Buy Indian spices online in Spain. Confirm your código postal for SpicyCenter European fulfilment.",
     h1: "Indian spices online in Spain",
     keywords: ["Indian spices Spain", "Indian spices online Spain"],
     intro:
@@ -298,7 +306,7 @@ export const countrySeoPages: CountrySeoPage[] = [
     faqs: [
       {
         q: "Do you ship Indian spices to Spain?",
-        a: "Yes when the European service area includes your código postal. The header selector lets you scardamom away from an auto-detected country.",
+        a: "Yes when the European service area includes your código postal. Confirm the quote on the product page before checkout.",
       },
     ],
   },
@@ -306,11 +314,11 @@ export const countrySeoPages: CountrySeoPage[] = [
     slug: "it",
     countryCode: "IT",
     name: "Italy",
-    hreflang: "it-IT",
+    hreflang: "en-GB",
     locale: "en_IT",
-    title: "spice Spices Italy | Online Delivery",
+    title: "Indian spices Italy | Online Delivery",
     description:
-      "Shop Indian spices online in Italy. Enter your CAP to check SpicyCorner European delivery.",
+      "Shop Indian spices online in Italy. Enter your CAP to check SpicyCenter European delivery.",
     h1: "Indian spices online in Italy",
     keywords: ["Indian spices Italy", "Indian spices online Italy"],
     intro:
@@ -325,8 +333,8 @@ export const countrySeoPages: CountrySeoPage[] = [
     ],
     faqs: [
       {
-        q: "Spedite costumi di spice in Italia?",
-        a: "Sì, quando il magazzino UK copre il tuo CAP. Puoi cambiare paese dal selettore in testata.",
+        q: "Do you ship Indian spices to Italy?",
+        a: "When a shipping method is quoted for your CAP, yes. You can change country from the header selector. This page is in English.",
       },
     ],
   },
@@ -334,9 +342,9 @@ export const countrySeoPages: CountrySeoPage[] = [
     slug: "nl",
     countryCode: "NL",
     name: "Netherlands",
-    hreflang: "nl-NL",
+    hreflang: "en-GB",
     locale: "en_NL",
-    title: "spice Spices Netherlands | Online Delivery",
+    title: "Indian spices Netherlands | Online Delivery",
     description:
       "Buy Indian spices online in the Netherlands. Check your postcode for European warehouse fulfilment.",
     h1: "Indian spices online in the Netherlands",
@@ -364,9 +372,9 @@ export const countrySeoPages: CountrySeoPage[] = [
     name: "Ireland",
     hreflang: "en-IE",
     locale: "en_IE",
-    title: "spice Spices Ireland | Online Delivery",
+    title: "Indian spices Ireland | Online Delivery",
     description:
-      "Shop Indian spices online in Ireland. SpicyCorner prefers UK warehouse fulfilment for Irish eircodes when stock allows.",
+      "Shop Indian spices online in Ireland. SpicyCenter prefers UK warehouse fulfilment for Irish eircodes when stock allows.",
     h1: "Indian spices online in Ireland",
     keywords: ["Indian spices Ireland", "Indian spices online Ireland"],
     intro:
@@ -390,11 +398,11 @@ export const countrySeoPages: CountrySeoPage[] = [
     slug: "be",
     countryCode: "BE",
     name: "Belgium",
-    hreflang: "nl-BE",
+    hreflang: "en-GB",
     locale: "en_BE",
-    title: "spice Spices Belgium | Online Delivery",
+    title: "Indian spices Belgium | Online Delivery",
     description:
-      "Buy Indian spices online in Belgium. Confirm your postcode for SpicyCorner European fulfilment.",
+      "Buy Indian spices online in Belgium. Confirm your postcode for SpicyCenter European fulfilment.",
     h1: "Indian spices online in Belgium",
     keywords: ["Indian spices Belgium", "Indian spices online Belgium"],
     intro:

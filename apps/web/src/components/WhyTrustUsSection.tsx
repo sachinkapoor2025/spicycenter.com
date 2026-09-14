@@ -9,10 +9,10 @@ export function WhyTrustUsSection() {
         <div className="text-center max-w-2xl mx-auto mb-10">
           <p className="text-xs font-bold uppercase tracking-widest text-nav mb-2">{trustFacts.seasonLabel}</p>
           <h2 id="why-trust-heading" className="text-2xl md:text-3xl font-bold text-primary mb-3">
-            Why Choose SpicyCorner.com?
+            Why Choose SpicyCenter.com?
           </h2>
           <p className="text-slate-600 text-sm md:text-base leading-relaxed">
-            SpicyCorner.com is a trusted destination for Indian spices, spices, and party
+            SpicyCenter.com is a trusted destination for Indian spices, spices, and party
             supplies worldwide. {trustFacts.fulfillment}.
           </p>
         </div>

@@ -120,7 +120,7 @@ export function buildCheckoutShipmentsFromUnits(
 
 /**
  * Chargeable shipping group subtotals: one bucket per (delivery address × vendor).
- * SpicyCorner and Orange County on the same address are evaluated separately for the $7 rule.
+ * SpicyCenter and Orange County on the same address are evaluated separately for the $7 rule.
  */
 export function shipmentSubtotalsFromUnits(
   units: DeliveryUnit[],

@@ -94,7 +94,7 @@ export function resolvedHamperContentSlugs(
   return [...kept, ...swapped, ...extras];
 }
 
-/** No gift-set catalog is seeded for SpicyCorner. */
+/** No gift-set catalog is seeded for SpicyCenter. */
 export function getspiceHamperDef(_slug: string): { contents: HamperLine[] } | undefined {
   return undefined;
 }

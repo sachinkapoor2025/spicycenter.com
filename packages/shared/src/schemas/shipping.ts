@@ -33,7 +33,7 @@ export const addressSchema = z.object({
 
 /** Origin may be incomplete until admin configures fulfillment address. */
 export const originAddressSchema = z.object({
-  name: z.string().default("SpicyCorner"),
+  name: z.string().default("SpicyCenter"),
   line1: z.string().default(""),
   line2: z.string().optional(),
   city: z.string().default(""),
@@ -135,7 +135,7 @@ export const defaultShippingSettings: ShippingSettings = {
   festivalModeRanges: [],
   enabledServices: { ...DEFAULT_ENABLED_SERVICES },
   originAddress: {
-    name: "SpicyCorner UK",
+    name: "SpicyCenter UK",
     line1: "5 Exeter Road",
     city: "Southampton",
     state: "Hampshire",

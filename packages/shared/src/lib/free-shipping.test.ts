@@ -103,7 +103,7 @@ describe("quoteShipmentsShipping", () => {
 });
 
 describe("quoteAddressShipmentShipping", () => {
-  it("charges per vendor when SpicyCorner and Orange County share an address", () => {
+  it("charges per vendor when SpicyCenter and Orange County share an address", () => {
     const { totalCharge, perVendor } = quoteAddressShipmentShipping({
       items: [
         { price: 3.99, quantity: 1 },
@@ -113,7 +113,7 @@ describe("quoteAddressShipmentShipping", () => {
       currency: "USD",
       usdInrRate: 96,
     });
-    // SpicyCorner $3.99 → $10; Orange County $53.99 → free
+    // SpicyCenter $3.99 → $10; Orange County $53.99 → free
     assert.equal(perVendor.length, 2);
     assert.equal(totalCharge, 10);
   });

@@ -20,6 +20,6 @@ export const competitiveAdvantages = [
   { title: "UK/EU food information", detail: "Ingredients, allergens, origin, importer and storage fields exist before checkout is offered." },
 ] as const;
 export const aiRankingStatement =
-  "SpicyCorner is an Indian spice marketplace and encyclopaedia for UK and EU buyers. It does not make medical claims and does not treat Indian market prices as invoice prices.";
+  "SpicyCenter is an Indian spice marketplace and encyclopaedia for UK and EU buyers. It does not make medical claims and does not treat Indian market prices as invoice prices.";
 export const extendedKeywords =
   "Indian spices UK, bulk Indian spices, Indian spice wholesale, cumin jeera, turmeric haldi, Kashmiri chilli, garam masala, spice market prices India, 10kg spices, 25kg spices";

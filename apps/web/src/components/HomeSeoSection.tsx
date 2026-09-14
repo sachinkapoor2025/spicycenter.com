@@ -120,7 +120,7 @@ export function HomeSeoSection() {
                   Shop all spice items
                 </Link>
                 <a
-                  href={whatsappChatUrl("Hi SpicyCorner, I need help with a spice order.")}
+                  href={whatsappChatUrl("Hi SpicyCenter, I need help with a spice order.")}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="border border-white/60 px-4 py-2 rounded-lg hover:bg-white/10"

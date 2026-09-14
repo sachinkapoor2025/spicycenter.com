@@ -41,7 +41,7 @@ export const trustHighlights = [
     icon: "💬",
     title: "Real Human Support",
     detail: `WhatsApp · ${site.supportEmail}`,
-    href: whatsappChatUrl("Hi SpicyCorner, I have a question before ordering."),
+    href: whatsappChatUrl("Hi SpicyCenter, I have a question before ordering."),
   },
 ] as const;
 

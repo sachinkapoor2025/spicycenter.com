@@ -79,11 +79,11 @@ export function categoryKeywordsMeta(slug: string, limit = 12): string {
   const primary = seoCategoryPrimary[slug];
   const kws = productKeywordsForCategory(slug).slice(0, limit);
   const seed = primary ? [primary.primaryKeyword, primary.h1] : [];
-  return [...new Set([...seed, ...kws, "SpicyCorner", "spicycenter.com"])].join(", ");
+  return [...new Set([...seed, ...kws, "SpicyCenter", "spicycenter.com"])].join(", ");
 }
 
 export function cityKeywordsMeta(slug: string): string {
   const loc = getSeoLocation(slug);
-  if (!loc) return "SpicyCorner, Indian spices UK";
-  return [...loc.keywords.slice(0, 10), "SpicyCorner", "spicycenter.com"].join(", ");
+  if (!loc) return "SpicyCenter, Indian spices UK";
+  return [...loc.keywords.slice(0, 10), "SpicyCenter", "spicycenter.com"].join(", ");
 }

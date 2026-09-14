@@ -10,7 +10,7 @@ import {
 } from "./order-vendors";
 
 describe("order-vendors", () => {
-  it("detects mixed OC + SpicyCorner carts", () => {
+  it("detects mixed OC + SpicyCenter carts", () => {
     const order = {
       items: [
         { vendorSlug: VENDOR_ORANGE_COUNTY },

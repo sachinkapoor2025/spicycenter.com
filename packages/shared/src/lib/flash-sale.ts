@@ -1,4 +1,4 @@
-/** Flash combo platform hooks — SpicyCorner has no active usarakhi flash SKU. */
+/** Flash combo platform hooks — SpicyCenter has no active usarakhi flash SKU. */
 
 export const FLASH_COMBO_SALE_SLUG = "blue-beads-om-pista-flash-combo";
 

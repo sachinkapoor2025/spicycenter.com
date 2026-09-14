@@ -105,7 +105,7 @@ function AddonGroup({
   );
 }
 
-/** SpicyCorner-only dry fruit & chocolate add-ons (multi-select with quantity). */
+/** SpicyCenter-only dry fruit & chocolate add-ons (multi-select with quantity). */
 export function ProductAddonsPicker({
   selected,
   onChange,

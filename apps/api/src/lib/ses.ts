@@ -223,7 +223,7 @@ async function seedMarketingSmtpPasswordIfNeeded(stored: Partial<SesSettings>): 
   const resolvedPort = Number.isFinite(port) && port > 0 ? port : 587;
   const seeded = sesSettingsSchema.parse({
     awsRegion: process.env.SES_AWS_REGION || process.env.AWS_REGION || "us-east-1",
-    defaultSenderName: stored.defaultSenderName || "SpicyCorner",
+    defaultSenderName: stored.defaultSenderName || "SpicyCenter",
     defaultSenderEmail:
       stored.defaultSenderEmail ||
       process.env.MARKETING_FROM_EMAIL ||
@@ -355,7 +355,7 @@ async function sendViaMarketingSmtp(
   // Auth (smtp.user) can differ from From. Mailercloud requires From = verified Sender ID
   // (e.g. email@spicycorner.com), not necessarily the SMTP login user.
   const fromEmail = (input.fromEmail || smtp.user).trim();
-  const fromName = (input.fromName || "SpicyCorner").trim();
+  const fromName = (input.fromName || "SpicyCenter").trim();
   const replyTo = (input.replyTo || fromEmail).trim() || fromEmail;
   if (!fromEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fromEmail)) {
     throw new SesSendError(

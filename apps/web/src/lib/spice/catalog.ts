@@ -173,7 +173,7 @@ function buildProduct(spice: SpiceEntity, variety: { slug: string; name: string;
     tags: [spice.category, form, grade, spice.heatLevel, ...(variety.region ? [variety.region] : [])],
     aliases,
     compliance: defaultCompliance(spice, form, "See selected pack"),
-    seoTitle: `${name} | Indian spices UK & EU | SpicyCorner`,
+    seoTitle: `${name} | Indian spices UK & EU`,
     metaDescription: `Buy ${name} in retail packs or bulk from 10kg. ${spice.shortDescription} Indicative Indian market prices shown separately from selling prices.`,
     needsVerification: Boolean(spice.needsVerification) || true,
   };

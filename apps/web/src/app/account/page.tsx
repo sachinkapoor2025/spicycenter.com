@@ -164,7 +164,7 @@ function AccountLoginForm() {
             placeholder="Full name"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full border border-slate-300 rounded-lg px-3 py-2"
+            className="w-full border border-slate-300 rounded-lg px-3 py-2 text-base"
           />
         )}
 
@@ -175,7 +175,7 @@ function AccountLoginForm() {
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full border border-slate-300 rounded-lg px-3 py-2"
+              className="w-full border border-slate-300 rounded-lg px-3 py-2 text-base"
               required
               autoComplete="email"
             />
@@ -184,7 +184,7 @@ function AccountLoginForm() {
               placeholder="Password (min 8 chars)"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full border border-slate-300 rounded-lg px-3 py-2"
+              className="w-full border border-slate-300 rounded-lg px-3 py-2 text-base"
               minLength={8}
               required
               autoComplete={mode === "login" ? "current-password" : "new-password"}
@@ -199,7 +199,7 @@ function AccountLoginForm() {
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full border border-slate-300 rounded-lg px-3 py-2"
+              className="w-full border border-slate-300 rounded-lg px-3 py-2 text-base"
               required
               autoComplete="email"
             />
@@ -220,7 +220,7 @@ function AccountLoginForm() {
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full border border-slate-300 rounded-lg px-3 py-2"
+              className="w-full border border-slate-300 rounded-lg px-3 py-2 text-base"
               minLength={8}
               required
               autoComplete="current-password"

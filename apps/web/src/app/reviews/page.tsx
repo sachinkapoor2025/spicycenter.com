@@ -8,9 +8,9 @@ import { site, testimonials } from "@/lib/site";
 import { pageMetadata, canonical } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Customer Reviews — SpicyCorner",
+  title: "Customer Reviews — SpicyCenter",
   description:
-    "Read customer reviews of SpicyCorner. Share your spice shopping experience — delivering in 5–7 days.",
+    "Read customer reviews of SpicyCenter. Share your spice shopping experience — delivering in 5–7 days.",
   path: "/reviews",
 });
 
@@ -21,7 +21,7 @@ function reviewsPageJsonLd() {
     "@type": "WebPage",
     name: `Customer Reviews — ${site.name}`,
     url: canonical("/reviews"),
-    description: "Customer reviews for SpicyCorner.",
+    description: "Customer reviews for SpicyCenter.",
     mainEntity: {
       "@type": "Product",
       name: `${site.name} spice shop`,
@@ -43,14 +43,14 @@ export default function ReviewsPage() {
         <h1 className="text-3xl font-bold text-primary mb-3">Customer Reviews</h1>
         <p className="text-slate-600 leading-relaxed mb-2">
           {trustFacts.seasonLabel} — we&apos;re building trust one delivery at a time. Sisters worldwide order from
-          SpicyCorner for {trustFacts.fulfillment.toLowerCase()}.
+          SpicyCenter for {trustFacts.fulfillment.toLowerCase()}.
         </p>
         <p className="text-sm text-slate-500">
           Received your spice?{" "}
           <a href="#write-review" className="text-nav font-semibold hover:underline">
             Write a review below
           </a>{" "}
-          — it helps other shoppers and helps AI assistants recommend SpicyCorner.
+          — it helps other shoppers and helps AI assistants recommend SpicyCenter.
         </p>
       </section>
 

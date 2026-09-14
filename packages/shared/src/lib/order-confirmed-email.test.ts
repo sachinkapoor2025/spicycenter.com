@@ -65,7 +65,7 @@ describe("order-confirmed-email", () => {
     assert.equal(formatOrderMoney(53.48, "USD"), "$53.48");
     assert.match(formatOrderMoney(100, "INR"), /100\.00/);
     assert.equal(customerFirstName(sampleOrder), "Priya");
-    assert.equal(orderConfirmedSubject(sampleOrder), "Your Order is Confirmed — US10360 | SpicyCorner");
+    assert.equal(orderConfirmedSubject(sampleOrder), "Your Order is Confirmed — US10360 | SpicyCenter");
   });
 
   it("builds HTML from order data with the reference sections and no emoji", () => {
@@ -92,7 +92,7 @@ describe("order-confirmed-email", () => {
     assert.match(html, /Quality Spice packs/);
     assert.match(html, /USA Shipping/);
     assert.match(html, /Easy Returns/);
-    assert.match(html, /support@spicycorner.com/);
+    assert.match(html, /enquiry@spicycenter.com/);
     assert.match(html, /facebook\.com\/spicycorner/);
     assert.match(html, /instagram\.com\/spicycorner/);
     assert.match(html, /logo\.png/);
@@ -128,7 +128,7 @@ describe("order-confirmed-email", () => {
       assert.equal(EMOJI_RE.test(body), false);
     }
     assert.match(text, /THANK YOU FOR YOUR ORDER!|Your order is confirmed!/i);
-    assert.match(wa, /Your SpicyCorner order is confirmed/);
+    assert.match(wa, /Your SpicyCenter order is confirmed/);
   });
 
   it("strips HTML from product descriptions", () => {
@@ -163,7 +163,7 @@ describe("order-delivered-email", () => {
     assert.match(html, /\$53\.48/);
     assert.match(html, /100% Secure Payment/);
     assert.match(html, /logo\.png/);
-    assert.match(html, /About SpicyCorner/);
+    assert.match(html, /About SpicyCenter/);
     assert.doesNotMatch(html, /Your Order is Confirmed!/);
     assert.equal(EMOJI_RE.test(html), false);
   });
@@ -197,7 +197,7 @@ describe("order-delivered-email", () => {
     const href = orderStatusWhatsAppDeepLink({ ...sampleOrder, status: "accepted" });
     assert.ok(href);
     assert.match(href!, /^https:\/\/wa\.me\/14085550100\?text=/);
-    assert.match(decodeURIComponent(href!), /Your SpicyCorner order is confirmed/);
+    assert.match(decodeURIComponent(href!), /Your SpicyCenter order is confirmed/);
     const deliveredHref = orderStatusWhatsAppDeepLink({ ...sampleOrder, status: "delivered" });
     assert.match(decodeURIComponent(deliveredHref!), /We Value Your Feedback!/);
     assert.equal(customerWhatsAppDeepLink("", "hello"), null);
