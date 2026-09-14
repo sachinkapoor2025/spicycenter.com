@@ -75,8 +75,12 @@ function fromAddressFor(mailbox: TransactionalMailbox = "order"): string {
   return process.env.SMTP_FROM?.trim() || smtpUser("order") || notifyAddress();
 }
 
-/** Real inbound/outbound host. `smtp.spicycenter.com` has no A record (getaddrinfo EBUSY). */
-const CANONICAL_SMTP_HOST = "mail.spicycenter.com";
+/**
+ * Shared-host SMTP presents a Let's Encrypt cert for this hostname only.
+ * `mail.spicycenter.com` points at the same IP but is not on the certificate
+ * (unlike Halloween Ready, whose cert includes mail.halloweenready.com).
+ */
+const CANONICAL_SMTP_HOST = "ind01-sh02.sh-thm.com";
 const SMTP_FALLBACK_IPV4 = "157.66.191.12";
 
 function isIpv4(host: string): boolean {
@@ -85,7 +89,13 @@ function isIpv4(host: string): boolean {
 
 function normalizeSmtpHost(host: string): string {
   const h = host.trim().toLowerCase().replace(/\.$/, "");
-  if (!h || h === "smtp.spicycenter.com" || h.endsWith(".spicycenter.com.com")) {
+  if (
+    !h ||
+    h === "smtp.spicycenter.com" ||
+    h === "mail.spicycenter.com" ||
+    h.endsWith(".spicycenter.com.com") ||
+    h === SMTP_FALLBACK_IPV4
+  ) {
     return CANONICAL_SMTP_HOST;
   }
   return host.trim();
