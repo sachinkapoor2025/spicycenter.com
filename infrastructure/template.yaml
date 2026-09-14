@@ -176,7 +176,7 @@ Globals:
         NOTIFY_EMAIL: order@spicycorner.com,order@usarakhi.com,priya.yadav@mydgv.com
         SMTP_PASS: !Ref SmtpPassword
         SITE_URL: https://www.spicycenter.com
-        SES_AWS_REGION: us-east-1
+        SES_AWS_REGION: !Ref AWS::Region
         # Legacy SES_* names used only as marketing From fallbacks — keep as verified Sender ID.
         SES_FROM_EMAIL: email@spicycorner.com
         SES_REPLY_TO: email@spicycorner.com
@@ -938,7 +938,7 @@ Resources:
           CONFIG_TABLE: !Ref ConfigTable
           ENVIRONMENT: !Ref Environment
           SITE_URL: https://www.spicycenter.com
-          SES_AWS_REGION: us-east-1
+          SES_AWS_REGION: !Ref AWS::Region
           SES_FROM_EMAIL: email@spicycorner.com
           SES_REPLY_TO: email@spicycorner.com
           MARKETING_FROM_EMAIL: email@spicycorner.com

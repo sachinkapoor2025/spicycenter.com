@@ -8,7 +8,6 @@ parallel = true
 stack_name = "spicycorner-dev"
 resolve_s3 = true
 s3_prefix = "spicycorner"
-region = "us-east-1"
 capabilities = "CAPABILITY_IAM"
 parameter_overrides = "Environment=dev"
 confirm_changeset = true
@@ -17,7 +16,6 @@ confirm_changeset = true
 stack_name = "spicycorner-staging"
 resolve_s3 = true
 s3_prefix = "spicycorner"
-region = "us-east-1"
 capabilities = "CAPABILITY_IAM"
 parameter_overrides = "Environment=staging LoadTestMode=true"
 
@@ -29,7 +27,6 @@ parallel = true
 stack_name = "spicycorner-prod"
 resolve_s3 = true
 s3_prefix = "spicycorner"
-region = "us-east-1"
 capabilities = "CAPABILITY_IAM CAPABILITY_NAMED_IAM"
 parameter_overrides = "Environment=prod"
 confirm_changeset = false

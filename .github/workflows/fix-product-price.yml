@@ -30,7 +30,7 @@ on:
           - dev
 
 env:
-  AWS_REGION: ${{ vars.AWS_REGION || secrets.AWS_REGION || secrets.AWS_DEFAULT_REGION || 'us-east-1' }}
+  AWS_REGION: ${{ vars.AWS_REGION || vars.REGION || secrets.AWS_REGION || secrets.AWS_DEFAULT_REGION || secrets.REGION }}
 
 jobs:
   fix:
@@ -45,6 +45,14 @@ jobs:
 
       - run: npm ci
       - run: npm run build -w @spicycorner/shared
+
+      - name: Require AWS_REGION from GitHub
+        run: |
+          if [ -z "${AWS_REGION}" ]; then
+            echo "::error::Set AWS_REGION in GitHub → Settings → Secrets and variables → Actions."
+            exit 1
+          fi
+          echo "AWS_REGION=${AWS_REGION}"
 
       - uses: aws-actions/configure-aws-credentials@v6
         with:
