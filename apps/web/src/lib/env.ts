@@ -1,5 +1,5 @@
-/** Production API — fallback when Amplify build env vars are missing */
-export const PROD_API_URL = "https://c70qsnpe4g.execute-api.us-east-1.amazonaws.com/prod";
+/** Production API — fallback when Amplify build env vars are missing (London stack). */
+export const PROD_API_URL = "https://5qzima7ctj.execute-api.eu-west-2.amazonaws.com/prod";
 
 /** Amplify default URL for the branch being built (dev vs main). */
 export function getAmplifyBranchUrl(): string | undefined {
@@ -47,7 +47,7 @@ export function getSiteUrl(): string {
 }
 
 /** Production CDN — S3/CloudFront mirror for product images (WordPress no longer serves media). */
-export const PROD_CDN_URL = "https://d2lfdzx32wxe94.cloudfront.net";
+export const PROD_CDN_URL = "https://d2k0u32kgmw0nm.cloudfront.net";
 
 /** CloudFront (or cdn.spicycenter.com) base for product/media images migrated off WordPress. */
 export function getCdnUrl(): string {

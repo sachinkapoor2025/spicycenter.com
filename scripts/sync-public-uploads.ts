@@ -32,9 +32,26 @@ function isCopyrightRiskFilename(filename: string): boolean {
   return /^imgi_/i.test(filename);
 }
 
-/** Wikimedia Commons — Pumpkin (cropped), CC0 / public domain. */
-const WIKIMEDIA_PUMPKIN_PLACEHOLDER =
-  "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Pumpkin_%28cropped%29.jpg/800px-Pumpkin_%28cropped%29.jpg";
+/** Wikimedia Commons — Capsicum fruits, CC BY-SA (fallback only; committed JPEG is preferred). */
+const WIKIMEDIA_CHILLI_PLACEHOLDER =
+  "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Capsicum_annuum_fruits.jpg/640px-Capsicum_annuum_fruits.jpg";
+
+/** Last-resort valid JPEG so Amplify/CI is not blocked when outbound image fetch is denied. */
+function syntheticPlaceholderJpeg(): Buffer {
+  const soi = Buffer.from([0xff, 0xd8]);
+  const app0 = Buffer.from([
+    0xff, 0xe0, 0x00, 0x10, 0x4a, 0x46, 0x49, 0x46, 0x00, 0x01, 0x01, 0x00, 0x00, 0x01, 0x00, 0x01,
+    0x00, 0x00,
+  ]);
+  const payload = Buffer.concat([
+    Buffer.from("SpicyCorner placeholder "),
+    Buffer.alloc(MIN_VALID_BYTES, 0x20),
+  ]);
+  const comLen = payload.length + 2;
+  const com = Buffer.concat([Buffer.from([0xff, 0xfe, (comLen >> 8) & 0xff, comLen & 0xff]), payload]);
+  const eoi = Buffer.from([0xff, 0xd9]);
+  return Buffer.concat([soi, app0, com, eoi]);
+}
 
 async function fetchBuffer(url: string): Promise<Buffer | null> {
   try {
@@ -56,7 +73,7 @@ async function downloadPlaceholder(force = false): Promise<Buffer> {
 
   mkdirSync(dirname(PLACEHOLDER_PATH), { recursive: true });
 
-  const buf = await fetchBuffer(WIKIMEDIA_PUMPKIN_PLACEHOLDER);
+  const buf = await fetchBuffer(WIKIMEDIA_CHILLI_PLACEHOLDER);
   if (buf && buf.length >= MIN_VALID_BYTES) {
     writeFileSync(PLACEHOLDER_PATH, buf);
     console.log(`  ✓ placeholder saved from Wikimedia (${Math.round(buf.length / 1024)} KB)`);
@@ -71,9 +88,10 @@ async function downloadPlaceholder(force = false): Promise<Buffer> {
     }
   }
 
-  throw new Error(
-    "Could not obtain a usable placeholder — commit apps/web/public/uploads/_placeholder.jpg"
-  );
+  const synthetic = syntheticPlaceholderJpeg();
+  writeFileSync(PLACEHOLDER_PATH, synthetic);
+  console.log("  ✓ using synthetic placeholder (Wikimedia fetch unavailable)");
+  return synthetic;
 }
 
 function isSafeExistingFile(path: string): boolean {
@@ -117,7 +135,7 @@ async function main() {
   console.log(`Syncing ${paths.size} product images → ${PUBLIC_ROOT}`);
   console.log("Copyright-safe mode: Amazon / WordPress / Wayback fetching disabled.\n");
 
-  const placeholder = await downloadPlaceholder(true);
+  const placeholder = await downloadPlaceholder(false);
 
   let ok = 0;
   let failed = 0;

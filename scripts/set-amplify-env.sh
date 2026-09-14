@@ -14,15 +14,19 @@
 
 set -euo pipefail
 
-APP_ID="${AMPLIFY_APP_ID:-d1vlvm5li37k6g}"
+APP_ID="${AMPLIFY_APP_ID:-dlvo7vcdxgylt}"
+AWS_REGION="${AWS_REGION:-eu-west-2}"
 BRANCH="${1:-all}"
 
 # Sample placeholders — replace in Amplify Console when you have real IDs
 SAMPLE_ENV=$(cat <<'EOF'
 {
-  "NEXT_PUBLIC_SITE_URL": "https://www.usarakhi.com",
-  "NEXT_PUBLIC_API_URL": "https://foqu2ap4qi.execute-api.us-east-1.amazonaws.com/prod",
-  "NEXT_PUBLIC_CDN_URL": "https://d301af4ndyn9qx.cloudfront.net",
+  "NEXT_PUBLIC_SITE_URL": "https://main.dlvo7vcdxgylt.amplifyapp.com",
+  "NEXT_PUBLIC_API_URL": "https://5qzima7ctj.execute-api.eu-west-2.amazonaws.com/prod",
+  "NEXT_PUBLIC_CDN_URL": "https://d2k0u32kgmw0nm.cloudfront.net",
+  "NEXT_PUBLIC_COGNITO_USER_POOL_ID": "eu-west-2_ZXuTQPBr4",
+  "NEXT_PUBLIC_COGNITO_CLIENT_ID": "5u2p5ci818hlhi4eevth7jnd6q",
+  "NEXT_PUBLIC_COGNITO_REGION": "eu-west-2",
   "NEXT_PUBLIC_GTM_ID": "GTM-XXXXXXX",
   "NEXT_PUBLIC_GA4_ID": "G-XXXXXXXXXX",
   "NEXT_PUBLIC_META_PIXEL_ID": "1459099935879507",
@@ -39,7 +43,7 @@ update_branch() {
   echo "Updating Amplify branch: $branch"
 
   # Merge with existing vars so we don't wipe Razorpay/Cognito keys already set
-  EXISTING=$(aws amplify get-branch --app-id "$APP_ID" --branch-name "$branch" \
+  EXISTING=$(aws amplify get-branch --app-id "$APP_ID" --branch-name "$branch" --region "$AWS_REGION" \
     --query 'branch.environmentVariables' --output json 2>/dev/null || echo '{}')
 
   MERGED=$(python3 -c "
@@ -60,6 +64,7 @@ print(','.join(f'{k}={v}' for k, v in d.items()))
   aws amplify update-branch \
     --app-id "$APP_ID" \
     --branch-name "$branch" \
+    --region "$AWS_REGION" \
     --environment-variables "$ENV_STRING" \
     --output json \
     --query 'branch.branchName'
