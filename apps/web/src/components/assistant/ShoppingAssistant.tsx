@@ -404,7 +404,7 @@ export function ShoppingAssistant() {
                     void send(input);
                   }
                 }}
-                placeholder="Ask for a spice, decorations, a party…"
+                placeholder="Ask for a spice, pack size, or recipe…"
                 rows={1}
                 maxLength={500}
                 disabled={loading}
@@ -439,10 +439,8 @@ export function ShoppingAssistant() {
             </svg>
           ) : (
             <>
-              <span aria-hidden className="shrink-0 text-base leading-none">
-                🎃
-              </span>
-              <span className="text-sm font-semibold leading-none">Find your look</span>
+              <span aria-hidden className="shrink-0 text-base leading-none">🌶</span>
+              <span className="text-sm font-semibold leading-none">Ask about spices</span>
             </>
           )}
         </button>

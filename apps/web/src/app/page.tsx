@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { pageMetadata } from "@/lib/seo";
 import { JsonLd } from "@/components/JsonLd";
@@ -16,26 +17,6 @@ export const metadata: Metadata = pageMetadata({
 
 export const dynamic = "force-dynamic";
 
-function SpiceSwatch({ name }: { name: string }) {
-  const hues: Record<string, string> = {
-    Cumin: "#8b6914",
-    Turmeric: "#e0a100",
-    Cardamom: "#3f6b3a",
-    Chilli: "#b42318",
-    Coriander: "#c4b48a",
-    Pepper: "#2c1810",
-    Cinnamon: "#8a4b28",
-    Clove: "#4a2010",
-    Saffron: "#d97706",
-  };
-  return (
-    <div className="flex flex-col items-center gap-2">
-      <span className="h-16 w-16 rounded-full shadow-inner border border-white/40" style={{ background: hues[name] }} />
-      <span className="text-xs text-earth">{name}</span>
-    </div>
-  );
-}
-
 export default function HomePage() {
   const spices = loadSpiceEntities();
   const featured = spices.filter((s) => s.featured || s.featuredKnowledge).slice(0, 10);
@@ -47,33 +28,30 @@ export default function HomePage() {
     <div>
       <JsonLd data={faqJsonLd(faqs)} />
 
-      <section className="relative overflow-hidden border-b border-[#eadfce] bg-[#2c1810] text-[#f7f1e8]">
-        <div className="absolute inset-0 opacity-40" aria-hidden
-          style={{ background: "radial-gradient(circle at 18% 80%, #c45c26, transparent 42%), radial-gradient(circle at 88% 18%, #d4a017, transparent 38%)" }}
+      <section className="relative overflow-hidden min-h-[28rem] md:min-h-[36rem]">
+        <Image
+          src="/images/hero-spices.jpg"
+          alt="Bowls of Indian spices on a wooden kitchen table"
+          fill
+          priority
+          className="object-cover object-right"
+          sizes="100vw"
         />
-        <div className="relative max-w-7xl mx-auto px-4 py-16 md:py-24 grid md:grid-cols-2 gap-10 items-center">
-          <div>
-            <p className="text-xs tracking-[0.25em] text-accent mb-3">AUTHENTIC INDIAN SPICES</p>
-            <h1 className="font-serif text-4xl md:text-6xl leading-tight">
-              From India<br /><span className="text-accent">to your kitchen</span>
-            </h1>
-            <p className="mt-5 text-lg text-white/80 max-w-xl">
-              Pure spices. Richer flavours. Retail packs for home cooks and 10kg+ bags for restaurants, grocers and importers in the UK and Europe.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link href="/spices" className="btn-primary">Shop spices</Link>
-              <Link href="/wholesale" className="btn-outline border-white text-white hover:bg-white hover:text-primary">Buy in bulk</Link>
-            </div>
-            <p className="mt-4 text-sm text-white/60">Whole spices, ground masalas, Indian chillies — 100g to 50kg+.</p>
+        <div className="absolute inset-0 bg-gradient-to-r from-[#2c1810]/90 via-[#2c1810]/55 to-transparent" />
+        <div className="relative max-w-7xl mx-auto px-4 py-16 md:py-24">
+          <p className="text-xs tracking-[0.28em] text-accent mb-3">AUTHENTIC INDIAN SPICES</p>
+          <h1 className="font-serif text-4xl md:text-6xl leading-tight text-white max-w-xl">
+            From India<br />
+            <span className="text-accent">to your kitchen</span>
+          </h1>
+          <p className="mt-5 text-lg text-white/85 max-w-lg">
+            Pure spices. Richer flavours. Retail packs for home cooks and 10kg+ bags for restaurants, grocers and importers in the UK and Europe.
+          </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link href="/spices" className="btn-primary">Shop spices →</Link>
+            <Link href="/wholesale" className="btn-outline border-white text-white hover:bg-white hover:text-primary">Buy in bulk</Link>
           </div>
-          <div className="rounded-2xl bg-[#3a2418]/80 border border-white/10 p-8">
-            <p className="text-sm uppercase tracking-widest text-accent mb-6">Spice counter</p>
-            <div className="grid grid-cols-3 gap-4">
-              {["Cumin", "Turmeric", "Cardamom", "Chilli", "Coriander", "Pepper", "Cinnamon", "Clove", "Saffron"].map((n) => (
-                <SpiceSwatch key={n} name={n} />
-              ))}
-            </div>
-          </div>
+          <p className="mt-4 text-sm text-white/65">Whole spices, ground masalas, Indian chillies — 100g to 50kg+.</p>
         </div>
       </section>
 
@@ -93,37 +71,36 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="max-w-7xl mx-auto px-4 py-14">
-        <h2 className="spice-heading text-3xl mb-8">Explore India&apos;s spices</h2>
-        <p className="text-muted mb-8 max-w-3xl">
-          Shop by how you cook: whole seeds for tadka, ground spices for everyday masala, chillies for heat and colour, and bulk sacks when a kitchen or shop needs 10kg or more. Every category page explains origin, packing and what the name on the bag should mean.
-        </p>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <section className="max-w-7xl mx-auto px-4 py-12">
+        <div className="grid grid-cols-4 md:grid-cols-8 gap-4">
           {exploreCategories.map((c) => (
-            <Link key={c.slug} href={c.href} className="card-spice p-5 hover:-translate-y-0.5">
-              <p className="font-serif text-lg text-primary">{c.name}</p>
-              <p className="text-sm text-muted mt-1">Shop {c.name.toLowerCase()}</p>
+            <Link key={c.slug} href={c.href} className="flex flex-col items-center text-center group">
+              <span className="relative h-16 w-16 md:h-[4.75rem] md:w-[4.75rem] rounded-full overflow-hidden border-2 border-white shadow-card ring-1 ring-[#eadfce] group-hover:ring-nav">
+                <Image src={c.image} alt="" fill className="object-cover" sizes="76px" />
+              </span>
+              <span className="mt-2 text-[11px] md:text-xs font-semibold text-primary leading-tight">{c.name}</span>
             </Link>
           ))}
         </div>
       </section>
 
       <section className="max-w-7xl mx-auto px-4 pb-14 grid md:grid-cols-3 gap-5">
-        <Link href="/spices/indian-masalas" className="card-spice overflow-hidden p-6 bg-gradient-to-br from-[#fff7ea] to-[#f3d7a3]">
-          <p className="font-serif text-2xl text-primary">Indian masalas</p>
-          <p className="text-sm text-muted mt-2">Garam masala, sambar powder, kitchen blends — recipes, not mystery dust. See what goes in the tin.</p>
-          <span className="text-nav font-semibold text-sm mt-4 inline-block">Shop masalas →</span>
-        </Link>
-        <Link href="/wholesale" className="card-spice overflow-hidden p-6 bg-gradient-to-br from-[#2c1810] to-[#5a3218] text-white">
-          <p className="font-serif text-2xl">Buy in bulk. Save more.</p>
-          <p className="text-sm text-white/75 mt-2">Restaurants, retailers and manufacturers from 10kg. Quote by grade, origin and bag size.</p>
-          <span className="text-accent font-semibold text-sm mt-4 inline-block">Bulk enquiry →</span>
-        </Link>
-        <Link href="/recipes" className="card-spice overflow-hidden p-6 bg-gradient-to-br from-[#fff1e8] to-[#f0c4a8]">
-          <p className="font-serif text-2xl text-primary">Recipes with spices</p>
-          <p className="text-sm text-muted mt-2">Jeera rice, dal tadka, biryani — how to use the jar, not medical claims.</p>
-          <span className="text-nav font-semibold text-sm mt-4 inline-block">View recipes →</span>
-        </Link>
+        {[
+          { href: "/spices/indian-masalas", img: "/images/promo-masalas.jpg", title: "Indian masalas", text: "Traditional blends for authentic taste.", cta: "Shop masalas →" },
+          { href: "/wholesale", img: "/images/promo-bulk.jpg", title: "Buy in bulk. Save more.", text: "Ideal for restaurants, retailers and businesses.", cta: "Bulk enquiry →" },
+          { href: "/recipes", img: "/images/promo-recipes.jpg", title: "Recipes with spices", text: "Turn everyday meals into something special.", cta: "View recipes →" },
+        ].map((card) => (
+          <Link key={card.href} href={card.href} className="card-spice overflow-hidden group">
+            <span className="relative block h-40">
+              <Image src={card.img} alt="" fill className="object-cover group-hover:scale-[1.03] transition" sizes="(min-width: 768px) 33vw, 100vw" />
+            </span>
+            <span className="block p-5">
+              <span className="font-serif text-2xl text-primary block">{card.title}</span>
+              <span className="text-sm text-muted mt-2 block">{card.text}</span>
+              <span className="text-nav font-semibold text-sm mt-3 inline-block">{card.cta}</span>
+            </span>
+          </Link>
+        ))}
       </section>
 
       <section className="bg-white/60 border-y border-[#eadfce]">
@@ -263,25 +240,6 @@ export default function HomePage() {
               <p className="text-sm text-muted mt-2">{d}</p>
             </div>
           ))}
-        </div>
-      </section>
-
-      <section className="bg-[#2c1810] text-white">
-        <div className="max-w-7xl mx-auto px-4 py-12 flex flex-col md:flex-row md:items-center gap-6">
-          <div className="flex-1">
-            <p className="font-serif text-2xl">Join the SpicyCorner kitchen list</p>
-            <p className="text-white/70 text-sm mt-2 max-w-xl">Harvest notes, new packs and wholesale windows — no fake reviews, no medical claims, no spin-the-wheel popups.</p>
-          </div>
-          <form action="/contact" className="flex w-full md:w-auto gap-2">
-            <input
-              type="email"
-              name="email"
-              required
-              placeholder="Enter your email address"
-              className="flex-1 md:w-72 rounded-full px-4 py-2.5 text-sm text-primary"
-            />
-            <button type="submit" className="rounded-full bg-nav px-5 py-2.5 text-sm font-semibold hover:bg-[#a74c1e]">Subscribe</button>
-          </form>
         </div>
       </section>
     </div>

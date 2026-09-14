@@ -126,14 +126,14 @@ export const homeBanners = [
 export const promoBanners = homeBanners;
 
 export const exploreCategories = [
-  { slug: "whole-spices", name: "Whole Spices", href: "/spices/whole-spices" },
-  { slug: "ground-spices", name: "Ground Spices", href: "/spices/ground-spices" },
-  { slug: "indian-chillies", name: "Indian Chillies", href: "/spices/indian-chillies" },
-  { slug: "seeds", name: "Seeds", href: "/spices/seeds" },
-  { slug: "herbs", name: "Herbs", href: "/spices/herbs" },
-  { slug: "indian-masalas", name: "Masalas", href: "/spices/indian-masalas" },
-  { slug: "premium-spices", name: "Premium Spices", href: "/spices/premium-spices" },
-  { slug: "bulk-spices", name: "Bulk Spices", href: "/bulk-spices" },
+  { slug: "whole-spices", name: "Whole Spices", href: "/spices/whole-spices", image: "/images/cat-0.jpg" },
+  { slug: "ground-spices", name: "Ground Spices", href: "/spices/ground-spices", image: "/images/cat-1.jpg" },
+  { slug: "indian-masalas", name: "Blended Masalas", href: "/spices/indian-masalas", image: "/images/cat-2.jpg" },
+  { slug: "herbs", name: "Herbs & Seasonings", href: "/spices/herbs", image: "/images/cat-3.jpg" },
+  { slug: "seeds", name: "Seeds & Grains", href: "/spices/seeds", image: "/images/cat-4.jpg" },
+  { slug: "indian-chillies", name: "Dried Ingredients", href: "/spices/indian-chillies", image: "/images/cat-5.jpg" },
+  { slug: "premium-spices", name: "Premium Range", href: "/spices/premium-spices", image: "/images/cat-6.jpg" },
+  { slug: "bulk-spices", name: "Bulk Spices", href: "/bulk-spices", image: "/images/cat-7.jpg" },
 ] as const;
 
 export const packSizes = ["100g", "200g", "500g", "1kg", "5kg", "10kg", "25kg", "50kg+"] as const;
