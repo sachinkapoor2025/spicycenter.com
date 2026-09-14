@@ -556,7 +556,7 @@ Resources:
     Type: AWS::CloudFront::OriginAccessControl
     Properties:
       OriginAccessControlConfig:
-        Name: !Sub spicycorner-oac-${Environment}
+        Name: !Sub spicycorner-oac-${Environment}-${AWS::Region}
         OriginAccessControlOriginType: s3
         SigningBehavior: always
         SigningProtocol: sigv4
