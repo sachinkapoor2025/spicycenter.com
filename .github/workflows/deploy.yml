@@ -1,9 +1,7 @@
 name: Deploy
 
-# Three jobs, same as before:
-#   build       — compile/typecheck shared + API + web
-#   deploy-api  — SAM (Lambda / API Gateway)
-#   deploy-web  — Next.js production build; AWS Amplify publishes the live site
+# main is the only branch that deploys AWS stack spicycorner-prod.
+# Other branches still typecheck; they do not SAM-deploy production.
 on:
   push:
     branches:
@@ -37,6 +35,7 @@ jobs:
       - run: npm run typecheck
 
   deploy-api:
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 45
     needs: build
@@ -135,6 +134,7 @@ jobs:
       # Run manually only: Actions → Import SpicyCorner Catalog (workflow_dispatch).
 
   deploy-web:
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     needs: deploy-api
