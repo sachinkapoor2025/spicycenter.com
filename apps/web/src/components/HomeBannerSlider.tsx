@@ -32,14 +32,14 @@ export function HomeBannerSlider({ banners }: { banners: readonly HomeBannerSlid
 
   return (
     <section
-      className="relative overflow-hidden border-b border-[#e6d5bc]"
+      className="relative bg-cream"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       aria-label="Homepage banners"
     >
-      <div className="relative max-w-7xl mx-auto px-2 sm:px-4 py-2 sm:py-4">
-        <div className="relative">
-          <div className="relative w-full overflow-hidden rounded-lg bg-[#f3eadc] shadow-card aspect-[21/7] max-h-[200px] sm:max-h-[260px] lg:max-h-[320px] mx-auto ring-1 ring-[#e6d5bc]/40">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 pt-4 sm:pt-5">
+        <div className="relative overflow-hidden rounded-2xl bg-[#1a1008] shadow-card">
+          <div className="relative w-full aspect-[21/8] sm:aspect-[2.4/1]">
             {banners.map((b, i) => (
               <Link
                 key={b.src}
@@ -54,7 +54,7 @@ export function HomeBannerSlider({ banners }: { banners: readonly HomeBannerSlid
                   src={b.src}
                   alt={b.alt}
                   fill
-                  className="object-contain object-center"
+                  className="object-cover object-center"
                   sizes="(max-width: 1280px) 100vw, 1280px"
                   priority={i === 0}
                 />
@@ -67,7 +67,7 @@ export function HomeBannerSlider({ banners }: { banners: readonly HomeBannerSlid
               <button
                 type="button"
                 onClick={() => goTo(index - 1)}
-                className="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 z-20 flex h-9 w-9 items-center justify-center rounded-md bg-paper/90 text-primary shadow hover:bg-nav hover:text-white"
+                className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 z-20 flex h-9 w-9 items-center justify-center rounded-md bg-paper/90 text-primary shadow hover:bg-nav hover:text-white"
                 aria-label="Previous banner"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
@@ -77,14 +77,14 @@ export function HomeBannerSlider({ banners }: { banners: readonly HomeBannerSlid
               <button
                 type="button"
                 onClick={() => goTo(index + 1)}
-                className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 z-20 flex h-9 w-9 items-center justify-center rounded-md bg-paper/90 text-primary shadow hover:bg-nav hover:text-white"
+                className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 z-20 flex h-9 w-9 items-center justify-center rounded-md bg-paper/90 text-primary shadow hover:bg-nav hover:text-white"
                 aria-label="Next banner"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                 </svg>
               </button>
-              <div className="flex justify-center gap-2 mt-3" role="tablist" aria-label="Banner slides">
+              <div className="absolute bottom-3 left-0 right-0 z-20 flex justify-center gap-2" role="tablist" aria-label="Banner slides">
                 {banners.map((_, i) => (
                   <button
                     key={i}
@@ -93,7 +93,7 @@ export function HomeBannerSlider({ banners }: { banners: readonly HomeBannerSlid
                     aria-selected={i === index}
                     aria-label={`Banner ${i + 1}`}
                     onClick={() => goTo(i)}
-                    className={`h-2 rounded-full transition-all ${i === index ? "w-8 bg-nav" : "w-2 bg-[#dcc9a8]"}`}
+                    className={`h-2 rounded-full transition-all ${i === index ? "w-8 bg-paper" : "w-2 bg-paper/50"}`}
                   />
                 ))}
               </div>

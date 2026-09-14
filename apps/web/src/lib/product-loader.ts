@@ -19,6 +19,7 @@ import {
   getCatalogProductsByCategory,
 } from "./catalog-fallback";
 import { filterDisplayableProductImages, isPlaceholderProductImage } from "./product-images";
+import { spiceStockImagesForProduct } from "./spice-stock-images";
 
 /**
  * Always use absolute CloudFront URLs on storefront listings/PDP.
@@ -44,7 +45,7 @@ function withDisplayImages(product: Product): Product {
   }));
   return {
     ...product,
-    images: resolved,
+    images: resolved.length > 0 ? resolved : spiceStockImagesForProduct(product),
     ...(cjVariants ? { cjVariants } : {}),
   };
 }

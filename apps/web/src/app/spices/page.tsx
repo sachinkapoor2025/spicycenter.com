@@ -6,6 +6,7 @@ import { loadSpiceEntities, searchSpices } from "@/lib/spice-data";
 import { parseBulkHint } from "@spicycorner/shared";
 import { exploreCategories } from "@/lib/site";
 import { InternalLinksSection } from "@/components/InternalLinksSection";
+import { SpiceSkuCard } from "@/components/SpiceSkuCard";
 
 export const metadata: Metadata = pageMetadata({
   title: "Shop Indian spices — retail and bulk",
@@ -77,11 +78,7 @@ export default async function SpicesIndex({
       </div>
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
         {shown.map((p) => (
-          <Link key={p.slug} href={`/products/${p.slug}`} className="card-spice p-4">
-            <div className="h-28 rounded-lg bg-gradient-to-br from-[#e8d7b8] to-[#c45c26]/40 mb-3" />
-            <p className="font-semibold text-primary">{p.name}</p>
-            <p className="text-sm text-muted mt-1">Draft selling price ₹{p.price} · not a market reference</p>
-          </Link>
+          <SpiceSkuCard key={p.slug} product={p} />
         ))}
         {products.length === 0 && (
           <p className="text-muted col-span-full">

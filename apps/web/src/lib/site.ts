@@ -119,6 +119,11 @@ export const homeBanners = [
     alt: "Spices for a better tomorrow — SpicyCenter whole and ground Indian spices",
     href: "/spices",
   },
+  {
+    src: "/images/banner-3.jpg",
+    alt: "SpicyCenter Indian spices — shop retail packs and bulk",
+    href: "/spices",
+  },
 ] as const;
 
 export const promoBanners = homeBanners;

@@ -5,6 +5,7 @@ import { pageMetadata } from "@/lib/seo";
 import { getCatalogProducts } from "@/lib/catalog-fallback";
 import { getSpiceBySlug, loadSpiceEntities } from "@/lib/spice-data";
 import { exploreCategories } from "@/lib/site";
+import { SpiceSkuCard } from "@/components/SpiceSkuCard";
 
 type Props = { params: Promise<{ category: string }> };
 
@@ -59,10 +60,7 @@ export default async function SpiceCategoryPage({ params }: Props) {
       )}
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
         {products.map((p) => (
-          <Link key={p.slug} href={`/products/${p.slug}`} className="card-spice p-4">
-            <p className="font-semibold">{p.name}</p>
-            <p className="text-sm text-muted">₹{p.price} draft selling price</p>
-          </Link>
+          <SpiceSkuCard key={p.slug} product={p} />
         ))}
       </div>
     </div>

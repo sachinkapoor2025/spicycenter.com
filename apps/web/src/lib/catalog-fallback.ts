@@ -1,5 +1,6 @@
 import { isStorefrontVisibleProduct, type Category, type Product } from "@spicycorner/shared";
 import { loadSpiceCatalogFile } from "@/lib/spice-data";
+import { spiceStockImagesForProduct } from "@/lib/spice-stock-images";
 
 let cachedCategories: Category[] | null = null;
 let cachedProducts: Product[] | null = null;
@@ -10,7 +11,13 @@ function loadCatalogFile(): { categories: Category[]; products: Product[] } {
 
 export function getCatalogProducts(): Product[] {
   if (cachedProducts) return cachedProducts;
-  cachedProducts = (loadCatalogFile().products ?? []).filter(isStorefrontVisibleProduct);
+  cachedProducts = (loadCatalogFile().products ?? [])
+    .filter(isStorefrontVisibleProduct)
+    .map((p) =>
+      p.images?.length
+        ? p
+        : { ...p, images: spiceStockImagesForProduct(p) }
+    );
   return cachedProducts;
 }
 
