@@ -20,7 +20,8 @@ permissions:
   contents: read
 
 env:
-  AWS_REGION: us-east-1
+  # Prefer Actions Variables, then Secrets. samconfig.toml region is overridden by --region.
+  AWS_REGION: ${{ vars.AWS_REGION || secrets.AWS_REGION || secrets.AWS_DEFAULT_REGION || 'us-east-1' }}
 
 jobs:
   build:
@@ -112,7 +113,9 @@ jobs:
           [ -n "${CJ_API_KEY:-}" ] && EXTRA="$EXTRA CjApiKey=${CJ_API_KEY}"
           [ -n "${EPROLO_OPEN_API_KEY:-}" ] && EXTRA="$EXTRA EproloOpenApiKey=${EPROLO_OPEN_API_KEY}"
           [ -n "${EPROLO_OPEN_API_SECRET:-}" ] && EXTRA="$EXTRA EproloOpenApiSecret=${EPROLO_OPEN_API_SECRET}"
+          echo "SAM deploy region=${AWS_REGION} stack=spicycorner-prod"
           sam build --cached --parallel --config-env prod && sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --config-env prod \
+            --region "${AWS_REGION}" \
             --capabilities CAPABILITY_IAM CAPABILITY_NAMED_IAM \
             --parameter-overrides "\
           Environment=prod \
@@ -155,6 +158,7 @@ jobs:
         run: |
           output() {
             aws cloudformation describe-stacks \
+              --region "${AWS_REGION}" \
               --stack-name spicycorner-prod \
               --query "Stacks[0].Outputs[?OutputKey=='$1'].OutputValue | [0]" \
               --output text
