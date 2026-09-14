@@ -63,7 +63,7 @@ export default async function SpicesIndex({
       <h1 className="spice-heading text-4xl mt-2">Shop Indian spices</h1>
       <p className="mt-3 text-muted max-w-2xl">
         Filters cover type, origin, pack and retail vs bulk. {products.length} matching SKUs.
-        {q ? ` Search: “${q}”.` : ""}
+        {q ? ` Search: “${q}”.` : ""} Whole spices for tadka, powders for everyday cooking, masalas for ready blends, and bulk bags from 10kg. Names include jeera, haldi, mirch and botanical names.
       </p>
       <div className="flex flex-wrap gap-2 mt-6">
         {exploreCategories.map((c) => (

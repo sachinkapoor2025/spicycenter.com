@@ -21,6 +21,10 @@ export default function RecipesPage() {
   return (
     <div className="max-w-3xl mx-auto px-4 py-10">
       <h1 className="spice-heading text-4xl">Recipes</h1>
+      <p className="mt-3 text-muted max-w-2xl leading-relaxed">
+        These recipes show how Indian spices behave in a pan: jeera in ghee, mustard in oil, garam masala at the end.
+        They are cooking notes, not diet advice. Quantities assume whole or freshly ground spices — old supermarket dust will taste flatter.
+      </p>
       <ul className="mt-8 space-y-4">
         {recipes.map((r) => (
           <li key={r.slug} className="card-spice p-5">

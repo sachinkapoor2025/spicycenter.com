@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
-import { allCountrySeoSlugs, getCountrySeoPage, countrySeoPages } from "@/lib/content/country-pages";
+import { allCountrySeoSlugs, getCountrySeoPage, storefrontCountrySeoPages } from "@/lib/content/country-pages";
 import { geoCountries } from "@/lib/content/geo";
 import { countryPageInlineLinks } from "@/lib/content/page-inline-links";
 import { applyInlineLinks } from "@/lib/inline-links";
@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const languages: Record<string, string> = {
     "x-default": canonical("/"),
   };
-  for (const p of countrySeoPages) {
+  for (const p of storefrontCountrySeoPages()) {
     languages[p.hreflang] = canonical(`/countries/${p.slug}`);
   }
   const meta = pageMetadata({
@@ -125,7 +125,7 @@ export default async function CountryLandingPage({ params }: Props) {
 
       <h2 className="text-xl font-semibold text-primary mb-3">Other markets</h2>
       <ul className="flex flex-wrap gap-x-4 gap-y-2 text-sm text-nav">
-        {countrySeoPages
+        {storefrontCountrySeoPages()
           .filter((p) => p.slug !== slug)
           .map((p) => (
             <li key={p.slug}>

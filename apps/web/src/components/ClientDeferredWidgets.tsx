@@ -3,7 +3,6 @@
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import { ExitIntentPopup } from "@/components/ExitIntentPopup";
 
 const ChatWidget = dynamic(() => import("@/components/ChatWidget").then((m) => m.ChatWidget), {
   ssr: false,
@@ -34,7 +33,6 @@ export function ClientDeferredWidgets() {
   return (
     <>
       {chatReady ? <ChatWidget /> : null}
-      <ExitIntentPopup />
     </>
   );
 }

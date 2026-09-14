@@ -1,3 +1,5 @@
+import { isStorefrontDeliveryCountry } from "@spicycorner/shared";
+
 export type CountrySeoPage = {
   slug: string;
   countryCode: string;
@@ -414,10 +416,16 @@ export const countrySeoPages: CountrySeoPage[] = [
   },
 ];
 
+export function storefrontCountrySeoPages(): CountrySeoPage[] {
+  return countrySeoPages.filter((p) => isStorefrontDeliveryCountry(p.countryCode));
+}
+
 export function getCountrySeoPage(slug: string): CountrySeoPage | undefined {
-  return countrySeoPages.find((p) => p.slug === slug);
+  const page = countrySeoPages.find((p) => p.slug === slug);
+  if (!page || !isStorefrontDeliveryCountry(page.countryCode)) return undefined;
+  return page;
 }
 
 export function allCountrySeoSlugs(): string[] {
-  return countrySeoPages.map((p) => p.slug);
+  return storefrontCountrySeoPages().map((p) => p.slug);
 }

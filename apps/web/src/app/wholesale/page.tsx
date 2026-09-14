@@ -17,9 +17,18 @@ export default function WholesalePage() {
         SpicyCorner supplies restaurants, hotels, caterers, food manufacturers, grocery stores, retailers, importers and distributors.
       </p>
       <p className="mt-3 font-semibold">Minimum bulk order: 10kg</p>
-      <p className="mt-2 text-sm text-muted">
-        Initial prices can be calculated from weight, but wholesale still depends on grade, origin, crop, packaging and market. Always request a quote for commercial lots.
-      </p>
+      <div className="mt-4 space-y-3 text-sm text-muted leading-relaxed">
+        <p>
+          Initial prices can be calculated from weight, but wholesale still depends on grade, origin, crop, packaging and market. Always request a quote for commercial lots.
+        </p>
+        <p>
+          Tell us whether you need whole or ground, 10kg, 25kg or 50kg bags, and whether the lot must match a named growing region
+          (for example Kerala pepper or Unjha cumin). We will not print a region we cannot stand behind on that shipment.
+        </p>
+        <p>
+          UK and European buyers can use this form. Delivery is quoted to the destination country in the header — not to the United States, Gulf or Australia from this storefront.
+        </p>
+      </div>
       <ul className="mt-6 grid sm:grid-cols-2 gap-2 text-sm">
         <li><Link className="text-nav" href="/wholesale/indian-spices">Indian spices wholesale</Link></li>
         <li><Link className="text-nav" href="/wholesale/cumin">Cumin wholesale</Link></li>

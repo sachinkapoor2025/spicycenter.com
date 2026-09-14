@@ -9,7 +9,14 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { DEFAULT_MARKET_COUNTRY, DEFAULT_MARKETS, displayCurrencyForCountry, inferViewerCountryCode } from "@spicycorner/shared";
+import {
+  DEFAULT_MARKETS,
+  displayCurrencyForCountry,
+  inferViewerCountryCode,
+  isStorefrontDeliveryCountry,
+} from "@spicycorner/shared";
+
+const STOREFRONT_DEFAULT_COUNTRY = "GB";
 import { getApiUrl } from "./env";
 import { useCurrency } from "./currency-context";
 import { detectCountryFromClientIp } from "./ip-geo";
@@ -68,12 +75,18 @@ interface MarketContextValue {
 const MarketContext = createContext<MarketContextValue | null>(null);
 
 function readStoredCountry(): string {
-  if (typeof window === "undefined") return DEFAULT_MARKET_COUNTRY;
-  return localStorage.getItem(COUNTRY_KEY) || DEFAULT_MARKET_COUNTRY;
+  if (typeof window === "undefined") return STOREFRONT_DEFAULT_COUNTRY;
+  const stored = localStorage.getItem(COUNTRY_KEY) || STOREFRONT_DEFAULT_COUNTRY;
+  return isStorefrontDeliveryCountry(stored) ? stored : STOREFRONT_DEFAULT_COUNTRY;
+}
+
+function toStorefrontMarkets(list: PublicMarket[]): PublicMarket[] {
+  return list.filter((m) => isStorefrontDeliveryCountry(m.countryCode));
 }
 
 function fallbackPublicMarkets(): PublicMarket[] {
-  return DEFAULT_MARKETS.filter((m) => m.active).map((m) => ({
+  return toStorefrontMarkets(
+    DEFAULT_MARKETS.filter((m) => m.active).map((m) => ({
     countryCode: m.countryCode,
     name: m.name,
     slug: m.slug,
@@ -85,14 +98,15 @@ function fallbackPublicMarkets(): PublicMarket[] {
     hreflang: m.hreflang,
     allowInternationalFallback: m.allowInternationalFallback,
     contact: m.contact,
-  }));
+  }))
+  );
 }
 
 function pickAllowedCountry(detected: string | undefined, list: PublicMarket[], fallback: string): string {
   const code = detected?.trim().toUpperCase();
   if (code && list.some((m) => m.countryCode === code)) return code;
-  if (code && list.length === 0) return code;
-  return fallback;
+  if (fallback && list.some((m) => m.countryCode === fallback)) return fallback;
+  return list[0]?.countryCode ?? STOREFRONT_DEFAULT_COUNTRY;
 }
 
 async function detectVisitorCountry(): Promise<string | undefined> {
@@ -125,7 +139,7 @@ async function detectVisitorCountry(): Promise<string | undefined> {
 
 export function MarketProvider({ children }: { children: ReactNode }) {
   const { setDisplayCurrency } = useCurrency();
-  const [countryCode, setCountryCode] = useState<string>(DEFAULT_MARKET_COUNTRY);
+  const [countryCode, setCountryCode] = useState<string>(STOREFRONT_DEFAULT_COUNTRY);
   const [postalCode, setPostalCode] = useState("");
   const [markets, setMarkets] = useState<PublicMarket[]>([]);
   const [loading, setLoading] = useState(true);
@@ -133,7 +147,9 @@ export function MarketProvider({ children }: { children: ReactNode }) {
   const [lastServiceability, setLastServiceability] = useState<Serviceability | null>(null);
 
   const market = useMemo(
-    () => markets.find((m) => m.countryCode === countryCode) ?? markets.find((m) => m.countryCode === "US"),
+    () =>
+      markets.find((m) => m.countryCode === countryCode) ??
+      markets.find((m) => m.countryCode === STOREFRONT_DEFAULT_COUNTRY),
     [markets, countryCode]
   );
 
@@ -149,7 +165,8 @@ export function MarketProvider({ children }: { children: ReactNode }) {
 
   const setMarketLocation = useCallback(
     (nextCountry: string, nextPostal?: string, source: "manual" | "geo" = "manual") => {
-      const code = nextCountry.trim().toUpperCase() || DEFAULT_MARKET_COUNTRY;
+      const requested = nextCountry.trim().toUpperCase() || STOREFRONT_DEFAULT_COUNTRY;
+      const code = isStorefrontDeliveryCountry(requested) ? requested : STOREFRONT_DEFAULT_COUNTRY;
       setCountryCode(code);
       if (typeof window !== "undefined") {
         localStorage.setItem(COUNTRY_KEY, code);
@@ -176,7 +193,10 @@ export function MarketProvider({ children }: { children: ReactNode }) {
         try {
           const res = await fetch(`${getApiUrl()}/markets`, { cache: "force-cache" });
           const data = res.ok ? ((await res.json()) as { markets?: PublicMarket[] }) : { markets: [] };
-          if (data.markets && data.markets.length > 0) list = data.markets;
+          if (data.markets && data.markets.length > 0) {
+            const filtered = toStorefrontMarkets(data.markets);
+            if (filtered.length > 0) list = filtered;
+          }
         } catch {
           /* keep bundled markets so Delivering to still has a country list */
         }
@@ -196,7 +216,7 @@ export function MarketProvider({ children }: { children: ReactNode }) {
 
         setManualOverride(false);
         const detected = await detectVisitorCountry();
-        const allowed = pickAllowedCountry(detected, list, stored || DEFAULT_MARKET_COUNTRY);
+        const allowed = pickAllowedCountry(detected, list, stored || STOREFRONT_DEFAULT_COUNTRY);
         setCountryCode(allowed);
         localStorage.setItem(COUNTRY_KEY, allowed);
         applyCheckoutCurrency(detected ?? allowed, list);
@@ -215,7 +235,7 @@ export function MarketProvider({ children }: { children: ReactNode }) {
     setLoading(true);
     try {
       const detected = await detectVisitorCountry();
-      const allowed = pickAllowedCountry(detected, markets, DEFAULT_MARKET_COUNTRY);
+      const allowed = pickAllowedCountry(detected, markets, STOREFRONT_DEFAULT_COUNTRY);
       setCountryCode(allowed);
       localStorage.setItem(COUNTRY_KEY, allowed);
       applyCheckoutCurrency(detected ?? allowed, markets);

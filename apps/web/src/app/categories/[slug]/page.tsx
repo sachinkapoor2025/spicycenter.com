@@ -11,7 +11,7 @@ import { CategoryProductLinks } from "@/components/CategoryProductLinks";
 import { InternalLinksSection } from "@/components/InternalLinksSection";
 import { JsonLd } from "@/components/JsonLd";
 import { getCategoryContent } from "@/lib/content/category-content";
-import { countrySeoPages } from "@/lib/content/country-pages";
+import { storefrontCountrySeoPages } from "@/lib/content/country-pages";
 import { getCategoryPageSeo } from "@/lib/content/category-seo";
 import { getCategoryRichContent } from "@/lib/content/category-rich-content";
 import { seoLocations } from "@/lib/content/seo-data";
@@ -201,12 +201,12 @@ export default async function CategoryPage({ params, searchParams }: Props) {
         <section className="mt-8 text-sm text-slate-600">
           <h2 className="font-semibold text-primary mb-2">spice shopping by location</h2>
           <p className="flex flex-wrap gap-x-1 gap-y-1 mb-2">
-            {countrySeoPages.map((c, i) => (
+            {storefrontCountrySeoPages().map((c, i) => (
               <span key={c.slug}>
                 <Link href={`/countries/${c.slug}`} className="text-nav hover:underline">
                   {c.name}
                 </Link>
-                {i < countrySeoPages.length - 1 ? <span className="text-slate-400"> · </span> : null}
+                {i < storefrontCountrySeoPages().length - 1 ? <span className="text-slate-400"> · </span> : null}
               </span>
             ))}
           </p>

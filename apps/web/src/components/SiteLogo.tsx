@@ -11,20 +11,18 @@ export function SiteLogo({
   priority?: boolean;
   className?: string;
 }) {
-  const px = size === "desktop" ? 48 : 40;
+  const height = size === "desktop" ? 56 : 44;
+  const width = size === "desktop" ? 200 : 156;
   return (
-    <span className={`inline-flex items-center gap-2 ${className}`.trim()}>
+    <span className={`inline-flex items-center ${className}`.trim()}>
       <Image
         src={site.logoSrc}
-        alt=""
-        width={px}
-        height={px}
-        className="rounded-full"
+        alt={site.name}
+        width={width}
+        height={height}
+        className="h-11 md:h-14 w-auto max-w-[200px] object-contain object-left"
         priority={priority}
       />
-      <span className="font-serif text-lg md:text-xl font-semibold text-charcoal tracking-tight">
-        Spicy<span className="text-nav">Corner</span>
-      </span>
     </span>
   );
 }

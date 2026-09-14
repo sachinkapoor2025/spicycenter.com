@@ -13,25 +13,33 @@ import { CurrencySelect } from "@/components/CurrencySelect";
 function RegionsMenu({ onNavigate }: { onNavigate?: () => void }) {
   const [open, setOpen] = useState(false);
 
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
+
   return (
-    <div
-      className="relative shrink-0"
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
-    >
+    <div className="relative shrink-0">
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-haspopup="true"
-        className={`btn-nav gap-1 ${open ? "btn-nav-active" : ""}`}
+        className={`inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-[13px] font-semibold whitespace-nowrap ${
+          open ? "bg-nav text-white" : "text-primary hover:bg-orange-50 hover:text-nav"
+        }`}
       >
         Regions
-        <span className={`text-xs transition-transform ${open ? "rotate-180" : ""}`}>▼</span>
+        <span className={`text-[10px] transition-transform ${open ? "rotate-180" : ""}`}>▼</span>
       </button>
       {open && (
-        <div className="absolute top-full right-0 pt-1.5 z-[100]">
-          <div className="min-w-[220px] max-h-[min(70vh,360px)] overflow-y-auto rounded-lg border border-slate-200 bg-white py-1 shadow-xl">
+        <>
+          <button type="button" className="fixed inset-0 z-[90]" aria-label="Close regions menu" onClick={() => setOpen(false)} />
+          <div className="absolute top-full right-0 z-[100] mt-1 min-w-[220px] max-h-[min(70vh,360px)] overflow-y-auto rounded-lg border border-[#eadfce] bg-white py-1 shadow-xl">
             {regionLinks.map((c) => (
               <Link
                 key={c.slug}
@@ -46,7 +54,7 @@ function RegionsMenu({ onNavigate }: { onNavigate?: () => void }) {
               </Link>
             ))}
           </div>
-        </div>
+        </>
       )}
     </div>
   );
@@ -188,6 +196,15 @@ export function Header() {
 
   return (
     <header className="border-b border-slate-200 bg-white sticky top-0 z-50 shadow-sm overflow-visible">
+      <div className="hidden md:block bg-primary text-white/80 text-[11px] tracking-wide">
+        <div className="max-w-7xl mx-auto px-4 py-1.5 flex items-center justify-between gap-4">
+          <p className="truncate">Authentic Indian Spices · Retail &amp; Bulk Supply · UK &amp; EU Shipping</p>
+          <div className="flex items-center gap-3 shrink-0">
+            <Link href="/faq" className="hover:text-white">Help</Link>
+            <Link href="/contact" className="hover:text-white">Contact</Link>
+          </div>
+        </div>
+      </div>
       {/* Mobile top bar */}
       <div className="md:hidden max-w-7xl mx-auto px-3 py-3 flex items-center gap-2">
         <button
@@ -252,21 +269,25 @@ export function Header() {
         </div>
       </div>
 
-      {/* Desktop nav */}
-      <nav className="hidden md:block border-t border-slate-100 bg-white overflow-visible">
-        <div className="max-w-7xl mx-auto px-4 py-2.5">
-          <div className="flex flex-nowrap items-center gap-1.5 overflow-x-auto pb-0.5 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+      {/* Desktop nav — Regions sits outside the scrolling row so the menu is not clipped */}
+      <nav className="hidden md:block border-t border-slate-100 bg-[#fbf7f1] overflow-visible">
+        <div className="max-w-7xl mx-auto px-4 py-2 flex items-center gap-2">
+          <div className="flex flex-nowrap items-center gap-1 flex-1 min-w-0 overflow-x-auto pb-0.5 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`btn-nav shrink-0 px-3 py-1.5 text-[13px] ${isActive(item.href) ? "btn-nav-active" : ""}`}
+                className={`shrink-0 rounded-full px-3 py-1.5 text-[13px] font-semibold whitespace-nowrap ${
+                  isActive(item.href)
+                    ? "bg-nav text-white"
+                    : "text-primary hover:bg-white hover:text-nav"
+                }`}
               >
                 {item.label}
               </Link>
             ))}
-            <RegionsMenu />
           </div>
+          <RegionsMenu />
         </div>
       </nav>
 

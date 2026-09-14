@@ -33,6 +33,12 @@ export const EUROPEAN_COUNTRY_CODES = [
 
 export const DEFAULT_MARKET_COUNTRY = "US";
 
+/** Storefront delivery is UK + listed European countries only (India is sourcing, not a shopper market). */
+export function isStorefrontDeliveryCountry(countryCode: string): boolean {
+  const code = countryCode.trim().toUpperCase();
+  return (EUROPEAN_COUNTRY_CODES as readonly string[]).includes(code);
+}
+
 export const WAREHOUSE_US_ID = "us-warehouse";
 export const WAREHOUSE_UK_ID = "uk-warehouse";
 export const WAREHOUSE_IN_ID = "in-warehouse";

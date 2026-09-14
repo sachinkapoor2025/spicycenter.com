@@ -8,7 +8,7 @@ export const site = {
   phone: "",
   whatsapp: "919266467887",
   whatsappDisplay: "",
-  logoSrc: "/logo.svg",
+  logoSrc: "/brand-logo.jpg",
   primaryColor: "#2c1810",
   navBlue: "#c45c26",
   accentColor: "#d4a017",
@@ -52,6 +52,57 @@ export const regionLinks = [
   { label: "Kashmir", slug: "kashmir" },
   { label: "Maharashtra", slug: "maharashtra" },
 ] as const;
+
+export const regionStories: Record<(typeof regionLinks)[number]["slug"], { intro: string; growing: string; cooking: string }> = {
+  kerala:
+    {
+      intro: "Kerala’s humid hills and backwaters are the story behind black pepper, cardamom, clove and cinnamon-adjacent trade spices that still define South Indian kitchens.",
+      growing: "Cardamom from the Western Ghats, Tellicherry-style pepper, and coconut-rich masala traditions sit alongside Syrian-Christian and Malabar Muslim cooking. Lots labelled Kerala should match the pack, not a generic ‘South India’ claim.",
+      cooking: "Use Kerala pepper in fish moilee, cardamom in payasam, and a light hand with clove in biryani. Whole spices toasted in coconut oil give a different aroma than the same spices bloomed in ghee.",
+    },
+  rajasthan:
+    {
+      intro: "Rajasthan is cumin, coriander and chilli country — dry heat, sandy soils and the mandis that still set the tone for North Indian everyday masala.",
+      growing: "Jeera from the western belt and coriander seed from adjoining growing districts are traded through Unjha and other markets. Grade, sieve size and oil content matter more than a state name on a brochure.",
+      cooking: "Rajasthani kitchens lean on cumin tadka, red chilli, and coriander in laal maas, ker sangri and dal baati. Toast jeera until it smells nutty, not burnt.",
+    },
+  gujarat:
+    {
+      intro: "Gujarat sits on coriander, cumin and chilli trade routes. Unjha is one of the names buyers still look for when they talk about seed spices.",
+      growing: "Coriander and cumin lots from Gujarat should be described by market, harvest and cleaning grade. Colour of coriander (yellow vs green) is a buying note, not a health claim.",
+      cooking: "Gujarati cooking uses coriander-cumin (dhana jeeru), mild chilli and a sweet-sour balance. Ground coriander goes into undhiyu, dal, and everyday shaak.",
+    },
+  karnataka:
+    {
+      intro: "Karnataka links the pepper and coffee hills of the Western Ghats with Byadgi chilli country and a strong temple-and-home rasam tradition.",
+      growing: "Byadgi chilli is prized for colour more than heat. Pepper gardens overlap Kerala’s Ghats. Always read the variety on the pack rather than assuming ‘Karnataka chilli’ means one flavour.",
+      cooking: "Byadgi for red hue in bisi bele bath, pepper in saaru, and curry leaves with mustard in palya. Whole spices are usually tempered in oil at the start.",
+    },
+  "andhra-pradesh":
+    {
+      intro: "Andhra and Telangana chilli — Guntur, Sannam, and related lots — are the heat backbone of many Indian masalas sold into the UK.",
+      growing: "Guntur is a trade name as much as a geography. Heat (SHU) and colour value vary by lot. We will not invent Scoville numbers we have not measured.",
+      cooking: "Andhra meals often want a brighter, hotter chilli than Kashmiri. Use it in gongura, chicken fry, and pickle masalas; blend with Kashmiri if you need colour without the same bite.",
+    },
+  "tamil-nadu":
+    {
+      intro: "Tamil Nadu is turmeric, curry leaf, tamarind-adjacent cooking and a distinct sambar-rasam spice logic.",
+      growing: "Erode turmeric is a common reference grade in Indian trade. Curcumin content belongs on a lab sheet, not as a medical promise on a product page.",
+      cooking: "Mustard, urad dal, curry leaf, red chilli and asafoetida in tadka; sambar powder built from coriander, chilli, toor dal and fenugreek. Toast powders briefly so they stay fragrant.",
+    },
+  kashmir:
+    {
+      intro: "Kashmiri chilli is famous for brick-red colour and milder heat. Saffron, when genuine, is a tiny, expensive thread crop — not a bulk commodity.",
+      growing: "Kashmiri chilli lots should not be confused with generic ‘deggi’ blends. Saffron must be Crocus sativus stigmas with origin stated; we do not sell dyed fibres as saffron.",
+      cooking: "Use Kashmiri chilli for tandoori colour and rogan josh. Bloom saffron in warm milk for biryani and sweets. A pinch is a seasoning, not a health tonic.",
+    },
+  maharashtra:
+    {
+      intro: "Maharashtra sits between Deccan chilli, goda masala, and the Mumbai-Pune grocer demand that still shapes what UK Indian kitchens cook every week.",
+      growing: "Turmeric, chilli and mixed spice blending for goda masala and kala masala are the regional story. Blends are recipes, not single-origin spices.",
+      cooking: "Goda masala for amti, kala masala for rassa, and a daily tadka of mustard, cumin and asafoetida. Maharashtrian heat is often layered rather than one chilli dumped in.",
+    },
+};
 
 /** @deprecated spice city doorway pages — kept so old imports compile; not used in nav. */
 export type CityLink = { label: string; slug: string };
@@ -132,5 +183,17 @@ export const faqs = [
   {
     q: "Can I buy cumin as jeera or Cuminum cyminum?",
     a: "Yes. Search understands English, Hindi, botanical names and pack sizes such as 25kg.",
+  },
+  {
+    q: "Do you deliver outside the UK and Europe?",
+    a: "The storefront currently quotes delivery for the United Kingdom and listed European countries only. India is our sourcing story, not a checkout destination on this site.",
+  },
+  {
+    q: "What is the difference between whole and ground spices?",
+    a: "Whole spices keep aroma longer; grind or crush just before cooking when you can. Ground spices are convenient for everyday tadka and masala blends but fade faster if stored warm or in light.",
+  },
+  {
+    q: "How should I store Indian spices in the UK?",
+    a: "Airtight tins or jars, away from the hob and sunlight. Buy retail packs for home use and 10kg+ only if you will turn the stock. We do not print fake ‘best before 5 years’ claims.",
   },
 ] as const;

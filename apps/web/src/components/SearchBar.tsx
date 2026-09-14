@@ -24,14 +24,14 @@ function SearchBarInner() {
     <form onSubmit={submit} className="relative w-full">
       <input
         type="search"
-        placeholder="Search jeera, cumin, 25kg, botanical names..."
+        placeholder="Search for spices, masalas, herbs..."
         value={q}
         onChange={(e) => setQ(e.target.value)}
         className="w-full border border-slate-200 rounded-full pl-4 pr-12 py-2.5 text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-nav focus:ring-1 focus:ring-nav"
       />
       <button
         type="submit"
-        className="absolute right-1 top-1/2 -translate-y-1/2 flex h-9 w-9 items-center justify-center rounded-full text-nav hover:text-primary md:p-2"
+        className="absolute right-1 top-1/2 -translate-y-1/2 flex h-9 w-9 items-center justify-center rounded-full bg-nav text-white hover:bg-[#a74c1e] md:p-2"
         aria-label="Search"
       >
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>

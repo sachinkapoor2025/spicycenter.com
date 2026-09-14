@@ -128,12 +128,8 @@ export function ShoppingAssistant() {
   }, [open, messages, loading]);
 
   useEffect(() => {
-    if (hidden || onCheckout || !config.enabled || !config.invitationEnabled) return;
-    if (sessionStorage.getItem(DISMISS_KEY) === "1") return;
-    const t = window.setTimeout(() => {
-      if (!openedRef.current) setInvite(true);
-    }, config.invitationDelayMs);
-    return () => window.clearTimeout(t);
+    if (hidden || onCheckout || !config.enabled) return;
+    /* Storefront no longer shows the unsolicited “Need help?” invite. */
   }, [hidden, onCheckout, config.enabled, config.invitationEnabled, config.invitationDelayMs]);
 
   const send = useCallback(
