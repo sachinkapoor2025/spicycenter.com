@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { SOCIAL_LINKS } from "@spicycorner/shared";
 import { site, STORE_LOCATIONS, whatsappChatUrl } from "@/lib/site";
 import { PaymentMethodIcons } from "@/components/PaymentMethodIcons";
 import { SiteLogoLink } from "@/components/SiteLogo";
@@ -57,14 +58,26 @@ export function Footer() {
               <p className="text-white/75 leading-relaxed mt-3 text-[13px]">
                 Authentic Indian spices — retail packs and 10kg+ wholesale. From farms in India to kitchens in the UK and Europe.
               </p>
-              <div className="flex gap-3 mt-5 text-white/70">
-                {["f", "ig", "yt"].map((id) => (
-                  <span
-                    key={id}
-                    className="h-8 w-8 rounded-md border border-white/25 inline-flex items-center justify-center text-[11px] uppercase"
+              <div className="flex flex-wrap gap-3 mt-5 text-white/70">
+                {(
+                  [
+                    { href: SOCIAL_LINKS.facebook, label: "Facebook", short: "f" },
+                    { href: SOCIAL_LINKS.instagram, label: "Instagram", short: "ig" },
+                    { href: SOCIAL_LINKS.pinterest, label: "Pinterest", short: "pin" },
+                    { href: SOCIAL_LINKS.youtube, label: "YouTube", short: "yt" },
+                    { href: SOCIAL_LINKS.linkedin, label: "LinkedIn", short: "in" },
+                  ] as const
+                ).map((item) => (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={item.label}
+                    className="h-8 min-w-8 px-2 rounded-md border border-white/25 inline-flex items-center justify-center text-[11px] uppercase hover:bg-white/10 hover:text-white"
                   >
-                    {id}
-                  </span>
+                    {item.short}
+                  </a>
                 ))}
                 <a
                   href={whatsappChatUrl()}

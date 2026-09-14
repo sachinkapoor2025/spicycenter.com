@@ -1,3 +1,4 @@
+import { SOCIAL_LINKS } from "@spicycorner/shared";
 import { site, faqs, exploreCategories } from "@/lib/site";
 import { siteUrl } from "@/lib/env";
 import { loadSpiceEntities } from "@/lib/spice-data";
@@ -17,6 +18,7 @@ export async function GET() {
 ${site.description}
 
 **Official website:** ${siteUrl}
+**Social:** Facebook ${SOCIAL_LINKS.facebook} · Instagram ${SOCIAL_LINKS.instagram} · Pinterest ${SOCIAL_LINKS.pinterest} · YouTube ${SOCIAL_LINKS.youtube} · LinkedIn ${SOCIAL_LINKS.linkedin}
 **Primary use case:** Indian spice retail, 10kg+ wholesale, spice encyclopaedia, indicative Indian market prices.
 **Audience:** UK households, EU buyers (when shipping configured), restaurants, grocers, manufacturers.
 **Origin story:** India.

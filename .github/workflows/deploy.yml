@@ -194,54 +194,5 @@ jobs:
           NEXT_PUBLIC_CLARITY_ID: ${{ secrets.NEXT_PUBLIC_CLARITY_ID }}
           NEXT_PUBLIC_GTM_ID: ${{ secrets.NEXT_PUBLIC_GTM_ID }}
           NEXT_PUBLIC_GA4_ID: ${{ secrets.NEXT_PUBLIC_GA4_ID }}
-
-      - name: Start Amplify release
-        env:
-          AMPLIFY_APP_ID: ${{ secrets.AMPLIFY_APP_ID }}
-        run: |
-          set -euo pipefail
-          BRANCH="${GITHUB_REF_NAME}"
-          APP_ID="${AMPLIFY_APP_ID:-}"
-          if [ -z "$APP_ID" ]; then
-            APP_ID=$(aws amplify list-apps --region "${AWS_REGION}" --query "apps[?contains(name, 'spicycenter') || contains(name, 'spicycorner')].appId | [0]" --output text 2>/dev/null || true)
-          fi
-          if [ -z "$APP_ID" ] || [ "$APP_ID" = "None" ]; then
-            echo "::warning::No Amplify app id. Connect GitHub repo sachinkapoor2025/spicycenter.com in AWS Amplify (amplify.yml) so the storefront deploys."
-            echo "Next.js production build succeeded; SAM stack spicycorner-prod is the API."
-            exit 0
-          fi
-
-          latest_status() {
-            aws amplify list-jobs --app-id "$APP_ID" --branch-name "$BRANCH" --region "${AWS_REGION}" --max-items 1 --query 'jobSummaries[0].status' --output text 2>/dev/null || echo "NONE"
-          }
-
-          STATUS="$(latest_status)"
-          if [ "$STATUS" = "PENDING" ] || [ "$STATUS" = "RUNNING" ]; then
-            echo "Amplify already has a ${STATUS} job on ${BRANCH} (GitHub auto-build). Skipping start-job."
-          else
-            echo "Starting Amplify RELEASE on app $APP_ID branch $BRANCH"
-            if ! aws amplify start-job --app-id "$APP_ID" --branch-name "$BRANCH" --region "${AWS_REGION}" --job-type RELEASE; then
-              STATUS="$(latest_status)"
-              if [ "$STATUS" = "PENDING" ] || [ "$STATUS" = "RUNNING" ]; then
-                echo "start-job was rejected because a job is already running; treating that as success."
-              else
-                echo "::error::Amplify start-job failed and no job is in progress."
-                exit 1
-              fi
-            fi
-          fi
-
-          echo "Waiting for Amplify job to finish (up to 12 minutes)…"
-          for _ in $(seq 1 36); do
-            STATUS="$(latest_status)"
-            echo "Amplify status=${STATUS}"
-            case "$STATUS" in
-              SUCCEED) echo "Amplify release succeeded."; exit 0 ;;
-              FAILED|CANCELLED)
-                echo "::error::Amplify job ${STATUS}."
-                exit 1
-                ;;
-            esac
-            sleep 20
-          done
-          echo "::warning::Amplify is still ${STATUS}. The Hosting job continues in AWS; this step will not start a duplicate."
+      # Storefront publishing is Amplify's GitHub connection (amplify.yml).
+      # Do not start-job or poll Amplify from Actions — that duplicates the auto-build.

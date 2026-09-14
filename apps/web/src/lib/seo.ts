@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { productMetaDescription, VERIFIED_COUNTRY_LINKS } from "@spicycorner/shared";
+import { productMetaDescription, SOCIAL_LINKS, VERIFIED_COUNTRY_LINKS } from "@spicycorner/shared";
 import { site } from "./site";
 import { siteUrl } from "./env";
 import { extendedKeywords } from "./ai-recommendation";
@@ -108,10 +108,11 @@ export function organizationJsonLd() {
     description: site.description,
     email: site.supportEmail,
     sameAs: [
-      "https://www.facebook.com/spicycorner/",
-      "https://www.instagram.com/spicycorner/",
-      "https://www.pinterest.com/spicycorner/",
-      "https://x.com/spicycorner",
+      SOCIAL_LINKS.facebook,
+      SOCIAL_LINKS.instagram,
+      SOCIAL_LINKS.pinterest,
+      SOCIAL_LINKS.youtube,
+      SOCIAL_LINKS.linkedin,
       siteUrl,
     ],
     areaServed: VERIFIED_COUNTRY_LINKS.map((c) => ({

@@ -6,13 +6,14 @@
  */
 export const analyticsConfig = {
   gtmId: "GTM-KQLBTVVK",
-  ga4Id: "G-TQBTDTY5W3",
+  /** Google Analytics 4 measurement ID — hardcoded; Amplify NEXT_PUBLIC_GA4_ID is ignored. */
+  ga4Id: "G-PGFC0DCL1C",
   /** Google Ads conversion tag (gtag.js) — hardcoded, not Amplify env. */
   googleAdsId: "AW-18198485613",
   metaPixelId: "1459099935879507",
   clarityId: "xdpv6v2lq9",
-  /** Meta tag content for Google Search Console. */
-  googleSiteVerification: "kmB7_P9VONURmAnyhNMPzQ7TuU23Ang9ZjFQHj3J8cM",
+  /** Meta tag content for Google Search Console (`google-site-verification`). */
+  googleSiteVerification: "ZeIeT11CZCmWyesWfLtffXYRrw3r4Nzq_4-c4-13T8I",
   /** Bing Webmaster Tools meta tag — set when you have the code from Bing. */
   bingSiteVerification: "",
   bingUetId: "",

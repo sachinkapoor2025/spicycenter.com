@@ -93,8 +93,8 @@ describe("order-confirmed-email", () => {
     assert.match(html, /USA Shipping/);
     assert.match(html, /Easy Returns/);
     assert.match(html, /enquiry@spicycenter.com/);
-    assert.match(html, /facebook\.com\/spicycorner/);
-    assert.match(html, /instagram\.com\/spicycorner/);
+    assert.match(html, /facebook\.com\/people\/Spicycenter\/61594383689623/);
+    assert.match(html, /instagram\.com\/spi\.cycenter/);
     assert.match(html, /logo\.png/);
     assert.match(html, /chilli\.thumb\.webp|chilli\.jpg/);
     assert.match(html, /449cd53d-8a7e-4494-9479-b3c342380828/);

@@ -5,7 +5,7 @@
  */
 
 import { displayOrderRef } from "./order-number";
-import { ORDER_STATUS } from "../constants";
+import { ORDER_STATUS, SOCIAL_LINKS } from "../constants";
 import { productImageVariantUrl } from "./image-variants";
 import { resolveProductImageUrl } from "./image-url";
 
@@ -23,10 +23,11 @@ const MUTED = "#6b5e4e";
 const LINE = "#efe6d6";
 const WHITE = "#ffffff";
 
-const FB_URL = "https://www.facebook.com/spicycorner/";
-const IG_URL = "https://www.instagram.com/spicycorner/";
-const PINTEREST_URL = "https://www.pinterest.com/spicycorner/";
-const X_URL = "https://x.com/spicycorner";
+const FB_URL = SOCIAL_LINKS.facebook;
+const IG_URL = SOCIAL_LINKS.instagram;
+const PINTEREST_URL = SOCIAL_LINKS.pinterest;
+const YT_URL = SOCIAL_LINKS.youtube;
+const LI_URL = SOCIAL_LINKS.linkedin;
 const SUPPORT_EMAIL = "enquiry@spicycenter.com";
 const SUPPORT_PHONE = "+1 (669) 260-3819";
 const ORDER_EMAIL = "enquiry@spicycenter.com";
@@ -552,7 +553,8 @@ function buildStatusEmailHtml(order: OrderConfirmedNotifyOrder, copy: StatusEmai
                   ${socialBadge(FB_URL, "f", "#1877F2")}
                   ${socialBadge(IG_URL, "IG", "#E1306C")}
                   ${socialBadge(PINTEREST_URL, "P", "#E60023")}
-                  ${socialBadge(X_URL, "X", "#000000")}
+                  ${socialBadge(YT_URL, "YT", "#FF0000")}
+                  ${socialBadge(LI_URL, "in", "#0A66C2")}
                 </tr>
               </table>
               <div style="height:18px;line-height:18px;font-size:0;">&nbsp;</div>

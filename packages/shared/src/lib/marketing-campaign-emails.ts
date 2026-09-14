@@ -7,6 +7,8 @@
  * Both builders emit table + inline-CSS HTML for Gmail / Outlook / Apple Mail.
  */
 
+import { SOCIAL_LINKS } from "../constants";
+
 const SITE = "https://www.spicycenter.com";
 const SITE_SHORT = "https://spicycenter.com";
 const SHOP = `${SITE}/products`;
@@ -103,9 +105,9 @@ export const FREE_SHIPPING_EMAIL_CONFIG = {
   websiteUrl: SITE,
   websiteLabel: "www.spicycenter.com",
   orderEmail: "order@spicycorner.com",
-  facebookUrl: "https://www.facebook.com/spicycorner/",
+  facebookUrl: SOCIAL_LINKS.facebook,
   facebookIconUrl: FB,
-  instagramUrl: "https://www.instagram.com/spicycorner/",
+  instagramUrl: SOCIAL_LINKS.instagram,
   instagramIconUrl: IG,
   copyrightText: "© 2026 SpicyCenter. All Rights Reserved.",
   unsubscribeLabel: "Unsubscribe",
@@ -236,9 +238,9 @@ export const STARTING_PRICE_EMAIL_CONFIG = {
   websiteUrl: SITE,
   websiteLabel: "www.spicycenter.com",
   orderEmail: "order@spicycorner.com",
-  facebookUrl: "https://www.facebook.com/spicycorner/",
+  facebookUrl: SOCIAL_LINKS.facebook,
   facebookIconUrl: FB,
-  instagramUrl: "https://www.instagram.com/spicycorner/",
+  instagramUrl: SOCIAL_LINKS.instagram,
   instagramIconUrl: IG,
   copyrightText: "© 2026 SpicyCenter. All Rights Reserved.",
   unsubscribeLabel: "Unsubscribe",
@@ -387,9 +389,9 @@ export const SHOP_MORE_SAVE_MORE_EMAIL_CONFIG = {
   websiteUrl: SITE_SHORT,
   websiteLabel: "spicycenter.com",
   orderEmail: "order@spicycorner.com",
-  facebookUrl: "https://www.facebook.com/spicycorner/",
+  facebookUrl: SOCIAL_LINKS.facebook,
   facebookIconUrl: FB,
-  instagramUrl: "https://www.instagram.com/spicycorner/",
+  instagramUrl: SOCIAL_LINKS.instagram,
   instagramIconUrl: IG,
   copyrightText: "© 2026 SpicyCenter. All Rights Reserved.",
   unsubscribeLabel: "Unsubscribe",

@@ -1,3 +1,12 @@
+/** Public social profiles (no admin/session query params). */
+export const SOCIAL_LINKS = {
+  facebook: "https://www.facebook.com/people/Spicycenter/61594383689623/",
+  pinterest: "https://pin.it/bUhQjY2la",
+  instagram: "https://www.instagram.com/spi.cycenter/",
+  youtube: "https://www.youtube.com/channel/UCTqDpdnRKMZFueSSMkcOwlA",
+  linkedin: "https://www.linkedin.com/company/spicycenter-com/",
+} as const;
+
 export const ORDER_STATUS = {
   PENDING_PAYMENT: "pending_payment",
   PAID: "paid",

@@ -3,6 +3,7 @@
  * Content is driven by MarketingEmailContent — edit fields in Admin, not the HTML.
  */
 
+import { SOCIAL_LINKS } from "../constants";
 import { cdnUploadUrl } from "./image-url";
 
 export type MarketingEmailCategory = {
@@ -125,9 +126,9 @@ export const DEFAULT_PREMIUM_MARKETING_EMAIL_CONTENT: MarketingEmailContent = {
   websiteUrl: SITE,
   websiteLabel: "www.spicycenter.com",
   orderEmail: "order@spicycorner.com",
-  facebookUrl: "https://www.facebook.com/spicycorner/",
+  facebookUrl: SOCIAL_LINKS.facebook,
   facebookIconUrl: CDN_FB,
-  instagramUrl: "https://www.instagram.com/spicycorner/",
+  instagramUrl: SOCIAL_LINKS.instagram,
   instagramIconUrl: CDN_IG,
   copyrightText: "© 2026 SpicyCenter. All Rights Reserved.",
   unsubscribeLabel: "Unsubscribe",
