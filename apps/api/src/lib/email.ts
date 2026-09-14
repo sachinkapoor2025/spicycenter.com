@@ -1,5 +1,6 @@
 import nodemailer from "nodemailer";
 import crypto from "crypto";
+import dns from "node:dns/promises";
 import type SMTPTransport from "nodemailer/lib/smtp-transport";
 import type { Order, Product, CartItem } from "@spicycorner/shared";
 import type { LeadCaptureInput } from "@spicycorner/shared";
@@ -74,14 +75,40 @@ function fromAddressFor(mailbox: TransactionalMailbox = "order"): string {
   return process.env.SMTP_FROM?.trim() || smtpUser("order") || notifyAddress();
 }
 
+/** Real inbound/outbound host. `smtp.spicycenter.com` has no A record (getaddrinfo EBUSY). */
+const CANONICAL_SMTP_HOST = "mail.spicycenter.com";
+const SMTP_FALLBACK_IPV4 = "157.66.191.12";
+
+function isIpv4(host: string): boolean {
+  return /^\d{1,3}(?:\.\d{1,3}){3}$/.test(host);
+}
+
+function normalizeSmtpHost(host: string): string {
+  const h = host.trim().toLowerCase().replace(/\.$/, "");
+  if (!h || h === "smtp.spicycenter.com" || h.endsWith(".spicycenter.com.com")) {
+    return CANONICAL_SMTP_HOST;
+  }
+  return host.trim();
+}
+
 function smtpHosts(): string[] {
   const primary = process.env.SMTP_HOST?.trim();
-  const extras = (process.env.SMTP_HOSTS ?? "mail.spicycenter.com,smtp.spicycenter.com")
+  const extras = (process.env.SMTP_HOSTS ?? "")
     .split(",")
     .map((h) => h.trim())
     .filter(Boolean);
-  const all = primary ? [primary, ...extras] : extras;
-  return [...new Set(all)];
+  const all = [...(primary ? [primary] : []), ...extras, CANONICAL_SMTP_HOST, SMTP_FALLBACK_IPV4];
+  return [...new Set(all.map(normalizeSmtpHost))];
+}
+
+function publicSmtpError(raw: string): string {
+  if (/Daily send limit/i.test(raw)) {
+    return `${raw} — transactional mailbox (${DEFAULT_NOTIFY}) hit its daily cap (shared hosting). Marketing campaigns must use Mailercloud only; ask the host to raise the limit or wait for daily reset.`;
+  }
+  if (/getaddrinfo|EBUSY|ENOTFOUND|EAI_AGAIN|ETIMEDOUT|ECONNREFUSED|ECONNRESET/i.test(raw)) {
+    return "We could not send email just now. Please WhatsApp us or email enquiry@spicycenter.com.";
+  }
+  return raw;
 }
 
 function transportConfigs(
@@ -113,12 +140,17 @@ function transportConfigs(
 }
 
 function createTransporter(config: SMTPTransport.Options) {
+  const host = String(config.host ?? "");
   return nodemailer.createTransport({
     ...config,
     connectionTimeout: 8000,
     greetingTimeout: 8000,
     socketTimeout: 15000,
-    tls: { minVersion: "TLSv1.2", rejectUnauthorized: true },
+    tls: {
+      minVersion: "TLSv1.2",
+      rejectUnauthorized: true,
+      servername: isIpv4(host) ? CANONICAL_SMTP_HOST : host,
+    },
   });
 }
 
@@ -268,7 +300,21 @@ export async function sendEmail(opts: {
 
   let lastError: unknown;
   for (const host of smtpHosts()) {
-    for (const config of transportConfigs(host, mailbox)) {
+    let connectHost = host;
+    if (!isIpv4(host)) {
+      try {
+        const { address } = await dns.lookup(host, { family: 4 });
+        connectHost = address;
+      } catch (err) {
+        lastError = err;
+        console.error("SMTP DNS failed", {
+          host,
+          err: err instanceof Error ? err.message : String(err),
+        });
+        continue;
+      }
+    }
+    for (const config of transportConfigs(connectHost, mailbox)) {
       try {
         await createTransporter(config).sendMail(mail);
         console.info("sendEmail.ok", { mailbox, from, host, port: config.port, to: opts.to, subject: opts.subject });
@@ -277,6 +323,7 @@ export async function sendEmail(opts: {
         lastError = err;
         console.error("SMTP send failed", {
           host,
+          connectHost,
           port: config.port,
           mailbox,
           err: err instanceof Error ? err.message : String(err),
@@ -286,10 +333,8 @@ export async function sendEmail(opts: {
   }
 
   const raw = lastError instanceof Error ? lastError.message : String(lastError ?? "SMTP connection failed");
-  const message = /Daily send limit/i.test(raw)
-    ? `${raw} — transactional mailbox (${DEFAULT_NOTIFY}) hit its daily cap (shared hosting). Marketing campaigns must use Mailercloud only; ask the host to raise the limit or wait for daily reset.`
-    : raw;
-  console.error("sendEmail failed:", { mailbox, message });
+  const message = publicSmtpError(raw);
+  console.error("sendEmail failed:", { mailbox, raw, message });
   return { ok: false, error: message };
 }
 

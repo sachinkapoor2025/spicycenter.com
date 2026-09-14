@@ -185,8 +185,7 @@ export async function captureLead(event: APIGatewayProxyEventV2) {
   if (emailRequired && !emailResult.ok) {
     console.error("Lead email failed:", leadPayload.source, emailResult.error);
     return badRequest(
-      emailResult.error ??
-        "Your message was saved but email could not be sent. Please WhatsApp us or email enquiry@spicycenter.com directly."
+      "Your enquiry was saved but email could not be sent. Please WhatsApp us or email enquiry@spicycenter.com."
     );
   }
 
