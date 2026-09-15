@@ -9,6 +9,7 @@ import { SearchBar } from "@/components/SearchBar";
 import { SiteLogoLink } from "@/components/SiteLogo";
 import { CountrySelector } from "@/components/CountrySelector";
 import { CurrencySelect } from "@/components/CurrencySelect";
+import { QuoteRibbon } from "@/components/QuoteRibbon";
 
 function RegionsMenu({ onNavigate }: { onNavigate?: () => void }) {
   const [open, setOpen] = useState(false);
@@ -29,8 +30,8 @@ function RegionsMenu({ onNavigate }: { onNavigate?: () => void }) {
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-haspopup="true"
-        className={`inline-flex items-center gap-1 rounded-md px-3 py-1.5 text-[13px] font-semibold whitespace-nowrap ${
-          open ? "bg-nav text-white" : "text-primary hover:bg-beige hover:text-nav"
+        className={`inline-flex items-center gap-1 rounded-md px-3 py-1.5 text-[13px] font-semibold whitespace-nowrap transition-colors ${
+          open ? "bg-nav text-white" : "text-primary hover:bg-nav hover:text-white"
         }`}
       >
         Regions
@@ -196,10 +197,10 @@ export function Header() {
 
   return (
     <header className="border-b border-[#e6d5bc] bg-cream sticky top-0 z-[90] shadow-card overflow-visible">
-      <div className="hidden md:block bg-primary text-[#f6efe3]/85 text-[11px] tracking-[0.14em] uppercase">
-        <div className="max-w-7xl mx-auto px-4 py-1.5 flex items-center justify-between gap-4">
-          <p className="truncate">Authentic Indian Spices | Retail &amp; Bulk | Worldwide Shipping</p>
-          <div className="flex items-center gap-4 shrink-0 normal-case tracking-normal">
+      <div className="text-[#f6efe3]" style={{ backgroundColor: "#2c1810" }}>
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 py-3 flex items-center justify-between gap-4">
+          <QuoteRibbon />
+          <div className="hidden sm:flex items-center gap-4 shrink-0 text-[13px] font-semibold text-[#f6efe3]/90">
             <Link href="/faq" className="hover:text-white">Help</Link>
             <Link href="/contact" className="hover:text-white">Contact</Link>
           </div>
@@ -273,10 +274,10 @@ export function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`shrink-0 rounded-md px-3 py-1.5 text-[13px] font-semibold whitespace-nowrap ${
+                className={`shrink-0 rounded-md px-3 py-1.5 text-[13px] font-semibold whitespace-nowrap transition-colors ${
                   isActive(item.href)
                     ? "bg-nav text-white"
-                    : "text-primary hover:bg-beige hover:text-nav"
+                    : "text-primary hover:bg-nav hover:text-white"
                 }`}
               >
                 {item.label}
@@ -319,10 +320,10 @@ export function Header() {
               <Link
                 href="/account"
                 onClick={closeMenu}
-                className={`block rounded-lg px-4 py-3 text-sm font-semibold ${
+                className={`block rounded-lg px-4 py-3 text-sm font-semibold transition-colors ${
                   pathname.startsWith("/account")
                     ? "bg-nav text-white"
-                    : "text-primary hover:bg-beige hover:text-nav"
+                    : "text-primary hover:bg-nav hover:text-white"
                 }`}
               >
                 Account
@@ -332,10 +333,10 @@ export function Header() {
                 key={item.href}
                 href={item.href}
                 onClick={closeMenu}
-                className={`block rounded-lg px-4 py-3 text-sm font-semibold ${
+                className={`block rounded-lg px-4 py-3 text-sm font-semibold transition-colors ${
                   isActive(item.href)
                     ? "bg-nav text-white"
-                    : "text-primary hover:bg-beige hover:text-nav"
+                    : "text-primary hover:bg-nav hover:text-white"
                 }`}
               >
                 {item.label}
@@ -345,10 +346,10 @@ export function Header() {
             <Link
               href="/wishlist"
               onClick={closeMenu}
-              className={`block rounded-lg px-4 py-3 text-sm font-semibold ${
+              className={`block rounded-lg px-4 py-3 text-sm font-semibold transition-colors ${
                 pathname === "/wishlist"
                   ? "bg-nav text-white"
-                    : "text-primary hover:bg-beige hover:text-nav"
+                    : "text-primary hover:bg-nav hover:text-white"
               }`}
             >
               Wish Lists
@@ -358,8 +359,8 @@ export function Header() {
                 <button
                   type="button"
                   onClick={() => setCitiesOpen((v) => !v)}
-                  className={`w-full flex items-center justify-between rounded-lg px-4 py-3 text-sm font-semibold ${
-                    citiesOpen ? "bg-nav text-white" : "text-primary hover:bg-beige hover:text-nav"
+                  className={`w-full flex items-center justify-between rounded-lg px-4 py-3 text-sm font-semibold transition-colors ${
+                    citiesOpen ? "bg-nav text-white" : "text-primary hover:bg-nav hover:text-white"
                   }`}
                 >
                   Regions
@@ -383,14 +384,14 @@ export function Header() {
             <Link
               href="/contact"
               onClick={closeMenu}
-              className="block rounded-lg px-4 py-3 text-sm font-semibold text-primary hover:bg-beige hover:text-nav"
+              className="block rounded-lg px-4 py-3 text-sm font-semibold text-primary hover:bg-nav hover:text-white transition-colors"
             >
               Contact
             </Link>
             <Link
               href="/faq"
               onClick={closeMenu}
-              className="block rounded-lg px-4 py-3 text-sm font-semibold text-primary hover:bg-beige hover:text-nav"
+              className="block rounded-lg px-4 py-3 text-sm font-semibold text-primary hover:bg-nav hover:text-white transition-colors"
             >
               Help / FAQ
             </Link>

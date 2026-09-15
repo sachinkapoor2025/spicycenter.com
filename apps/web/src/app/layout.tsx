@@ -5,6 +5,7 @@ import { CartProvider } from "@/lib/cart-context";
 import { WishlistProvider } from "@/lib/wishlist-context";
 import { CurrencyProvider } from "@/lib/currency-context";
 import { MarketProvider } from "@/lib/market-context";
+import { LocaleProvider } from "@/lib/i18n/locale-context";
 import { HeaderShell } from "@/components/HeaderShell";
 import { FooterShell } from "@/components/FooterShell";
 import { WhatsAppFloat } from "@/components/WhatsAppFloat";
@@ -74,7 +75,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,600;0,8..60,700;1,8..60,600;1,8..60,700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,600;0,8..60,700;1,8..60,600;1,8..60,700&display=swap"
           rel="stylesheet"
         />
       </head>
@@ -87,12 +88,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <WishlistProvider>
             <CurrencyProvider>
             <MarketProvider>
+            <LocaleProvider>
             <TrackingProvider />
             <HeaderShell />
             <main className="flex-1 min-w-0 overflow-x-clip">{children}</main>
             <FooterShell />
             <ClientDeferredWidgets />
             <WhatsAppFloat />
+            </LocaleProvider>
             </MarketProvider>
             </CurrencyProvider>
             </WishlistProvider>

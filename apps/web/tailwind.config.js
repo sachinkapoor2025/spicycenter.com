@@ -20,6 +20,7 @@ module.exports = {
       fontFamily: {
         serif: ['"Source Serif 4"', "Georgia", "serif"],
         sans: ['"Source Sans 3"', "system-ui", "sans-serif"],
+        quote: ['"Cormorant Garamond"', "Georgia", "serif"],
       },
       boxShadow: {
         card: "0 10px 28px rgba(44, 24, 16, 0.08)",
