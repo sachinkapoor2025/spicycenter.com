@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { SPICE_QUOTES } from "@/lib/i18n/quotes";
 
-const ROTATE_MS = 15_000;
+const ROTATE_MS = 7_000;
 
 export function QuoteRibbon() {
   const [index, setIndex] = useState(0);
@@ -27,7 +27,7 @@ export function QuoteRibbon() {
   return (
     <div
       data-no-i18n
-      className="flex-1 min-w-0 text-center md:text-left"
+      className="flex-1 min-w-0 text-center sm:absolute sm:inset-0 sm:flex sm:items-center sm:justify-center sm:pointer-events-none sm:px-28"
       aria-live="polite"
     >
       <p

@@ -198,9 +198,9 @@ export function Header() {
   return (
     <header className="border-b border-[#e6d5bc] bg-cream sticky top-0 z-[90] shadow-card overflow-visible">
       <div className="text-[#f6efe3]" style={{ backgroundColor: "#2c1810" }}>
-        <div className="max-w-7xl mx-auto px-3 sm:px-4 py-3 flex items-center justify-between gap-4">
+        <div className="relative max-w-7xl mx-auto px-3 sm:px-4 py-3 flex items-center justify-end gap-4 min-h-[3.25rem]">
           <QuoteRibbon />
-          <div className="hidden sm:flex items-center gap-4 shrink-0 text-[13px] font-semibold text-[#f6efe3]/90">
+          <div className="hidden sm:flex items-center gap-4 shrink-0 text-[13px] font-semibold text-[#f6efe3]/90 relative z-10">
             <Link href="/faq" className="hover:text-white">Help</Link>
             <Link href="/contact" className="hover:text-white">Contact</Link>
           </div>
