@@ -19,14 +19,13 @@ export default function TermsPage() {
         </p>
         <h2 className="text-xl font-bold text-primary">Orders &amp; delivery</h2>
         <p>
-          We deliver spice items to addresses within the United States. Delivery times are estimates (typically 5–7
-          business days) and may vary by location. You are responsible for providing an accurate US shipping address
-          at checkout.
+          We deliver spice items to addresses in the United Kingdom and listed European countries. Delivery times are estimates (typically 5–7
+          business days) and may vary by location. Confirm the quote on each product page.
         </p>
         <h2 className="text-xl font-bold text-primary">Pricing &amp; payment</h2>
         <p>
-          Prices are shown in USD or INR at checkout. Payment is processed securely through Stripe (USD) or Razorpay
-          (INR). We do not store card details on our servers.
+          Prices are shown in GBP (UK) or EUR (EU) on the storefront. Payment is processed securely through Stripe.
+          We do not store card details on our servers.
         </p>
         <h2 className="text-xl font-bold text-primary">Cancellations &amp; support</h2>
         <p>

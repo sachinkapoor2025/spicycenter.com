@@ -1,5 +1,5 @@
 export const deliveryClaims = {
-  standard: "UK shipping uses a configurable per-kg rate (default ₹750/kg, 1kg minimum). EU rates are set per country.",
+  standard: "UK shipping is quoted in GBP from a per-kg rule. EU rates are quoted in EUR per country when configured.",
   express: "Transit times confirmed at quote — not guaranteed for a festival date.",
   dispatch: "Food parcels are packed after payment and compliance checks.",
   fulfillment: "Retail packs and 10kg+ bulk ship as separate weight-based shipments.",

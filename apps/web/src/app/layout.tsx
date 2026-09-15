@@ -15,7 +15,7 @@ import { ClientDeferredWidgets } from "@/components/ClientDeferredWidgets";
 import { AnalyticsScripts, GoogleAnalytics } from "@/components/AnalyticsScripts";
 import { getSiteVerification } from "@/lib/analytics-config";
 import { site } from "@/lib/site";
-import { organizationJsonLd, webSiteJsonLd, onlineStoreJsonLd, defaultKeywords, canonical } from "@/lib/seo";
+import { organizationJsonLd, webSiteJsonLd, onlineStoreJsonLd, localBusinessJsonLd, defaultKeywords, canonical } from "@/lib/seo";
 
 const siteVerification = getSiteVerification();
 
@@ -36,10 +36,14 @@ export const metadata: Metadata = {
   keywords: defaultKeywords,
   alternates: {
     canonical: canonical("/"),
+    languages: {
+      "en-GB": canonical("/uk"),
+      "x-default": canonical("/"),
+    },
   },
   openGraph: {
     type: "website",
-    locale: "en_US",
+    locale: "en_GB",
     siteName: site.name,
     url: canonical("/"),
     title: "SpicyCenter — Authentic Indian Spices, Retail & Bulk Supply",
@@ -67,7 +71,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en-GB">
       <head>
         <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs.txt — AI site summary" />
         <link rel="alternate" type="text/plain" href="/llms-full.txt" title="LLMs-full.txt — product catalog for AI" />
@@ -82,7 +86,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="min-h-screen antialiased flex flex-col bg-cream text-charcoal font-sans overflow-x-clip">
         <GoogleAnalytics />
         <AnalyticsScripts />
-        <JsonLd data={[organizationJsonLd(), webSiteJsonLd(), onlineStoreJsonLd()]} />
+        <JsonLd data={[organizationJsonLd(), webSiteJsonLd(), onlineStoreJsonLd(), ...localBusinessJsonLd()]} />
         <AuthProvider>
           <CartProvider>
             <WishlistProvider>

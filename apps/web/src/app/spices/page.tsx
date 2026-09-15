@@ -8,11 +8,28 @@ import { exploreCategories } from "@/lib/site";
 import { InternalLinksSection } from "@/components/InternalLinksSection";
 import { SpiceSkuCard } from "@/components/SpiceSkuCard";
 
-export const metadata: Metadata = pageMetadata({
-  title: "Shop Indian spices — retail and bulk",
-  description: "Browse whole spices, powders, Indian chillies, masalas and bulk packs. Search understands jeera, botanical names and 25kg.",
-  path: "/spices",
-});
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: Promise<{ search?: string; pack?: string; category?: string; channel?: string }>;
+}): Promise<Metadata> {
+  const sp = await searchParams;
+  if (sp.search || sp.pack || sp.category || sp.channel) {
+    const bits = [sp.search, sp.pack, sp.category, sp.channel].filter(Boolean).join(" · ");
+    return pageMetadata({
+      title: `Shop Indian spices — ${bits}`,
+      description: `Filtered Indian spice catalogue (${bits}). Retail packs and 10kg+ bulk for UK and EU kitchens.`,
+      path: "/spices",
+      noIndex: true,
+    });
+  }
+  return pageMetadata({
+    title: "Shop Indian spices — retail and bulk",
+    description:
+      "Browse whole spices, powders, Indian chillies, masalas and bulk packs. Search understands jeera, botanical names and 25kg.",
+    path: "/spices",
+  });
+}
 
 export default async function SpicesIndex({
   searchParams,

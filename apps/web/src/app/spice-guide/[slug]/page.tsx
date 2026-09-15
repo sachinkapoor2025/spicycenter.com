@@ -2,12 +2,14 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { pageMetadata, faqJsonLd } from "@/lib/seo";
+import { pageMetadata, faqJsonLd, spiceGuideArticleJsonLd, breadcrumbJsonLd } from "@/lib/seo";
 import { JsonLd } from "@/components/JsonLd";
 import { getSpiceBySlug, loadMarketPrices, loadSpiceEntities } from "@/lib/spice-data";
 import { getCatalogProducts } from "@/lib/catalog-fallback";
 import { InternalLinksSection } from "@/components/InternalLinksSection";
 import { spiceHubLinks } from "@/lib/seo/spice-hub-links";
+import { recipesForSpice } from "@/lib/recipes";
+import { nutritionDisclaimer, wholeVsGroundCopy } from "@/lib/content/spice-display";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -43,6 +45,7 @@ export default async function SpiceGuidePage({ params }: Props) {
   const related = loadSpiceEntities().filter((s) => spice.relatedSpiceIds.includes(s.id));
   const products = getCatalogProducts().filter((p) => p.tags?.includes(`spice:${spice.id}`)).slice(0, 12);
   const price = loadMarketPrices().find((p) => p.spiceId === spice.id);
+  const recipes = recipesForSpice(spice.id).slice(0, 8);
 
   const facts = [
     ["Common name", spice.canonicalName],
@@ -61,7 +64,21 @@ export default async function SpiceGuidePage({ params }: Props) {
 
   return (
     <article className="max-w-3xl mx-auto px-4 py-10">
-      {spice.faqs?.length ? <JsonLd data={faqJsonLd(spice.faqs)} /> : null}
+      <JsonLd
+        data={[
+          spiceGuideArticleJsonLd({
+            slug: spice.slug,
+            title: `What is ${spice.canonicalName}?`,
+            description: spice.metaDescription ?? spice.shortDescription,
+          }),
+          breadcrumbJsonLd([
+            { name: "Home", path: "/" },
+            { name: "Spice guide", path: "/spice-guide" },
+            { name: spice.canonicalName, path: `/spice-guide/${spice.slug}` },
+          ]),
+          ...(spice.faqs?.length ? [faqJsonLd(spice.faqs)] : []),
+        ]}
+      />
       <p className="text-sm text-muted"><Link href="/spice-guide">Spice guide</Link> / {spice.canonicalName}</p>
       <h1 className="spice-heading text-4xl mt-2">What is {spice.canonicalName}?</h1>
       <p className="mt-3 text-lg text-muted">{spice.shortDescription}</p>
@@ -102,6 +119,14 @@ export default async function SpiceGuidePage({ params }: Props) {
       <Block title="Flavour, aroma and colour">
         <p>{spice.flavourProfile}. {spice.aromaProfile}. Colour: {spice.colour}. Heat: {spice.heatLevel ?? "n/a"}.</p>
       </Block>
+      <Block title="Whole vs ground">
+        <p>{wholeVsGroundCopy(spice)}</p>
+        <p className="mt-2 text-sm">
+          <Link className="text-nav" href="/spice-guide/comparisons/whole-spices-vs-ground-spices">
+            Whole spices vs ground spices →
+          </Link>
+        </p>
+      </Block>
       <Block title="Culinary uses">
         <ul>{spice.culinaryUses.map((u) => <li key={u}>{u}</li>)}</ul>
       </Block>
@@ -113,7 +138,7 @@ export default async function SpiceGuidePage({ params }: Props) {
         <p>{spice.storage} {spice.shelfLife}</p>
       </Block>
       <Block title="Nutrition">
-        <p>{spice.nutrition || "Nutrition declaration is pack-specific and must be completed before UK/EU sale."}</p>
+        <p>{nutritionDisclaimer(spice)}</p>
       </Block>
       <Block title="Buying guide">
         <p>Retail packs typically run from 100g to 5kg. Bulk starts at 10kg. Selling prices are checkout prices. Indian market figures, when present, are indicative only.</p>
@@ -123,7 +148,7 @@ export default async function SpiceGuidePage({ params }: Props) {
           <p>
             {price.averagePrice == null
               ? "No dated market print has been imported yet. Admin must enter min/max/average with market, grade, date and source."
-              : `₹${price.averagePrice}/${price.unit} (${price.market}, ${price.grade}, ${price.priceDate}).`}
+              : `Indicative Indian mandi ${price.currency === "INR" ? "₹" : ""}${price.averagePrice}/${price.unit} (${price.market}, ${price.grade}, ${price.priceDate}) — not the SpicyCenter checkout price.`}
           </p>
           <p className="text-sm text-muted">{price.notes}</p>
           <Link href="/spice-market-prices" className="text-nav text-sm">Market prices →</Link>
@@ -140,6 +165,19 @@ export default async function SpiceGuidePage({ params }: Props) {
         </Block>
       ) : null}
 
+      {recipes.length > 0 ? (
+        <Block title="Recipes using this spice">
+          <ul>
+            {recipes.map((r) => (
+              <li key={r.slug}>
+                <Link className="text-nav" href={`/recipes/${r.slug}`}>{r.title}</Link>
+                <span className="text-sm text-muted"> — {r.summary}</span>
+              </li>
+            ))}
+          </ul>
+        </Block>
+      ) : null}
+
       <Block title="Related spices">
         <div className="flex flex-wrap gap-2">
           {related.map((r) => (
@@ -152,7 +190,7 @@ export default async function SpiceGuidePage({ params }: Props) {
         <div className="grid gap-2">
           {products.map((p) => (
             <Link key={p.slug} href={`/products/${p.slug}`} className="text-nav text-sm">
-              {p.name} — ₹{p.price}
+              {p.name} — view selling price
             </Link>
           ))}
         </div>

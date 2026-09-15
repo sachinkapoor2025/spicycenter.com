@@ -214,7 +214,7 @@ export async function runShoppingAssistant(input: {
   if (intent === "payment_query") {
     return {
       blocks: [
-        textBlock("Checkout is Stripe in USD or Razorpay in INR. We never store card details."),
+        textBlock("Checkout uses Stripe. Storefront prices display in GBP or EUR. We never store card details."),
         actionsBlock([
           { id: "shop", label: "Keep shopping", message: "Show me popular spice products" },
           { id: "faq", label: "FAQ", message: "Open FAQ", href: "/faq" },

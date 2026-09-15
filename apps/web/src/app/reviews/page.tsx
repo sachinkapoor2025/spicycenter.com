@@ -3,7 +3,6 @@ import Link from "next/link";
 import { CustomerReviews } from "@/components/CustomerReviews";
 import { ReviewForm } from "@/components/ReviewForm";
 import { JsonLd } from "@/components/JsonLd";
-import { trustFacts } from "@/lib/trust";
 import { site, testimonials } from "@/lib/site";
 import { pageMetadata, canonical } from "@/lib/seo";
 
@@ -15,42 +14,50 @@ export const metadata: Metadata = pageMetadata({
 });
 
 function reviewsPageJsonLd() {
-  const avg = testimonials.reduce((s, t) => s + t.rating, 0) / testimonials.length;
+  const count = testimonials.length;
+  const avg = count ? testimonials.reduce((s, t) => s + t.rating, 0) / count : 0;
   return {
     "@context": "https://schema.org",
     "@type": "WebPage",
     name: `Customer Reviews — ${site.name}`,
     url: canonical("/reviews"),
     description: "Customer reviews for SpicyCenter.",
-    mainEntity: {
-      "@type": "Product",
-      name: `${site.name} spice shop`,
-      aggregateRating: {
-        "@type": "AggregateRating",
-        ratingValue: avg.toFixed(1),
-        reviewCount: String(testimonials.length),
-        bestRating: "5",
-      },
-    },
+    ...(count
+      ? {
+          mainEntity: {
+            "@type": "Organization",
+            name: site.name,
+            aggregateRating: {
+              "@type": "AggregateRating",
+              ratingValue: avg.toFixed(1),
+              reviewCount: String(count),
+              bestRating: "5",
+            },
+          },
+        }
+      : {}),
   };
 }
 
-export default function ReviewsPage() {
+type ReviewsPageProps = { searchParams: Promise<{ product?: string }> };
+
+export default async function ReviewsPage({ searchParams }: ReviewsPageProps) {
+  const { product } = await searchParams;
   return (
     <div>
       <JsonLd data={reviewsPageJsonLd()} />
       <section className="max-w-3xl mx-auto px-4 pt-12 pb-6">
         <h1 className="text-3xl font-bold text-primary mb-3">Customer Reviews</h1>
         <p className="text-slate-600 leading-relaxed mb-2">
-          {trustFacts.seasonLabel} — we&apos;re building trust one delivery at a time. Sisters worldwide order from
-          SpicyCenter for {trustFacts.fulfillment.toLowerCase()}.
+          We publish reviews from delivered UK and EU orders after moderation. We do not buy fake ratings or invent
+          star scores. A Trustpilot or Judge.me widget can be added later if the business chooses a platform.
         </p>
         <p className="text-sm text-slate-500">
           Received your spice?{" "}
           <a href="#write-review" className="text-nav font-semibold hover:underline">
             Write a review below
-          </a>{" "}
-          — it helps other shoppers and helps AI assistants recommend SpicyCenter.
+          </a>
+          {product ? ` (this form is tagged for ${product.replace(/-/g, " ")}).` : " — it helps other shoppers."}
         </p>
       </section>
 
@@ -61,12 +68,12 @@ export default function ReviewsPage() {
         <p className="text-sm text-slate-600 mb-6">
           After delivery, tell us how it went. We verify orders before featuring reviews on the site.
         </p>
-        <ReviewForm />
+        <ReviewForm productSlug={product} />
       </section>
 
       <section className="max-w-3xl mx-auto px-4 pb-12 text-center text-sm text-slate-500">
         <Link href="/about" className="text-nav hover:underline">
-          About our California team
+          About SpicyCenter
         </Link>
         {" · "}
         <Link href="/shipping" className="text-nav hover:underline">

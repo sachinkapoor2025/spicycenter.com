@@ -20,9 +20,9 @@ export function FastSellingSection({ products, limit = 10 }: FastSellingSectionP
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-6">
           <div>
             <p className="text-xs font-bold uppercase tracking-widest text-orange-600 mb-1">Trending now</p>
-            <h2 className="text-2xl md:text-3xl font-bold text-primary">Trending spice Products</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-primary">Popular Indian spices</h2>
             <p className="text-sm text-slate-600 mt-2 max-w-xl">
-              Our most popular decorations and spice packs — grab yours before they sell out for spice.
+              SKUs with recorded storefront sales — stock depends on the current lot.
             </p>
           </div>
           <Link href="/products" className="text-nav font-semibold text-sm hover:underline shrink-0">
@@ -37,7 +37,7 @@ export function FastSellingSection({ products, limit = 10 }: FastSellingSectionP
                 position={i + 1}
                 listingPage="homepage"
                 showFastSellingBadge
-                priority={i < 4}
+                priority={i < 2}
               />
             ))}
         </div>

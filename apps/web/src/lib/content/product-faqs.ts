@@ -1,7 +1,7 @@
 export const productPageFaqs = [
   {
     q: "How is shipping calculated?",
-    a: "Shipping is a configurable rule. The default UK rate is ₹750 per kg with a 1kg minimum chargeable weight. Duty and VAT are separate unless a rule says they are included.",
+    a: "Shipping is quoted in GBP for UK orders (EUR for configured EU countries) from a per-kilogram rule. Duty and VAT are separate unless a rule says they are included.",
   },
   {
     q: "Can I buy this in bulk?",
@@ -13,7 +13,7 @@ export const productPageFaqs = [
   },
   {
     q: "What payment methods do you accept?",
-    a: "Stripe (USD) and Razorpay (INR). Card data is handled by the payment provider.",
+    a: "Secure card checkout via Stripe. The storefront displays GBP in the UK and EUR in the EU. Card data is handled by the payment provider.",
   },
   {
     q: "Where is allergen and ingredient information?",

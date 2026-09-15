@@ -16,7 +16,7 @@ export const SHIPPING_RATES: ShippingRate[] = [
     retailRatePerKg: 750,
     bulkRatePerKg: 750,
     effectiveDate: "2026-09-13",
-    notes: "Default UK rate ₹750 per kg, billed on chargeable shipment weight with a 1kg minimum. Does not include UK import duty or VAT unless separately configured.",
+    notes: "Default UK rate billed per kg of chargeable weight with a 1kg minimum. Quoted in GBP on the storefront. Does not include UK import duty or VAT unless separately configured.",
   },
   {
     id: "eu-placeholder",
@@ -67,6 +67,6 @@ export function quoteShipping(opts: {
     billableKg,
     shippingInr,
     includesDutyOrVat: false,
-    message: `Shipping ${rate.currency} ${shippingInr} for ${billableKg}kg to ${rate.region}. Product price, shipping, taxes/VAT, and customs duty are separate unless an admin rule says otherwise.`,
+    message: `Shipping for ${billableKg}kg to ${rate.region} is quoted in your storefront currency (GBP in the UK, EUR in the EU). Product price, postage, taxes/VAT, and customs duty are separate unless an admin rule says otherwise.`,
   };
 }

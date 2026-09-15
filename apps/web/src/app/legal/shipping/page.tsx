@@ -1,16 +1,16 @@
 import { legalMeta, LegalShell } from "@/components/LegalShell";
-import { DEFAULT_SHIPPING_RATES } from "@spicycorner/shared";
+import { STOREFRONT_SHIPPING_COPY } from "@/lib/storefront-shipping-copy";
 
-export const metadata = legalMeta("/legal/shipping", "Shipping", "Configurable shipping, separate from duty and VAT.");
+export const metadata = legalMeta("/legal/shipping", "Shipping", "GBP/EUR shipping quotes, separate from duty and VAT.");
 
 export default function Page() {
-  const uk = DEFAULT_SHIPPING_RATES.find((r) => r.country === "GB");
   return (
     <LegalShell title="Shipping">
-      <p>{uk?.notes}</p>
+      <p>{STOREFRONT_SHIPPING_COPY.uk}</p>
+      <p>{STOREFRONT_SHIPPING_COPY.eu}</p>
       <p>
-        Default UK configuration: ₹{uk?.perKgCharge} per kg, {uk?.minimumWeightKg}kg minimum chargeable weight.
-        Change this in admin. We do not claim that shipping includes customs duty or VAT unless a rule says so.
+        {STOREFRONT_SHIPPING_COPY.perKgAdmin} We do not claim that shipping includes customs duty or VAT unless a rule
+        says so.
       </p>
     </LegalShell>
   );

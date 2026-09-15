@@ -458,7 +458,9 @@ export function ProductDetailClient({
             </div>
           </div>
         ) : tab === "reviews" ? (
-          <ProductReviewsPreview />
+          <div className="space-y-4">
+            <ProductReviewsPreview productSlug={product.slug} productName={product.name} />
+          </div>
         ) : (
           <dl className="space-y-5 max-w-2xl">
             {productPageFaqs.map((f) => (

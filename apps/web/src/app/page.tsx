@@ -5,10 +5,12 @@ import { pageMetadata } from "@/lib/seo";
 import { JsonLd } from "@/components/JsonLd";
 import { faqs, exploreCategories, packSizes, regionLinks, site, homeBanners } from "@/lib/site";
 import { HomeBannerSlider } from "@/components/HomeBannerSlider";
+import { ProductReviewsPreview } from "@/components/ProductReviewsPreview";
+import { TrustBadges } from "@/components/TrustBadges";
 import { loadImportedMarketPrices, loadSpiceEntities } from "@/lib/spice-data";
 import { getCatalogProducts } from "@/lib/catalog-fallback";
 import { faqJsonLd } from "@/lib/seo";
-import { DEFAULT_SHIPPING_RATES } from "@spicycorner/shared";
+import { STOREFRONT_SHIPPING_COPY } from "@/lib/storefront-shipping-copy";
 
 export const metadata: Metadata = pageMetadata({
   title: "The world of Indian spices — retail packs and 10kg+ bulk",
@@ -23,13 +25,16 @@ export default function HomePage() {
   const featured = spices.filter((s) => s.featured || s.featuredKnowledge).slice(0, 10);
   const prices = loadImportedMarketPrices();
   const products = getCatalogProducts();
-  const ukShip = DEFAULT_SHIPPING_RATES.find((r) => r.country === "GB");
 
   return (
     <div>
       <JsonLd data={faqJsonLd(faqs)} />
 
       <HomeBannerSlider banners={homeBanners} />
+
+      <section className="max-w-7xl mx-auto px-4 pt-8 pb-2 text-center md:text-left">
+        <h1 className="spice-heading text-3xl sm:text-4xl">Buy Indian spices online — UK &amp; Europe, retail and 10kg+ bulk</h1>
+      </section>
 
       <section className="border-b border-[#e6d5bc] bg-beige/70">
         <div className="max-w-7xl mx-auto px-4 py-6 grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 text-center text-sm text-primary">
@@ -73,7 +78,7 @@ export default function HomePage() {
         ].map((card) => (
           <Link key={card.href} href={card.href} className="card-spice overflow-hidden group">
             <span className="relative block h-44 sm:h-56">
-              <Image src={card.img} alt="" fill className="object-cover group-hover:scale-[1.03] transition" sizes="(min-width: 768px) 33vw, 100vw" />
+              <Image src={card.img} alt="" fill className="object-cover group-hover:scale-[1.03] transition" sizes="(max-width: 640px) 100vw, (min-width: 768px) 33vw, 100vw" />
               <span className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent" />
               <span className="absolute bottom-3 left-4 right-4 font-serif text-2xl text-paper">{card.title}</span>
             </span>
@@ -112,10 +117,7 @@ export default function HomePage() {
         <div className="card-spice p-8 spice-panel">
           <p className="spice-kicker">UK / EU</p>
           <h2 className="font-serif text-3xl mt-2">Delivery information</h2>
-          <p className="mt-3 text-muted">
-            We currently take storefront orders for the United Kingdom and listed European countries. Default UK shipping rule: ₹{ukShip?.perKgCharge} per kg (configurable in admin), 1kg minimum chargeable weight.
-            Shipping is shown separately from product price. Duty and VAT are not included unless configured. India is where the spices grow — not a delivery country on this shop.
-          </p>
+          <p className="mt-3 text-muted">{STOREFRONT_SHIPPING_COPY.combined}</p>
           <Link href="/legal/shipping" className="text-nav font-semibold mt-4 inline-block">Shipping details →</Link>
         </div>
       </section>
@@ -131,7 +133,7 @@ export default function HomePage() {
               <table className="w-full text-sm">
                 <thead className="text-left text-earth">
                   <tr>
-                    {["Spice", "Market", "Grade", "Avg ₹/kg", "Min", "Max", "Date", "Source"].map((h) => (
+                    {["Spice", "Market", "Grade", "Avg ₹/kg (India mandi)", "Min", "Max", "Date", "Source"].map((h) => (
                       <th key={h} className="p-3 font-semibold">{h}</th>
                     ))}
                   </tr>
@@ -193,19 +195,20 @@ export default function HomePage() {
           <div>
             <h2 className="spice-heading text-2xl mb-4">Spice knowledge</h2>
             <ul className="space-y-2 text-sm">
-              <li><Link className="text-nav" href="/spice-guide/cumin">What is cumin?</Link></li>
-              <li><Link className="text-nav" href="/spice-guide/turmeric">History of turmeric</Link></li>
-              <li><Link className="text-nav" href="/spices/indian-chillies">Best Indian chillies</Link></li>
-              <li><Link className="text-nav" href="/indian-spice-regions">Indian spice regions</Link></li>
+              <li><Link className="text-nav" href="/spice-guide">All 88 spice guides</Link></li>
+              <li><Link className="text-nav" href="/spice-guide/comparisons">Spice comparisons</Link></li>
+              <li><Link className="text-nav" href="/spice-guide/comparisons/kashmiri-chilli-vs-regular-chilli">Kashmiri vs regular chilli</Link></li>
+              <li><Link className="text-nav" href="/spice-guide/comparisons/garam-masala-vs-curry-powder">Garam masala vs curry powder</Link></li>
               <li><Link className="text-nav" href="/spice-guide/comparisons/whole-spices-vs-ground-spices">Whole vs ground spices</Link></li>
             </ul>
           </div>
           <div>
             <h2 className="spice-heading text-2xl mb-4">Recipes</h2>
             <ul className="space-y-2 text-sm">
+              <li><Link className="text-nav" href="/recipes">Recipe hub</Link></li>
               <li><Link className="text-nav" href="/recipes/biryani">Biryani</Link></li>
-              <li><Link className="text-nav" href="/recipes/jeera-rice">Jeera rice</Link></li>
               <li><Link className="text-nav" href="/recipes/dal-tadka">Dal tadka</Link></li>
+              <li><Link className="text-nav" href="/journal">Spice journal</Link></li>
               <li><Link className="text-nav" href="/spice-finder">Which spice should I use?</Link></li>
             </ul>
           </div>
@@ -223,6 +226,7 @@ export default function HomePage() {
       <section className="max-w-7xl mx-auto px-4 py-14">
         <p className="spice-kicker">Quality you can taste</p>
         <h2 className="spice-heading text-3xl mt-2 mb-6">Why SpicyCenter</h2>
+        <TrustBadges className="mb-8" />
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {[
             ["Indian origin", "Cumin from Rajasthan and Gujarat, pepper from the Ghats, chilli from Guntur or Kashmir — named when the lot supports it."],
@@ -238,6 +242,11 @@ export default function HomePage() {
             </div>
           ))}
         </div>
+      </section>
+
+      <section className="max-w-7xl mx-auto px-4 pb-14">
+        <h2 className="spice-heading text-2xl sm:text-3xl mb-4">Customer reviews</h2>
+        <ProductReviewsPreview />
       </section>
     </div>
   );

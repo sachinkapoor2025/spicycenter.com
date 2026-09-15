@@ -6,6 +6,9 @@ import { blogPosts } from "@/lib/content/blog-posts";
 import { allSeoLocationSlugs, seoBlogEntries, seoEventsHub } from "@/lib/content/seo-data";
 import { allCountrySeoSlugs } from "@/lib/content/country-pages";
 import { loadSpiceEntities } from "@/lib/spice-data";
+import { loadRecipes } from "@/lib/recipes";
+import { loadComparisons } from "@/lib/content/comparisons";
+import { listJournalPosts } from "@/lib/content/journal-posts";
 import { indexableGeoPaths } from "@/lib/content/geo";
 
 function sitemapDate(value?: string): Date {
@@ -59,6 +62,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteUrl}/spice-market-prices`, lastModified: now, changeFrequency: "daily", priority: 0.85 },
     { url: `${siteUrl}/spice-finder`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     { url: `${siteUrl}/recipes`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${siteUrl}/journal`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${siteUrl}/spice-guide/comparisons`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
     { url: `${siteUrl}/indian-spice-regions`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     { url: `${siteUrl}/uk`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     { url: `${siteUrl}/eu`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
@@ -126,6 +131,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.85,
   }));
 
+  const recipeRoutes: MetadataRoute.Sitemap = loadRecipes().map((r) => ({
+    url: `${siteUrl}/recipes/${r.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+  const comparisonRoutes: MetadataRoute.Sitemap = loadComparisons().map((c) => ({
+    url: `${siteUrl}/spice-guide/comparisons/${c.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.75,
+  }));
+  const journalRoutes: MetadataRoute.Sitemap = listJournalPosts().map((p) => ({
+    url: `${siteUrl}/journal/${p.slug}`,
+    lastModified: sitemapDate(p.updatedAt),
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
   const products = await loadStorefrontProducts();
   const productRoutes = products.map((p) => ({
     url: `${siteUrl}/products/${p.slug}`,
@@ -142,6 +166,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...spiceRoutes,
     ...spiceGuideRoutes,
     ...spiceShopRoutes,
+    ...recipeRoutes,
+    ...comparisonRoutes,
+    ...journalRoutes,
     ...blogRoutes,
     ...productRoutes,
   ];

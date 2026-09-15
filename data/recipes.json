@@ -2,27 +2,71 @@
   {
     "slug": "jeera-rice",
     "title": "Jeera rice",
+    "cuisine": "North Indian",
+    "region": "Punjab / North India",
+    "course": "Rice",
+    "servings": 4,
+    "prepMinutes": 5,
+    "cookMinutes": 20,
     "spiceIds": [
       "cumin"
     ],
-    "cuisine": "North Indian",
-    "summary": "Basmati tempered with cumin seeds."
+    "summary": "Basmati tempered with cumin seeds — the weeknight rice that shows why whole jeera beats dusty powder.",
+    "ingredients": [
+      "300g basmati rice, rinsed",
+      "1 tbsp ghee or oil",
+      "1 tsp cumin seeds",
+      "Salt",
+      "600ml water"
+    ],
+    "steps": [
+      "Rinse rice until the water runs clearer; soak 15 minutes if you have time.",
+      "Heat ghee, add cumin seeds and let them crackle without burning.",
+      "Add drained rice, salt and water. Simmer covered until steam holes appear.",
+      "Rest 5 minutes off the heat, then fluff."
+    ]
   },
   {
     "slug": "dal-tadka",
     "title": "Dal tadka",
+    "cuisine": "North Indian",
+    "region": "North India",
+    "course": "Dal",
+    "servings": 4,
+    "prepMinutes": 10,
+    "cookMinutes": 35,
     "spiceIds": [
       "cumin",
       "turmeric",
       "asafoetida",
       "dried-red-chilli"
     ],
-    "cuisine": "North Indian",
-    "summary": "Lentils finished with a spice tempering."
+    "summary": "Yellow lentils finished with a hot cumin, chilli and hing tempering.",
+    "ingredients": [
+      "200g toor or masoor dal",
+      "1/2 tsp turmeric",
+      "Salt",
+      "2 tbsp ghee",
+      "1 tsp cumin seeds",
+      "2 dried red chillies",
+      "Pinch of asafoetida",
+      "Garlic optional"
+    ],
+    "steps": [
+      "Simmer dal with turmeric and salt until soft.",
+      "Heat ghee; crackle cumin, then chilli and hing.",
+      "Pour the tadka over the dal and stir. Serve with rice or roti."
+    ]
   },
   {
     "slug": "biryani",
-    "title": "Biryani",
+    "title": "Hyderabadi-style vegetable biryani (home method)",
+    "cuisine": "Indian",
+    "region": "Hyderabad / Deccan",
+    "course": "Rice",
+    "servings": 6,
+    "prepMinutes": 30,
+    "cookMinutes": 50,
     "spiceIds": [
       "green-cardamom",
       "black-cardamom",
@@ -32,36 +76,91 @@
       "cumin",
       "saffron"
     ],
-    "cuisine": "Indian",
-    "summary": "Layered rice; spices vary by region."
+    "summary": "Layered rice with whole garam spices; household recipes vary by region — this is a culinary overview.",
+    "ingredients": [
+      "400g basmati",
+      "Whole spices: green cardamom, black cardamom, clove, cassia, bay leaf, cumin",
+      "Saffron pinch in warm milk",
+      "Onions, yoghurt, vegetables or protein of choice"
+    ],
+    "steps": [
+      "Parboil rice with a few whole spices until 70% cooked.",
+      "Cook the masala layer separately.",
+      "Layer rice and masala, drizzle saffron milk, dum-cook on low heat.",
+      "Rest before serving."
+    ]
   },
   {
-    "slug": "curry",
+    "slug": "everyday-curry-base",
     "title": "Everyday Indian curry base",
+    "cuisine": "Indian",
+    "region": "North Indian home kitchens",
+    "course": "Curry",
+    "servings": 4,
+    "prepMinutes": 10,
+    "cookMinutes": 30,
     "spiceIds": [
       "cumin",
       "coriander",
       "turmeric",
       "kashmiri-chilli"
     ],
-    "cuisine": "Indian",
-    "summary": "Cumin, coriander, turmeric and chilli as a starting masala."
+    "summary": "Cumin, coriander, turmeric and Kashmiri chilli as a starting masala for vegetables or chicken.",
+    "ingredients": [
+      "2 onions",
+      "2 tomatoes or 200g passata",
+      "1 tsp cumin seeds",
+      "1 tsp ground coriander",
+      "1/2 tsp turmeric",
+      "1 tsp Kashmiri chilli powder",
+      "Oil, salt, ginger-garlic"
+    ],
+    "steps": [
+      "Crackle cumin in oil, then onion until golden.",
+      "Add ginger-garlic, then ground spices on a low flame.",
+      "Add tomato, salt, and simmer to a thick base. Add vegetables or protein."
+    ]
   },
   {
     "slug": "masala-chai",
     "title": "Masala chai",
+    "cuisine": "Indian",
+    "region": "Pan-Indian",
+    "course": "Drink",
+    "servings": 2,
+    "prepMinutes": 2,
+    "cookMinutes": 10,
     "spiceIds": [
       "green-cardamom",
       "clove",
       "cassia",
       "dried-ginger"
     ],
-    "cuisine": "Indian",
-    "summary": "Tea spices; recipes vary by household."
+    "summary": "Tea spices crushed to order; recipes vary by household.",
+    "ingredients": [
+      "250ml water",
+      "250ml milk",
+      "2 tsp loose black tea",
+      "2 green cardamom pods, crushed",
+      "1 clove",
+      "Small cassia piece",
+      "Pinch dried ginger",
+      "Sugar to taste"
+    ],
+    "steps": [
+      "Simmer water with crushed spices 2–3 minutes.",
+      "Add tea, then milk. Boil up once. Strain."
+    ]
   },
   {
     "slug": "sambar",
     "title": "Sambar",
+    "cuisine": "South Indian",
+    "region": "Tamil Nadu / Karnataka",
+    "course": "Dal",
+    "servings": 4,
+    "prepMinutes": 15,
+    "cookMinutes": 40,
     "spiceIds": [
       "sambar-masala",
       "tamarind",
@@ -69,7 +168,1105 @@
       "mustard",
       "asafoetida"
     ],
+    "summary": "Lentil-vegetable stew with tamarind and mustard tempering.",
+    "ingredients": [
+      "150g toor dal",
+      "Tamarind soaking water",
+      "2 tsp sambar powder",
+      "Vegetables (drumstick, pumpkin, or carrot)",
+      "Mustard seeds, curry leaves, hing, oil"
+    ],
+    "steps": [
+      "Cook dal until soft.",
+      "Simmer vegetables with tamarind and sambar powder.",
+      "Combine with dal. Temper mustard, curry leaf and hing in oil and pour over."
+    ]
+  },
+  {
+    "slug": "rasam",
+    "title": "Tomato rasam",
     "cuisine": "South Indian",
-    "summary": "Lentil-vegetable stew with tamarind and mustard tempering."
+    "region": "Tamil Nadu",
+    "course": "Soup",
+    "servings": 4,
+    "prepMinutes": 10,
+    "cookMinutes": 20,
+    "spiceIds": [
+      "rasam-powder",
+      "tamarind",
+      "black-pepper",
+      "cumin",
+      "dried-curry-leaves",
+      "asafoetida"
+    ],
+    "summary": "Pepper-cumin rasam — thin, sour, and meant to be sipped with rice.",
+    "ingredients": [
+      "2 tomatoes",
+      "Tamarind water",
+      "1 tsp rasam powder",
+      "1/2 tsp crushed pepper and cumin",
+      "Curry leaves, hing, mustard, ghee"
+    ],
+    "steps": [
+      "Simmer tomato and tamarind with rasam powder.",
+      "Add crushed pepper-cumin. Temper mustard, curry leaf and hing."
+    ]
+  },
+  {
+    "slug": "chana-masala",
+    "title": "Chana masala",
+    "cuisine": "North Indian",
+    "region": "Punjab",
+    "course": "Curry",
+    "servings": 4,
+    "prepMinutes": 15,
+    "cookMinutes": 35,
+    "spiceIds": [
+      "chole-masala",
+      "cumin",
+      "coriander",
+      "amchur",
+      "dried-ginger"
+    ],
+    "summary": "Chickpeas in a sour-spiced gravy — amchur and chole masala do the work.",
+    "ingredients": [
+      "2 tins chickpeas or 250g dried, soaked",
+      "1 tsp cumin seeds",
+      "1 tbsp chole masala",
+      "1 tsp coriander powder",
+      "1/2 tsp amchur",
+      "Onion-tomato base"
+    ],
+    "steps": [
+      "Tadka cumin, cook onion-tomato.",
+      "Add chole masala, coriander and amchur.",
+      "Simmer chickpeas until the gravy clings."
+    ]
+  },
+  {
+    "slug": "rajma",
+    "title": "Rajma",
+    "cuisine": "North Indian",
+    "region": "Punjab / Jammu",
+    "course": "Curry",
+    "servings": 4,
+    "prepMinutes": 15,
+    "cookMinutes": 60,
+    "spiceIds": [
+      "rajma-masala",
+      "cumin",
+      "coriander",
+      "turmeric",
+      "kashmiri-chilli"
+    ],
+    "summary": "Kidney beans in a slow tomato-onion gravy.",
+    "ingredients": [
+      "250g dried rajma, soaked overnight",
+      "Rajma masala 1–2 tsp",
+      "Cumin, coriander, turmeric, Kashmiri chilli",
+      "Onion, tomato, ginger-garlic"
+    ],
+    "steps": [
+      "Pressure-cook soaked beans until soft.",
+      "Make onion-tomato masala with the ground spices.",
+      "Simmer beans in the gravy."
+    ]
+  },
+  {
+    "slug": "palak-paneer",
+    "title": "Palak paneer",
+    "cuisine": "North Indian",
+    "region": "Punjab",
+    "course": "Curry",
+    "servings": 4,
+    "prepMinutes": 15,
+    "cookMinutes": 25,
+    "spiceIds": [
+      "cumin",
+      "garam-masala",
+      "fenugreek-leaves",
+      "kashmiri-chilli"
+    ],
+    "summary": "Spinach gravy finished with kasuri methi and garam masala.",
+    "ingredients": [
+      "400g spinach",
+      "200g paneer",
+      "Cumin seeds",
+      "Garam masala",
+      "Kasuri methi",
+      "Garlic, green chilli optional"
+    ],
+    "steps": [
+      "Blanch and blend spinach.",
+      "Cumin tadka, garlic, then spinach puree.",
+      "Add paneer, kasuri methi and garam masala at the end."
+    ]
+  },
+  {
+    "slug": "butter-chicken",
+    "title": "Butter chicken (home method)",
+    "cuisine": "North Indian",
+    "region": "Delhi / Punjab",
+    "course": "Curry",
+    "servings": 4,
+    "prepMinutes": 20,
+    "cookMinutes": 40,
+    "spiceIds": [
+      "butter-chicken-masala",
+      "kashmiri-chilli",
+      "garam-masala",
+      "fenugreek-leaves",
+      "green-cardamom"
+    ],
+    "summary": "Tomato-cream gravy; Kashmiri chilli for colour, kasuri methi at the end.",
+    "ingredients": [
+      "Chicken thighs",
+      "Butter-chicken masala or Kashmiri chilli + garam masala",
+      "Tomato puree",
+      "Butter, cream or yoghurt",
+      "Kasuri methi"
+    ],
+    "steps": [
+      "Marinate chicken with yoghurt and spices.",
+      "Simmer tomato with masala, finish with butter and cream.",
+      "Add chicken, kasuri methi last."
+    ]
+  },
+  {
+    "slug": "chicken-tikka-masala",
+    "title": "Chicken tikka masala (UK household)",
+    "cuisine": "British-Indian",
+    "region": "UK / Punjab-inspired",
+    "course": "Curry",
+    "servings": 4,
+    "prepMinutes": 25,
+    "cookMinutes": 35,
+    "spiceIds": [
+      "tikka-masala",
+      "kashmiri-chilli",
+      "cumin",
+      "coriander",
+      "garam-masala"
+    ],
+    "summary": "The UK classic — tikka-spiced chicken in a tomato-cream sauce.",
+    "ingredients": [
+      "Chicken",
+      "Tikka masala blend",
+      "Yoghurt marinade",
+      "Tomato, onion, cream"
+    ],
+    "steps": [
+      "Marinate chicken in yoghurt and tikka masala.",
+      "Grill or pan-sear.",
+      "Simmer sauce, combine."
+    ]
+  },
+  {
+    "slug": "korma",
+    "title": "Mild korma",
+    "cuisine": "Mughlai",
+    "region": "North India",
+    "course": "Curry",
+    "servings": 4,
+    "prepMinutes": 15,
+    "cookMinutes": 35,
+    "spiceIds": [
+      "korma-masala",
+      "green-cardamom",
+      "poppy-seed",
+      "white-pepper"
+    ],
+    "summary": "Nut-and-yoghurt style gravy; korma masala plus cardamom, not a blast of chilli.",
+    "ingredients": [
+      "Korma masala",
+      "Yoghurt",
+      "Ground almonds or poppy paste",
+      "Green cardamom",
+      "Mild protein or vegetables"
+    ],
+    "steps": [
+      "Gently fry masala without scorching.",
+      "Add yoghurt off the heat then return to a simmer.",
+      "Finish with cardamom."
+    ]
+  },
+  {
+    "slug": "vindaloo",
+    "title": "Goan-style vindaloo (home heat)",
+    "cuisine": "Goan",
+    "region": "Goa",
+    "course": "Curry",
+    "servings": 4,
+    "prepMinutes": 20,
+    "cookMinutes": 50,
+    "spiceIds": [
+      "vindaloo-masala",
+      "dried-red-chilli",
+      "cumin",
+      "mustard",
+      "cassia"
+    ],
+    "summary": "Vinegar-chilli curry — hotter than a korma; adjust chilli to taste.",
+    "ingredients": [
+      "Vindaloo masala or dried chilli + cumin + mustard",
+      "Vinegar",
+      "Garlic",
+      "Pork or vegetables"
+    ],
+    "steps": [
+      "Marinate with vinegar and masala.",
+      "Slow-cook until tender. Balance salt and sour."
+    ]
+  },
+  {
+    "slug": "chettinad-chicken",
+    "title": "Chettinad chicken",
+    "cuisine": "Tamil",
+    "region": "Chettinad / Tamil Nadu",
+    "course": "Curry",
+    "servings": 4,
+    "prepMinutes": 20,
+    "cookMinutes": 40,
+    "spiceIds": [
+      "chettinad-masala",
+      "black-pepper",
+      "fennel",
+      "star-anise",
+      "dried-curry-leaves"
+    ],
+    "summary": "Pepper-fennel Chettinad heat with curry leaf.",
+    "ingredients": [
+      "Chettinad masala",
+      "Black pepper",
+      "Fennel",
+      "Curry leaves",
+      "Chicken",
+      "Onion, tomato"
+    ],
+    "steps": [
+      "Toast masala gently.",
+      "Onion-tomato base, then chicken and curry leaf.",
+      "Finish with crushed pepper."
+    ]
+  },
+  {
+    "slug": "fish-curry-malabar",
+    "title": "Malabar fish curry",
+    "cuisine": "Kerala",
+    "region": "Kerala",
+    "course": "Curry",
+    "servings": 4,
+    "prepMinutes": 15,
+    "cookMinutes": 25,
+    "spiceIds": [
+      "fish-masala",
+      "mustard",
+      "fenugreek",
+      "dried-curry-leaves",
+      "tamarind",
+      "kashmiri-chilli"
+    ],
+    "summary": "Coconut or tamarind fish gravy with mustard and curry leaf.",
+    "ingredients": [
+      "Firm white fish",
+      "Fish masala or chilli + coriander",
+      "Mustard seeds, fenugreek seeds, curry leaves",
+      "Tamarind or kokum",
+      "Coconut milk optional"
+    ],
+    "steps": [
+      "Mustard-fenugreek tadka with curry leaf.",
+      "Build gravy, add fish last so it does not break."
+    ]
+  },
+  {
+    "slug": "aloo-gobi",
+    "title": "Aloo gobi",
+    "cuisine": "North Indian",
+    "region": "Punjab",
+    "course": "Vegetable",
+    "servings": 4,
+    "prepMinutes": 10,
+    "cookMinutes": 25,
+    "spiceIds": [
+      "cumin",
+      "turmeric",
+      "coriander",
+      "dried-ginger"
+    ],
+    "summary": "Dry potato-cauliflower with cumin and turmeric.",
+    "ingredients": [
+      "Potatoes",
+      "Cauliflower",
+      "Cumin seeds",
+      "Turmeric, coriander powder",
+      "Ginger"
+    ],
+    "steps": [
+      "Cumin tadka, add vegetables and dry spices.",
+      "Cover-cook until tender, then dry off on a high flame."
+    ]
+  },
+  {
+    "slug": "baingan-bharta",
+    "title": "Baingan bharta",
+    "cuisine": "North Indian",
+    "region": "Punjab",
+    "course": "Vegetable",
+    "servings": 4,
+    "prepMinutes": 10,
+    "cookMinutes": 35,
+    "spiceIds": [
+      "cumin",
+      "coriander",
+      "kashmiri-chilli",
+      "garam-masala"
+    ],
+    "summary": "Smoky mashed aubergine with cumin and garam masala.",
+    "ingredients": [
+      "Large aubergines",
+      "Cumin",
+      "Coriander",
+      "Kashmiri chilli",
+      "Garam masala",
+      "Onion, tomato"
+    ],
+    "steps": [
+      "Char aubergines, peel and mash.",
+      "Cumin tadka, onion-tomato, then mash and garam masala."
+    ]
+  },
+  {
+    "slug": "pav-bhaji",
+    "title": "Pav bhaji",
+    "cuisine": "Maharashtrian",
+    "region": "Mumbai",
+    "course": "Snack",
+    "servings": 4,
+    "prepMinutes": 20,
+    "cookMinutes": 35,
+    "spiceIds": [
+      "pav-bhaji-masala",
+      "kashmiri-chilli",
+      "cumin",
+      "fenugreek-leaves"
+    ],
+    "summary": "Mashed vegetable street snack — pav bhaji masala and butter.",
+    "ingredients": [
+      "Mixed vegetables (potato, pea, cauliflower, pepper)",
+      "Pav bhaji masala",
+      "Butter",
+      "Pav buns"
+    ],
+    "steps": [
+      "Boil and mash vegetables.",
+      "Cook with masala and butter until a spreadable bhaji.",
+      "Toast pav in butter."
+    ]
+  },
+  {
+    "slug": "misal-pav",
+    "title": "Misal pav",
+    "cuisine": "Maharashtrian",
+    "region": "Maharashtra",
+    "course": "Snack",
+    "servings": 4,
+    "prepMinutes": 20,
+    "cookMinutes": 45,
+    "spiceIds": [
+      "kolhapuri-masala",
+      "mustard",
+      "cumin",
+      "asafoetida"
+    ],
+    "summary": "Sprouted-bean usal with a spicy rassa — Kolhapuri heat if you want it.",
+    "ingredients": [
+      "Moth or mixed sprouts",
+      "Kolhapuri or goda masala",
+      "Mustard, cumin, hing",
+      "Pav, farsan, onion"
+    ],
+    "steps": [
+      "Temper mustard and cumin.",
+      "Cook sprouts in a thin spicy gravy.",
+      "Serve with pav, onion and crunchy mix."
+    ]
+  },
+  {
+    "slug": "amti",
+    "title": "Toor dal amti",
+    "cuisine": "Maharashtrian",
+    "region": "Maharashtra",
+    "course": "Dal",
+    "servings": 4,
+    "prepMinutes": 10,
+    "cookMinutes": 35,
+    "spiceIds": [
+      "goda-masala",
+      "mustard",
+      "cumin",
+      "asafoetida",
+      "dried-curry-leaves"
+    ],
+    "summary": "Slightly sweet-sour Maharashtrian dal with goda masala.",
+    "ingredients": [
+      "Toor dal",
+      "Goda masala",
+      "Jaggery pinch",
+      "Tamarind",
+      "Mustard, cumin, curry leaf, hing"
+    ],
+    "steps": [
+      "Cook dal.",
+      "Season with goda masala, tamarind and jaggery.",
+      "Mustard tadka."
+    ]
+  },
+  {
+    "slug": "bisi-bele-bath",
+    "title": "Bisi bele bath",
+    "cuisine": "Karnataka",
+    "region": "Karnataka",
+    "course": "Rice",
+    "servings": 4,
+    "prepMinutes": 20,
+    "cookMinutes": 40,
+    "spiceIds": [
+      "sambar-masala",
+      "byadgi-chilli",
+      "tamarind",
+      "mustard",
+      "dried-curry-leaves"
+    ],
+    "summary": "One-pot rice-dal with Byadgi colour and tamarind.",
+    "ingredients": [
+      "Rice and toor dal",
+      "Sambar powder",
+      "Byadgi chilli",
+      "Tamarind",
+      "Vegetables",
+      "Ghee, mustard, curry leaf"
+    ],
+    "steps": [
+      "Cook rice-dal with vegetables and tamarind-spice.",
+      "Temper mustard and curry leaf in ghee."
+    ]
+  },
+  {
+    "slug": "lemon-rice",
+    "title": "Lemon rice",
+    "cuisine": "South Indian",
+    "region": "Tamil Nadu / Andhra",
+    "course": "Rice",
+    "servings": 4,
+    "prepMinutes": 10,
+    "cookMinutes": 15,
+    "spiceIds": [
+      "mustard",
+      "dried-curry-leaves",
+      "asafoetida",
+      "turmeric",
+      "dried-red-chilli"
+    ],
+    "summary": "Tempered leftover rice with mustard, curry leaf and turmeric.",
+    "ingredients": [
+      "Cooked rice",
+      "Mustard seeds",
+      "Curry leaves",
+      "Turmeric",
+      "Dried chilli",
+      "Hing",
+      "Lemon juice",
+      "Peanuts optional"
+    ],
+    "steps": [
+      "Mustard tadka with chilli, curry leaf, turmeric, hing.",
+      "Fold through rice and lemon juice."
+    ]
+  },
+  {
+    "slug": "tamarind-rice",
+    "title": "Puliyodarai (tamarind rice)",
+    "cuisine": "South Indian",
+    "region": "Tamil Nadu",
+    "course": "Rice",
+    "servings": 4,
+    "prepMinutes": 15,
+    "cookMinutes": 20,
+    "spiceIds": [
+      "tamarind",
+      "mustard",
+      "fenugreek",
+      "dried-curry-leaves",
+      "asafoetida",
+      "sesame"
+    ],
+    "summary": "Temple-style sour rice paste with mustard and sesame.",
+    "ingredients": [
+      "Tamarind extract",
+      "Mustard, fenugreek, curry leaf, hing",
+      "Sesame",
+      "Cooked rice",
+      "Jaggery pinch",
+      "Dried chilli"
+    ],
+    "steps": [
+      "Cook tamarind paste with spices until thick.",
+      "Mix through rice. Finish with sesame."
+    ]
+  },
+  {
+    "slug": "poha",
+    "title": "Kanda poha",
+    "cuisine": "Maharashtrian",
+    "region": "Maharashtra",
+    "course": "Breakfast",
+    "servings": 2,
+    "prepMinutes": 10,
+    "cookMinutes": 15,
+    "spiceIds": [
+      "mustard",
+      "cumin",
+      "turmeric",
+      "asafoetida"
+    ],
+    "summary": "Flattened rice with mustard-cumin tadka.",
+    "ingredients": [
+      "Thick poha",
+      "Mustard, cumin, turmeric, hing",
+      "Onion",
+      "Lemon, coriander"
+    ],
+    "steps": [
+      "Rinse poha. Temper mustard and cumin.",
+      "Onion, turmeric, then poha. Finish lemon."
+    ]
+  },
+  {
+    "slug": "upma",
+    "title": "Rava upma",
+    "cuisine": "South Indian",
+    "region": "South India",
+    "course": "Breakfast",
+    "servings": 2,
+    "prepMinutes": 8,
+    "cookMinutes": 15,
+    "spiceIds": [
+      "mustard",
+      "dried-curry-leaves",
+      "asafoetida"
+    ],
+    "summary": "Semolina breakfast with mustard and curry leaf.",
+    "ingredients": [
+      "Rava / semolina",
+      "Mustard, curry leaf, hing",
+      "Ginger, green chilli optional",
+      "Water"
+    ],
+    "steps": [
+      "Roast rava. Temper mustard and curry leaf.",
+      "Add water, then rava. Steam until fluffy."
+    ]
+  },
+  {
+    "slug": "samosa-masala",
+    "title": "Samosa potato filling",
+    "cuisine": "North Indian",
+    "region": "North India / UK takeaway",
+    "course": "Snack",
+    "servings": 8,
+    "prepMinutes": 20,
+    "cookMinutes": 25,
+    "spiceIds": [
+      "cumin",
+      "coriander",
+      "garam-masala",
+      "amchur",
+      "fennel"
+    ],
+    "summary": "Dry potato masala — cumin, amchur and garam masala, not a wet curry.",
+    "ingredients": [
+      "Potatoes",
+      "Cumin seeds",
+      "Coriander powder",
+      "Amchur",
+      "Garam masala",
+      "Fennel optional",
+      "Peas"
+    ],
+    "steps": [
+      "Boil and cube potatoes.",
+      "Cumin tadka, spices, potatoes and peas. Dry the mix."
+    ]
+  },
+  {
+    "slug": "pakora",
+    "title": "Onion pakora",
+    "cuisine": "Indian",
+    "region": "Pan-Indian",
+    "course": "Snack",
+    "servings": 4,
+    "prepMinutes": 10,
+    "cookMinutes": 15,
+    "spiceIds": [
+      "ajwain",
+      "turmeric",
+      "kashmiri-chilli",
+      "cumin"
+    ],
+    "summary": "Gram-flour fritters with ajwain — the spice that makes batter savoury.",
+    "ingredients": [
+      "Onions",
+      "Gram flour",
+      "Ajwain",
+      "Turmeric",
+      "Kashmiri chilli",
+      "Cumin",
+      "Salt, water"
+    ],
+    "steps": [
+      "Toss onions with spices and gram flour.",
+      "Add a little water. Fry in hot oil until crisp."
+    ]
+  },
+  {
+    "slug": "chaat",
+    "title": "Home chole chaat",
+    "cuisine": "North Indian",
+    "region": "Delhi / UP",
+    "course": "Snack",
+    "servings": 4,
+    "prepMinutes": 15,
+    "cookMinutes": 10,
+    "spiceIds": [
+      "chaat-masala",
+      "cumin",
+      "amchur"
+    ],
+    "summary": "Chickpeas, potato, yoghurt and chaat masala — sour, salty, not a health tonic.",
+    "ingredients": [
+      "Chickpeas",
+      "Boiled potato",
+      "Yoghurt",
+      "Chaat masala",
+      "Roasted cumin powder",
+      "Tamarind chutney if you have it"
+    ],
+    "steps": [
+      "Layer chickpeas and potato.",
+      "Yoghurt, chaat masala, cumin. Chutney if using."
+    ]
+  },
+  {
+    "slug": "raita",
+    "title": "Cumin raita",
+    "cuisine": "North Indian",
+    "region": "North India",
+    "course": "Side",
+    "servings": 4,
+    "prepMinutes": 5,
+    "cookMinutes": 0,
+    "spiceIds": [
+      "cumin",
+      "dried-mint"
+    ],
+    "summary": "Yoghurt with roasted cumin — cools a chilli-forward plate.",
+    "ingredients": [
+      "500g yoghurt",
+      "1 tsp roasted cumin powder",
+      "Dried mint pinch",
+      "Salt",
+      "Cucumber optional"
+    ],
+    "steps": [
+      "Whisk yoghurt. Stir in cumin, mint and salt."
+    ]
+  },
+  {
+    "slug": "pickle-tadka",
+    "title": "Quick mango pickle tempering",
+    "cuisine": "Indian",
+    "region": "Pan-Indian",
+    "course": "Preserve",
+    "servings": 12,
+    "prepMinutes": 20,
+    "cookMinutes": 10,
+    "spiceIds": [
+      "pickle-masala",
+      "mustard",
+      "fenugreek",
+      "asafoetida",
+      "nigella"
+    ],
+    "summary": "Mustard oil tadka for a small jar of mango pickle — follow hygiene for home preserves.",
+    "ingredients": [
+      "Green mango pieces",
+      "Pickle masala",
+      "Mustard seeds, fenugreek, nigella, hing",
+      "Mustard oil",
+      "Salt"
+    ],
+    "steps": [
+      "Salt mango briefly.",
+      "Heat oil, crackle seeds, cool slightly, mix masala and mango. Jar when cool."
+    ]
+  },
+  {
+    "slug": "panch-phoron-vegetables",
+    "title": "Panch phoron mixed vegetables",
+    "cuisine": "Bengali",
+    "region": "Bengal / East India",
+    "course": "Vegetable",
+    "servings": 4,
+    "prepMinutes": 10,
+    "cookMinutes": 20,
+    "spiceIds": [
+      "panch-phoron",
+      "turmeric",
+      "dried-red-chilli"
+    ],
+    "summary": "Five-seed tempering (panch phoron) on seasonal vegetables.",
+    "ingredients": [
+      "Panch phoron",
+      "Turmeric",
+      "Dried chilli",
+      "Mixed vegetables",
+      "Mustard oil optional"
+    ],
+    "steps": [
+      "Crackle panch phoron in oil.",
+      "Add vegetables and turmeric. Cover-cook."
+    ]
+  },
+  {
+    "slug": "laal-maas",
+    "title": "Laal maas (home heat)",
+    "cuisine": "Rajasthani",
+    "region": "Rajasthan",
+    "course": "Curry",
+    "servings": 4,
+    "prepMinutes": 20,
+    "cookMinutes": 60,
+    "spiceIds": [
+      "mathania-chilli",
+      "cumin",
+      "coriander",
+      "kashmiri-chilli"
+    ],
+    "summary": "Rajasthani red-meat curry — Mathania or Kashmiri for colour; heat is the cook’s choice.",
+    "ingredients": [
+      "Lamb or goat",
+      "Mathania or Kashmiri chilli",
+      "Cumin, coriander",
+      "Yoghurt",
+      "Garlic"
+    ],
+    "steps": [
+      "Marinate meat.",
+      "Slow-cook with chilli and whole cumin until the gravy is red and thick."
+    ]
+  },
+  {
+    "slug": "undhiyu",
+    "title": "Undhiyu (simplified)",
+    "cuisine": "Gujarati",
+    "region": "Gujarat",
+    "course": "Vegetable",
+    "servings": 6,
+    "prepMinutes": 30,
+    "cookMinutes": 45,
+    "spiceIds": [
+      "coriander",
+      "cumin",
+      "ajwain",
+      "sesame"
+    ],
+    "summary": "Winter Gujarati mixed vegetables with coriander-cumin (dhana jeeru).",
+    "ingredients": [
+      "Winter vegetables",
+      "Coriander-cumin powder",
+      "Ajwain",
+      "Sesame",
+      "Coconut if using",
+      "Green masala"
+    ],
+    "steps": [
+      "Toss vegetables with masala.",
+      "Slow-cook or bake until tender. (Coconut is optional; skip if not in your pantry.)"
+    ]
+  },
+  {
+    "slug": "dhaniya-jeera-aloo",
+    "title": "Dhana jeeru potatoes",
+    "cuisine": "Gujarati",
+    "region": "Gujarat",
+    "course": "Vegetable",
+    "servings": 4,
+    "prepMinutes": 8,
+    "cookMinutes": 20,
+    "spiceIds": [
+      "coriander",
+      "cumin",
+      "turmeric"
+    ],
+    "summary": "Everyday Gujarati potatoes with coriander-cumin.",
+    "ingredients": [
+      "Potatoes",
+      "Coriander powder",
+      "Cumin powder or seeds",
+      "Turmeric",
+      "Oil, salt"
+    ],
+    "steps": [
+      "Cumin tadka, potatoes, dry spices. Cover until cooked."
+    ]
+  },
+  {
+    "slug": "pepper-chicken",
+    "title": "Kerala pepper chicken",
+    "cuisine": "Kerala",
+    "region": "Kerala",
+    "course": "Curry",
+    "servings": 4,
+    "prepMinutes": 15,
+    "cookMinutes": 30,
+    "spiceIds": [
+      "black-pepper",
+      "fennel",
+      "green-cardamom",
+      "dried-curry-leaves"
+    ],
+    "summary": "Crushed Malabar pepper, curry leaf and fennel — heat from pepper, not only chilli.",
+    "ingredients": [
+      "Chicken",
+      "Crushed black pepper",
+      "Fennel",
+      "Curry leaves",
+      "Onion",
+      "Coconut slices optional"
+    ],
+    "steps": [
+      "Fry onion and curry leaf.",
+      "Add pepper and fennel, then chicken. Cook until the juices dry to a roast gravy."
+    ]
+  },
+  {
+    "slug": "rogan-josh",
+    "title": "Rogan josh (home method)",
+    "cuisine": "Kashmiri",
+    "region": "Kashmir",
+    "course": "Curry",
+    "servings": 4,
+    "prepMinutes": 20,
+    "cookMinutes": 70,
+    "spiceIds": [
+      "kashmiri-chilli",
+      "fennel",
+      "dried-ginger",
+      "green-cardamom",
+      "black-cardamom",
+      "clove"
+    ],
+    "summary": "Kashmiri-style red gravy — colour from Kashmiri chilli, aroma from fennel and saunth.",
+    "ingredients": [
+      "Lamb",
+      "Kashmiri chilli",
+      "Fennel powder",
+      "Dried ginger",
+      "Cardamom, clove",
+      "Yoghurt"
+    ],
+    "steps": [
+      "Bloom chilli in oil/ghee.",
+      "Yoghurt and spices, then slow-cook lamb."
+    ]
+  },
+  {
+    "slug": "saffron-phirni",
+    "title": "Saffron phirni",
+    "cuisine": "North Indian",
+    "region": "North India / Kashmir-inspired",
+    "course": "Dessert",
+    "servings": 6,
+    "prepMinutes": 15,
+    "cookMinutes": 30,
+    "spiceIds": [
+      "saffron",
+      "green-cardamom"
+    ],
+    "summary": "Ground-rice pudding with genuine saffron threads — a pinch, not a health tonic.",
+    "ingredients": [
+      "Ground rice",
+      "Milk",
+      "Saffron bloomed in warm milk",
+      "Green cardamom",
+      "Sugar"
+    ],
+    "steps": [
+      "Bloom saffron. Simmer rice in milk until thick. Add saffron and cardamom."
+    ]
+  },
+  {
+    "slug": "tandoori-marinade",
+    "title": "Tandoori yoghurt marinade",
+    "cuisine": "Punjabi",
+    "region": "Punjab / UK grill",
+    "course": "Marinade",
+    "servings": 4,
+    "prepMinutes": 15,
+    "cookMinutes": 20,
+    "spiceIds": [
+      "tandoori-masala",
+      "kashmiri-chilli",
+      "cumin",
+      "dried-ginger",
+      "fenugreek-leaves"
+    ],
+    "summary": "Yoghurt marinade for oven or grill — Kashmiri chilli for red colour.",
+    "ingredients": [
+      "Yoghurt",
+      "Tandoori masala",
+      "Kashmiri chilli",
+      "Ginger-garlic",
+      "Kasuri methi",
+      "Lemon"
+    ],
+    "steps": [
+      "Mix marinade. Coat chicken or paneer. Rest, then grill or roast."
+    ]
+  },
+  {
+    "slug": "keema",
+    "title": "Keema masala",
+    "cuisine": "North Indian",
+    "region": "North India / Pakistan-influenced",
+    "course": "Curry",
+    "servings": 4,
+    "prepMinutes": 10,
+    "cookMinutes": 30,
+    "spiceIds": [
+      "meat-masala",
+      "cumin",
+      "coriander",
+      "garam-masala",
+      "dried-red-chilli"
+    ],
+    "summary": "Minced meat with meat masala — good with pav or rice.",
+    "ingredients": [
+      "Minced lamb or beef",
+      "Meat masala",
+      "Cumin seeds",
+      "Garam masala",
+      "Peas optional"
+    ],
+    "steps": [
+      "Cumin tadka, brown mince.",
+      "Add masala and a splash of water. Peas at the end."
+    ]
+  },
+  {
+    "slug": "egg-curry",
+    "title": "Egg curry",
+    "cuisine": "Indian",
+    "region": "Pan-Indian",
+    "course": "Curry",
+    "servings": 4,
+    "prepMinutes": 10,
+    "cookMinutes": 25,
+    "spiceIds": [
+      "cumin",
+      "coriander",
+      "turmeric",
+      "kashmiri-chilli",
+      "garam-masala"
+    ],
+    "summary": "Boiled eggs in an everyday onion-tomato masala.",
+    "ingredients": [
+      "6 eggs, boiled",
+      "Cumin, coriander, turmeric, Kashmiri chilli",
+      "Onion, tomato",
+      "Garam masala"
+    ],
+    "steps": [
+      "Make curry base. Slip in halved eggs. Garam masala at the end."
+    ]
+  },
+  {
+    "slug": "jeera-aloo",
+    "title": "Jeera aloo",
+    "cuisine": "North Indian",
+    "region": "North India",
+    "course": "Vegetable",
+    "servings": 4,
+    "prepMinutes": 8,
+    "cookMinutes": 18,
+    "spiceIds": [
+      "cumin",
+      "turmeric",
+      "amchur"
+    ],
+    "summary": "Cumin potatoes — the dish that explains whole jeera.",
+    "ingredients": [
+      "Potatoes",
+      "Cumin seeds",
+      "Turmeric",
+      "Amchur",
+      "Green chilli optional"
+    ],
+    "steps": [
+      "Crackle plenty of cumin. Add potatoes and turmeric. Finish amchur."
+    ]
+  },
+  {
+    "slug": "methi-thepla",
+    "title": "Methi thepla",
+    "cuisine": "Gujarati",
+    "region": "Gujarat",
+    "course": "Bread",
+    "servings": 8,
+    "prepMinutes": 15,
+    "cookMinutes": 20,
+    "spiceIds": [
+      "fenugreek",
+      "turmeric",
+      "coriander",
+      "ajwain"
+    ],
+    "summary": "Fenugreek flatbreads — fresh methi or a little kasuri methi in the dough.",
+    "ingredients": [
+      "Wholewheat flour",
+      "Fenugreek leaves or kasuri methi",
+      "Turmeric, coriander, ajwain",
+      "Yoghurt, oil, salt"
+    ],
+    "steps": [
+      "Knead spiced dough. Roll thin. Cook on a tawa with a little oil."
+    ]
+  },
+  {
+    "slug": "coconut-chutney",
+    "title": "Coconut chutney",
+    "cuisine": "South Indian",
+    "region": "South India",
+    "course": "Side",
+    "servings": 4,
+    "prepMinutes": 10,
+    "cookMinutes": 5,
+    "spiceIds": [
+      "mustard",
+      "dried-curry-leaves",
+      "asafoetida"
+    ],
+    "summary": "Blended coconut with a mustard-curry leaf tadka.",
+    "ingredients": [
+      "Fresh or desiccated coconut (soaked)",
+      "Chilli",
+      "Mustard, curry leaf, hing",
+      "Ginger optional"
+    ],
+    "steps": [
+      "Blend coconut with chilli and a little water.",
+      "Temper mustard, curry leaf, hing and pour over."
+    ]
   }
 ]

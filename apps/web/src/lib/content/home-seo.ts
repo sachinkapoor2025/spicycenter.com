@@ -16,7 +16,7 @@ export const homeSeoContent = {
   delivery: {
     heading: "UK and EU delivery",
     paragraphs: [
-      "UK shipping is configurable (default ₹750 per kg, 1kg minimum). Duty and VAT are separate unless included in a rule.",
+      "UK shipping is quoted in GBP from a per-kg rule. Duty and VAT are separate unless included in a rule.",
     ],
   },
   howItWorks: {

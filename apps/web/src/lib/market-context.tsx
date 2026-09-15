@@ -141,8 +141,8 @@ export function MarketProvider({ children }: { children: ReactNode }) {
   const { setDisplayCurrency } = useCurrency();
   const [countryCode, setCountryCode] = useState<string>(STOREFRONT_DEFAULT_COUNTRY);
   const [postalCode, setPostalCode] = useState("");
-  const [markets, setMarkets] = useState<PublicMarket[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [markets, setMarkets] = useState<PublicMarket[]>(() => fallbackPublicMarkets());
+  const [loading, setLoading] = useState(false);
   const [manualOverride, setManualOverride] = useState(false);
   const [lastServiceability, setLastServiceability] = useState<Serviceability | null>(null);
 

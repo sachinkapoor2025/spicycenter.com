@@ -2,7 +2,6 @@
 
 import { quoteItemShipping } from "@/lib/quote-cart-shipping";
 import { useCurrency } from "@/lib/currency-context";
-import { FREE_SHIPPING_MIN_SUBTOTAL_USD } from "@spicycorner/shared";
 
 export function ProductShippingPanel({
   price,
@@ -47,8 +46,7 @@ export function ProductShippingPanel({
           {!quote.qualifiesForFreeShipping && (
             <p className="mt-0.5 text-xs text-slate-600">
               Add {format(quote.amountAwayFromFreeShipping, currency === "INR" ? "INR" : "USD")} more to unlock
-              free shipping (${FREE_SHIPPING_MIN_SUBTOTAL_USD}+). Charged at checkout — same amount as on the
-              payment page.
+              free shipping when a threshold applies. Charged at checkout in your display currency.
             </p>
           )}
         </div>

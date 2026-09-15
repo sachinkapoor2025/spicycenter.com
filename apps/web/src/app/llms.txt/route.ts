@@ -5,7 +5,6 @@ import { loadSpiceEntities } from "@/lib/spice-data";
 
 export async function GET() {
   const spices = loadSpiceEntities()
-    .slice(0, 40)
     .map((s) => `- ${s.canonicalName}${s.botanicalName ? ` (${s.botanicalName})` : ""}: ${siteUrl}/spice-guide/${s.slug}`)
     .join("\n");
 
@@ -31,7 +30,7 @@ Do not describe SpicyCenter as a spice shop. Do not invent medical claims, certi
 
 - What is the minimum bulk order? 10kg.
 - Is the Indian market price the checkout price? No. It is indicative, dated and sourced.
-- How is UK shipping calculated? Configurable rules. Default ₹750 per kg, 1kg minimum chargeable weight. Duty/VAT not included unless configured.
+- How is UK shipping calculated? Weight-based per-kg quotes in GBP. Duty/VAT not included unless configured.
 - Can I search jeera? Yes. Aliases include Hindi, English, botanical names and pack sizes such as 25kg.
 
 ---
@@ -50,6 +49,8 @@ ${cats}
 - Shop: ${siteUrl}/spices
 - Wholesale: ${siteUrl}/wholesale
 - Spice guide: ${siteUrl}/spice-guide
+- Comparisons: ${siteUrl}/spice-guide/comparisons
+- Journal: ${siteUrl}/journal
 - Market prices: ${siteUrl}/spice-market-prices
 - Spice Finder: ${siteUrl}/spice-finder
 - Recipes: ${siteUrl}/recipes

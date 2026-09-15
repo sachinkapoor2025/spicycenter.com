@@ -6,7 +6,7 @@ import { site, whatsappChatUrl } from "@/lib/site";
 import { useSessionId } from "@/lib/session";
 import { api } from "@/lib/api";
 
-export function ReviewForm() {
+export function ReviewForm({ productSlug }: { productSlug?: string }) {
   const sessionId = useSessionId();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -36,13 +36,14 @@ export function ReviewForm() {
           sessionId: sid,
           name,
           email,
-          page: "/reviews",
+          page: productSlug ? `/products/${productSlug}` : "/reviews",
           source: "review",
           metadata: {
             message: review.trim(),
             rating,
             city: city.trim(),
             orderId: orderId.trim(),
+            productSlug: productSlug || undefined,
           },
         }),
       });
@@ -101,7 +102,7 @@ export function ReviewForm() {
             type="text"
             value={city}
             onChange={(e) => setCity(e.target.value)}
-            placeholder="e.g. San Jose, CA"
+            placeholder="e.g. Southampton"
             className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm"
           />
         </div>

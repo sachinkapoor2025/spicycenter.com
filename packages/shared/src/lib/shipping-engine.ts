@@ -41,7 +41,7 @@ export const DEFAULT_SHIPPING_RATES: ShippingRateRule[] = [
     includesCustomsDuty: false,
     includesVat: false,
     notes:
-      "Default UK rate is ₹750 per kg of shipment weight, configurable in admin. Does not include UK import duty or VAT unless separately configured.",
+      "UK shipping is billed on chargeable shipment weight with a 1kg minimum. Quoted in the shopper display currency (GBP). Does not include UK import duty or VAT unless separately configured.",
     effectiveFrom: "2026-09-13",
   },
   {

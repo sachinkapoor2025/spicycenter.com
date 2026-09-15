@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
 import { InternalLinksSection } from "@/components/InternalLinksSection";
+import { ProductSpiceStory } from "@/components/ProductSpiceStory";
 import { ProductDetailClient } from "./ProductDetailClient";
 import { breadcrumbJsonLd, faqJsonLd, productJsonLd, productPageMetadata } from "@/lib/seo";
 import { productPageFaqs } from "@/lib/content/product-faqs";
@@ -38,14 +39,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!p) return { title: "Product" };
 
   return productPageMetadata({
-    title: p.seoTitle ?? p.name,
+    title: p.seoTitle ?? `${p.name} — buy Indian spices UK & EU`,
     seoDescription: p.seoDescription,
     description: p.description,
     path: `/products/${slug}`,
     price: p.price,
-    currency: p.currency,
+    currency: p.currency === "INR" ? "GBP" : p.currency,
     ogImage: resolveImageUrl(p.images?.[0]),
-    keywords: [p.name, ...(p.tags ?? []), "spice spices", "spice decorations", "SpicyCenter"].join(", "),
+    keywords: [p.name, p.sku, ...(p.tags ?? []), "Indian spices UK", "SpicyCenter"].filter(Boolean).join(", "),
   });
 }
 
@@ -77,6 +78,7 @@ export default async function ProductPage({ params }: Props) {
         <Breadcrumbs items={crumbs} />
       </div>
       <ProductDetailClient product={product} relatedProducts={relatedProducts} />
+      <ProductSpiceStory product={product} />
       <div className="max-w-6xl mx-auto px-4 pb-12">
         <InternalLinksSection
           groups={getInternalLinkGroups({

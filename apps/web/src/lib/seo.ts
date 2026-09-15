@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { productMetaDescription, SOCIAL_LINKS, VERIFIED_COUNTRY_LINKS } from "@spicycorner/shared";
-import { site } from "./site";
+import { site, STORE_LOCATIONS } from "./site";
 import { siteUrl } from "./env";
 import { extendedKeywords } from "./ai-recommendation";
 
@@ -30,13 +30,19 @@ export function pageMetadata(opts: {
     title: opts.absoluteTitle ? { absolute: opts.title } : opts.title,
     description: opts.description,
     keywords: opts.keywords ?? defaultKeywords,
-    alternates: { canonical: url },
+    alternates: {
+      canonical: url,
+      languages: {
+        "en-GB": url,
+        "x-default": url,
+      },
+    },
     openGraph: {
       title: opts.title,
       description: opts.description,
       url,
       siteName: site.name,
-      locale: "en_US",
+      locale: "en_GB",
       type: "website",
       images: [{ url: image, alt: site.name }],
     },
@@ -67,7 +73,7 @@ export function productPageMetadata(opts: {
   const url = canonical(opts.path);
   const image = opts.ogImage ?? site.logoSrc;
   const price = Number.isFinite(opts.price) ? opts.price.toFixed(2) : "0.00";
-  const currency = opts.currency === "INR" ? "INR" : "USD";
+  const currency = opts.currency === "INR" ? "GBP" : opts.currency || "GBP";
 
   return {
     title: opts.title,
@@ -79,7 +85,7 @@ export function productPageMetadata(opts: {
       description,
       url,
       siteName: site.name,
-      locale: "en_US",
+      locale: "en_GB",
       type: "website",
       images: [{ url: image, alt: opts.title }],
     },
@@ -146,8 +152,8 @@ export function onlineStoreJsonLd() {
       name: c.name,
     })),
     priceRange: "$$",
-    currenciesAccepted: "USD, GBP, CAD, AUD, AED, EUR, INR",
-    paymentAccepted: "Credit Card, Debit Card, UPI, Razorpay, Stripe",
+    currenciesAccepted: "GBP, EUR",
+    paymentAccepted: "Credit Card, Debit Card, Stripe",
     shippingDetails: VERIFIED_COUNTRY_LINKS.map((c) => ({
       "@type": "OfferShippingDetails",
       shippingDestination: { "@type": "DefinedRegion", addressCountry: c.code },
@@ -235,11 +241,13 @@ export function productJsonLd(product: {
     url: canonical(`/products/${product.slug}`),
     brand: { "@type": "Brand", name: site.name },
     category: product.categorySlug?.replace(/-/g, " "),
+    countryOfOrigin: { "@type": "Country", name: "India" },
     offers: {
       "@type": "Offer",
       url: canonical(`/products/${product.slug}`),
       price: product.price,
-      priceCurrency: product.currency,
+      priceCurrency: product.currency === "INR" ? "GBP" : product.currency || "GBP",
+      priceValidUntil: `${new Date().getFullYear()}-12-31`,
       itemCondition: "https://schema.org/NewCondition",
       availability:
         product.inventory > 0
@@ -273,13 +281,14 @@ export function articleJsonLd(article: {
   publishedAt: string;
   updatedAt?: string;
   image?: string;
+  path?: string;
 }) {
   return {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: article.title,
     description: article.description,
-    url: canonical(`/blog/${article.slug}`),
+    url: canonical(article.path ?? `/blog/${article.slug}`),
     datePublished: article.publishedAt,
     dateModified: article.updatedAt ?? article.publishedAt,
     ...(article.image ? { image: article.image } : {}),
@@ -336,7 +345,7 @@ export function howToShopspiceJsonLd() {
         "@type": "HowToStep",
         position: 4,
         name: "Pay securely",
-        text: "Complete payment with Razorpay (INR) or Stripe (USD).",
+        text: "Complete payment with Stripe. Storefront prices display in GBP or EUR.",
       },
       {
         "@type": "HowToStep",
@@ -388,12 +397,12 @@ export function serviceAreaJsonLd(city: { label: string; slug: string; state?: s
     areaServed: {
       "@type": city.state ? "City" : "State",
       name: city.state ? `${city.label}, ${city.state}` : city.label,
-      containedInPlace: { "@type": "Country", name: "United States" },
+      containedInPlace: { "@type": "Country", name: "United Kingdom" },
     },
     serviceType: "spice delivery",
     offers: {
       "@type": "Offer",
-      priceCurrency: "USD",
+      priceCurrency: "GBP",
       availability: "https://schema.org/InStock",
       url: canonical(`/cities/${city.slug}`),
     },
@@ -423,5 +432,94 @@ export function aboutPageJsonLd() {
     url: canonical("/about"),
     description: site.description,
     mainEntity: { "@id": `${siteUrl}/#organization` },
+  };
+}
+
+export function localBusinessJsonLd() {
+  return STORE_LOCATIONS.map((store) => ({
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "@id": `${siteUrl}/#local-${store.id}`,
+    name: `${site.name} — ${store.country}`,
+    image: canonical(site.logoSrc),
+    url: siteUrl,
+    email: site.supportEmail,
+    parentOrganization: { "@id": `${siteUrl}/#organization` },
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: store.lines[0],
+      addressLocality: store.id === "in" ? "Ferozepur City" : "Southampton",
+      addressRegion: store.id === "in" ? "Punjab" : "Hampshire",
+      postalCode: store.id === "in" ? "152002" : "SO18 2ED",
+      addressCountry: store.id === "in" ? "IN" : "GB",
+    },
+    areaServed:
+      store.id === "uk"
+        ? [
+            { "@type": "Country", name: "United Kingdom" },
+            { "@type": "Place", name: "European Union" },
+          ]
+        : { "@type": "Country", name: "India" },
+  }));
+}
+
+export function recipeJsonLd(recipe: {
+  slug: string;
+  title: string;
+  summary: string;
+  cuisine?: string;
+  spiceIds?: string[];
+  servings?: number;
+  prepMinutes?: number;
+  cookMinutes?: number;
+  ingredients?: string[];
+  steps?: string[];
+}) {
+  const ingredients =
+    recipe.ingredients?.length ? recipe.ingredients : (recipe.spiceIds ?? []).map((id) => id.replace(/-/g, " "));
+  return {
+    "@context": "https://schema.org",
+    "@type": "Recipe",
+    name: recipe.title,
+    description: recipe.summary,
+    url: canonical(`/recipes/${recipe.slug}`),
+    recipeCuisine: recipe.cuisine ?? "Indian",
+    recipeCategory: "Indian spice cooking",
+    author: { "@type": "Organization", name: site.name },
+    recipeIngredient: ingredients,
+    ...(recipe.servings ? { recipeYield: `${recipe.servings} servings` } : {}),
+    ...(recipe.prepMinutes
+      ? { prepTime: `PT${recipe.prepMinutes}M` }
+      : {}),
+    ...(recipe.cookMinutes ? { cookTime: `PT${recipe.cookMinutes}M` } : {}),
+    ...(recipe.prepMinutes || recipe.cookMinutes
+      ? { totalTime: `PT${(recipe.prepMinutes ?? 0) + (recipe.cookMinutes ?? 0)}M` }
+      : {}),
+    ...(recipe.steps?.length
+      ? {
+          recipeInstructions: recipe.steps.map((text, i) => ({
+            "@type": "HowToStep",
+            position: i + 1,
+            text,
+          })),
+        }
+      : {}),
+  };
+}
+
+export function spiceGuideArticleJsonLd(opts: {
+  slug: string;
+  title: string;
+  description: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: opts.title,
+    description: opts.description,
+    url: canonical(`/spice-guide/${opts.slug}`),
+    author: { "@type": "Organization", name: site.name },
+    publisher: { "@id": `${siteUrl}/#organization` },
+    about: { "@type": "Thing", name: opts.title },
   };
 }

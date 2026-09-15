@@ -1,5 +1,3 @@
-import { FAST_SELLING_THRESHOLD } from "@spicycorner/shared";
-
 /** Badge for product cards and detail pages. */
 export function FastSellingBadge({ className = "" }: { className?: string }) {
   return (
@@ -13,15 +11,16 @@ export function FastSellingBadge({ className = "" }: { className?: string }) {
 }
 
 export function FastSellingBanner({ unitsSold }: { unitsSold: number }) {
+  if (!unitsSold || unitsSold < 1) return null;
   return (
     <div className="flex items-start gap-3 rounded-lg border border-orange-200 bg-gradient-to-r from-orange-50 to-amber-50 px-4 py-3 mb-3">
       <span className="text-2xl shrink-0" aria-hidden>
         🔥
       </span>
       <div>
-        <p className="font-bold text-orange-900 text-sm">Fast Selling — {unitsSold}+ sisters chose this!</p>
+        <p className="font-bold text-orange-900 text-sm">Popular with UK kitchens — {unitsSold}+ sold</p>
         <p className="text-xs text-orange-800/90 mt-0.5 leading-relaxed">
-          This item is trending on SpicyCenter. {FAST_SELLING_THRESHOLD}+ sold — order soon while stock lasts.
+          Based on recorded storefront sales for this SKU. Stock is limited by lot.
         </p>
       </div>
     </div>

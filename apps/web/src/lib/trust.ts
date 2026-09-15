@@ -7,7 +7,7 @@ export const trustFacts = {
   fulfillment: "Delivering in 5–7 days",
   support: "WhatsApp & email support before, during, and after delivery",
   catalog: "99+ premium Indian spices, spices, and spice packs",
-  payments: "Secure checkout via Stripe (USD) and Razorpay (INR)",
+  payments: "Secure Stripe checkout — prices shown in GBP (UK) or EUR (EU)",
   guarantee: "Satisfaction guarantee — see our returns policy",
 } as const;
 
@@ -25,7 +25,7 @@ export const trustHighlights = [
   {
     icon: "📦",
     title: "Free Shipping & Reliable Service",
-    detail: "Free shipping on orders of $49 or more. Smaller carts use a stepped shipping fee.",
+    detail: "Shipping is quoted in GBP or EUR on each product. Check the product page before checkout.",
   },
   {
     icon: "📍",

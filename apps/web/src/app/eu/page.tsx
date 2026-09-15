@@ -3,7 +3,7 @@ import Link from "next/link";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Indian spices Europe",
+  title: "Indian spices Europe | EUR quotes when a country is configured",
   description: "EU expansion for Indian spices. Country pages only when shipping and compliance are configured.",
   path: "/eu",
 });

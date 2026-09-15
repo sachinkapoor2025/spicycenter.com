@@ -27,7 +27,7 @@ export function CountrySelector({ compact = false }: { compact?: boolean }) {
     setDraftLocale(locale);
   }, [countryCode, locale, open]);
 
-  const label = loading
+  const label = loading && !market
     ? t("Detecting…")
     : market
       ? `${market.flagEmoji} ${market.name}`
@@ -68,9 +68,7 @@ export function CountrySelector({ compact = false }: { compact?: boolean }) {
       >
         <span className={compact ? "" : "truncate max-w-[min(46vw,220px)] sm:max-w-[280px]"}>
           {compact
-            ? loading
-              ? "…"
-              : (market?.flagEmoji ?? "🌍")
+            ? (market?.flagEmoji ?? "🌍")
             : `${t("Delivering to:")} ${label}`}
         </span>
         {!compact && (

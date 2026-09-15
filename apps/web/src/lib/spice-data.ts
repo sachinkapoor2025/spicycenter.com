@@ -2,6 +2,7 @@ import { readFileSync, existsSync } from "fs";
 import { join } from "path";
 import type { Product, Category } from "@spicycorner/shared";
 import type { MarketPrice, SpiceEntity } from "@spicycorner/shared";
+import { withDisplayNames } from "@/lib/content/spice-display";
 
 function resolvePath(relatives: string[]): string | null {
   const cwd = process.cwd();
@@ -16,7 +17,7 @@ function resolvePath(relatives: string[]): string | null {
 export function loadSpiceEntities(): SpiceEntity[] {
   const path = resolvePath(["data/spices.json", "../../data/spices.json", "../data/spices.json"]);
   if (!path) return [];
-  return JSON.parse(readFileSync(path, "utf-8")) as SpiceEntity[];
+  return (JSON.parse(readFileSync(path, "utf-8")) as SpiceEntity[]).map(withDisplayNames);
 }
 
 export function loadMarketPrices(): MarketPrice[] {

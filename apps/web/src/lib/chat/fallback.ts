@@ -14,7 +14,7 @@ function categoriesReply(): string {
 }
 
 function deliveryReply(): string {
-  return `UK shipping is a configurable per-kg rate (default ₹750/kg). Duty and VAT are separate unless a rule says they are included.\n\nMore: [Shipping](${siteUrl}/shipping)`;
+  return `UK shipping is quoted in GBP from a per-kg rule (EUR in the EU when a country rate is set). Duty and VAT are extra unless included.\n\nMore: [Shipping](${siteUrl}/shipping)`;
 }
 
 function spiceReply(): string {

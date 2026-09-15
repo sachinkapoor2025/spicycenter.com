@@ -74,7 +74,7 @@ function spiceCityContent(loc: SeoLocation): CityPageContent {
       bullets: [
         "Check the product shipping quote for your destination",
         "Spices, decor, spice packs, and novelty in one store",
-        "Secure Stripe (USD) and Razorpay (INR) checkout",
+        "Secure Stripe checkout (GBP / EUR display)",
         "Plan early — transit varies by item, so we do not guarantee your requested date arrival",
         "WhatsApp and email customer support",
       ],

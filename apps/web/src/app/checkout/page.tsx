@@ -393,7 +393,7 @@ function CheckoutPageInner() {
       if (paymentMethod === "stripe") {
         const stripeKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY?.trim();
         if (!stripeKey) {
-          throw new Error("Stripe is not configured. Contact support or pay with Razorpay (INR).");
+          throw new Error("Stripe is not configured. Contact support.");
         }
         if (!data.clientSecret || data.clientSecret.includes("_dev_")) {
           throw new Error(

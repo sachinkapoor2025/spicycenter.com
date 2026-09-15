@@ -35,7 +35,7 @@ export default function PressPage() {
             <li>99+ spice products across decor, spices, spice packs, and novelty</li>
             <li>Delivering in 5–7 days</li>
             <li>spice season: your requested date, 2026</li>
-            <li>Payments: Stripe (USD) and Razorpay (INR)</li>
+            <li>Payments: Stripe — storefront display GBP (UK) / EUR (EU)</li>
           </ul>
         </section>
 

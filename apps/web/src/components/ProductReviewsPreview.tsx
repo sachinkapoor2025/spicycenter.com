@@ -19,8 +19,31 @@ function StarRating({ rating }: { rating: number }) {
   );
 }
 
-/** Site-wide customer reviews preview for product pages (social proof). */
-export function ProductReviewsPreview() {
+/** Customer reviews on product pages — never invent ratings. */
+export function ProductReviewsPreview({
+  productSlug,
+  productName,
+}: {
+  productSlug?: string;
+  productName?: string;
+} = {}) {
+  const reviewHref = productSlug ? `/reviews?product=${encodeURIComponent(productSlug)}` : "/reviews";
+  if (testimonials.length === 0) {
+    return (
+      <div className="rounded-lg border border-[#e6d5bc] bg-paper px-4 py-4">
+        <p className="font-semibold text-primary">Customer reviews</p>
+        <p className="text-sm text-muted mt-1">
+          Native reviews only — we do not display invented star ratings or a third-party widget until a platform
+          (Trustpilot, Judge.me, or verified order reviews) is connected. After your order arrives, tell us how{" "}
+          {productName ?? "these spices"} cooked.
+        </p>
+        <Link href={reviewHref} className="text-nav font-semibold text-sm mt-2 inline-block">
+          Write a review after delivery →
+        </Link>
+      </div>
+    );
+  }
+
   const avg = testimonials.reduce((s, t) => s + t.rating, 0) / testimonials.length;
   const preview = testimonials.slice(0, 2);
 
@@ -44,7 +67,7 @@ export function ProductReviewsPreview() {
       </ul>
       <p className="text-xs text-slate-500">
         Real experiences from SpicyCenter customers.{" "}
-        <Link href="/reviews" className="text-nav font-semibold hover:underline">
+        <Link href={reviewHref} className="text-nav font-semibold hover:underline">
           Write a review after delivery →
         </Link>
       </p>

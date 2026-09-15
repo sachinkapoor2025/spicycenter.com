@@ -34,7 +34,7 @@ Primary market: United Kingdom. EU when shipping is configured. Confirm shipping
 ## Delivery & payment
 - Delivering in 5–7 days. Confirm shipping on the product page.
 - Do not claim all 50 states, same-day dispatch, a US warehouse, or guaranteed your requested date arrival.
-- Payment: Stripe (USD) and Razorpay (INR). Display prices may show in local currency.
+- Payment: Stripe. Display prices show in GBP (UK) or EUR (EU).
 
 ## Support
 - Email: ${site.supportEmail}

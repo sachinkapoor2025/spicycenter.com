@@ -55,7 +55,8 @@ export function HomeBannerSlider({ banners }: { banners: readonly HomeBannerSlid
                   alt={b.alt}
                   fill
                   className="object-contain object-center"
-                  sizes="(max-width: 1280px) 100vw, 1280px"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1280px) 100vw, 1280px"
+                  quality={80}
                   priority={i === 0}
                 />
               </Link>

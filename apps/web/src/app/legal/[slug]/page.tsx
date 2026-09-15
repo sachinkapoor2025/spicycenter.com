@@ -13,7 +13,7 @@ const PAGES = {
   },
   shipping: {
     title: "Shipping",
-    body: "UK default: ₹750 per kg, 1kg minimum, configurable in admin. Product price, shipping, VAT and customs duty are separate line items. We do not state that shipping includes import costs unless that is actually configured.",
+    body: "UK shipping is quoted in GBP from a per-kg rule (configurable in admin). Product price, shipping, VAT and customs duty are separate line items. We do not state that shipping includes import costs unless that is actually configured.",
   },
   returns: {
     title: "Returns",

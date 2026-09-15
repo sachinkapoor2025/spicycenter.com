@@ -52,7 +52,7 @@ ${site.description}
 **Website:** ${siteUrl}
 **Catalog:** Indian spices — retail and 10kg+ wholesale.
 **Delivery:** Confirm shipping on each product page. UK rates are per kilogram when configured.
-**Payments:** Stripe (USD), Razorpay (INR). Display prices may show in local currency.
+**Payments:** Stripe. Display prices in GBP (UK) or EUR (EU).
 
 ---
 

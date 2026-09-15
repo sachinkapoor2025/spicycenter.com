@@ -6,8 +6,8 @@ export function TrustBadges({ variant = "full", className = "" }: { variant?: Va
   const items = [
     { icon: "🚚", label: "Delivering in 5–7 days" },
     { icon: "🔒", label: "SSL Secure Checkout" },
-    { icon: "💳", label: "Secure Payments" },
-    { icon: "✓", label: "Satisfaction Guarantee", href: "/returns" },
+    { icon: "💳", label: "Stripe payments" },
+    { icon: "✓", label: "Returns policy", href: "/legal/returns" },
   ] as const;
 
   if (variant === "compact") {
