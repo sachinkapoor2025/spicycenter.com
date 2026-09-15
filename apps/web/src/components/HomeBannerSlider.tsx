@@ -39,7 +39,7 @@ export function HomeBannerSlider({ banners }: { banners: readonly HomeBannerSlid
     >
       <div className="max-w-7xl mx-auto px-3 sm:px-4 pt-4 sm:pt-5">
         <div className="relative overflow-hidden rounded-2xl bg-[#1a1008] shadow-card">
-          <div className="relative w-full aspect-[21/8] sm:aspect-[2.4/1]">
+          <div className="relative w-full aspect-[8/3]">
             {banners.map((b, i) => (
               <Link
                 key={b.src}
@@ -54,7 +54,7 @@ export function HomeBannerSlider({ banners }: { banners: readonly HomeBannerSlid
                   src={b.src}
                   alt={b.alt}
                   fill
-                  className="object-cover object-center"
+                  className="object-contain object-center"
                   sizes="(max-width: 1280px) 100vw, 1280px"
                   priority={i === 0}
                 />
