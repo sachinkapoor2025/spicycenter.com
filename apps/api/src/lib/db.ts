@@ -41,6 +41,12 @@ export const REMINDER_EMAILS_TABLE =
   process.env.REMINDER_EMAILS_TABLE ?? `spicycorner-reminder-emails-${ENV}`;
 export const PENDING_PAYMENT_UNSUB_TABLE =
   process.env.PENDING_PAYMENT_UNSUB_TABLE ?? `spicycorner-pending-payment-unsub-${ENV}`;
+export const SPICE_MANDI_PRICES_TABLE =
+  process.env.SPICE_MANDI_PRICES_TABLE ?? `SpiceMandiPrices-${ENV}`;
+export const BULK_PRICING_TABLE =
+  process.env.BULK_PRICING_TABLE ?? `BulkPricingConfig-${ENV}`;
+export const BULK_ENQUIRIES_TABLE =
+  process.env.BULK_ENQUIRIES_TABLE ?? `BulkEnquiries-${ENV}`;
 
 /** All table names, useful for setup/migration scripts. */
 export const ALL_TABLES = {
@@ -53,6 +59,9 @@ export const ALL_TABLES = {
   emailCampaigns: EMAIL_CAMPAIGNS_TABLE,
   reminderEmails: REMINDER_EMAILS_TABLE,
   pendingPaymentUnsub: PENDING_PAYMENT_UNSUB_TABLE,
+  spiceMandiPrices: SPICE_MANDI_PRICES_TABLE,
+  bulkPricing: BULK_PRICING_TABLE,
+  bulkEnquiries: BULK_ENQUIRIES_TABLE,
 };
 
 export function now(): string {

@@ -270,6 +270,32 @@ export const wholesaleQuoteKeys = {
   gsi1sk: (createdAt: string) => createdAt,
 };
 
+export const mandiPriceKeys = {
+  pk: (commoditySlug: string) => `COMMODITY#${commoditySlug}`,
+  historySk: (isoDate: string, market: string) => `DATE#${isoDate}#MARKET#${market}`,
+  latestSk: () => "LATEST" as const,
+  fetchHealthSk: () => "FETCH_HEALTH" as const,
+};
+
+export const fxRateKeys = {
+  pk: () => "FX#INR" as const,
+  latestSk: () => "LATEST" as const,
+};
+
+export const bulkPricingKeys = {
+  spicePk: (spiceId: string) => `SPICE#${spiceId}`,
+  spiceSk: () => "META" as const,
+  addOnsPk: () => "CONFIG#ADDONS" as const,
+  addOnsSk: () => "META" as const,
+};
+
+export const bulkEnquiryKeys = {
+  pk: (enquiryId: string) => `ENQUIRY#${enquiryId}`,
+  sk: () => "META" as const,
+  gsi1pk: (status: string) => `STATUS#${status}`,
+  gsi1sk: (createdAt: string) => createdAt,
+};
+
 export const shippingConfigKeys = {
   pk: () => "CONFIG#SHIPPING" as const,
   sk: () => "META" as const,

@@ -46,6 +46,7 @@ const navItems: NavItem[] = [
   { type: "link", href: "/admin/spices", label: "Spices" },
   { type: "link", href: "/admin/market-prices", label: "Market Prices" },
   { type: "link", href: "/admin/wholesale", label: "Wholesale Quotes" },
+  { type: "link", href: "/admin/bulk-pricing", label: "Bulk Pricing" },
   { type: "link", href: "/admin/compliance", label: "Compliance" },
   { type: "link", href: "/admin/categories", label: "Categories" },
   { type: "link", href: "/admin/shipping", label: "Shipping" },

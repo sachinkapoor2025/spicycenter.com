@@ -27,6 +27,9 @@ import * as paymentReconciliation from "./handlers/payment-reconciliation";
 import * as vendorManagement from "./handlers/vendor-management";
 import * as markets from "./handlers/markets";
 import * as reviews from "./handlers/reviews";
+import * as spicePrices from "./handlers/spice-prices";
+import * as bulkPricing from "./handlers/bulk-pricing";
+import * as bulkEnquiries from "./handlers/bulk-enquiries";
 import * as cjDropshipping from "./handlers/cj-dropshipping";
 import * as eprolo from "./handlers/eprolo";
 import * as cjProducts from "./handlers/cj-products";
@@ -48,6 +51,17 @@ interface Route {
 
 const routes: Route[] = [
   { method: "GET", pattern: /^\/health$/, handler: async () => ok({ status: "ok" }) },
+  { method: "GET", pattern: /^\/prices\/([^/]+)\/history$/, handler: spicePrices.getPriceHistory, params: ["commodity"] },
+  { method: "GET", pattern: /^\/prices\/([^/]+)$/, handler: spicePrices.getLatestPrice, params: ["commodity"] },
+  { method: "GET", pattern: /^\/bulk\/quote$/, handler: bulkPricing.previewQuote },
+  { method: "POST", pattern: /^\/bulk\/enquiries$/, handler: bulkEnquiries.createBulkEnquiry },
+  { method: "GET", pattern: /^\/bulk\/enquiries\/([^/]+)$/, handler: bulkEnquiries.getBulkEnquiry, params: ["enquiryId"] },
+  { method: "GET", pattern: /^\/admin\/bulk-pricing$/, handler: bulkPricing.adminListBulkPricing },
+  { method: "PUT", pattern: /^\/admin\/bulk-pricing\/addons$/, handler: bulkPricing.adminUpsertAddOns },
+  { method: "PUT", pattern: /^\/admin\/bulk-pricing$/, handler: bulkPricing.adminUpsertSpicePricing },
+  { method: "GET", pattern: /^\/admin\/bulk-enquiries$/, handler: bulkEnquiries.adminListEnquiries },
+  { method: "PATCH", pattern: /^\/admin\/bulk-enquiries\/([^/]+)$/, handler: bulkEnquiries.adminUpdateEnquiryStatus, params: ["enquiryId"] },
+  { method: "POST", pattern: /^\/admin\/agmarknet\/run$/, handler: bulkEnquiries.runAgmarknetFetch },
   { method: "GET", pattern: /^\/cj\/products$/, handler: cjProducts.listCjStoreProducts },
   {
     method: "GET",

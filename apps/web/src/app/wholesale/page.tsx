@@ -44,6 +44,14 @@ export default function WholesalePage() {
         <li><Link className="text-nav" href="/spice-supplier">Indian spice supplier</Link></li>
         <li><Link className="text-nav" href="/bulk-spices">Bulk catalogue</Link></li>
       </ul>
+      <h2 className="font-serif text-2xl mt-10 mb-4">Export-style bulk (100kg+)</h2>
+      <p className="text-sm text-muted mb-4">
+        For 100kg and above with an indicative UK/EU cost breakdown, use the{" "}
+        <Link className="text-nav font-semibold" href="/bulk-enquiry">
+          bulk enquiry calculator
+        </Link>
+        . The form below is still the general wholesale request (from 10kg).
+      </p>
       <h2 className="font-serif text-2xl mt-10 mb-4">Request wholesale quote</h2>
       <WholesaleQuoteForm />
     </div>

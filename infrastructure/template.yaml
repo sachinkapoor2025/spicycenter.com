@@ -209,6 +209,12 @@ Globals:
         EPROLO_OPEN_API_KEY: !Ref EproloOpenApiKey
         EPROLO_OPEN_API_SECRET: !Ref EproloOpenApiSecret
         CJ_IMPORT_WORKER_FUNCTION: !Sub spicycorner-cj-import-${Environment}
+        SPICE_MANDI_PRICES_TABLE: !Ref SpiceMandiPricesTable
+        BULK_PRICING_TABLE: !Ref BulkPricingConfigTable
+        BULK_ENQUIRIES_TABLE: !Ref BulkEnquiriesTable
+        AGMARKNET_SECRET_NAME: agmarknet/api-key
+        AGMARKNET_ALERT_TOPIC_ARN: !Ref AgmarknetAlertTopic
+        AGMARKNET_FETCHER_FUNCTION: !Sub spicycenter-agmarknet-fetcher-${Environment}
 
 Resources:
   ProductsTable:
@@ -419,6 +425,82 @@ Resources:
           KeyType: RANGE
       SSESpecification:
         SSEEnabled: true
+
+  # Customer-facing name in the brief: SpiceMandiPrices
+  SpiceMandiPricesTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub SpiceMandiPrices-${Environment}
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: PK
+          AttributeType: S
+        - AttributeName: SK
+          AttributeType: S
+      KeySchema:
+        - AttributeName: PK
+          KeyType: HASH
+        - AttributeName: SK
+          KeyType: RANGE
+      PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: true
+      SSESpecification:
+        SSEEnabled: true
+
+  BulkPricingConfigTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub BulkPricingConfig-${Environment}
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: PK
+          AttributeType: S
+        - AttributeName: SK
+          AttributeType: S
+      KeySchema:
+        - AttributeName: PK
+          KeyType: HASH
+        - AttributeName: SK
+          KeyType: RANGE
+      SSESpecification:
+        SSEEnabled: true
+
+  BulkEnquiriesTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub BulkEnquiries-${Environment}
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: PK
+          AttributeType: S
+        - AttributeName: SK
+          AttributeType: S
+        - AttributeName: GSI1PK
+          AttributeType: S
+        - AttributeName: GSI1SK
+          AttributeType: S
+      KeySchema:
+        - AttributeName: PK
+          KeyType: HASH
+        - AttributeName: SK
+          KeyType: RANGE
+      GlobalSecondaryIndexes:
+        - IndexName: GSI1
+          KeySchema:
+            - AttributeName: GSI1PK
+              KeyType: HASH
+            - AttributeName: GSI1SK
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+      SSESpecification:
+        SSEEnabled: true
+
+  AgmarknetAlertTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: !Sub spicycenter-agmarknet-alerts-${Environment}
+      DisplayName: Agmarknet fetch alerts
 
   EmailCampaignsTable:
     Type: AWS::DynamoDB::Table
@@ -694,6 +776,12 @@ Resources:
             TableName: !Ref ReminderEmailsTable
         - DynamoDBCrudPolicy:
             TableName: !Ref PendingPaymentUnsubTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref SpiceMandiPricesTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref BulkPricingConfigTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref BulkEnquiriesTable
         - S3CrudPolicy:
             BucketName: !Ref UploadBucket
         - Statement:
@@ -718,7 +806,9 @@ Resources:
             - Effect: Allow
               Action:
                 - lambda:InvokeFunction
-              Resource: !Sub arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:spicycorner-cj-import-${Environment}
+              Resource:
+                - !Sub arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:spicycorner-cj-import-${Environment}
+                - !Sub arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:spicycenter-agmarknet-fetcher-${Environment}
       Events:
         ApiRoot:
           Type: HttpApi
@@ -732,6 +822,113 @@ Resources:
             ApiId: !Ref HttpApi
             Path: /health
             Method: GET
+    Metadata:
+      BuildMethod: makefile
+
+  AgmarknetFetcherFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub spicycenter-agmarknet-fetcher-${Environment}
+      Handler: agmarknet-fetcher.handler
+      CodeUri: ..
+      Timeout: 120
+      MemorySize: 512
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref SpiceMandiPricesTable
+        - Statement:
+            - Effect: Allow
+              Action:
+                - secretsmanager:GetSecretValue
+              Resource: !Sub arn:aws:secretsmanager:${AWS::Region}:${AWS::AccountId}:secret:agmarknet/api-key*
+            - Effect: Allow
+              Action:
+                - cloudwatch:PutMetricData
+              Resource: "*"
+            - Effect: Allow
+              Action:
+                - sns:Publish
+              Resource: !Ref AgmarknetAlertTopic
+      Events:
+        DailyFetch:
+          Type: Schedule
+          Properties:
+            Name: !Sub spicycenter-agmarknet-daily-${Environment}
+            Description: Daily Agmarknet mandi fetch at 00:30 UTC (06:00 IST)
+            Schedule: cron(30 0 * * ? *)
+            Enabled: true
+    Metadata:
+      BuildMethod: makefile
+
+  FxFetcherFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub spicycenter-fx-fetcher-${Environment}
+      Handler: fx-fetcher.handler
+      CodeUri: ..
+      Timeout: 30
+      MemorySize: 256
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref SpiceMandiPricesTable
+      Events:
+        DailyFx:
+          Type: Schedule
+          Properties:
+            Name: !Sub spicycenter-fx-daily-${Environment}
+            Description: Daily INR→GBP/EUR via Frankfurter
+            Schedule: cron(45 0 * * ? *)
+            Enabled: true
+    Metadata:
+      BuildMethod: makefile
+
+  SpicePriceHttpApi:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      StageName: !Ref Environment
+      CorsConfiguration:
+        AllowMethods: ["GET", "OPTIONS"]
+        AllowHeaders: ["Content-Type"]
+        AllowOrigins:
+          - "https://spicycenter.com"
+          - "https://www.spicycenter.com"
+
+  SpicePriceApiFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub spicycenter-spice-price-api-${Environment}
+      Handler: spice-price-api.handler
+      CodeUri: ..
+      Timeout: 15
+      MemorySize: 256
+      Policies:
+        - DynamoDBReadPolicy:
+            TableName: !Ref SpiceMandiPricesTable
+      Events:
+        Latest:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref SpicePriceHttpApi
+            Path: /prices/{commodity}
+            Method: GET
+        History:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref SpicePriceHttpApi
+            Path: /prices/{commodity}/history
+            Method: GET
+        PreflightLatest:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref SpicePriceHttpApi
+            Path: /prices/{commodity}
+            Method: OPTIONS
+        PreflightHistory:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref SpicePriceHttpApi
+            Path: /prices/{commodity}/history
+            Method: OPTIONS
     Metadata:
       BuildMethod: makefile
 
@@ -1035,3 +1232,10 @@ Outputs:
     Value: !Ref UploadBucket
   CloudFrontDomain:
     Value: !GetAtt CloudFrontDistribution.DomainName
+  SpicePriceApiUrl:
+    Description: Public GET /prices/{commodity} (12h cache headers; CORS spicycenter.com)
+    Value: !Sub https://${SpicePriceHttpApi}.execute-api.${AWS::Region}.amazonaws.com/${Environment}
+  SpiceMandiPricesTableName:
+    Value: !Ref SpiceMandiPricesTable
+  BulkEnquiriesTableName:
+    Value: !Ref BulkEnquiriesTable

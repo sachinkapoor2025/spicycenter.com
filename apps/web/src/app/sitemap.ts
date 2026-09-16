@@ -56,6 +56,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteUrl}/spice-supplier`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
     { url: `${siteUrl}/wholesale/uk`, lastModified: now, changeFrequency: "weekly", priority: 0.85 },
     { url: `${siteUrl}/wholesale/restaurants`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${siteUrl}/bulk-enquiry`, lastModified: now, changeFrequency: "weekly", priority: 0.85 },
     { url: `${siteUrl}/legal/food-information`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${siteUrl}/legal/allergens`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${siteUrl}/spice-guide`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },

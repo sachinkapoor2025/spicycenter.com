@@ -3,6 +3,7 @@ import type { Order } from "@spicycorner/shared";
 import type { APIGatewayProxyEventV2 } from "aws-lambda";
 import { ok, badRequest, serverError } from "../../lib/response";
 import { markOrderPaid, markOrderPaymentFailed } from "../orders";
+import { markEnquiryAddOnsPaid } from "../bulk-enquiries";
 import { isLoadTestMode } from "../../lib/load-test";
 
 function getStripe(): Stripe | null {
@@ -73,8 +74,12 @@ export async function stripeWebhook(event: APIGatewayProxyEventV2) {
     if (stripeEvent.type === "payment_intent.succeeded") {
       const intent = stripeEvent.data.object as Stripe.PaymentIntent;
       const orderId = intent.metadata?.orderId;
+      const bulkEnquiryId = intent.metadata?.bulkEnquiryId;
       if (orderId) {
         await markOrderPaid(orderId, { paymentIntentId: intent.id });
+      }
+      if (bulkEnquiryId) {
+        await markEnquiryAddOnsPaid(bulkEnquiryId, intent.id);
       }
     }
 

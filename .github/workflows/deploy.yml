@@ -64,6 +64,23 @@ jobs:
           aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
           aws-region: ${{ env.AWS_REGION }}
 
+      - name: Upsert Agmarknet API key into Secrets Manager
+        env:
+          AGMARKNET_API_KEY: ${{ secrets.AGMARKNET_API_KEY }}
+        run: |
+          if [ -z "${AGMARKNET_API_KEY}" ]; then
+            echo "::warning::AGMARKNET_API_KEY GitHub secret is empty. The fetcher Lambda reads agmarknet/api-key from Secrets Manager and will fail until this secret is set."
+            exit 0
+          fi
+          NAME="agmarknet/api-key"
+          if aws secretsmanager describe-secret --secret-id "$NAME" >/dev/null 2>&1; then
+            aws secretsmanager put-secret-value --secret-id "$NAME" --secret-string "$AGMARKNET_API_KEY"
+            echo "Updated Secrets Manager secret $NAME"
+          else
+            aws secretsmanager create-secret --name "$NAME" --secret-string "$AGMARKNET_API_KEY"
+            echo "Created Secrets Manager secret $NAME"
+          fi
+
       - uses: aws-actions/setup-sam@v3
 
       - name: SAM Deploy

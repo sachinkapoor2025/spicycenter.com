@@ -1,4 +1,4 @@
-.PHONY: build-ApiFunction build-VendorApiFunction build-ReviewEmailsCronFunction build-SesEmailCronFunction build-BounceSyncFunction build-ImageOptimizeFunction build-CjImportWorkerFunction api-deps
+.PHONY: build-ApiFunction build-VendorApiFunction build-ReviewEmailsCronFunction build-SesEmailCronFunction build-BounceSyncFunction build-ImageOptimizeFunction build-CjImportWorkerFunction build-AgmarknetFetcherFunction build-FxFetcherFunction build-SpicePriceApiFunction api-deps
 
 ESBUILD = npx esbuild --bundle --platform=node --target=es2022 --minify \
 	--external:@aws-sdk/client-dynamodb \
@@ -37,6 +37,15 @@ build-BounceSyncFunction: api-deps
 
 build-CjImportWorkerFunction: api-deps
 	$(ESBUILD) apps/api/src/cj-import-worker.ts --outfile=$(ARTIFACTS_DIR)/cj-import-worker.js
+
+build-AgmarknetFetcherFunction: api-deps
+	$(ESBUILD) apps/api/src/agmarknet-fetcher.ts --outfile=$(ARTIFACTS_DIR)/agmarknet-fetcher.js
+
+build-FxFetcherFunction: api-deps
+	$(ESBUILD) apps/api/src/fx-fetcher.ts --outfile=$(ARTIFACTS_DIR)/fx-fetcher.js
+
+build-SpicePriceApiFunction: api-deps
+	$(ESBUILD) apps/api/src/spice-price-api.ts --outfile=$(ARTIFACTS_DIR)/spice-price-api.js
 
 # Separate artifact: sharp native binary for linux/arm64 (Lambda architecture).
 # Do not bundle sharp into the API function — it would bloat every request path.
