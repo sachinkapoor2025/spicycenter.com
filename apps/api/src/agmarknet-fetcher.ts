@@ -97,8 +97,8 @@ async function persistCommodity(slug: string, records: AgmarknetRecord[]) {
         Item: {
           PK: mandiPriceKeys.pk(slug),
           SK: mandiPriceKeys.historySk(row.arrival_date!, row.market),
-          commodity: slug,
           ...row,
+          commodity: slug,
           fetched_at: fetchedAt,
         },
       })

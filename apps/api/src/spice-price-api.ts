@@ -1,4 +1,9 @@
-import type { APIGatewayProxyEventV2, APIGatewayProxyResultV2, Context } from "aws-lambda";
+import type {
+  APIGatewayProxyEventV2,
+  APIGatewayProxyResultV2,
+  APIGatewayProxyStructuredResultV2,
+  Context,
+} from "aws-lambda";
 import { getLatestPrice, getPriceHistory } from "./handlers/spice-prices";
 import { corsPreflight, notFound } from "./lib/response";
 
@@ -12,11 +17,20 @@ function origin(event: APIGatewayProxyEventV2): string {
   return ALLOWED.has(o) ? o : "https://www.spicycenter.com";
 }
 
-function withOrigin(event: APIGatewayProxyEventV2, res: APIGatewayProxyResultV2): APIGatewayProxyResultV2 {
+function asStructured(res: APIGatewayProxyResultV2): APIGatewayProxyStructuredResultV2 {
+  if (typeof res === "string") return { statusCode: 200, body: res };
+  return res;
+}
+
+function withOrigin(
+  event: APIGatewayProxyEventV2,
+  res: APIGatewayProxyResultV2
+): APIGatewayProxyStructuredResultV2 {
+  const structured = asStructured(res);
   return {
-    ...res,
+    ...structured,
     headers: {
-      ...(res.headers ?? {}),
+      ...(structured.headers ?? {}),
       "Access-Control-Allow-Origin": origin(event),
       "Access-Control-Allow-Methods": "GET, OPTIONS",
       "Access-Control-Allow-Headers": "Content-Type",
