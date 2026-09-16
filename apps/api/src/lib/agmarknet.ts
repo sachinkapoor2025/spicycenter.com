@@ -67,7 +67,10 @@ export async function fetchCommodityPage(opts: {
   url.searchParams.set("offset", String(opts.offset));
   if (opts.arrivalDate) url.searchParams.set("filters[arrival_date]", opts.arrivalDate);
 
-  const res = await fetch(url, { headers: { Accept: "application/json" } });
+  const res = await fetch(url, {
+    headers: { Accept: "application/json" },
+    signal: AbortSignal.timeout(20_000),
+  });
   if (!res.ok) {
     throw new Error(`Agmarknet HTTP ${res.status}`);
   }
@@ -81,6 +84,7 @@ export async function fetchAllCommodityRecords(
   arrivalDate?: string
 ): Promise<AgmarknetRecord[]> {
   const limit = 100;
+  const maxRecords = 1_000;
   for (const name of agmarknetFilterNames(commodity)) {
     const all: AgmarknetRecord[] = [];
     let offset = 0;
@@ -97,7 +101,7 @@ export async function fetchAllCommodityRecords(
       offset += page.records.length;
       if (page.total > 0 && offset >= page.total) break;
       if (page.records.length < limit) break;
-      if (offset > 20_000) break;
+      if (offset >= maxRecords) break;
     }
     if (all.length) return all;
   }

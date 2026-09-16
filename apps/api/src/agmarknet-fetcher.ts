@@ -162,6 +162,41 @@ async function persistCommodity(slug: string, records: AgmarknetRecord[]) {
   return { rows: parsed.length, averageModal, latestDate, grades: by_grade.length };
 }
 
+async function runCommodity(
+  apiKey: string,
+  commodity: (typeof TRACKED_COMMODITIES)[number],
+  arrivalDate: string | undefined
+) {
+  const started = Date.now();
+  try {
+    const records = await fetchAllCommodityRecords(apiKey, commodity, arrivalDate);
+    const saved = await persistCommodity(commodity.slug, records);
+    await writeHealth(commodity.slug, 0, now());
+    return {
+      slug: commodity.slug,
+      result: { ok: true, ms: Date.now() - started, ...saved },
+    };
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    console.error("Agmarknet commodity fetch failed", { commodity: commodity.slug, error: message });
+    const health = await readHealth(commodity.slug);
+    const consecutive = health.consecutiveFailures + 1;
+    await writeHealth(commodity.slug, consecutive, health.lastSuccessAt);
+    try {
+      await putFailureMetric(commodity.slug, consecutive);
+      if (consecutive >= 2) {
+        await notifyConsecutiveFailure(commodity.slug, consecutive, message);
+      }
+    } catch (metricErr) {
+      console.error("Failed to publish Agmarknet failure metric", metricErr);
+    }
+    return {
+      slug: commodity.slug,
+      result: { ok: false, error: message, consecutiveFailures: consecutive, ms: Date.now() - started },
+    };
+  }
+}
+
 export async function handler(event: FetcherEvent, _context: Context) {
   const apiKey = await readAgmarknetApiKey();
   const list = event.commodity
@@ -173,29 +208,16 @@ export async function handler(event: FetcherEvent, _context: Context) {
     : TRACKED_COMMODITIES;
 
   const results: Record<string, unknown> = {};
-  for (const commodity of list) {
-    try {
-      const records = await fetchAllCommodityRecords(apiKey, commodity, event.arrivalDate);
-      const saved = await persistCommodity(commodity.slug, records);
-      await writeHealth(commodity.slug, 0, now());
-      results[commodity.slug] = { ok: true, ...saved };
-    } catch (err) {
-      const message = err instanceof Error ? err.message : String(err);
-      console.error("Agmarknet commodity fetch failed", { commodity: commodity.slug, error: message });
-      const health = await readHealth(commodity.slug);
-      const consecutive = health.consecutiveFailures + 1;
-      await writeHealth(commodity.slug, consecutive, health.lastSuccessAt);
-      try {
-        await putFailureMetric(commodity.slug, consecutive);
-        if (consecutive >= 2) {
-          await notifyConsecutiveFailure(commodity.slug, consecutive, message);
-        }
-      } catch (metricErr) {
-        console.error("Failed to publish Agmarknet failure metric", metricErr);
-      }
-      results[commodity.slug] = { ok: false, error: message, consecutiveFailures: consecutive };
+  const concurrency = 3;
+  let cursor = 0;
+  async function worker() {
+    while (cursor < list.length) {
+      const commodity = list[cursor++];
+      const { slug, result } = await runCommodity(apiKey, commodity, event.arrivalDate);
+      results[slug] = result;
     }
   }
+  await Promise.all(Array.from({ length: Math.min(concurrency, list.length) }, () => worker()));
 
   return { backfill: Boolean(event.backfill), results };
 }

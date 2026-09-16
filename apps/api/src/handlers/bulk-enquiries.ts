@@ -310,12 +310,17 @@ export async function runAgmarknetFetch(event: APIGatewayProxyEventV2) {
   if (!name) return serverError("Fetcher function name is not configured");
   const client = new LambdaClient({});
   const payload = event.body ? JSON.parse(event.body) : { backfill: true };
-  const out = await client.send(
+  await client.send(
     new InvokeCommand({
       FunctionName: name,
+      InvocationType: "Event",
       Payload: Buffer.from(JSON.stringify(payload)),
     })
   );
-  const text = out.Payload ? Buffer.from(out.Payload).toString("utf8") : "{}";
-  return ok({ invoked: true, result: JSON.parse(text) });
+  return ok({
+    invoked: true,
+    async: true,
+    functionName: name,
+    message: "Fetch started in the background. Wait about a minute, then reload this page. Do not click repeatedly.",
+  });
 }

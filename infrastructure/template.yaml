@@ -831,7 +831,7 @@ Resources:
       FunctionName: !Sub spicycenter-agmarknet-fetcher-${Environment}
       Handler: agmarknet-fetcher.handler
       CodeUri: ..
-      Timeout: 120
+      Timeout: 180
       MemorySize: 512
       Policies:
         - DynamoDBCrudPolicy:

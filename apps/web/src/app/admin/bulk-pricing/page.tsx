@@ -42,12 +42,12 @@ export default function AdminBulkPricingPage() {
   }
 
   async function runFetch() {
-    setMsg("Running Agmarknet fetch…");
-    const out = await api<{ result?: unknown }>("/admin/agmarknet/run", {
+    setMsg("Starting Agmarknet fetch in the background…");
+    const out = await api<{ message?: string; invoked?: boolean }>("/admin/agmarknet/run", {
       method: "POST",
       body: JSON.stringify({ backfill: true }),
     });
-    setMsg(`Fetch invoked: ${JSON.stringify(out.result ?? out)}`);
+    setMsg(out.message ?? "Fetch started. Reload this page in about a minute — do not click the button again.");
   }
 
   return (
