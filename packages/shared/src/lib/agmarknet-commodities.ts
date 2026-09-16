@@ -10,6 +10,10 @@ export const DEFAULT_BULK_MIN_QTY_KG = 100;
 export const DEFAULT_SHIPPING_INR_PER_KG_UK = 750;
 export const DEFAULT_CLEARANCE_CHARGE_INR = 15000;
 export const DEFAULT_TESTING_CHARGE_INR = 6000;
+/** Placeholder packaging/desiccant supplier cost — confirm before going live. */
+export const DEFAULT_DESICCANT_FEE_STANDARD_INR = 2000;
+/** Placeholder packaging/desiccant supplier cost — confirm before going live. */
+export const DEFAULT_DESICCANT_FEE_HIGH_INR = 4000;
 export const DEFAULT_MARKUP_PERCENT = 15;
 export const DEFAULT_SAMPLE_FEE_GBP = 29;
 export const DEFAULT_DOCUMENTATION_FEE_GBP = 29;

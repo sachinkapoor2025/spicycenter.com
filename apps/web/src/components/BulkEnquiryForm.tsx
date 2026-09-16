@@ -7,6 +7,8 @@ import { api } from "@/lib/api";
 import {
   TRACKED_COMMODITIES,
   BULK_QUOTE_DISCLAIMER,
+  BULK_ODOR_SEGREGATION_NOTE,
+  BULK_SHIPPING_ADVICE_CLOSER,
   DEFAULT_DOCUMENTATION_FEE_EUR,
   DEFAULT_DOCUMENTATION_FEE_GBP,
   DEFAULT_SAMPLE_FEE_EUR,
@@ -15,6 +17,8 @@ import {
   type AddOnPricing,
   type BulkPricingSpice,
   type BulkQuoteResult,
+  type FreightTiersConfig,
+  type MoistureTreatmentPricing,
 } from "@spicycorner/shared";
 import { StripePaymentForm } from "@/components/StripePaymentForm";
 
@@ -36,6 +40,8 @@ type QuoteResponse = {
   quote: BulkQuoteResult;
   spice?: BulkPricingSpice;
   addOns: AddOnPricing;
+  moisture?: MoistureTreatmentPricing;
+  freightTiers?: FreightTiersConfig;
   mandiInrPerKg?: number | null;
   minQtyKg: number;
   fx: { inr_gbp: number; inr_eur: number; source: string; fetched_at: string };
@@ -177,6 +183,8 @@ export function BulkEnquiryForm() {
       addOns: quoteAddOns,
       sampleSelected,
       documentationSelected,
+      moisture: quotePack.moisture,
+      freightTiers: quotePack.freightTiers,
     });
   }, [quotePack, qtyKg, destination, mandiKg, sampleSelected, documentationSelected, quoteAddOns]);
   const addOnsTotal =
@@ -356,61 +364,76 @@ export function BulkEnquiryForm() {
           <p className="mt-3 font-semibold">Contact us for pricing — no reference rate is on file for this spice yet.</p>
         )}
         {quote && quote.pricingAvailable && qtyKg >= (quotePack?.minQtyKg ?? 100) && (
-          <dl className="mt-4 space-y-2 text-sm">
-            <div className="flex justify-between gap-4">
-              <dt>
-                Spice cost
-                <span className="block text-xs text-muted font-normal">
-                  {money(quote.unitPriceInrPerKg, "INR")}/kg × {qtyKg.toLocaleString("en-IN", { maximumFractionDigits: 1 })} kg
-                  {qtyUnit === "lb" && qtyInput ? ` (${qtyInput} lb)` : ""}
-                </span>
-              </dt>
-              <dd>{money(quote.spiceCostInr, "INR")}</dd>
+          <>
+            <div className="mt-4 rounded-xl border border-[#e6d5bc] bg-[#fdf8f1] p-4">
+              <p className="text-xs uppercase tracking-wide text-muted">Recommended container</p>
+              <p className="font-semibold text-primary mt-1">{quote.containerRecommendation.label}</p>
+              <p className="text-sm text-muted mt-1">{quote.containerRecommendation.explanation}</p>
             </div>
-            <div className="flex justify-between gap-4">
-              <dt>
-                Shipping ({destination})
-                <span className="block text-xs text-muted font-normal">
-                  {money(
-                    (quotePack?.spice
-                      ? destination === "UK"
-                        ? quotePack.spice.shipping_rate_inr_per_kg_uk
-                        : quotePack.spice.shipping_rate_inr_per_kg_eu
-                      : quote.shippingCostInr / (quote.qtyKg || qtyKg || 1)) ?? 0,
-                    "INR"
-                  )}
-                  /kg × {qtyKg.toLocaleString("en-IN", { maximumFractionDigits: 1 })} kg
-                </span>
-              </dt>
-              <dd>{money(quote.shippingCostInr, "INR")}</dd>
-            </div>
-            <div className="flex justify-between">
-              <dt>Export clearance (fixed per shipment)</dt>
-              <dd>{money(quote.clearanceChargeInr, "INR")}</dd>
-            </div>
-            <div className="flex justify-between">
-              <dt>Testing / lab certification (fixed per shipment)</dt>
-              <dd>{money(quote.testingChargeInr, "INR")}</dd>
-            </div>
-            <div className="flex justify-between font-semibold border-t pt-2">
-              <dt>Subtotal (INR)</dt>
-              <dd>{money(quote.subtotalInr, "INR")}</dd>
-            </div>
-            <div className="flex justify-between font-semibold text-lg">
-              <dt>Estimated total ({quote.displayCurrency})</dt>
-              <dd>{money(quote.estimatedDisplay, quote.displayCurrency)}</dd>
-            </div>
-            <div className="flex justify-between">
-              <dt>Add-ons</dt>
-              <dd>{money(addOnsTotal, displayCurrency)}</dd>
-            </div>
-            <div className="flex justify-between font-bold">
-              <dt>Running total</dt>
-              <dd>{money(runningTotal, displayCurrency)}</dd>
-            </div>
-          </dl>
+            <dl className="mt-4 space-y-2 text-sm">
+              <div className="flex justify-between gap-4">
+                <dt>
+                  Spice cost
+                  <span className="block text-xs text-muted font-normal">
+                    {money(quote.unitPriceInrPerKg, "INR")}/kg × {qtyKg.toLocaleString("en-IN", { maximumFractionDigits: 1 })} kg
+                    {qtyUnit === "lb" && qtyInput ? ` (${qtyInput} lb)` : ""}
+                  </span>
+                </dt>
+                <dd>{money(quote.spiceCostInr, "INR")}</dd>
+              </div>
+              <div className="flex justify-between">
+                <dt>Export clearance (fixed per shipment)</dt>
+                <dd>{money(quote.clearanceChargeInr, "INR")}</dd>
+              </div>
+              <div className="flex justify-between">
+                <dt>Testing / lab certification (fixed per shipment)</dt>
+                <dd>{money(quote.testingChargeInr, "INR")}</dd>
+              </div>
+              <div className="flex justify-between gap-4">
+                <dt>
+                  Moisture protection &amp; desiccant treatment
+                  <span className="block text-xs text-muted font-normal">
+                    Fixed per shipment · {quote.moistureSensitivity === "high" ? "high-sensitivity / ground" : "standard / whole"}
+                  </span>
+                </dt>
+                <dd>{money(quote.moistureTreatmentInr, "INR")}</dd>
+              </div>
+              <div className="flex justify-between font-semibold border-t pt-2">
+                <dt>Subtotal (INR)</dt>
+                <dd>{money(quote.subtotalInr, "INR")}</dd>
+              </div>
+              <div className="flex justify-between font-semibold text-lg">
+                <dt>Estimated goods total ({quote.displayCurrency})</dt>
+                <dd>{money(quote.estimatedDisplay, quote.displayCurrency)}</dd>
+              </div>
+              <div className="flex justify-between gap-4">
+                <dt>
+                  Shipping ({destination})
+                  <span className="block text-xs text-muted font-normal">
+                    {money(
+                      (quotePack?.spice
+                        ? destination === "UK"
+                          ? quotePack.spice.shipping_rate_inr_per_kg_uk
+                          : quotePack.spice.shipping_rate_inr_per_kg_eu
+                        : quote.shippingCostInr / (quote.qtyKg || qtyKg || 1)) ?? 0,
+                      "INR"
+                    )}
+                    /kg × {qtyKg.toLocaleString("en-IN", { maximumFractionDigits: 1 })} kg
+                  </span>
+                </dt>
+                <dd>{money(quote.shippingCostDisplay, quote.displayCurrency)}</dd>
+              </div>
+              <div className="flex justify-between">
+                <dt>Add-ons</dt>
+                <dd>{money(addOnsTotal, displayCurrency)}</dd>
+              </div>
+              <div className="flex justify-between font-bold">
+                <dt>Running total</dt>
+                <dd>{money(runningTotal, displayCurrency)}</dd>
+              </div>
+            </dl>
+          </>
         )}
-        <p className="text-xs text-muted mt-4 leading-relaxed">{BULK_QUOTE_DISCLAIMER}</p>
       </section>
 
       <section>
@@ -449,6 +472,19 @@ export function BulkEnquiryForm() {
           Add-on fees go to checkout if selected. The bulk spice cost is never charged online.
         </p>
       </section>
+
+      {quote && quote.pricingAvailable && qtyKg >= (quotePack?.minQtyKg ?? 100) && (
+        <section className="rounded-2xl border border-[#e6d5bc] bg-white p-6">
+          <h2 className="font-serif text-2xl text-primary">Our shipping advice</h2>
+          <p className="text-sm text-muted mt-3 leading-relaxed">{quote.advisoryNote}</p>
+          <p className="text-sm text-muted mt-3 leading-relaxed">{BULK_ODOR_SEGREGATION_NOTE}</p>
+          <p className="text-sm text-muted mt-3 leading-relaxed">{BULK_SHIPPING_ADVICE_CLOSER}</p>
+          <p className="text-xs text-muted mt-4 leading-relaxed">{BULK_QUOTE_DISCLAIMER}</p>
+        </section>
+      )}
+      {!(quote && quote.pricingAvailable && qtyKg >= (quotePack?.minQtyKg ?? 100)) && (
+        <p className="text-xs text-muted leading-relaxed">{BULK_QUOTE_DISCLAIMER}</p>
+      )}
 
       <section>
         <h2 className="font-serif text-2xl text-primary">4. Contact</h2>

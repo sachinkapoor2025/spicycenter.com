@@ -1,7 +1,8 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 import { computeBulkQuote, customerUnitPriceInrPerKg, mandiQuintalToInrPerKg } from "./bulk-quote";
-import type { AddOnPricing, BulkPricingSpice } from "../schemas/bulk-pricing";
+import { recommendContainer } from "./freight-tiers";
+import { defaultAdvisoryNote, resolvedAdvisoryNote, type AddOnPricing, type BulkPricingSpice } from "../schemas/bulk-pricing";
 
 const spice: BulkPricingSpice = {
   spice_id: "cumin",
@@ -14,6 +15,9 @@ const spice: BulkPricingSpice = {
   testing_charge_inr: 6000,
   min_bulk_qty_kg: 100,
   needsChaQuoteConfirmation: true,
+  spice_form: "whole",
+  moisture_sensitivity: "standard",
+  advisory_note: "",
 };
 
 const addOns: AddOnPricing = {
@@ -61,8 +65,50 @@ describe("mandiQuintalToInrPerKg", () => {
   });
 });
 
+describe("recommendContainer", () => {
+  it("uses LCL groupage below the FCL breakpoint", () => {
+    const rec = recommendContainer(100);
+    assert.equal(rec.tier, "LCL");
+    assert.equal(rec.containerCount, 0);
+    assert.match(rec.label, /Shared container \(LCL \/ groupage\)/);
+  });
+
+  it("recommends a single 20ft dry container within ~22t payload", () => {
+    const rec = recommendContainer(18_000);
+    assert.equal(rec.tier, "FCL");
+    assert.equal(rec.sizeFt, 20);
+    assert.equal(rec.containerCount, 1);
+    assert.equal(rec.label, "1 × 20ft Standard Dry Container");
+    assert.match(rec.explanation, /22-tonne/);
+  });
+
+  it("recommends a single 40ft dry container when over 20ft payload", () => {
+    const rec = recommendContainer(24_000);
+    assert.equal(rec.tier, "FCL");
+    assert.equal(rec.sizeFt, 40);
+    assert.equal(rec.containerCount, 1);
+    assert.equal(rec.label, "1 × 40ft Standard Dry Container");
+  });
+
+  it("recommends two 20ft dry containers when that uses fewer unused tonnes than 40fts", () => {
+    const rec = recommendContainer(30_000);
+    assert.equal(rec.tier, "FCL");
+    assert.equal(rec.sizeFt, 20);
+    assert.equal(rec.containerCount, 2);
+    assert.equal(rec.label, "2 × 20ft Standard Dry Containers");
+  });
+
+  it("recommends multiple 40ft dry containers when that needs fewer boxes", () => {
+    const rec = recommendContainer(50_000);
+    assert.equal(rec.tier, "FCL");
+    assert.equal(rec.sizeFt, 40);
+    assert.equal(rec.containerCount, 2);
+    assert.equal(rec.label, "2 × 40ft Standard Dry Containers");
+  });
+});
+
 describe("computeBulkQuote", () => {
-  it("itemises INR and converts with cached FX", () => {
+  it("itemises INR goods, moisture, then converts before adding shipping", () => {
     const q = computeBulkQuote({
       spice,
       qtyKg: 100,
@@ -81,13 +127,53 @@ describe("computeBulkQuote", () => {
     assert.equal(q.shippingCostInr, 75000);
     assert.equal(q.clearanceChargeInr, 15000);
     assert.equal(q.testingChargeInr, 6000);
-    assert.equal(q.subtotalInr, 118000);
-    assert.equal(q.estimatedGbp, 1180);
+    assert.equal(q.moistureTreatmentInr, 2000);
+    assert.equal(q.subtotalInr, 45000);
+    assert.equal(q.estimatedGbp, 450);
+    assert.equal(q.shippingCostDisplay, 750);
     assert.equal(q.addOnsTotalDisplay, 9);
-    assert.equal(q.grandTotalDisplay, 1189);
+    assert.equal(q.grandTotalDisplay, 1209);
+    assert.equal(q.containerRecommendation.tier, "LCL");
+    assert.match(q.advisoryNote, /Cumin is shipped whole/);
   });
 
-  it("scales spice and shipping with quantity; clearance and testing stay fixed", () => {
+  it("charges the high desiccant fee for ground / high-sensitivity spices", () => {
+    const q = computeBulkQuote({
+      spice: { ...spice, spice_form: "ground", moisture_sensitivity: "high", advisory_note: "" },
+      qtyKg: 100,
+      destination: "UK",
+      agmarknetModalAvgInr: 200,
+      fxInrGbp: 0.01,
+      fxInrEur: 0.011,
+      addOns,
+      sampleSelected: false,
+      documentationSelected: false,
+    });
+    assert.equal(q.pricingAvailable, true);
+    if (!q.pricingAvailable) return;
+    assert.equal(q.moistureTreatmentInr, 4000);
+    assert.equal(q.subtotalInr, 47000);
+    assert.match(q.advisoryNote, /moisture-sensitive and prone to clumping/);
+  });
+
+  it("keeps a custom advisory note when admin has written copy", () => {
+    const q = computeBulkQuote({
+      spice: { ...spice, advisory_note: "Keep turmeric bags off the container floor." },
+      qtyKg: 100,
+      destination: "UK",
+      agmarknetModalAvgInr: 200,
+      fxInrGbp: 0.01,
+      fxInrEur: 0.011,
+      addOns,
+      sampleSelected: false,
+      documentationSelected: false,
+    });
+    assert.equal(q.pricingAvailable, true);
+    if (!q.pricingAvailable) return;
+    assert.equal(q.advisoryNote, "Keep turmeric bags off the container floor.");
+  });
+
+  it("scales spice and shipping with quantity; clearance, testing and moisture stay fixed", () => {
     const q = computeBulkQuote({
       spice,
       qtyKg: 5000,
@@ -107,6 +193,7 @@ describe("computeBulkQuote", () => {
     assert.equal(q.shippingCostInr, 3_750_000);
     assert.equal(q.clearanceChargeInr, 15000);
     assert.equal(q.testingChargeInr, 6000);
+    assert.equal(q.moistureTreatmentInr, 2000);
   });
 
   it("adds sample and documentation fees into the running total", () => {
@@ -124,7 +211,7 @@ describe("computeBulkQuote", () => {
     assert.equal(q.pricingAvailable, true);
     if (!q.pricingAvailable) return;
     assert.equal(q.addOnsTotalDisplay, 38);
-    assert.equal(q.grandTotalDisplay, 1218);
+    assert.equal(q.grandTotalDisplay, 1238);
   });
 
   it("shows contact-us when both sources missing", () => {
@@ -140,5 +227,13 @@ describe("computeBulkQuote", () => {
       documentationSelected: false,
     });
     assert.equal(q.pricingAvailable, false);
+  });
+});
+
+describe("defaultAdvisoryNote", () => {
+  it("fills whole vs ground copy when admin has not customised", () => {
+    assert.match(defaultAdvisoryNote("Turmeric", "whole"), /shipped whole/);
+    assert.match(defaultAdvisoryNote("Turmeric", "ground"), /moisture-sensitive/);
+    assert.equal(resolvedAdvisoryNote("Turmeric", "whole", "  "), defaultAdvisoryNote("Turmeric", "whole"));
   });
 });

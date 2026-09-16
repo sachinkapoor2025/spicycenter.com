@@ -59,6 +59,8 @@ const routes: Route[] = [
   { method: "GET", pattern: /^\/bulk\/enquiries\/([^/]+)$/, handler: bulkEnquiries.getBulkEnquiry, params: ["enquiryId"] },
   { method: "GET", pattern: /^\/admin\/bulk-pricing$/, handler: bulkPricing.adminListBulkPricing },
   { method: "PUT", pattern: /^\/admin\/bulk-pricing\/addons$/, handler: bulkPricing.adminUpsertAddOns },
+  { method: "PUT", pattern: /^\/admin\/bulk-pricing\/moisture$/, handler: bulkPricing.adminUpsertMoisture },
+  { method: "PUT", pattern: /^\/admin\/bulk-pricing\/freight-tiers$/, handler: bulkPricing.adminUpsertFreightTiers },
   { method: "PUT", pattern: /^\/admin\/bulk-pricing$/, handler: bulkPricing.adminUpsertSpicePricing },
   { method: "GET", pattern: /^\/admin\/bulk-enquiries$/, handler: bulkEnquiries.adminListEnquiries },
   { method: "PATCH", pattern: /^\/admin\/bulk-enquiries\/([^/]+)$/, handler: bulkEnquiries.adminUpdateEnquiryStatus, params: ["enquiryId"] },

@@ -1,5 +1,18 @@
-import type { AddOnPricing, BulkDestination, BulkPricingSpice, BulkQuoteResult } from "../schemas/bulk-pricing";
-import { DEFAULT_BULK_MIN_QTY_KG } from "./agmarknet-commodities";
+import type {
+  AddOnPricing,
+  BulkDestination,
+  BulkPricingSpice,
+  BulkQuoteResult,
+  FreightTiersConfig,
+  MoistureTreatmentPricing,
+} from "../schemas/bulk-pricing";
+import { moistureFeeInr, resolvedAdvisoryNote } from "../schemas/bulk-pricing";
+import {
+  DEFAULT_BULK_MIN_QTY_KG,
+  DEFAULT_DESICCANT_FEE_HIGH_INR,
+  DEFAULT_DESICCANT_FEE_STANDARD_INR,
+} from "./agmarknet-commodities";
+import { DEFAULT_FREIGHT_TIERS, recommendContainer } from "./freight-tiers";
 
 export function roundQuoteMoney(n: number, dp = 2): number {
   const f = 10 ** dp;
@@ -32,6 +45,11 @@ export function customerUnitPriceInrPerKg(opts: {
   return null;
 }
 
+const DEFAULT_MOISTURE: MoistureTreatmentPricing = {
+  desiccant_fee_standard_inr: DEFAULT_DESICCANT_FEE_STANDARD_INR,
+  desiccant_fee_high_inr: DEFAULT_DESICCANT_FEE_HIGH_INR,
+};
+
 export function computeBulkQuote(opts: {
   spice: BulkPricingSpice;
   qtyKg: number;
@@ -42,6 +60,8 @@ export function computeBulkQuote(opts: {
   addOns: AddOnPricing;
   sampleSelected: boolean;
   documentationSelected: boolean;
+  moisture?: MoistureTreatmentPricing;
+  freightTiers?: FreightTiersConfig;
 }): BulkQuoteResult {
   const priced = customerUnitPriceInrPerKg({
     adminOverrideInrPerKg: opts.spice.base_price_inr_per_kg,
@@ -57,6 +77,13 @@ export function computeBulkQuote(opts: {
     };
   }
 
+  const spiceForm = opts.spice.spice_form ?? "whole";
+  const moistureSensitivity =
+    opts.spice.moisture_sensitivity ?? (spiceForm === "ground" ? "high" : "standard");
+  const moisturePricing = opts.moisture ?? DEFAULT_MOISTURE;
+  const freightTiers = opts.freightTiers ?? DEFAULT_FREIGHT_TIERS;
+  const moistureTreatmentInr = moistureFeeInr(moistureSensitivity, moisturePricing);
+
   const shippingRate =
     opts.destination === "UK"
       ? opts.spice.shipping_rate_inr_per_kg_uk
@@ -65,11 +92,14 @@ export function computeBulkQuote(opts: {
   const shippingCostInr = shippingRate * opts.qtyKg;
   const clearanceChargeInr = opts.spice.clearance_charge_inr;
   const testingChargeInr = opts.spice.testing_charge_inr;
-  const subtotalInr = spiceCostInr + shippingCostInr + clearanceChargeInr + testingChargeInr;
+  /** INR goods subtotal before FX — spice, clearance, testing, moisture. Shipping is converted separately. */
+  const subtotalInr = spiceCostInr + clearanceChargeInr + testingChargeInr + moistureTreatmentInr;
   const estimatedGbp = subtotalInr * opts.fxInrGbp;
   const estimatedEur = subtotalInr * opts.fxInrEur;
   const displayCurrency = opts.destination === "UK" ? "GBP" : "EUR";
+  const fx = displayCurrency === "GBP" ? opts.fxInrGbp : opts.fxInrEur;
   const estimatedDisplay = displayCurrency === "GBP" ? estimatedGbp : estimatedEur;
+  const shippingCostDisplay = shippingCostInr * fx;
   const sampleFeeDisplay =
     displayCurrency === "GBP" ? opts.addOns.sample_fee_gbp : opts.addOns.sample_fee_eur;
   const documentationFeeDisplay =
@@ -89,8 +119,10 @@ export function computeBulkQuote(opts: {
     unitPriceInrPerKg: roundQuoteMoney(priced.unit),
     spiceCostInr: roundQuoteMoney(spiceCostInr),
     shippingCostInr: roundQuoteMoney(shippingCostInr),
+    shippingCostDisplay: roundQuoteMoney(shippingCostDisplay),
     clearanceChargeInr: roundQuoteMoney(clearanceChargeInr),
     testingChargeInr: roundQuoteMoney(testingChargeInr),
+    moistureTreatmentInr: roundQuoteMoney(moistureTreatmentInr),
     subtotalInr: roundQuoteMoney(subtotalInr),
     fxInrGbp: opts.fxInrGbp,
     fxInrEur: opts.fxInrEur,
@@ -104,7 +136,11 @@ export function computeBulkQuote(opts: {
     sampleFeeDisplay: roundQuoteMoney(sampleFeeDisplay),
     documentationFeeDisplay: roundQuoteMoney(documentationFeeDisplay),
     addOnsTotalDisplay: roundQuoteMoney(addOnsTotalDisplay),
-    grandTotalDisplay: roundQuoteMoney(estimatedDisplay + addOnsTotalDisplay),
+    grandTotalDisplay: roundQuoteMoney(estimatedDisplay + shippingCostDisplay + addOnsTotalDisplay),
+    containerRecommendation: recommendContainer(opts.qtyKg, freightTiers),
+    advisoryNote: resolvedAdvisoryNote(opts.spice.spice_name, spiceForm, opts.spice.advisory_note),
+    spiceForm,
+    moistureSensitivity,
   };
 }
 

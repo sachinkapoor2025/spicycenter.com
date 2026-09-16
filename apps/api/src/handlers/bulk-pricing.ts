@@ -5,7 +5,9 @@ import {
   bulkPricingSpiceSchema,
   computeBulkQuote,
   findTrackedCommodity,
+  freightTiersSchema,
   mandiQuintalToInrPerKg,
+  moistureTreatmentPricingSchema,
   qtyBelowMinimum,
 } from "@spicycorner/shared";
 import { badRequest, forbidden, ok } from "../lib/response";
@@ -13,11 +15,15 @@ import { requireAdmin } from "../lib/auth";
 import {
   getAddOnPricing,
   getCachedFx,
+  getFreightTiers,
   getLatestMandi,
+  getMoistureTreatmentPricing,
   getSpicePricing,
   listSpicePricing,
   mandiInrPerKg,
   putAddOnPricing,
+  putFreightTiers,
+  putMoistureTreatmentPricing,
   putSpicePricing,
 } from "../lib/bulk-store";
 
@@ -74,6 +80,8 @@ export async function previewQuote(event: APIGatewayProxyEventV2) {
   const latest = await getLatestMandi(tracked.slug);
   const fx = await getCachedFx();
   const addOns = await getAddOnPricing();
+  const moisture = await getMoistureTreatmentPricing();
+  const freightTiers = await getFreightTiers();
   const grades = (latest?.by_grade ?? []).map((g) => ({
     variety: g.variety,
     grade: g.grade,
@@ -95,6 +103,8 @@ export async function previewQuote(event: APIGatewayProxyEventV2) {
     addOns,
     sampleSelected: input.sample,
     documentationSelected: input.documentation,
+    moisture,
+    freightTiers,
   });
   return ok(
     {
@@ -102,6 +112,8 @@ export async function previewQuote(event: APIGatewayProxyEventV2) {
       spice,
       fx,
       addOns,
+      moisture,
+      freightTiers,
       mandiInrPerKg: mandiAvgKg,
       minQtyKg: spice.min_bulk_qty_kg,
       needsChaQuoteConfirmation: spice.needsChaQuoteConfirmation,
@@ -116,8 +128,10 @@ export async function adminListBulkPricing(event: APIGatewayProxyEventV2) {
   if (!requireAdmin(event)) return forbidden();
   const spices = await listSpicePricing();
   const addOns = await getAddOnPricing();
+  const moisture = await getMoistureTreatmentPricing();
+  const freightTiers = await getFreightTiers();
   const fx = await getCachedFx();
-  return ok({ spices, addOns, fx });
+  return ok({ spices, addOns, moisture, freightTiers, fx });
 }
 
 export async function adminUpsertSpicePricing(event: APIGatewayProxyEventV2) {
@@ -136,4 +150,22 @@ export async function adminUpsertAddOns(event: APIGatewayProxyEventV2) {
   if (!parsed.success) return badRequest(parsed.error.issues.map((i) => i.message).join("; "));
   const saved = await putAddOnPricing(parsed.data);
   return ok({ addOns: saved });
+}
+
+export async function adminUpsertMoisture(event: APIGatewayProxyEventV2) {
+  if (!requireAdmin(event)) return forbidden();
+  const body = JSON.parse(event.body || "{}");
+  const parsed = moistureTreatmentPricingSchema.safeParse(body);
+  if (!parsed.success) return badRequest(parsed.error.issues.map((i) => i.message).join("; "));
+  const saved = await putMoistureTreatmentPricing(parsed.data);
+  return ok({ moisture: saved });
+}
+
+export async function adminUpsertFreightTiers(event: APIGatewayProxyEventV2) {
+  if (!requireAdmin(event)) return forbidden();
+  const body = JSON.parse(event.body || "{}");
+  const parsed = freightTiersSchema.safeParse(body);
+  if (!parsed.success) return badRequest(parsed.error.issues.map((i) => i.message).join("; "));
+  const saved = await putFreightTiers(parsed.data);
+  return ok({ freightTiers: saved });
 }

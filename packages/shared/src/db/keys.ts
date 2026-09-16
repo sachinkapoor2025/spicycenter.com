@@ -292,6 +292,10 @@ export const bulkPricingKeys = {
   spiceSk: () => "META" as const,
   addOnsPk: () => "CONFIG#ADDONS" as const,
   addOnsSk: () => "META" as const,
+  moisturePk: () => "CONFIG#MOISTURE" as const,
+  moistureSk: () => "META" as const,
+  freightTiersPk: () => "CONFIG#FREIGHT_TIERS" as const,
+  freightTiersSk: () => "META" as const,
 };
 
 export const bulkEnquiryKeys = {

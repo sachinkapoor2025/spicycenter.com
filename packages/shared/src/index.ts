@@ -80,6 +80,7 @@ export * from "./lib/spice-search";
 export * from "./lib/agmarknet-commodities";
 export * from "./schemas/bulk-pricing";
 export * from "./lib/bulk-quote";
+export * from "./lib/freight-tiers";
 export * from "./db/keys";
 export * from "./constants";
 export * from "./currency";

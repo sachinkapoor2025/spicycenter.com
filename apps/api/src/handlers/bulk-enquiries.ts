@@ -19,7 +19,9 @@ import { sendEmail } from "../lib/email";
 import {
   getAddOnPricing,
   getCachedFx,
+  getFreightTiers,
   getLatestMandi,
+  getMoistureTreatmentPricing,
   getSpicePricing,
   mandiInrPerKg,
 } from "../lib/bulk-store";
@@ -78,18 +80,23 @@ function quoteText(q: BulkEnquiryRecord["quote"]): string {
   }
   return [
     `${q.spiceName} × ${q.qtyKg}kg to ${q.destination}`,
+    q.containerRecommendation ? `Container: ${q.containerRecommendation.label}` : "",
     `Spice cost: ₹${q.spiceCostInr}`,
-    `Shipping: ₹${q.shippingCostInr}`,
     `Export clearance: ₹${q.clearanceChargeInr}`,
     `Testing: ₹${q.testingChargeInr}`,
+    `Moisture / desiccant treatment: ₹${q.moistureTreatmentInr}`,
     `Subtotal INR: ₹${q.subtotalInr}`,
-    `Estimated ${q.displayCurrency}: ${q.estimatedDisplay}`,
+    `Estimated ${q.displayCurrency} (goods): ${q.estimatedDisplay}`,
+    `Shipping (${q.displayCurrency}): ${q.shippingCostDisplay}`,
     q.addOnsTotalDisplay
       ? `Add-ons (${q.displayCurrency}): ${q.addOnsTotalDisplay}`
       : "Add-ons: none",
     `Grand total (${q.displayCurrency}): ${q.grandTotalDisplay}`,
+    q.advisoryNote ? `Shipping advice: ${q.advisoryNote}` : "",
     BULK_QUOTE_DISCLAIMER,
-  ].join("\n");
+  ]
+    .filter(Boolean)
+    .join("\n");
 }
 
 async function notifyEnquiry(item: BulkEnquiryRecord) {
@@ -139,6 +146,8 @@ export async function createBulkEnquiry(event: APIGatewayProxyEventV2) {
   const latest = await getLatestMandi(tracked.slug);
   const fx = await getCachedFx();
   const addOns = await getAddOnPricing();
+  const moisture = await getMoistureTreatmentPricing();
+  const freightTiers = await getFreightTiers();
   const quote = computeBulkQuote({
     spice,
     qtyKg,
@@ -149,6 +158,8 @@ export async function createBulkEnquiry(event: APIGatewayProxyEventV2) {
     addOns,
     sampleSelected,
     documentationSelected,
+    moisture,
+    freightTiers,
   });
 
   const id = enquiryId();

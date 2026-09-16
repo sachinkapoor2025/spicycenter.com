@@ -3,23 +3,31 @@ import {
   addOnPricingSchema,
   bulkPricingKeys,
   bulkPricingSpiceSchema,
+  defaultAdvisoryNote,
   DEFAULT_BULK_MIN_QTY_KG,
   DEFAULT_CLEARANCE_CHARGE_INR,
+  DEFAULT_DESICCANT_FEE_HIGH_INR,
+  DEFAULT_DESICCANT_FEE_STANDARD_INR,
   DEFAULT_DOCUMENTATION_FEE_EUR,
   DEFAULT_DOCUMENTATION_FEE_GBP,
+  DEFAULT_FREIGHT_TIERS,
   DEFAULT_MARKUP_PERCENT,
   DEFAULT_SAMPLE_FEE_EUR,
   DEFAULT_SAMPLE_FEE_GBP,
   DEFAULT_SHIPPING_INR_PER_KG_UK,
   DEFAULT_TESTING_CHARGE_INR,
   findTrackedCommodity,
+  freightTiersSchema,
   fxRateKeys,
   mandiPriceKeys,
   mandiQuintalToInrPerKg,
+  moistureTreatmentPricingSchema,
   TRACKED_COMMODITIES,
   type AddOnPricing,
   type BulkPricingSpice,
+  type FreightTiersConfig,
   type FxCache,
+  type MoistureTreatmentPricing,
 } from "@spicycorner/shared";
 import { BULK_PRICING_TABLE, docClient, SPICE_MANDI_PRICES_TABLE } from "./db";
 
@@ -124,9 +132,10 @@ export async function getCachedFx(): Promise<FxCache> {
 
 function defaultSpicePricing(spiceId: string): BulkPricingSpice {
   const tracked = findTrackedCommodity(spiceId) ?? TRACKED_COMMODITIES.find((c) => c.spiceId === spiceId);
+  const name = tracked?.spiceName ?? spiceId;
   return bulkPricingSpiceSchema.parse({
     spice_id: tracked?.spiceId ?? spiceId,
-    spice_name: tracked?.spiceName ?? spiceId,
+    spice_name: name,
     base_price_inr_per_kg: null,
     markup_percent: DEFAULT_MARKUP_PERCENT,
     shipping_rate_inr_per_kg_uk: DEFAULT_SHIPPING_INR_PER_KG_UK,
@@ -135,7 +144,21 @@ function defaultSpicePricing(spiceId: string): BulkPricingSpice {
     testing_charge_inr: DEFAULT_TESTING_CHARGE_INR,
     min_bulk_qty_kg: DEFAULT_BULK_MIN_QTY_KG,
     needsChaQuoteConfirmation: true,
+    spice_form: "whole",
+    moisture_sensitivity: "standard",
+    advisory_note: defaultAdvisoryNote(name, "whole"),
   });
+}
+
+function hydrateSpicePricing(row: BulkPricingSpice): BulkPricingSpice {
+  const form = row.spice_form ?? "whole";
+  const sensitivity = row.moisture_sensitivity ?? (form === "ground" ? "high" : "standard");
+  return {
+    ...row,
+    spice_form: form,
+    moisture_sensitivity: sensitivity,
+    advisory_note: row.advisory_note?.trim() ? row.advisory_note : defaultAdvisoryNote(row.spice_name, form),
+  };
 }
 
 export async function getSpicePricing(spiceId: string): Promise<BulkPricingSpice> {
@@ -146,7 +169,7 @@ export async function getSpicePricing(spiceId: string): Promise<BulkPricingSpice
     })
   );
   if (!res.Item) return defaultSpicePricing(spiceId);
-  return bulkPricingSpiceSchema.parse({ ...defaultSpicePricing(spiceId), ...res.Item });
+  return hydrateSpicePricing(bulkPricingSpiceSchema.parse({ ...defaultSpicePricing(spiceId), ...res.Item }));
 }
 
 export async function putSpicePricing(row: BulkPricingSpice) {
@@ -168,7 +191,9 @@ export async function listSpicePricing(): Promise<BulkPricingSpice[]> {
       ExpressionAttributeValues: { ":p": "SPICE#" },
     })
   );
-  const fromDb = (res.Items ?? []).map((i) => bulkPricingSpiceSchema.parse({ ...defaultSpicePricing(String(i.spice_id)), ...i }));
+  const fromDb = (res.Items ?? []).map((i) =>
+    hydrateSpicePricing(bulkPricingSpiceSchema.parse({ ...defaultSpicePricing(String(i.spice_id)), ...i }))
+  );
   const byId = new Map(fromDb.map((r) => [r.spice_id, r]));
   return TRACKED_COMMODITIES.map((c) => byId.get(c.spiceId) ?? byId.get(c.slug) ?? defaultSpicePricing(c.spiceId));
 }
@@ -198,6 +223,59 @@ export async function putAddOnPricing(row: AddOnPricing) {
     new PutCommand({
       TableName: BULK_PRICING_TABLE,
       Item: { PK: bulkPricingKeys.addOnsPk(), SK: bulkPricingKeys.addOnsSk(), ...parsed },
+    })
+  );
+  return parsed;
+}
+
+export async function getMoistureTreatmentPricing(): Promise<MoistureTreatmentPricing> {
+  const res = await docClient.send(
+    new GetCommand({
+      TableName: BULK_PRICING_TABLE,
+      Key: { PK: bulkPricingKeys.moisturePk(), SK: bulkPricingKeys.moistureSk() },
+    })
+  );
+  const item = res.Item ?? {};
+  return moistureTreatmentPricingSchema.parse({
+    desiccant_fee_standard_inr: feeNumber(item.desiccant_fee_standard_inr, DEFAULT_DESICCANT_FEE_STANDARD_INR),
+    desiccant_fee_high_inr: feeNumber(item.desiccant_fee_high_inr, DEFAULT_DESICCANT_FEE_HIGH_INR),
+  });
+}
+
+export async function putMoistureTreatmentPricing(row: MoistureTreatmentPricing) {
+  const parsed = moistureTreatmentPricingSchema.parse(row);
+  await docClient.send(
+    new PutCommand({
+      TableName: BULK_PRICING_TABLE,
+      Item: { PK: bulkPricingKeys.moisturePk(), SK: bulkPricingKeys.moistureSk(), ...parsed },
+    })
+  );
+  return parsed;
+}
+
+export async function getFreightTiers(): Promise<FreightTiersConfig> {
+  const res = await docClient.send(
+    new GetCommand({
+      TableName: BULK_PRICING_TABLE,
+      Key: { PK: bulkPricingKeys.freightTiersPk(), SK: bulkPricingKeys.freightTiersSk() },
+    })
+  );
+  const item = res.Item ?? {};
+  return freightTiersSchema.parse({
+    lcl_max_kg: feeNumber(item.lcl_max_kg, DEFAULT_FREIGHT_TIERS.lcl_max_kg) || DEFAULT_FREIGHT_TIERS.lcl_max_kg,
+    payload_20ft_kg:
+      feeNumber(item.payload_20ft_kg, DEFAULT_FREIGHT_TIERS.payload_20ft_kg) || DEFAULT_FREIGHT_TIERS.payload_20ft_kg,
+    payload_40ft_kg:
+      feeNumber(item.payload_40ft_kg, DEFAULT_FREIGHT_TIERS.payload_40ft_kg) || DEFAULT_FREIGHT_TIERS.payload_40ft_kg,
+  });
+}
+
+export async function putFreightTiers(row: FreightTiersConfig) {
+  const parsed = freightTiersSchema.parse(row);
+  await docClient.send(
+    new PutCommand({
+      TableName: BULK_PRICING_TABLE,
+      Item: { PK: bulkPricingKeys.freightTiersPk(), SK: bulkPricingKeys.freightTiersSk(), ...parsed },
     })
   );
   return parsed;
