@@ -2,8 +2,7 @@ import type { Context } from "aws-lambda";
 import { CloudWatchClient, PutMetricDataCommand } from "@aws-sdk/client-cloudwatch";
 import { PublishCommand, SNSClient } from "@aws-sdk/client-sns";
 import { GetCommand, PutCommand } from "@aws-sdk/lib-dynamodb";
-import { mandiPriceKeys } from "@spicycorner/shared";
-import { TRACKED_COMMODITIES } from "@spicycorner/shared";
+import { TRACKED_COMMODITIES, agmarknetFilterNames, mandiPriceKeys } from "@spicycorner/shared";
 import { docClient, now, SPICE_MANDI_PRICES_TABLE } from "./lib/db";
 import {
   fetchAllCommodityRecords,
@@ -145,7 +144,11 @@ async function persistCommodity(slug: string, records: AgmarknetRecord[]) {
 export async function handler(event: FetcherEvent, _context: Context) {
   const apiKey = await readAgmarknetApiKey();
   const list = event.commodity
-    ? TRACKED_COMMODITIES.filter((c) => c.slug === event.commodity || c.agmarknetName === event.commodity)
+    ? TRACKED_COMMODITIES.filter(
+        (c) =>
+          c.slug === event.commodity ||
+          agmarknetFilterNames(c).includes(event.commodity!)
+      )
     : TRACKED_COMMODITIES;
 
   const results: Record<string, unknown> = {};

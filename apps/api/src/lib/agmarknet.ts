@@ -4,6 +4,7 @@ import {
   AGMARKNET_SECRET_NAME,
   AGMARKNET_SOURCE_DISCLAIMER,
   TRACKED_COMMODITIES,
+  agmarknetFilterNames,
   type TrackedCommodity,
 } from "@spicycorner/shared";
 
@@ -79,24 +80,27 @@ export async function fetchAllCommodityRecords(
   arrivalDate?: string
 ): Promise<AgmarknetRecord[]> {
   const limit = 100;
-  let offset = 0;
-  const all: AgmarknetRecord[] = [];
-  for (;;) {
-    const page = await fetchCommodityPage({
-      apiKey,
-      commodity: commodity.agmarknetName,
-      offset,
-      limit,
-      arrivalDate,
-    });
-    all.push(...page.records);
-    if (page.records.length === 0) break;
-    offset += page.records.length;
-    if (page.total > 0 && offset >= page.total) break;
-    if (page.records.length < limit) break;
-    if (offset > 20_000) break;
+  for (const name of agmarknetFilterNames(commodity)) {
+    const all: AgmarknetRecord[] = [];
+    let offset = 0;
+    for (;;) {
+      const page = await fetchCommodityPage({
+        apiKey,
+        commodity: name,
+        offset,
+        limit,
+        arrivalDate,
+      });
+      all.push(...page.records);
+      if (page.records.length === 0) break;
+      offset += page.records.length;
+      if (page.total > 0 && offset >= page.total) break;
+      if (page.records.length < limit) break;
+      if (offset > 20_000) break;
+    }
+    if (all.length) return all;
   }
-  return all;
+  return [];
 }
 
 export function toIsoArrivalDate(raw?: string): string | null {

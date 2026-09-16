@@ -22,32 +22,75 @@ export type TrackedCommodity = {
   slug: string;
   spiceId: string;
   spiceName: string;
-  /** Exact commodity string sent to data.gov.in filters[commodity] */
+  /** Exact commodity string sent first to data.gov.in filters[commodity] */
   agmarknetName: string;
+  /** Additional Agmarknet labels tried if the primary name returns no rows */
+  agmarknetAliases?: string[];
 };
 
 /** Easy to extend — one row per spice we track on Agmarknet. */
 export const TRACKED_COMMODITIES: TrackedCommodity[] = [
   { slug: "turmeric", spiceId: "turmeric", spiceName: "Turmeric", agmarknetName: "Turmeric" },
-  { slug: "cumin", spiceId: "cumin", spiceName: "Cumin", agmarknetName: "Cumin" },
-  { slug: "coriander", spiceId: "coriander", spiceName: "Coriander", agmarknetName: "Coriander" },
+  {
+    slug: "cumin",
+    spiceId: "cumin",
+    spiceName: "Cumin",
+    agmarknetName: "Cummin Seed(Jeera)",
+    agmarknetAliases: ["Cumin", "Cumin Seed"],
+  },
+  {
+    slug: "coriander",
+    spiceId: "coriander",
+    spiceName: "Coriander",
+    agmarknetName: "Coriander",
+    agmarknetAliases: ["Corriander seed"],
+  },
   { slug: "chilli", spiceId: "dried-red-chilli", spiceName: "Chilli", agmarknetName: "Chilli" },
   { slug: "black-pepper", spiceId: "black-pepper", spiceName: "Black pepper", agmarknetName: "Black pepper" },
-  { slug: "cardamom", spiceId: "green-cardamom", spiceName: "Cardamom", agmarknetName: "Cardamom" },
-  { slug: "fenugreek", spiceId: "fenugreek", spiceName: "Fenugreek", agmarknetName: "Fenugreek" },
-  { slug: "clove", spiceId: "clove", spiceName: "Clove", agmarknetName: "Clove" },
+  {
+    slug: "cardamom",
+    spiceId: "green-cardamom",
+    spiceName: "Cardamom",
+    agmarknetName: "Cardamoms",
+    agmarknetAliases: ["Cardamom"],
+  },
+  {
+    slug: "fenugreek",
+    spiceId: "fenugreek",
+    spiceName: "Fenugreek",
+    agmarknetName: "Methi Seeds",
+    agmarknetAliases: ["Fenugreek"],
+  },
+  {
+    slug: "clove",
+    spiceId: "clove",
+    spiceName: "Clove",
+    agmarknetName: "Cloves",
+    agmarknetAliases: ["Clove"],
+  },
   { slug: "mustard", spiceId: "mustard", spiceName: "Mustard", agmarknetName: "Mustard" },
-  { slug: "fennel", spiceId: "fennel", spiceName: "Fennel", agmarknetName: "Fennel" },
+  {
+    slug: "fennel",
+    spiceId: "fennel",
+    spiceName: "Fennel",
+    agmarknetName: "Soanf",
+    agmarknetAliases: ["Fennel", "Fennel Seed"],
+  },
 ];
 
+export function agmarknetFilterNames(c: TrackedCommodity): string[] {
+  return [...new Set([c.agmarknetName, ...(c.agmarknetAliases ?? [])])];
+}
+
 export function findTrackedCommodity(input: string): TrackedCommodity | undefined {
-  const n = input.trim().toLowerCase().replace(/\s+/g, "-");
+  const raw = input.trim();
+  const n = raw.toLowerCase().replace(/\s+/g, "-");
   return TRACKED_COMMODITIES.find(
     (c) =>
       c.slug === n ||
       c.spiceId === n ||
-      c.agmarknetName.toLowerCase() === input.trim().toLowerCase() ||
-      c.spiceName.toLowerCase() === input.trim().toLowerCase()
+      c.spiceName.toLowerCase() === raw.toLowerCase() ||
+      agmarknetFilterNames(c).some((name) => name.toLowerCase() === raw.toLowerCase())
   );
 }
 
