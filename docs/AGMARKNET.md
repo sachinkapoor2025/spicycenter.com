@@ -29,8 +29,18 @@ aws lambda invoke --function-name spicycenter-agmarknet-fetcher-prod --payload '
 
 ## Schedule
 
-- Fetcher: EventBridge `cron(30 0 * * ? *)` — 00:30 UTC / 06:00 IST.
+- Fetcher: EventBridge `cron(30 0 * * ? *)` — 00:30 UTC / 06:00 IST. One run walks **every** spice in `TRACKED_COMMODITIES` (you do not re-run the Lambda per spice).
 - FX (Frankfurter INR→GBP,EUR): `cron(45 0 * * ? *)`. Failed FX reads keep the last DynamoDB cache; quotes never use a zero rate.
+
+## data.gov.in limits vs our list of 10+ spices
+
+The storefront list is **our** config in `packages/shared/src/lib/agmarknet-commodities.ts`, not a cap on your API key. Add a row there to track another spice; the next daily run (or **Run Agmarknet fetch now**) picks it up.
+
+data.gov.in default `limit` is often 10 **records per HTTP page**, not 10 commodities. The Lambda sets `limit=100` and paginates until that commodity is complete. Registered keys usually allow on the order of **1,000 requests/day** (check your data.gov.in dashboard). One daily fetch of ~15 spices with pagination is well under that. Do not hammer the API with extra manual runs unless you are backfilling.
+
+Agmarknet “current daily price” only includes markets that reported **that day**. Clove can come back empty on a quiet day; we leave the last good `LATEST` row untouched.
+
+Mandi `modal_price` is stored as ₹/quintal. Bulk quotes convert to ₹/kg (`/ 100`) before markup. Historical rows store `variety` and `grade` when the API sends them; the quote form lists those slices when present.
 
 ## Tables
 

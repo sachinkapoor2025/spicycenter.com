@@ -21,6 +21,7 @@ import {
   getCachedFx,
   getLatestMandi,
   getSpicePricing,
+  mandiInrPerKg,
 } from "../lib/bulk-store";
 import { isLoadTestMode } from "../lib/load-test";
 
@@ -134,6 +135,7 @@ export async function createBulkEnquiry(event: APIGatewayProxyEventV2) {
   }
   const sampleSelected = Boolean(body.sampleSelected);
   const documentationSelected = Boolean(body.documentationSelected);
+  const gradeKey = typeof body.grade === "string" ? body.grade : "";
   const latest = await getLatestMandi(tracked.slug);
   const fx = await getCachedFx();
   const addOns = await getAddOnPricing();
@@ -141,7 +143,7 @@ export async function createBulkEnquiry(event: APIGatewayProxyEventV2) {
     spice,
     qtyKg,
     destination: dest.data,
-    agmarknetModalAvgInr: latest?.average_modal_price ?? latest?.modal_price ?? null,
+    agmarknetModalAvgInr: mandiInrPerKg(latest, gradeKey || undefined),
     fxInrGbp: fx.inr_gbp,
     fxInrEur: fx.inr_eur,
     addOns,

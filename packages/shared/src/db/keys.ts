@@ -270,9 +270,14 @@ export const wholesaleQuoteKeys = {
   gsi1sk: (createdAt: string) => createdAt,
 };
 
+function skPart(value: string): string {
+  return value.trim().replace(/#/g, " ").replace(/\s+/g, " ").slice(0, 60) || "NA";
+}
+
 export const mandiPriceKeys = {
   pk: (commoditySlug: string) => `COMMODITY#${commoditySlug}`,
-  historySk: (isoDate: string, market: string) => `DATE#${isoDate}#MARKET#${market}`,
+  historySk: (isoDate: string, market: string, variety = "NA", grade = "NA") =>
+    `DATE#${isoDate}#MARKET#${skPart(market)}#VARIETY#${skPart(variety)}#GRADE#${skPart(grade)}`,
   latestSk: () => "LATEST" as const,
   fetchHealthSk: () => "FETCH_HEALTH" as const,
 };

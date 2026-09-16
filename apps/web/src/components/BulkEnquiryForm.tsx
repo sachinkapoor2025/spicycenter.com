@@ -4,10 +4,20 @@ import { useEffect, useMemo, useState, type FormEvent } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { api } from "@/lib/api";
-import { TRACKED_COMMODITIES, BULK_QUOTE_DISCLAIMER, type BulkQuoteResult } from "@spicycorner/shared";
+import {
+  TRACKED_COMMODITIES,
+  BULK_QUOTE_DISCLAIMER,
+  DEFAULT_DOCUMENTATION_FEE_EUR,
+  DEFAULT_DOCUMENTATION_FEE_GBP,
+  DEFAULT_SAMPLE_FEE_EUR,
+  DEFAULT_SAMPLE_FEE_GBP,
+  type BulkQuoteResult,
+} from "@spicycorner/shared";
 import { StripePaymentForm } from "@/components/StripePaymentForm";
 
 const PRESETS = [100, 200, 500, 1000, 5000, 10000];
+
+type GradeSlice = { variety: string; grade: string; label: string; average_modal_price: number; market_count: number };
 
 type QuoteResponse = {
   quote: BulkQuoteResult;
@@ -19,6 +29,7 @@ type QuoteResponse = {
   };
   minQtyKg: number;
   fx: { inr_gbp: number; inr_eur: number; source: string; fetched_at: string };
+  grades?: GradeSlice[];
 };
 
 function money(n: number, currency: "GBP" | "EUR" | "INR") {
@@ -39,6 +50,7 @@ export function BulkEnquiryForm() {
   const [destination, setDestination] = useState<"UK" | "EU">("UK");
   const [sampleSelected, setSampleSelected] = useState(false);
   const [documentationSelected, setDocumentationSelected] = useState(false);
+  const [gradeKey, setGradeKey] = useState("");
   const [qtyError, setQtyError] = useState("");
   const [quotePack, setQuotePack] = useState<QuoteResponse | null>(null);
   const [quoteError, setQuoteError] = useState("");
@@ -85,9 +97,8 @@ export function BulkEnquiryForm() {
       spiceId,
       qtyKg: String(qtyKg),
       destination,
-      sample: sampleSelected ? "1" : "0",
-      documentation: documentationSelected ? "1" : "0",
     });
+    if (gradeKey) params.set("grade", gradeKey);
     api<QuoteResponse>(`/bulk/quote?${params.toString()}`, { revalidate: false })
       .then((data) => {
         if (!cancelled) setQuotePack(data);
@@ -104,14 +115,23 @@ export function BulkEnquiryForm() {
     return () => {
       cancelled = true;
     };
-  }, [spiceId, qtyKg, destination, sampleSelected, documentationSelected]);
+  }, [spiceId, qtyKg, destination, gradeKey]);
 
   const quote = quotePack?.quote;
   const displayCurrency = destination === "UK" ? "GBP" : "EUR";
   const addOns = quotePack?.addOns;
-  const sampleFee = displayCurrency === "GBP" ? addOns?.sample_fee_gbp : addOns?.sample_fee_eur;
+  const sampleFee =
+    displayCurrency === "GBP"
+      ? addOns?.sample_fee_gbp ?? DEFAULT_SAMPLE_FEE_GBP
+      : addOns?.sample_fee_eur ?? DEFAULT_SAMPLE_FEE_EUR;
   const docFee =
-    displayCurrency === "GBP" ? addOns?.documentation_handling_fee_gbp : addOns?.documentation_handling_fee_eur;
+    displayCurrency === "GBP"
+      ? addOns?.documentation_handling_fee_gbp ?? DEFAULT_DOCUMENTATION_FEE_GBP
+      : addOns?.documentation_handling_fee_eur ?? DEFAULT_DOCUMENTATION_FEE_EUR;
+  const addOnsTotal = (sampleSelected ? sampleFee : 0) + (documentationSelected ? docFee : 0);
+  const runningTotal =
+    quote && quote.pricingAvailable ? quote.estimatedDisplay + addOnsTotal : addOnsTotal;
+  const grades = (quotePack?.grades ?? []).filter((g) => g.label && g.label !== "Unspecified");
 
   async function submit(e: FormEvent) {
     e.preventDefault();
@@ -130,6 +150,7 @@ export function BulkEnquiryForm() {
           spiceId,
           qtyKg,
           destination,
+          grade: gradeKey || undefined,
           sampleSelected,
           documentationSelected,
           contact: {
@@ -191,7 +212,10 @@ export function BulkEnquiryForm() {
         <select
           className="w-full border rounded-lg px-3 py-2 mt-3"
           value={spiceId}
-          onChange={(e) => setSpiceId(e.target.value)}
+          onChange={(e) => {
+            setSpiceId(e.target.value);
+            setGradeKey("");
+          }}
           required
         >
           {spices.map((c) => (
@@ -200,6 +224,23 @@ export function BulkEnquiryForm() {
             </option>
           ))}
         </select>
+        {grades.length > 0 && (
+          <>
+            <p className="text-sm mt-4">Grade / variety (when Agmarknet reports it)</p>
+            <select
+              className="w-full border rounded-lg px-3 py-2 mt-2"
+              value={gradeKey}
+              onChange={(e) => setGradeKey(e.target.value)}
+            >
+              <option value="">All grades (average)</option>
+              {grades.map((g) => (
+                <option key={g.label} value={g.label}>
+                  {g.label} ({g.market_count} lots)
+                </option>
+              ))}
+            </select>
+          </>
+        )}
         <p className="text-sm mt-4">Quantity (kg)</p>
         <div className="flex flex-wrap gap-2 mt-2">
           {PRESETS.map((n) => (
@@ -280,11 +321,11 @@ export function BulkEnquiryForm() {
             </div>
             <div className="flex justify-between">
               <dt>Add-ons</dt>
-              <dd>{money(quote.addOnsTotalDisplay, quote.displayCurrency)}</dd>
+              <dd>{money(addOnsTotal, displayCurrency)}</dd>
             </div>
             <div className="flex justify-between font-bold">
               <dt>Running total</dt>
-              <dd>{money(quote.grandTotalDisplay, quote.displayCurrency)}</dd>
+              <dd>{money(runningTotal, displayCurrency)}</dd>
             </div>
           </dl>
         )}
@@ -295,7 +336,7 @@ export function BulkEnquiryForm() {
         <h2 className="font-serif text-2xl text-primary">3. Add-ons</h2>
         <label className="flex gap-2 mt-4 text-sm">
           <input type="checkbox" checked={sampleSelected} onChange={(e) => setSampleSelected(e.target.checked)} />
-          Add a sample (+{sampleFee != null ? money(sampleFee, displayCurrency) : "—"})
+          Add a sample (+{money(sampleFee, displayCurrency)})
         </label>
         <label className="flex gap-2 mt-2 text-sm">
           <input
@@ -303,7 +344,7 @@ export function BulkEnquiryForm() {
             checked={documentationSelected}
             onChange={(e) => setDocumentationSelected(e.target.checked)}
           />
-          Let us handle all export documentation (+{docFee != null ? money(docFee, displayCurrency) : "—"})
+          Let us handle all export documentation (+{money(docFee, displayCurrency)})
         </label>
         <p className="text-xs text-muted mt-2">
           Checking these takes you to checkout for those service fees only. The bulk spice cost is never charged online.

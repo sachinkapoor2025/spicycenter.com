@@ -6,9 +6,16 @@ export function roundQuoteMoney(n: number, dp = 2): number {
   return Math.round(n * f) / f;
 }
 
+/** Agmarknet mandi prints are ₹/quintal (100 kg). Quotes are always ₹/kg. */
+export function mandiQuintalToInrPerKg(modalPerQuintal: number): number {
+  if (!Number.isFinite(modalPerQuintal) || modalPerQuintal <= 0) return 0;
+  return modalPerQuintal / 100;
+}
+
 /**
  * Customer-facing unit price. Never return the raw mandi modal.
  * Admin override wins; otherwise Agmarknet average modal × markup.
+ * `agmarknetModalAvgInr` must already be ₹/kg (convert quintal first).
  */
 export function customerUnitPriceInrPerKg(opts: {
   adminOverrideInrPerKg?: number | null;

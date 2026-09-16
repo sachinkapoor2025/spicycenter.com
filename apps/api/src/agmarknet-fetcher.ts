@@ -95,7 +95,7 @@ async function persistCommodity(slug: string, records: AgmarknetRecord[]) {
         TableName: SPICE_MANDI_PRICES_TABLE,
         Item: {
           PK: mandiPriceKeys.pk(slug),
-          SK: mandiPriceKeys.historySk(row.arrival_date!, row.market),
+          SK: mandiPriceKeys.historySk(row.arrival_date!, row.market, row.variety, row.grade),
           ...row,
           commodity: slug,
           fetched_at: fetchedAt,
@@ -115,6 +115,26 @@ async function persistCommodity(slug: string, records: AgmarknetRecord[]) {
   const averageModal = modals.reduce((a, b) => a + b, 0) / modals.length;
   const latestDate = parsed.map((r) => r.arrival_date!).sort().at(-1);
 
+  const byGradeMap = new Map<string, { variety: string; grade: string; modals: number[]; count: number }>();
+  for (const row of parsed) {
+    const key = `${row.variety}|${row.grade}`;
+    const existing = byGradeMap.get(key) ?? { variety: row.variety, grade: row.grade, modals: [], count: 0 };
+    if (row.modal_price != null && row.modal_price > 0) existing.modals.push(row.modal_price);
+    existing.count += 1;
+    byGradeMap.set(key, existing);
+  }
+  const by_grade = [...byGradeMap.values()]
+    .filter((g) => g.modals.length)
+    .map((g) => ({
+      variety: g.variety,
+      grade: g.grade,
+      label: [g.variety, g.grade].filter((x) => x && x !== "NA").join(" / ") || "Unspecified",
+      average_modal_price: g.modals.reduce((a, b) => a + b, 0) / g.modals.length,
+      market_count: g.count,
+    }))
+    .sort((a, b) => a.label.localeCompare(b.label))
+    .slice(0, 80);
+
   await docClient.send(
     new PutCommand({
       TableName: SPICE_MANDI_PRICES_TABLE,
@@ -130,6 +150,7 @@ async function persistCommodity(slug: string, records: AgmarknetRecord[]) {
         modal_price: averageModal,
         average_modal_price: averageModal,
         market_count: parsed.length,
+        by_grade,
         arrival_date: latestDate,
         unit: "INR/quintal as reported (average modal across markets)",
         fetched_at: fetchedAt,
@@ -138,7 +159,7 @@ async function persistCommodity(slug: string, records: AgmarknetRecord[]) {
     })
   );
 
-  return { rows: parsed.length, averageModal, latestDate };
+  return { rows: parsed.length, averageModal, latestDate, grades: by_grade.length };
 }
 
 export async function handler(event: FetcherEvent, _context: Context) {

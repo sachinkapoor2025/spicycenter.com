@@ -1,6 +1,6 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
-import { computeBulkQuote, customerUnitPriceInrPerKg } from "./bulk-quote";
+import { computeBulkQuote, customerUnitPriceInrPerKg, mandiQuintalToInrPerKg } from "./bulk-quote";
 import type { AddOnPricing, BulkPricingSpice } from "../schemas/bulk-pricing";
 
 const spice: BulkPricingSpice = {
@@ -55,6 +55,12 @@ describe("customerUnitPriceInrPerKg", () => {
   });
 });
 
+describe("mandiQuintalToInrPerKg", () => {
+  it("converts a quintal print to per-kg", () => {
+    assert.equal(mandiQuintalToInrPerKg(10425), 104.25);
+  });
+});
+
 describe("computeBulkQuote", () => {
   it("itemises INR and converts with cached FX", () => {
     const q = computeBulkQuote({
@@ -79,6 +85,24 @@ describe("computeBulkQuote", () => {
     assert.equal(q.estimatedGbp, 1180);
     assert.equal(q.addOnsTotalDisplay, 9);
     assert.equal(q.grandTotalDisplay, 1189);
+  });
+
+  it("adds sample and documentation fees into the running total", () => {
+    const q = computeBulkQuote({
+      spice,
+      qtyKg: 100,
+      destination: "UK",
+      agmarknetModalAvgInr: 200,
+      fxInrGbp: 0.01,
+      fxInrEur: 0.011,
+      addOns,
+      sampleSelected: true,
+      documentationSelected: true,
+    });
+    assert.equal(q.pricingAvailable, true);
+    if (!q.pricingAvailable) return;
+    assert.equal(q.addOnsTotalDisplay, 38);
+    assert.equal(q.grandTotalDisplay, 1218);
   });
 
   it("shows contact-us when both sources missing", () => {

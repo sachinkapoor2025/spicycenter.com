@@ -18,6 +18,7 @@ export type AgmarknetRecord = {
   modal_price?: string | number;
   arrival_date?: string;
   variety?: string;
+  grade?: string;
 };
 
 function num(value: string | number | undefined): number | null {
@@ -119,12 +120,23 @@ export function normalizeMarketName(market?: string): string {
     .slice(0, 80);
 }
 
+export function normalizeLabel(value?: string): string {
+  return (value ?? "")
+    .trim()
+    .replace(/\s+/g, " ")
+    .slice(0, 80);
+}
+
 export function parsePriceRow(record: AgmarknetRecord) {
+  const variety = normalizeLabel(record.variety) || "NA";
+  const grade = normalizeLabel(record.grade) || "NA";
   return {
     commodity: record.commodity ?? "",
     market: normalizeMarketName(record.market),
     state: record.state ?? "",
     district: record.district ?? "",
+    variety,
+    grade,
     min_price: num(record.min_price),
     max_price: num(record.max_price),
     modal_price: num(record.modal_price),

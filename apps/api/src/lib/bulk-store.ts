@@ -15,12 +15,21 @@ import {
   findTrackedCommodity,
   fxRateKeys,
   mandiPriceKeys,
+  mandiQuintalToInrPerKg,
   TRACKED_COMMODITIES,
   type AddOnPricing,
   type BulkPricingSpice,
   type FxCache,
 } from "@spicycorner/shared";
 import { BULK_PRICING_TABLE, docClient, SPICE_MANDI_PRICES_TABLE } from "./db";
+
+export type MandiGradeSlice = {
+  variety: string;
+  grade: string;
+  label: string;
+  average_modal_price: number;
+  market_count: number;
+};
 
 export type LatestMandi = {
   commodity: string;
@@ -29,7 +38,9 @@ export type LatestMandi = {
   arrival_date?: string;
   fetched_at?: string;
   market_count?: number;
+  unit?: string;
   source_disclaimer?: string;
+  by_grade?: MandiGradeSlice[];
 };
 
 const FALLBACK_FX: FxCache = {
@@ -38,6 +49,26 @@ const FALLBACK_FX: FxCache = {
   fetched_at: "1970-01-01T00:00:00.000Z",
   source: "static-fallback",
 };
+
+export function mandiInrPerKg(latest: LatestMandi | null, gradeKey?: string): number | null {
+  if (!latest) return null;
+  let quintal = latest.average_modal_price ?? latest.modal_price;
+  if (gradeKey && latest.by_grade?.length) {
+    const slice = latest.by_grade.find(
+      (g) => g.label === gradeKey || `${g.variety}|${g.grade}` === gradeKey
+    );
+    if (slice?.average_modal_price) quintal = slice.average_modal_price;
+  }
+  if (typeof quintal !== "number" || quintal <= 0) return null;
+  const unit = String(latest.unit ?? "");
+  if (/quintal/i.test(unit) || quintal >= 400) return mandiQuintalToInrPerKg(quintal);
+  return quintal;
+}
+
+function feeNumber(value: unknown, fallback: number): number {
+  const n = Number(value);
+  return Number.isFinite(n) && n >= 0 ? n : fallback;
+}
 
 export async function getLatestMandi(slug: string): Promise<LatestMandi | null> {
   const res = await docClient.send(
@@ -58,7 +89,7 @@ export async function getMandiHistory(slug: string, from: string, to: string) {
       ExpressionAttributeValues: {
         ":pk": mandiPriceKeys.pk(slug),
         ":from": `DATE#${from}`,
-        ":to": `DATE#${to}#MARKET#zzzz`,
+        ":to": `DATE#${to}\uffff`,
       },
     })
   );
@@ -149,12 +180,12 @@ export async function getAddOnPricing(): Promise<AddOnPricing> {
       Key: { PK: bulkPricingKeys.addOnsPk(), SK: bulkPricingKeys.addOnsSk() },
     })
   );
+  const item = res.Item ?? {};
   return addOnPricingSchema.parse({
-    sample_fee_gbp: DEFAULT_SAMPLE_FEE_GBP,
-    sample_fee_eur: DEFAULT_SAMPLE_FEE_EUR,
-    documentation_handling_fee_gbp: DEFAULT_DOCUMENTATION_FEE_GBP,
-    documentation_handling_fee_eur: DEFAULT_DOCUMENTATION_FEE_EUR,
-    ...res.Item,
+    sample_fee_gbp: feeNumber(item.sample_fee_gbp, DEFAULT_SAMPLE_FEE_GBP),
+    sample_fee_eur: feeNumber(item.sample_fee_eur, DEFAULT_SAMPLE_FEE_EUR),
+    documentation_handling_fee_gbp: feeNumber(item.documentation_handling_fee_gbp, DEFAULT_DOCUMENTATION_FEE_GBP),
+    documentation_handling_fee_eur: feeNumber(item.documentation_handling_fee_eur, DEFAULT_DOCUMENTATION_FEE_EUR),
   });
 }
 

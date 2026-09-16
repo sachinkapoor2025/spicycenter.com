@@ -15,6 +15,7 @@ import {
   getLatestMandi,
   getSpicePricing,
   listSpicePricing,
+  mandiInrPerKg,
   putAddOnPricing,
   putSpicePricing,
 } from "../lib/bulk-store";
@@ -37,24 +38,30 @@ export async function previewQuote(event: APIGatewayProxyEventV2) {
   const latest = await getLatestMandi(tracked.slug);
   const fx = await getCachedFx();
   const addOns = await getAddOnPricing();
+  const gradeKey = qs(event, "grade");
   const quote = computeBulkQuote({
     spice,
     qtyKg,
     destination: destParse.data,
-    agmarknetModalAvgInr: latest?.average_modal_price ?? latest?.modal_price ?? null,
+    agmarknetModalAvgInr: mandiInrPerKg(latest, gradeKey || undefined),
     fxInrGbp: fx.inr_gbp,
     fxInrEur: fx.inr_eur,
     addOns,
     sampleSelected: qs(event, "sample") === "1" || qs(event, "sample") === "true",
     documentationSelected: qs(event, "documentation") === "1" || qs(event, "documentation") === "true",
   });
-  return ok({
-    quote,
-    fx,
-    addOns,
-    minQtyKg: spice.min_bulk_qty_kg,
-    needsChaQuoteConfirmation: spice.needsChaQuoteConfirmation,
-  });
+  return ok(
+    {
+      quote,
+      fx,
+      addOns,
+      minQtyKg: spice.min_bulk_qty_kg,
+      needsChaQuoteConfirmation: spice.needsChaQuoteConfirmation,
+      grades: latest?.by_grade ?? [],
+      selectedGrade: gradeKey || null,
+    },
+    { "Cache-Control": "no-store" }
+  );
 }
 
 export async function adminListBulkPricing(event: APIGatewayProxyEventV2) {

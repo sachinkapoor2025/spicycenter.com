@@ -45,7 +45,7 @@ export const TRACKED_COMMODITIES: TrackedCommodity[] = [
     agmarknetName: "Coriander",
     agmarknetAliases: ["Corriander seed"],
   },
-  { slug: "chilli", spiceId: "dried-red-chilli", spiceName: "Chilli", agmarknetName: "Chilli" },
+  { slug: "chilli", spiceId: "dried-red-chilli", spiceName: "Chilli", agmarknetName: "Chilli", agmarknetAliases: ["Dry Chillies"] },
   { slug: "black-pepper", spiceId: "black-pepper", spiceName: "Black pepper", agmarknetName: "Black pepper" },
   {
     slug: "cardamom",
@@ -75,6 +75,22 @@ export const TRACKED_COMMODITIES: TrackedCommodity[] = [
     spiceName: "Fennel",
     agmarknetName: "Soanf",
     agmarknetAliases: ["Fennel", "Fennel Seed"],
+  },
+  { slug: "ginger", spiceId: "ginger", spiceName: "Ginger", agmarknetName: "Ginger" },
+  { slug: "garlic", spiceId: "garlic", spiceName: "Garlic", agmarknetName: "Garlic" },
+  { slug: "nutmeg", spiceId: "nutmeg", spiceName: "Nutmeg", agmarknetName: "Nutmeg" },
+  {
+    slug: "tamarind",
+    spiceId: "tamarind",
+    spiceName: "Tamarind",
+    agmarknetName: "Tamarind",
+  },
+  {
+    slug: "ajwain",
+    spiceId: "ajwain",
+    spiceName: "Ajwain",
+    agmarknetName: "Ajwan",
+    agmarknetAliases: ["Ajwain"],
   },
 ];
 
