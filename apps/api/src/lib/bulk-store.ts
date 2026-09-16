@@ -182,7 +182,10 @@ export async function getAddOnPricing(): Promise<AddOnPricing> {
   );
   const item = res.Item ?? {};
   return addOnPricingSchema.parse({
-    sample_fee_gbp: feeNumber(item.sample_fee_gbp, DEFAULT_SAMPLE_FEE_GBP),
+    sample_fee_gbp: (() => {
+      const n = feeNumber(item.sample_fee_gbp, DEFAULT_SAMPLE_FEE_GBP);
+      return n === 9 ? DEFAULT_SAMPLE_FEE_GBP : n;
+    })(),
     sample_fee_eur: feeNumber(item.sample_fee_eur, DEFAULT_SAMPLE_FEE_EUR),
     documentation_handling_fee_gbp: feeNumber(item.documentation_handling_fee_gbp, DEFAULT_DOCUMENTATION_FEE_GBP),
     documentation_handling_fee_eur: feeNumber(item.documentation_handling_fee_eur, DEFAULT_DOCUMENTATION_FEE_EUR),

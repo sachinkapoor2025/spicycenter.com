@@ -54,6 +54,7 @@ const routes: Route[] = [
   { method: "GET", pattern: /^\/prices\/([^/]+)\/history$/, handler: spicePrices.getPriceHistory, params: ["commodity"] },
   { method: "GET", pattern: /^\/prices\/([^/]+)$/, handler: spicePrices.getLatestPrice, params: ["commodity"] },
   { method: "GET", pattern: /^\/bulk\/quote$/, handler: bulkPricing.previewQuote },
+  { method: "POST", pattern: /^\/bulk\/quote$/, handler: bulkPricing.previewQuote },
   { method: "POST", pattern: /^\/bulk\/enquiries$/, handler: bulkEnquiries.createBulkEnquiry },
   { method: "GET", pattern: /^\/bulk\/enquiries\/([^/]+)$/, handler: bulkEnquiries.getBulkEnquiry, params: ["enquiryId"] },
   { method: "GET", pattern: /^\/admin\/bulk-pricing$/, handler: bulkPricing.adminListBulkPricing },

@@ -63,4 +63,4 @@ Same reads plus quotes/enquiries also exist on the main storefront API (`NEXT_PU
 - `testing_charge_inr` default **6000**
 - `shipping_rate_inr_per_kg_uk` default **750**
 - EU shipping starts equal to UK until admin sets `shipping_rate_inr_per_kg_eu`
-- Sample/docs EUR defaults (£9 / £29 counterparts) are **not** auto-converted from GBP
+- Sample/docs EUR defaults are **not** auto-converted from GBP (sample **£29**, docs **£29**)

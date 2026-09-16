@@ -87,6 +87,28 @@ describe("computeBulkQuote", () => {
     assert.equal(q.grandTotalDisplay, 1189);
   });
 
+  it("scales spice and shipping with quantity; clearance and testing stay fixed", () => {
+    const q = computeBulkQuote({
+      spice,
+      qtyKg: 5000,
+      destination: "UK",
+      agmarknetModalAvgInr: 200,
+      fxInrGbp: 0.01,
+      fxInrEur: 0.011,
+      addOns,
+      sampleSelected: false,
+      documentationSelected: false,
+    });
+    assert.equal(q.pricingAvailable, true);
+    if (!q.pricingAvailable) return;
+    assert.equal(q.qtyKg, 5000);
+    assert.equal(q.unitPriceInrPerKg, 220);
+    assert.equal(q.spiceCostInr, 1_100_000);
+    assert.equal(q.shippingCostInr, 3_750_000);
+    assert.equal(q.clearanceChargeInr, 15000);
+    assert.equal(q.testingChargeInr, 6000);
+  });
+
   it("adds sample and documentation fees into the running total", () => {
     const q = computeBulkQuote({
       spice,

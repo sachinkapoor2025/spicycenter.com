@@ -11,22 +11,32 @@ import {
   DEFAULT_DOCUMENTATION_FEE_GBP,
   DEFAULT_SAMPLE_FEE_EUR,
   DEFAULT_SAMPLE_FEE_GBP,
+  computeBulkQuote,
+  type AddOnPricing,
+  type BulkPricingSpice,
   type BulkQuoteResult,
 } from "@spicycorner/shared";
 import { StripePaymentForm } from "@/components/StripePaymentForm";
 
-const PRESETS = [100, 200, 500, 1000, 5000, 10000];
+const KG_PER_LB = 0.45359237;
 
-type GradeSlice = { variety: string; grade: string; label: string; average_modal_price: number; market_count: number };
+type QtyUnit = "kg" | "lb";
+
+type GradeSlice = {
+  variety: string;
+  grade: string;
+  label: string;
+  key?: string;
+  inr_per_kg?: number;
+  average_modal_price: number;
+  market_count: number;
+};
 
 type QuoteResponse = {
   quote: BulkQuoteResult;
-  addOns: {
-    sample_fee_gbp: number;
-    sample_fee_eur: number;
-    documentation_handling_fee_gbp: number;
-    documentation_handling_fee_eur: number;
-  };
+  spice?: BulkPricingSpice;
+  addOns: AddOnPricing;
+  mandiInrPerKg?: number | null;
   minQtyKg: number;
   fx: { inr_gbp: number; inr_eur: number; source: string; fetched_at: string };
   grades?: GradeSlice[];
@@ -45,8 +55,8 @@ export function BulkEnquiryForm() {
   const searchParams = useSearchParams();
   const [spiceId, setSpiceId] = useState(searchParams.get("spice") || TRACKED_COMMODITIES[1]?.spiceId || "cumin");
   const [spiceQuery, setSpiceQuery] = useState("");
-  const [qtyKg, setQtyKg] = useState(100);
-  const [customQty, setCustomQty] = useState("100");
+  const [qtyUnit, setQtyUnit] = useState<QtyUnit>("kg");
+  const [qtyInput, setQtyInput] = useState("");
   const [destination, setDestination] = useState<"UK" | "EU">("UK");
   const [sampleSelected, setSampleSelected] = useState(false);
   const [documentationSelected, setDocumentationSelected] = useState(false);
@@ -78,28 +88,43 @@ export function BulkEnquiryForm() {
     );
   }, [spiceQuery]);
 
+  const qtyEntered = Number(String(qtyInput).replace(/,/g, "").replace(/[^\d.]/g, ""));
+  const qtyKg =
+    Number.isFinite(qtyEntered) && qtyEntered > 0
+      ? qtyUnit === "lb"
+        ? qtyEntered * KG_PER_LB
+        : qtyEntered
+      : 0;
+
   useEffect(() => {
     const min = quotePack?.minQtyKg ?? 100;
-    if (qtyKg < min) {
-      setQtyError(`Minimum bulk quantity is ${min}kg. We do not round up.`);
+    if (!qtyInput.trim()) {
+      setQtyError("");
+      return;
+    }
+    if (!Number.isFinite(qtyEntered) || qtyEntered <= 0) {
+      setQtyError("Enter a quantity greater than zero.");
+    } else if (qtyKg < min) {
+      const minLb = Math.ceil(min / KG_PER_LB);
+      setQtyError(
+        `Minimum bulk quantity is ${min}kg (about ${minLb} lb). We do not round up.`
+      );
     } else {
       setQtyError("");
     }
-  }, [qtyKg, quotePack?.minQtyKg]);
+  }, [qtyInput, qtyEntered, qtyKg, qtyUnit, quotePack?.minQtyKg]);
 
   useEffect(() => {
-    const min = 100;
-    if (qtyKg < min) return;
     let cancelled = false;
     setLoadingQuote(true);
     setQuoteError("");
-    const params = new URLSearchParams({
-      spiceId,
-      qtyKg: String(qtyKg),
-      destination,
-    });
-    if (gradeKey) params.set("grade", gradeKey);
-    api<QuoteResponse>(`/bulk/quote?${params.toString()}`, { revalidate: false })
+    const body = JSON.stringify({ spiceId, qtyKg: 100, destination: "UK" });
+    api<QuoteResponse>("/bulk/quote", { method: "POST", revalidate: false, body })
+      .catch(() =>
+        api<QuoteResponse>(`/bulk/quote?spiceId=${encodeURIComponent(spiceId)}&qtyKg=100&destination=UK`, {
+          revalidate: false,
+        })
+      )
       .then((data) => {
         if (!cancelled) setQuotePack(data);
       })
@@ -115,27 +140,55 @@ export function BulkEnquiryForm() {
     return () => {
       cancelled = true;
     };
-  }, [spiceId, qtyKg, destination, gradeKey]);
+  }, [spiceId]);
 
-  const quote = quotePack?.quote;
+  const grades = quotePack?.grades ?? [];
+  const selectedGrade = grades.find((g) => (g.key ?? g.label) === gradeKey);
+  const mandiKg =
+    (gradeKey ? selectedGrade?.inr_per_kg : undefined) ?? quotePack?.mandiInrPerKg ?? null;
+
   const displayCurrency = destination === "UK" ? "GBP" : "EUR";
-  const addOns = quotePack?.addOns;
-  const sampleFee =
-    displayCurrency === "GBP"
-      ? addOns?.sample_fee_gbp ?? DEFAULT_SAMPLE_FEE_GBP
-      : addOns?.sample_fee_eur ?? DEFAULT_SAMPLE_FEE_EUR;
+  const quoteAddOns: AddOnPricing = {
+    sample_fee_gbp:
+      quotePack?.addOns?.sample_fee_gbp === 9
+        ? DEFAULT_SAMPLE_FEE_GBP
+        : quotePack?.addOns?.sample_fee_gbp ?? DEFAULT_SAMPLE_FEE_GBP,
+    sample_fee_eur: quotePack?.addOns?.sample_fee_eur ?? DEFAULT_SAMPLE_FEE_EUR,
+    documentation_handling_fee_gbp:
+      quotePack?.addOns?.documentation_handling_fee_gbp ?? DEFAULT_DOCUMENTATION_FEE_GBP,
+    documentation_handling_fee_eur:
+      quotePack?.addOns?.documentation_handling_fee_eur ?? DEFAULT_DOCUMENTATION_FEE_EUR,
+  };
+  const sampleFee = displayCurrency === "GBP" ? quoteAddOns.sample_fee_gbp : quoteAddOns.sample_fee_eur;
   const docFee =
     displayCurrency === "GBP"
-      ? addOns?.documentation_handling_fee_gbp ?? DEFAULT_DOCUMENTATION_FEE_GBP
-      : addOns?.documentation_handling_fee_eur ?? DEFAULT_DOCUMENTATION_FEE_EUR;
-  const addOnsTotal = (sampleSelected ? sampleFee : 0) + (documentationSelected ? docFee : 0);
+      ? quoteAddOns.documentation_handling_fee_gbp
+      : quoteAddOns.documentation_handling_fee_eur;
+
+  const quote = useMemo(() => {
+    if (!quotePack?.spice || !quotePack.fx || qtyKg <= 0) return undefined;
+    return computeBulkQuote({
+      spice: quotePack.spice,
+      qtyKg,
+      destination,
+      agmarknetModalAvgInr: mandiKg,
+      fxInrGbp: quotePack.fx.inr_gbp,
+      fxInrEur: quotePack.fx.inr_eur,
+      addOns: quoteAddOns,
+      sampleSelected,
+      documentationSelected,
+    });
+  }, [quotePack, qtyKg, destination, mandiKg, sampleSelected, documentationSelected, quoteAddOns]);
+  const addOnsTotal =
+    quote && quote.pricingAvailable
+      ? quote.addOnsTotalDisplay
+      : (sampleSelected ? sampleFee : 0) + (documentationSelected ? docFee : 0);
   const runningTotal =
-    quote && quote.pricingAvailable ? quote.estimatedDisplay + addOnsTotal : addOnsTotal;
-  const grades = (quotePack?.grades ?? []).filter((g) => g.label && g.label !== "Unspecified");
+    quote && quote.pricingAvailable ? quote.grandTotalDisplay : addOnsTotal;
 
   async function submit(e: FormEvent) {
     e.preventDefault();
-    if (qtyError) return;
+    if (!qtyInput.trim() || qtyError || qtyKg < (quotePack?.minQtyKg ?? 100)) return;
     setSubmitting(true);
     setSubmitError("");
     try {
@@ -234,40 +287,46 @@ export function BulkEnquiryForm() {
             >
               <option value="">All grades (average)</option>
               {grades.map((g) => (
-                <option key={g.label} value={g.label}>
-                  {g.label} ({g.market_count} lots)
+                <option key={g.key ?? g.label} value={g.key ?? g.label}>
+                  {g.label} — ₹{Math.round(g.inr_per_kg ?? g.average_modal_price / 100)}/kg ({g.market_count} lots)
                 </option>
               ))}
             </select>
           </>
         )}
-        <p className="text-sm mt-4">Quantity (kg)</p>
-        <div className="flex flex-wrap gap-2 mt-2">
-          {PRESETS.map((n) => (
+        <p className="text-sm mt-4">Quantity</p>
+        <div className="flex gap-2 mt-2">
+          {(["kg", "lb"] as const).map((unit) => (
             <button
-              key={n}
+              key={unit}
               type="button"
               onClick={() => {
-                setQtyKg(n);
-                setCustomQty(String(n));
+                if (unit === qtyUnit) return;
+                const n = Number(qtyInput);
+                if (Number.isFinite(n) && n > 0) {
+                  const kg = qtyUnit === "lb" ? n * KG_PER_LB : n;
+                  const shown = unit === "lb" ? kg / KG_PER_LB : kg;
+                  setQtyInput(String(Math.round(shown * 100) / 100));
+                }
+                setQtyUnit(unit);
               }}
-              className={`rounded-full border px-3 py-1 text-sm ${qtyKg === n ? "bg-nav text-white border-nav" : ""}`}
+              className={`rounded-lg border px-4 py-2 text-sm ${qtyUnit === unit ? "bg-nav text-white border-nav" : "bg-white"}`}
             >
-              {n.toLocaleString()}kg
+              {unit === "kg" ? "Kilograms (kg)" : "Pounds (lb)"}
             </button>
           ))}
         </div>
         <input
-          type="number"
-          min={1}
-          className="w-full border rounded-lg px-3 py-2 mt-3"
-          value={customQty}
-          onChange={(e) => {
-            setCustomQty(e.target.value);
-            const n = Number(e.target.value);
-            if (Number.isFinite(n)) setQtyKg(n);
-          }}
+          type="text"
+          inputMode="decimal"
+          className="w-full border rounded-lg px-3 py-2 mt-3 placeholder:text-slate-400"
+          value={qtyInput}
+          onChange={(e) => setQtyInput(e.target.value)}
+          placeholder={qtyUnit === "kg" ? "e.g. 100kg, 200kg, 500kg" : "e.g. 220 lb, 440 lb, 1100 lb"}
         />
+        {qtyKg >= 100 && qtyUnit === "lb" && (
+          <p className="text-xs text-muted mt-1">{qtyKg.toFixed(1)} kg used for the quote</p>
+        )}
         {qtyError && <p className="text-red-600 text-sm mt-2">{qtyError}</p>}
         <div className="flex gap-3 mt-4">
           {(["UK", "EU"] as const).map((d) => (
@@ -288,27 +347,49 @@ export function BulkEnquiryForm() {
 
       <section className="card-spice p-6">
         <h2 className="font-serif text-2xl text-primary">2. Indicative quote</h2>
-        {loadingQuote && <p className="text-sm text-muted mt-3">Updating quote…</p>}
+        {loadingQuote && <p className="text-sm text-muted mt-3">Loading reference prices…</p>}
         {quoteError && <p className="text-red-600 text-sm mt-3">{quoteError}</p>}
+        {!qtyInput.trim() && !quoteError && (
+          <p className="text-sm text-muted mt-3">Enter a quantity to see a live estimate. Minimum 100kg.</p>
+        )}
         {quote && !quote.pricingAvailable && (
           <p className="mt-3 font-semibold">Contact us for pricing — no reference rate is on file for this spice yet.</p>
         )}
-        {quote && quote.pricingAvailable && (
+        {quote && quote.pricingAvailable && qtyKg >= (quotePack?.minQtyKg ?? 100) && (
           <dl className="mt-4 space-y-2 text-sm">
-            <div className="flex justify-between">
-              <dt>Spice cost</dt>
+            <div className="flex justify-between gap-4">
+              <dt>
+                Spice cost
+                <span className="block text-xs text-muted font-normal">
+                  {money(quote.unitPriceInrPerKg, "INR")}/kg × {qtyKg.toLocaleString("en-IN", { maximumFractionDigits: 1 })} kg
+                  {qtyUnit === "lb" && qtyInput ? ` (${qtyInput} lb)` : ""}
+                </span>
+              </dt>
               <dd>{money(quote.spiceCostInr, "INR")}</dd>
             </div>
-            <div className="flex justify-between">
-              <dt>Shipping ({destination})</dt>
+            <div className="flex justify-between gap-4">
+              <dt>
+                Shipping ({destination})
+                <span className="block text-xs text-muted font-normal">
+                  {money(
+                    (quotePack?.spice
+                      ? destination === "UK"
+                        ? quotePack.spice.shipping_rate_inr_per_kg_uk
+                        : quotePack.spice.shipping_rate_inr_per_kg_eu
+                      : quote.shippingCostInr / (quote.qtyKg || qtyKg || 1)) ?? 0,
+                    "INR"
+                  )}
+                  /kg × {qtyKg.toLocaleString("en-IN", { maximumFractionDigits: 1 })} kg
+                </span>
+              </dt>
               <dd>{money(quote.shippingCostInr, "INR")}</dd>
             </div>
             <div className="flex justify-between">
-              <dt>Export clearance</dt>
+              <dt>Export clearance (fixed per shipment)</dt>
               <dd>{money(quote.clearanceChargeInr, "INR")}</dd>
             </div>
             <div className="flex justify-between">
-              <dt>Testing / lab certification</dt>
+              <dt>Testing / lab certification (fixed per shipment)</dt>
               <dd>{money(quote.testingChargeInr, "INR")}</dd>
             </div>
             <div className="flex justify-between font-semibold border-t pt-2">
@@ -334,20 +415,38 @@ export function BulkEnquiryForm() {
 
       <section>
         <h2 className="font-serif text-2xl text-primary">3. Add-ons</h2>
-        <label className="flex gap-2 mt-4 text-sm">
-          <input type="checkbox" checked={sampleSelected} onChange={(e) => setSampleSelected(e.target.checked)} />
-          Add a sample (+{money(sampleFee, displayCurrency)})
-        </label>
-        <label className="flex gap-2 mt-2 text-sm">
-          <input
-            type="checkbox"
-            checked={documentationSelected}
-            onChange={(e) => setDocumentationSelected(e.target.checked)}
-          />
-          Let us handle all export documentation (+{money(docFee, displayCurrency)})
-        </label>
-        <p className="text-xs text-muted mt-2">
-          Checking these takes you to checkout for those service fees only. The bulk spice cost is never charged online.
+        <div className="grid sm:grid-cols-2 gap-4 mt-4">
+          <div className="rounded-2xl border border-[#e6d5bc] bg-white p-5 flex flex-col">
+            <p className="text-xs uppercase tracking-wide text-muted">Sample pack</p>
+            <p className="font-serif text-xl text-primary mt-1">{money(sampleFee, displayCurrency)}</p>
+            <p className="text-sm text-muted mt-2 flex-1">A physical sample of the selected spice, shipped separately. Charged only if you add it.</p>
+            <button
+              type="button"
+              onClick={() => setSampleSelected((v) => !v)}
+              className={`mt-4 rounded-lg px-4 py-2.5 text-sm font-semibold ${
+                sampleSelected ? "bg-nav text-white" : "border border-nav text-nav hover:bg-orange-50"
+              }`}
+            >
+              {sampleSelected ? "Added" : "Add"}
+            </button>
+          </div>
+          <div className="rounded-2xl border border-[#e6d5bc] bg-white p-5 flex flex-col">
+            <p className="text-xs uppercase tracking-wide text-muted">Export documentation</p>
+            <p className="font-serif text-xl text-primary mt-1">{money(docFee, displayCurrency)}</p>
+            <p className="text-sm text-muted mt-2 flex-1">We prepare the export paperwork. Charged only if you add it — not the spice cargo.</p>
+            <button
+              type="button"
+              onClick={() => setDocumentationSelected((v) => !v)}
+              className={`mt-4 rounded-lg px-4 py-2.5 text-sm font-semibold ${
+                documentationSelected ? "bg-nav text-white" : "border border-nav text-nav hover:bg-orange-50"
+              }`}
+            >
+              {documentationSelected ? "Added" : "Add"}
+            </button>
+          </div>
+        </div>
+        <p className="text-xs text-muted mt-3">
+          Add-on fees go to checkout if selected. The bulk spice cost is never charged online.
         </p>
       </section>
 
@@ -368,7 +467,10 @@ export function BulkEnquiryForm() {
           <option value="FOB">FOB</option>
           <option value="CIF">CIF</option>
         </select>
-        <p className="text-xs text-muted mt-2">Spice: {spiceId} · Quantity: {qtyKg}kg (pre-filled)</p>
+        <p className="text-xs text-muted mt-2">
+          Spice: {spiceId} · Quantity: {qtyInput || "—"} {qtyUnit}
+          {qtyKg > 0 ? ` (${qtyKg.toFixed(1)} kg)` : ""}
+        </p>
       </section>
 
       {submitError && <p className="text-red-600 text-sm">{submitError}</p>}
