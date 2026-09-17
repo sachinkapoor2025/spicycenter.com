@@ -4,7 +4,7 @@ import type {
   APIGatewayProxyStructuredResultV2,
   Context,
 } from "aws-lambda";
-import { getLatestPrice, getPriceHistory } from "./handlers/spice-prices";
+import { getLatestPrice, getPriceHistory, listLatestPrices } from "./handlers/spice-prices";
 import { corsPreflight, notFound } from "./lib/response";
 
 const ALLOWED = new Set([
@@ -49,6 +49,9 @@ export async function handler(
   const method = event.requestContext.http.method;
   if (method === "OPTIONS") return withOrigin(event, corsPreflight());
 
+  if (method === "GET" && /^\/prices\/?$/.test(path)) {
+    return withOrigin(event, await listLatestPrices());
+  }
   const history = path.match(/^\/prices\/([^/]+)\/history$/);
   if (method === "GET" && history) {
     event.pathParameters = { ...event.pathParameters, commodity: history[1] };

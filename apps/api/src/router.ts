@@ -51,6 +51,7 @@ interface Route {
 
 const routes: Route[] = [
   { method: "GET", pattern: /^\/health$/, handler: async () => ok({ status: "ok" }) },
+  { method: "GET", pattern: /^\/prices$/, handler: spicePrices.listLatestPrices },
   { method: "GET", pattern: /^\/prices\/([^/]+)\/history$/, handler: spicePrices.getPriceHistory, params: ["commodity"] },
   { method: "GET", pattern: /^\/prices\/([^/]+)$/, handler: spicePrices.getLatestPrice, params: ["commodity"] },
   { method: "GET", pattern: /^\/bulk\/quote$/, handler: bulkPricing.previewQuote },

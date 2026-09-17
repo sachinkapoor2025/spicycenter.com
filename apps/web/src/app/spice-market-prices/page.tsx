@@ -1,67 +1,55 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { readFileSync, existsSync } from "fs";
-import { join } from "path";
 import { pageMetadata } from "@/lib/seo";
-import { loadImportedMarketPrices, loadSpiceEntities } from "@/lib/spice-data";
+import { api } from "@/lib/api";
+import { AGMARKNET_SOURCE_DISCLAIMER } from "@spicycorner/shared";
+import { LiveMandiPriceBoard } from "@/components/LiveMandiPriceBoard";
+import { formatMandiDate, type LiveMandiBoard } from "@/lib/live-mandi-prices";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Indicative Indian spice market prices",
-  description: "Dated, sourced Indian market reference prices by spice, market and grade. Not your SpicyCenter checkout price.",
+  title: "Live Indian spice market prices",
+  description:
+    "Live Agmarknet mandi prices for Indian spices, updated daily. These wholesale market prints fluctuate every day and are a reference, not SpicyCenter checkout prices.",
   path: "/spice-market-prices",
 });
 
-export default function MarketPricesPage() {
-  const prices = loadImportedMarketPrices();
-  const spices = loadSpiceEntities();
-  const ratesPath = ["data/shipping-rates.json", "../../data/shipping-rates.json"]
-    .map((p) => join(process.cwd(), p))
-    .find((p) => existsSync(p));
-  const shipping = ratesPath ? JSON.parse(readFileSync(ratesPath, "utf-8")) : null;
+export const dynamic = "force-dynamic";
+
+async function loadBoard(): Promise<LiveMandiBoard | null> {
+  try {
+    return await api<LiveMandiBoard>("/prices", { revalidate: 3600, timeoutMs: 8000 });
+  } catch {
+    return null;
+  }
+}
+
+export default async function MarketPricesPage() {
+  const board = await loadBoard();
+  const prices = board?.prices ?? [];
+  const liveCount = prices.filter((p) => p.available).length;
+  const asOf = formatMandiDate(board?.fetchedAt ?? prices.find((p) => p.arrivalDate)?.arrivalDate);
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-10">
-      <h1 className="spice-heading text-4xl">Indian spice market prices</h1>
-      <p className="mt-4 text-muted max-w-2xl">
-        Indicative Indian market prices. They are not the exact purchase cost. Values vary by origin, quality, grade, market and season.
-        We do not scrape third-party sites. Admin imports CSV or enters prints with source URL and date. Historical rows are never overwritten.
-      </p>
-      {prices.length === 0 ? (
-        <p className="mt-8 text-muted">
-          No dated market prices have been imported yet. When a trusted source is connected, this table will list spice, market, grade, ₹/kg and source.
+    <div className="max-w-6xl mx-auto px-4 py-10">
+      <p className="spice-kicker">Agmarknet · India</p>
+      <h1 className="spice-heading text-4xl mt-2">Live Indian spice market prices</h1>
+      <div className="mt-5 max-w-3xl rounded-2xl border border-[#e6d5bc] bg-[#fdf8f1] p-5">
+        <p className="text-sm font-semibold text-primary">These are live mandi prices and they fluctuate every day.</p>
+        <p className="text-sm text-muted mt-2 leading-relaxed">
+          Figures come from India&apos;s official Agmarknet (data.gov.in) feed, pulled by our daily Lambda. A spice can
+          move with arrivals, quality, grade and local demand — so yesterday&apos;s print is not today&apos;s. They are a
+          wholesale market reference, not SpicyCenter&apos;s retail checkout price or a confirmed bulk quote.
         </p>
-      ) : (
-      <div className="overflow-x-auto mt-8 card-spice">
-        <table className="w-full text-sm">
-          <thead>
-            <tr className="text-left border-b">
-              {["Spice", "Market", "Grade", "Avg", "Min", "Max", "Date", "Source"].map((h) => (
-                <th key={h} className="p-3">{h}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {prices.map((p) => (
-              <tr key={`${p.spiceId}-${p.market}-${p.grade}-${p.priceDate}`} className="border-b border-[#eadfce]">
-                <td className="p-3">
-                  <Link className="text-nav" href={`/spice-guide/${p.spiceId}`}>
-                    {spices.find((s) => s.id === p.spiceId)?.canonicalName ?? p.spiceId}
-                  </Link>
-                </td>
-                <td className="p-3">{p.market}</td>
-                <td className="p-3">{p.grade}</td>
-                <td className="p-3">{p.averagePrice ?? "—"}</td>
-                <td className="p-3">{p.minPrice ?? "—"}</td>
-                <td className="p-3">{p.maxPrice ?? "—"}</td>
-                <td className="p-3">{p.priceDate}</td>
-                <td className="p-3 text-xs text-muted">{p.source}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <p className="text-xs text-muted mt-3">
+          {liveCount > 0
+            ? `${liveCount} spices with a live print${asOf ? ` · last refreshed ${asOf}` : ""} · ${board?.source ?? "Agmarknet"}`
+            : "Waiting for the next daily Agmarknet fetch."}
+        </p>
       </div>
-      )}
-      {shipping && <p className="mt-6 text-xs text-muted">{shipping.notes}</p>}
+      <LiveMandiPriceBoard prices={prices} />
+      <p className="mt-8 text-xs text-muted max-w-3xl leading-relaxed">
+        {board?.disclaimer ?? AGMARKNET_SOURCE_DISCLAIMER} Historical rows in our database are never overwritten; each
+        day&apos;s board is a new snapshot.
+      </p>
     </div>
   );
 }

@@ -7,10 +7,13 @@ import { faqs, exploreCategories, packSizes, regionLinks, site, homeBanners } fr
 import { HomeBannerSlider } from "@/components/HomeBannerSlider";
 import { ProductReviewsPreview } from "@/components/ProductReviewsPreview";
 import { TrustBadges } from "@/components/TrustBadges";
-import { loadImportedMarketPrices, loadSpiceEntities } from "@/lib/spice-data";
+import { loadSpiceEntities } from "@/lib/spice-data";
 import { getCatalogProducts } from "@/lib/catalog-fallback";
 import { faqJsonLd } from "@/lib/seo";
 import { STOREFRONT_SHIPPING_COPY } from "@/lib/storefront-shipping-copy";
+import { api } from "@/lib/api";
+import { LiveMandiPriceBoard } from "@/components/LiveMandiPriceBoard";
+import type { LiveMandiBoard } from "@/lib/live-mandi-prices";
 
 export const metadata: Metadata = pageMetadata({
   title: "The world of Indian spices — retail packs and 10kg+ bulk",
@@ -20,11 +23,17 @@ export const metadata: Metadata = pageMetadata({
 
 export const dynamic = "force-dynamic";
 
-export default function HomePage() {
+export default async function HomePage() {
   const spices = loadSpiceEntities();
   const featured = spices.filter((s) => s.featured || s.featuredKnowledge).slice(0, 10);
-  const prices = loadImportedMarketPrices();
   const products = getCatalogProducts();
+  let mandi: LiveMandiBoard | null = null;
+  try {
+    mandi = await api<LiveMandiBoard>("/prices", { revalidate: 3600, timeoutMs: 8000 });
+  } catch {
+    mandi = null;
+  }
+  const livePrices = (mandi?.prices ?? []).filter((p) => p.available).slice(0, 6);
 
   return (
     <div>
@@ -122,42 +131,19 @@ export default function HomePage() {
         </div>
       </section>
 
-      {prices.length > 0 && (
+      {livePrices.length > 0 && (
         <section className="bg-paper border-y border-[#e6d5bc] py-14">
           <div className="max-w-7xl mx-auto px-4">
-            <h2 className="font-serif text-3xl text-primary">Today&apos;s Indian spice market</h2>
+            <p className="spice-kicker">Live Agmarknet</p>
+            <h2 className="font-serif text-3xl text-primary mt-2">Today&apos;s Indian spice market</h2>
             <p className="mt-2 text-muted max-w-2xl">
-              Indicative Indian market prices — not your purchase cost. Prices vary by origin, quality, grade, market and season.
+              Live mandi prices from India. They fluctuate every day with arrivals and demand. These are wholesale market
+              prints — not your SpicyCenter checkout price.
             </p>
-            <div className="mt-6 overflow-x-auto card-spice">
-              <table className="w-full text-sm">
-                <thead className="text-left text-earth">
-                  <tr>
-                    {["Spice", "Market", "Grade", "Avg ₹/kg (India mandi)", "Min", "Max", "Date", "Source"].map((h) => (
-                      <th key={h} className="p-3 font-semibold">{h}</th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {prices.map((p) => {
-                    const spice = spices.find((s) => s.id === p.spiceId);
-                    return (
-                      <tr key={`${p.spiceId}-${p.market}-${p.grade}-${p.priceDate}`} className="border-t border-[#e6d5bc]">
-                        <td className="p-3">{spice?.canonicalName ?? p.spiceId}</td>
-                        <td className="p-3">{p.market}</td>
-                        <td className="p-3">{p.grade}</td>
-                        <td className="p-3">{p.averagePrice}</td>
-                        <td className="p-3">{p.minPrice ?? "—"}</td>
-                        <td className="p-3">{p.maxPrice ?? "—"}</td>
-                        <td className="p-3">{p.priceDate}</td>
-                        <td className="p-3 text-muted">{p.source}</td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
-            <Link href="/spice-market-prices" className="inline-block mt-6 text-nav font-semibold">Full market prices →</Link>
+            <LiveMandiPriceBoard prices={livePrices} compact />
+            <Link href="/spice-market-prices" className="inline-block mt-6 text-nav font-semibold">
+              Full live market board →
+            </Link>
           </div>
         </section>
       )}

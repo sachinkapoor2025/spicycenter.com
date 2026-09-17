@@ -905,6 +905,18 @@ Resources:
         - DynamoDBReadPolicy:
             TableName: !Ref SpiceMandiPricesTable
       Events:
+        ListLatest:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref SpicePriceHttpApi
+            Path: /prices
+            Method: GET
+        PreflightList:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref SpicePriceHttpApi
+            Path: /prices
+            Method: OPTIONS
         Latest:
           Type: HttpApi
           Properties:

@@ -43,6 +43,8 @@ export type LatestMandi = {
   commodity: string;
   modal_price: number;
   average_modal_price?: number;
+  min_price?: number;
+  max_price?: number;
   arrival_date?: string;
   fetched_at?: string;
   market_count?: number;
@@ -58,6 +60,13 @@ const FALLBACK_FX: FxCache = {
   source: "static-fallback",
 };
 
+export function mandiFieldInrPerKg(latest: LatestMandi | null, quintal: number | undefined | null): number | null {
+  if (!latest || typeof quintal !== "number" || quintal <= 0) return null;
+  const unit = String(latest.unit ?? "");
+  if (/quintal/i.test(unit) || quintal >= 400) return mandiQuintalToInrPerKg(quintal);
+  return quintal;
+}
+
 export function mandiInrPerKg(latest: LatestMandi | null, gradeKey?: string): number | null {
   if (!latest) return null;
   let quintal = latest.average_modal_price ?? latest.modal_price;
@@ -67,10 +76,7 @@ export function mandiInrPerKg(latest: LatestMandi | null, gradeKey?: string): nu
     );
     if (slice?.average_modal_price) quintal = slice.average_modal_price;
   }
-  if (typeof quintal !== "number" || quintal <= 0) return null;
-  const unit = String(latest.unit ?? "");
-  if (/quintal/i.test(unit) || quintal >= 400) return mandiQuintalToInrPerKg(quintal);
-  return quintal;
+  return mandiFieldInrPerKg(latest, quintal);
 }
 
 function feeNumber(value: unknown, fallback: number): number {
@@ -87,6 +93,15 @@ export async function getLatestMandi(slug: string): Promise<LatestMandi | null> 
   );
   if (!res.Item || typeof res.Item.modal_price !== "number") return null;
   return res.Item as LatestMandi;
+}
+
+export async function listLatestMandi(): Promise<{ slug: string; latest: LatestMandi | null }[]> {
+  return Promise.all(
+    TRACKED_COMMODITIES.map(async (c) => ({
+      slug: c.slug,
+      latest: await getLatestMandi(c.slug),
+    }))
+  );
 }
 
 export async function getMandiHistory(slug: string, from: string, to: string) {
