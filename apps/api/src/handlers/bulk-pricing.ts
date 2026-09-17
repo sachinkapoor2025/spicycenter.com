@@ -72,7 +72,7 @@ export async function previewQuote(event: APIGatewayProxyEventV2) {
   const tracked = findTrackedCommodity(input.spiceId);
   if (!tracked) return badRequest("Unknown spice. Choose a tracked bulk commodity.");
   const destParse = bulkDestinationSchema.safeParse(input.destination.toUpperCase());
-  if (!destParse.success) return badRequest("destination must be UK or EU.");
+  if (!destParse.success) return badRequest("destination must be UK, EU, US or CA.");
   const spice = await getSpicePricing(tracked.spiceId);
   if (qtyBelowMinimum(input.qtyKg, spice.min_bulk_qty_kg)) {
     return badRequest(`Minimum bulk quantity is ${spice.min_bulk_qty_kg}kg. Enter at least that amount — we do not round up.`);
@@ -100,6 +100,8 @@ export async function previewQuote(event: APIGatewayProxyEventV2) {
     agmarknetModalAvgInr: mandiKg,
     fxInrGbp: fx.inr_gbp,
     fxInrEur: fx.inr_eur,
+    fxInrUsd: fx.inr_usd,
+    fxInrCad: fx.inr_cad,
     addOns,
     sampleSelected: input.sample,
     documentationSelected: input.documentation,

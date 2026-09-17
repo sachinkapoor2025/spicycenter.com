@@ -8,15 +8,19 @@ import {
   DEFAULT_DESICCANT_FEE_STANDARD_INR,
   DEFAULT_DOCUMENTATION_FEE_EUR,
   DEFAULT_DOCUMENTATION_FEE_GBP,
+  DEFAULT_DOCUMENTATION_FEE_USD,
+  DEFAULT_DOCUMENTATION_FEE_CAD,
   DEFAULT_MARKUP_PERCENT,
   DEFAULT_SAMPLE_FEE_EUR,
   DEFAULT_SAMPLE_FEE_GBP,
+  DEFAULT_SAMPLE_FEE_USD,
+  DEFAULT_SAMPLE_FEE_CAD,
   DEFAULT_SHIPPING_INR_PER_KG_UK,
   DEFAULT_TESTING_CHARGE_INR,
 } from "../lib/agmarknet-commodities";
 import { DEFAULT_FREIGHT_TIERS } from "../lib/freight-tiers";
 
-export const bulkDestinationSchema = z.enum(["UK", "EU"]);
+export const bulkDestinationSchema = z.enum(["UK", "EU", "US", "CA"]);
 export type BulkDestination = z.infer<typeof bulkDestinationSchema>;
 
 export const spiceFormBulkSchema = z.enum(["whole", "ground"]);
@@ -71,6 +75,8 @@ export const bulkPricingSpiceSchema = z.object({
   markup_percent: z.number().min(0).max(200).default(DEFAULT_MARKUP_PERCENT),
   shipping_rate_inr_per_kg_uk: z.number().min(0).default(DEFAULT_SHIPPING_INR_PER_KG_UK),
   shipping_rate_inr_per_kg_eu: z.number().min(0).default(DEFAULT_SHIPPING_INR_PER_KG_UK),
+  shipping_rate_inr_per_kg_us: z.number().min(0).default(DEFAULT_SHIPPING_INR_PER_KG_UK),
+  shipping_rate_inr_per_kg_ca: z.number().min(0).default(DEFAULT_SHIPPING_INR_PER_KG_UK),
   clearance_charge_inr: z
     .number()
     .min(CLEARANCE_CHARGE_INR_MIN)
@@ -88,14 +94,20 @@ export type BulkPricingSpice = z.infer<typeof bulkPricingSpiceSchema>;
 export const addOnPricingSchema = z.object({
   sample_fee_gbp: z.number().min(0).default(DEFAULT_SAMPLE_FEE_GBP),
   sample_fee_eur: z.number().min(0).default(DEFAULT_SAMPLE_FEE_EUR),
+  sample_fee_usd: z.number().min(0).default(DEFAULT_SAMPLE_FEE_USD),
+  sample_fee_cad: z.number().min(0).default(DEFAULT_SAMPLE_FEE_CAD),
   documentation_handling_fee_gbp: z.number().min(0).default(DEFAULT_DOCUMENTATION_FEE_GBP),
   documentation_handling_fee_eur: z.number().min(0).default(DEFAULT_DOCUMENTATION_FEE_EUR),
+  documentation_handling_fee_usd: z.number().min(0).default(DEFAULT_DOCUMENTATION_FEE_USD),
+  documentation_handling_fee_cad: z.number().min(0).default(DEFAULT_DOCUMENTATION_FEE_CAD),
 });
 export type AddOnPricing = z.infer<typeof addOnPricingSchema>;
 
 export const fxCacheSchema = z.object({
   inr_gbp: z.number().positive(),
   inr_eur: z.number().positive(),
+  inr_usd: z.number().positive().optional(),
+  inr_cad: z.number().positive().optional(),
   fetched_at: z.string(),
   source: z.string(),
 });
@@ -126,9 +138,13 @@ export const bulkQuoteBreakdownSchema = z.object({
   moistureSensitivity: moistureSensitivitySchema,
   fxInrGbp: z.number().positive(),
   fxInrEur: z.number().positive(),
+  fxInrUsd: z.number().positive().optional(),
+  fxInrCad: z.number().positive().optional(),
   estimatedGbp: z.number(),
   estimatedEur: z.number(),
-  displayCurrency: z.enum(["GBP", "EUR"]),
+  estimatedUsd: z.number().optional(),
+  estimatedCad: z.number().optional(),
+  displayCurrency: z.enum(["GBP", "EUR", "USD", "CAD"]),
   estimatedDisplay: z.number(),
   priceSource: z.enum(["admin_override", "agmarknet_markup"]),
   sampleSelected: z.boolean(),

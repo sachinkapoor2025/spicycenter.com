@@ -10,10 +10,14 @@ import {
   DEFAULT_DESICCANT_FEE_STANDARD_INR,
   DEFAULT_DOCUMENTATION_FEE_EUR,
   DEFAULT_DOCUMENTATION_FEE_GBP,
+  DEFAULT_DOCUMENTATION_FEE_USD,
+  DEFAULT_DOCUMENTATION_FEE_CAD,
   DEFAULT_FREIGHT_TIERS,
   DEFAULT_MARKUP_PERCENT,
   DEFAULT_SAMPLE_FEE_EUR,
   DEFAULT_SAMPLE_FEE_GBP,
+  DEFAULT_SAMPLE_FEE_USD,
+  DEFAULT_SAMPLE_FEE_CAD,
   DEFAULT_SHIPPING_INR_PER_KG_UK,
   DEFAULT_TESTING_CHARGE_INR,
   findTrackedCommodity,
@@ -56,6 +60,8 @@ export type LatestMandi = {
 const FALLBACK_FX: FxCache = {
   inr_gbp: 0.009,
   inr_eur: 0.0105,
+  inr_usd: 0.012,
+  inr_cad: 0.016,
   fetched_at: "1970-01-01T00:00:00.000Z",
   source: "static-fallback",
 };
@@ -132,9 +138,13 @@ export async function getCachedFx(): Promise<FxCache> {
     const gbp = Number(res.Item?.inr_gbp);
     const eur = Number(res.Item?.inr_eur);
     if (gbp > 0 && eur > 0) {
+      const usd = Number(res.Item?.inr_usd);
+      const cad = Number(res.Item?.inr_cad);
       return {
         inr_gbp: gbp,
         inr_eur: eur,
+        inr_usd: usd > 0 ? usd : FALLBACK_FX.inr_usd,
+        inr_cad: cad > 0 ? cad : FALLBACK_FX.inr_cad,
         fetched_at: String(res.Item?.fetched_at ?? ""),
         source: String(res.Item?.source ?? "cache"),
       };
@@ -155,6 +165,8 @@ function defaultSpicePricing(spiceId: string): BulkPricingSpice {
     markup_percent: DEFAULT_MARKUP_PERCENT,
     shipping_rate_inr_per_kg_uk: DEFAULT_SHIPPING_INR_PER_KG_UK,
     shipping_rate_inr_per_kg_eu: DEFAULT_SHIPPING_INR_PER_KG_UK,
+    shipping_rate_inr_per_kg_us: DEFAULT_SHIPPING_INR_PER_KG_UK,
+    shipping_rate_inr_per_kg_ca: DEFAULT_SHIPPING_INR_PER_KG_UK,
     clearance_charge_inr: DEFAULT_CLEARANCE_CHARGE_INR,
     testing_charge_inr: DEFAULT_TESTING_CHARGE_INR,
     min_bulk_qty_kg: DEFAULT_BULK_MIN_QTY_KG,
@@ -229,6 +241,10 @@ export async function getAddOnPricing(): Promise<AddOnPricing> {
     sample_fee_eur: feeNumber(item.sample_fee_eur, DEFAULT_SAMPLE_FEE_EUR),
     documentation_handling_fee_gbp: feeNumber(item.documentation_handling_fee_gbp, DEFAULT_DOCUMENTATION_FEE_GBP),
     documentation_handling_fee_eur: feeNumber(item.documentation_handling_fee_eur, DEFAULT_DOCUMENTATION_FEE_EUR),
+    sample_fee_usd: feeNumber(item.sample_fee_usd, DEFAULT_SAMPLE_FEE_USD),
+    sample_fee_cad: feeNumber(item.sample_fee_cad, DEFAULT_SAMPLE_FEE_CAD),
+    documentation_handling_fee_usd: feeNumber(item.documentation_handling_fee_usd, DEFAULT_DOCUMENTATION_FEE_USD),
+    documentation_handling_fee_cad: feeNumber(item.documentation_handling_fee_cad, DEFAULT_DOCUMENTATION_FEE_CAD),
   });
 }
 

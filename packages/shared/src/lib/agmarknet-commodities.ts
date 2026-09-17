@@ -19,6 +19,10 @@ export const DEFAULT_SAMPLE_FEE_GBP = 29;
 export const DEFAULT_DOCUMENTATION_FEE_GBP = 29;
 export const DEFAULT_SAMPLE_FEE_EUR = 11;
 export const DEFAULT_DOCUMENTATION_FEE_EUR = 34;
+export const DEFAULT_SAMPLE_FEE_USD = 39;
+export const DEFAULT_DOCUMENTATION_FEE_USD = 39;
+export const DEFAULT_SAMPLE_FEE_CAD = 49;
+export const DEFAULT_DOCUMENTATION_FEE_CAD = 49;
 export const CLEARANCE_CHARGE_INR_MIN = 10000;
 export const CLEARANCE_CHARGE_INR_MAX = 20000;
 
@@ -124,3 +128,9 @@ export function isIsoDate(value: string): boolean {
 
 export const BULK_QUOTE_DISCLAIMER =
   "Indicative estimate based on today's reference pricing. UK import duty (0-8%, payable by importer) not included. Final quote confirmed by our team. Reference pricing sourced from Agmarknet/data.gov.in and not independently verified.";
+
+export const BULK_QUOTE_DISCLAIMER_US =
+  "Indicative estimate based on today's reference pricing. US import duty, FDA Prior Notice and USDA/APHIS entry (payable or arranged by the importer) are not included. Final quote confirmed by our team. The cargo is never charged online — this form creates an enquiry. Reference pricing sourced from Agmarknet/data.gov.in and not independently verified.";
+
+export const BULK_QUOTE_DISCLAIMER_CA =
+  "Indicative estimate based on today's reference pricing. Canadian import duty and CFIA plant-product entry (payable or arranged by the importer) are not included. Final quote confirmed by our team. The cargo is never charged online — this form creates an enquiry. Reference pricing sourced from Agmarknet/data.gov.in and not independently verified.";

@@ -88,7 +88,9 @@ export default function AdminBulkPricingPage() {
       </p>
       {fx && (
         <p className="text-xs mt-2">
-          FX cache: 1 INR = {fx.inr_gbp} GBP / {fx.inr_eur} EUR ({fx.source}, {fx.fetched_at})
+          FX cache: 1 INR = {fx.inr_gbp} GBP / {fx.inr_eur} EUR
+          {fx.inr_usd ? ` / ${fx.inr_usd} USD` : ""}
+          {fx.inr_cad ? ` / ${fx.inr_cad} CAD` : ""} ({fx.source}, {fx.fetched_at})
         </p>
       )}
       <button type="button" className="mt-4 rounded bg-nav text-white px-3 py-1.5 text-sm" onClick={() => void runFetch()}>
@@ -104,8 +106,12 @@ export default function AdminBulkPricingPage() {
               [
                 ["sample_fee_gbp", "Sample GBP"],
                 ["sample_fee_eur", "Sample EUR"],
+                ["sample_fee_usd", "Sample USD"],
+                ["sample_fee_cad", "Sample CAD"],
                 ["documentation_handling_fee_gbp", "Docs GBP"],
                 ["documentation_handling_fee_eur", "Docs EUR"],
+                ["documentation_handling_fee_usd", "Docs USD"],
+                ["documentation_handling_fee_cad", "Docs CAD"],
               ] as const
             ).map(([key, label]) => (
               <label key={key}>
@@ -262,6 +268,36 @@ export default function AdminBulkPricingPage() {
                   setSpices((rows) =>
                     rows.map((r) =>
                       r.spice_id === s.spice_id ? { ...r, shipping_rate_inr_per_kg_eu: Number(e.target.value) } : r
+                    )
+                  )
+                }
+              />
+            </label>
+            <label>
+              Ship US INR/kg
+              <input
+                type="number"
+                className="w-full border rounded px-2 py-1 mt-1"
+                value={s.shipping_rate_inr_per_kg_us ?? s.shipping_rate_inr_per_kg_uk}
+                onChange={(e) =>
+                  setSpices((rows) =>
+                    rows.map((r) =>
+                      r.spice_id === s.spice_id ? { ...r, shipping_rate_inr_per_kg_us: Number(e.target.value) } : r
+                    )
+                  )
+                }
+              />
+            </label>
+            <label>
+              Ship Canada INR/kg
+              <input
+                type="number"
+                className="w-full border rounded px-2 py-1 mt-1"
+                value={s.shipping_rate_inr_per_kg_ca ?? s.shipping_rate_inr_per_kg_uk}
+                onChange={(e) =>
+                  setSpices((rows) =>
+                    rows.map((r) =>
+                      r.spice_id === s.spice_id ? { ...r, shipping_rate_inr_per_kg_ca: Number(e.target.value) } : r
                     )
                   )
                 }

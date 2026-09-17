@@ -6,15 +6,27 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { api } from "@/lib/api";
 import {
   TRACKED_COMMODITIES,
-  BULK_QUOTE_DISCLAIMER,
   BULK_ODOR_SEGREGATION_NOTE,
-  BULK_SHIPPING_ADVICE_CLOSER,
+  BULK_DESTINATIONS,
+  DEFAULT_DOCUMENTATION_FEE_CAD,
   DEFAULT_DOCUMENTATION_FEE_EUR,
   DEFAULT_DOCUMENTATION_FEE_GBP,
+  DEFAULT_DOCUMENTATION_FEE_USD,
+  DEFAULT_SAMPLE_FEE_CAD,
   DEFAULT_SAMPLE_FEE_EUR,
   DEFAULT_SAMPLE_FEE_GBP,
+  DEFAULT_SAMPLE_FEE_USD,
+  addOnFeesForDestination,
+  bulkDestinationFromCountry,
+  bulkDisplayCurrency,
+  bulkQuoteDisclaimer,
+  bulkShippingAdviceCloser,
   computeBulkQuote,
+  isoCountryForBulkDestination,
+  isNorthAmericaBulk,
+  shippingRateInrPerKg,
   type AddOnPricing,
+  type BulkDestination,
   type BulkPricingSpice,
   type BulkQuoteResult,
   type FreightTiersConfig,
@@ -44,13 +56,14 @@ type QuoteResponse = {
   freightTiers?: FreightTiersConfig;
   mandiInrPerKg?: number | null;
   minQtyKg: number;
-  fx: { inr_gbp: number; inr_eur: number; source: string; fetched_at: string };
+  fx: { inr_gbp: number; inr_eur: number; inr_usd?: number; inr_cad?: number; source: string; fetched_at: string };
   grades?: GradeSlice[];
 };
 
-function money(n: number, currency: "GBP" | "EUR" | "INR") {
+function money(n: number, currency: "GBP" | "EUR" | "INR" | "USD" | "CAD") {
   if (currency === "INR") return `₹${n.toLocaleString("en-IN", { maximumFractionDigits: 0 })}`;
-  return new Intl.NumberFormat(currency === "GBP" ? "en-GB" : "en-IE", {
+  const locale = currency === "GBP" ? "en-GB" : currency === "EUR" ? "en-IE" : currency === "CAD" ? "en-CA" : "en-US";
+  return new Intl.NumberFormat(locale, {
     style: "currency",
     currency,
   }).format(n);
@@ -63,7 +76,7 @@ export function BulkEnquiryForm() {
   const [spiceQuery, setSpiceQuery] = useState("");
   const [qtyUnit, setQtyUnit] = useState<QtyUnit>("kg");
   const [qtyInput, setQtyInput] = useState("");
-  const [destination, setDestination] = useState<"UK" | "EU">("UK");
+  const [destination, setDestination] = useState<BulkDestination>("UK");
   const [sampleSelected, setSampleSelected] = useState(false);
   const [documentationSelected, setDocumentationSelected] = useState(false);
   const [gradeKey, setGradeKey] = useState("");
@@ -122,6 +135,24 @@ export function BulkEnquiryForm() {
 
   useEffect(() => {
     let cancelled = false;
+    fetch("/api/geo")
+      .then((r) => r.json())
+      .then((geo: { country?: string }) => {
+        if (cancelled) return;
+        const dest = bulkDestinationFromCountry(geo.country);
+        if (!dest) return;
+        setDestination(dest);
+        setCountry(isoCountryForBulkDestination(dest));
+        if (isNorthAmericaBulk(dest)) setQtyUnit("lb");
+      })
+      .catch(() => undefined);
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
     setLoadingQuote(true);
     setQuoteError("");
     const body = JSON.stringify({ spiceId, qtyKg: 100, destination: "UK" });
@@ -153,23 +184,27 @@ export function BulkEnquiryForm() {
   const mandiKg =
     (gradeKey ? selectedGrade?.inr_per_kg : undefined) ?? quotePack?.mandiInrPerKg ?? null;
 
-  const displayCurrency = destination === "UK" ? "GBP" : "EUR";
+  const displayCurrency = bulkDisplayCurrency(destination);
   const quoteAddOns: AddOnPricing = {
     sample_fee_gbp:
       quotePack?.addOns?.sample_fee_gbp === 9
         ? DEFAULT_SAMPLE_FEE_GBP
         : quotePack?.addOns?.sample_fee_gbp ?? DEFAULT_SAMPLE_FEE_GBP,
     sample_fee_eur: quotePack?.addOns?.sample_fee_eur ?? DEFAULT_SAMPLE_FEE_EUR,
+    sample_fee_usd: quotePack?.addOns?.sample_fee_usd ?? DEFAULT_SAMPLE_FEE_USD,
+    sample_fee_cad: quotePack?.addOns?.sample_fee_cad ?? DEFAULT_SAMPLE_FEE_CAD,
     documentation_handling_fee_gbp:
       quotePack?.addOns?.documentation_handling_fee_gbp ?? DEFAULT_DOCUMENTATION_FEE_GBP,
     documentation_handling_fee_eur:
       quotePack?.addOns?.documentation_handling_fee_eur ?? DEFAULT_DOCUMENTATION_FEE_EUR,
+    documentation_handling_fee_usd:
+      quotePack?.addOns?.documentation_handling_fee_usd ?? DEFAULT_DOCUMENTATION_FEE_USD,
+    documentation_handling_fee_cad:
+      quotePack?.addOns?.documentation_handling_fee_cad ?? DEFAULT_DOCUMENTATION_FEE_CAD,
   };
-  const sampleFee = displayCurrency === "GBP" ? quoteAddOns.sample_fee_gbp : quoteAddOns.sample_fee_eur;
-  const docFee =
-    displayCurrency === "GBP"
-      ? quoteAddOns.documentation_handling_fee_gbp
-      : quoteAddOns.documentation_handling_fee_eur;
+  const addOnFees = addOnFeesForDestination(quoteAddOns, destination);
+  const sampleFee = addOnFees.sample;
+  const docFee = addOnFees.documentation;
 
   const quote = useMemo(() => {
     if (!quotePack?.spice || !quotePack.fx || qtyKg <= 0) return undefined;
@@ -180,6 +215,8 @@ export function BulkEnquiryForm() {
       agmarknetModalAvgInr: mandiKg,
       fxInrGbp: quotePack.fx.inr_gbp,
       fxInrEur: quotePack.fx.inr_eur,
+      fxInrUsd: quotePack.fx.inr_usd,
+      fxInrCad: quotePack.fx.inr_cad,
       addOns: quoteAddOns,
       sampleSelected,
       documentationSelected,
@@ -336,21 +373,29 @@ export function BulkEnquiryForm() {
           <p className="text-xs text-muted mt-1">{qtyKg.toFixed(1)} kg used for the quote</p>
         )}
         {qtyError && <p className="text-red-600 text-sm mt-2">{qtyError}</p>}
-        <div className="flex gap-3 mt-4">
-          {(["UK", "EU"] as const).map((d) => (
+        <div className="flex flex-wrap gap-2 mt-4">
+          {BULK_DESTINATIONS.map((d) => (
             <button
-              key={d}
+              key={d.id}
               type="button"
               onClick={() => {
-                setDestination(d);
-                setCountry(d === "UK" ? "GB" : "DE");
+                setDestination(d.id);
+                setCountry(d.iso);
+                if (isNorthAmericaBulk(d.id)) setQtyUnit("lb");
               }}
-              className={`rounded-lg border px-4 py-2 ${destination === d ? "bg-nav text-white border-nav" : ""}`}
+              className={`rounded-lg border px-4 py-2 ${destination === d.id ? "bg-nav text-white border-nav" : ""}`}
             >
-              Deliver to {d}
+              Deliver to {d.label}
             </button>
           ))}
         </div>
+        {isNorthAmericaBulk(destination) && (
+          <p className="text-xs text-muted mt-2">
+            US and Canada bulk orders are handled as an enquiry. Indian spice cost stays the same; ocean freight,
+            phytosanitary paperwork and importer-side customs are quoted for North America. The cargo is never charged
+            online.
+          </p>
+        )}
       </section>
 
       <section className="card-spice p-6">
@@ -411,11 +456,7 @@ export function BulkEnquiryForm() {
                   Shipping ({destination})
                   <span className="block text-xs text-muted font-normal">
                     {money(
-                      (quotePack?.spice
-                        ? destination === "UK"
-                          ? quotePack.spice.shipping_rate_inr_per_kg_uk
-                          : quotePack.spice.shipping_rate_inr_per_kg_eu
-                        : quote.shippingCostInr / (quote.qtyKg || qtyKg || 1)) ?? 0,
+                      quotePack?.spice ? shippingRateInrPerKg(quotePack.spice, destination) : quote.shippingCostInr / (quote.qtyKg || qtyKg || 1),
                       "INR"
                     )}
                     /kg × {qtyKg.toLocaleString("en-IN", { maximumFractionDigits: 1 })} kg
@@ -469,7 +510,9 @@ export function BulkEnquiryForm() {
           </div>
         </div>
         <p className="text-xs text-muted mt-3">
-          Add-on fees go to checkout if selected. The bulk spice cost is never charged online.
+          {isNorthAmericaBulk(destination)
+            ? "Add-ons are noted on your enquiry. We do not take cargo or add-on payment online for US/Canada bulk — our team confirms the quote."
+            : "Add-on fees go to checkout if selected. The bulk spice cost is never charged online."}
         </p>
       </section>
 
@@ -478,12 +521,12 @@ export function BulkEnquiryForm() {
           <h2 className="font-serif text-2xl text-primary">Our shipping advice</h2>
           <p className="text-sm text-muted mt-3 leading-relaxed">{quote.advisoryNote}</p>
           <p className="text-sm text-muted mt-3 leading-relaxed">{BULK_ODOR_SEGREGATION_NOTE}</p>
-          <p className="text-sm text-muted mt-3 leading-relaxed">{BULK_SHIPPING_ADVICE_CLOSER}</p>
-          <p className="text-xs text-muted mt-4 leading-relaxed">{BULK_QUOTE_DISCLAIMER}</p>
+          <p className="text-sm text-muted mt-3 leading-relaxed">{bulkShippingAdviceCloser(destination)}</p>
+          <p className="text-xs text-muted mt-4 leading-relaxed">{bulkQuoteDisclaimer(destination)}</p>
         </section>
       )}
       {!(quote && quote.pricingAvailable && qtyKg >= (quotePack?.minQtyKg ?? 100)) && (
-        <p className="text-xs text-muted leading-relaxed">{BULK_QUOTE_DISCLAIMER}</p>
+        <p className="text-xs text-muted leading-relaxed">{bulkQuoteDisclaimer(destination)}</p>
       )}
 
       <section>
@@ -494,7 +537,7 @@ export function BulkEnquiryForm() {
           <input required className="border rounded-lg px-3 py-2" placeholder="Phone *" value={phone} onChange={(e) => setPhone(e.target.value)} />
           <input required className="border rounded-lg px-3 py-2" placeholder="Country *" value={country} onChange={(e) => setCountry(e.target.value)} />
           <input className="border rounded-lg px-3 py-2" placeholder="Company (optional)" value={companyName} onChange={(e) => setCompanyName(e.target.value)} />
-          <input className="border rounded-lg px-3 py-2" placeholder="VAT / EORI (optional)" value={vatEori} onChange={(e) => setVatEori(e.target.value)} />
+          <input className="border rounded-lg px-3 py-2" placeholder={isNorthAmericaBulk(destination) ? "EIN / tax ID (optional)" : "VAT / EORI (optional)"} value={vatEori} onChange={(e) => setVatEori(e.target.value)} />
         </div>
         <textarea className="w-full border rounded-lg px-3 py-2 mt-3" rows={2} placeholder="Delivery address (optional)" value={deliveryAddress} onChange={(e) => setDeliveryAddress(e.target.value)} />
         <textarea className="w-full border rounded-lg px-3 py-2 mt-3" rows={3} placeholder="Notes (optional)" value={notes} onChange={(e) => setNotes(e.target.value)} />
@@ -511,7 +554,13 @@ export function BulkEnquiryForm() {
 
       {submitError && <p className="text-red-600 text-sm">{submitError}</p>}
       <button type="submit" disabled={submitting || Boolean(qtyError)} className="btn-primary disabled:opacity-50">
-        {submitting ? "Submitting…" : sampleSelected || documentationSelected ? "Continue to add-on payment" : "Confirm enquiry"}
+        {submitting
+          ? "Submitting…"
+          : isNorthAmericaBulk(destination)
+            ? "Send bulk enquiry"
+            : sampleSelected || documentationSelected
+              ? "Continue to add-on payment"
+              : "Confirm enquiry"}
       </button>
       <p className="text-xs text-muted">
         Need a smaller restaurant bag? Use the{" "}

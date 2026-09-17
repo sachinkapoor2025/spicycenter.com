@@ -11,6 +11,8 @@ const spice: BulkPricingSpice = {
   markup_percent: 10,
   shipping_rate_inr_per_kg_uk: 750,
   shipping_rate_inr_per_kg_eu: 800,
+  shipping_rate_inr_per_kg_us: 750,
+  shipping_rate_inr_per_kg_ca: 780,
   clearance_charge_inr: 15000,
   testing_charge_inr: 6000,
   min_bulk_qty_kg: 100,
@@ -23,8 +25,12 @@ const spice: BulkPricingSpice = {
 const addOns: AddOnPricing = {
   sample_fee_gbp: 9,
   sample_fee_eur: 11,
+  sample_fee_usd: 39,
+  sample_fee_cad: 49,
   documentation_handling_fee_gbp: 29,
   documentation_handling_fee_eur: 34,
+  documentation_handling_fee_usd: 39,
+  documentation_handling_fee_cad: 49,
 };
 
 describe("customerUnitPriceInrPerKg", () => {
@@ -227,6 +233,41 @@ describe("computeBulkQuote", () => {
       documentationSelected: false,
     });
     assert.equal(q.pricingAvailable, false);
+  });
+
+  it("keeps the same Indian spice cost for a US enquiry and quotes in USD", () => {
+    const uk = computeBulkQuote({
+      spice,
+      qtyKg: 100,
+      destination: "UK",
+      agmarknetModalAvgInr: 200,
+      fxInrGbp: 0.01,
+      fxInrEur: 0.011,
+      fxInrUsd: 0.012,
+      fxInrCad: 0.016,
+      addOns,
+      sampleSelected: false,
+      documentationSelected: false,
+    });
+    const us = computeBulkQuote({
+      spice,
+      qtyKg: 100,
+      destination: "US",
+      agmarknetModalAvgInr: 200,
+      fxInrGbp: 0.01,
+      fxInrEur: 0.011,
+      fxInrUsd: 0.012,
+      fxInrCad: 0.016,
+      addOns,
+      sampleSelected: false,
+      documentationSelected: false,
+    });
+    assert.equal(uk.pricingAvailable && us.pricingAvailable, true);
+    if (!uk.pricingAvailable || !us.pricingAvailable) return;
+    assert.equal(us.spiceCostInr, uk.spiceCostInr);
+    assert.equal(us.displayCurrency, "USD");
+    assert.equal(us.estimatedUsd, 540);
+    assert.equal(us.estimatedDisplay, 540);
   });
 });
 

@@ -12,6 +12,11 @@ import {
   DEFAULT_DESICCANT_FEE_HIGH_INR,
   DEFAULT_DESICCANT_FEE_STANDARD_INR,
 } from "./agmarknet-commodities";
+import {
+  addOnFeesForDestination,
+  bulkDisplayCurrency,
+  shippingRateInrPerKg,
+} from "./bulk-destination";
 import { DEFAULT_FREIGHT_TIERS, recommendContainer } from "./freight-tiers";
 
 export function roundQuoteMoney(n: number, dp = 2): number {
@@ -57,6 +62,8 @@ export function computeBulkQuote(opts: {
   agmarknetModalAvgInr?: number | null;
   fxInrGbp: number;
   fxInrEur: number;
+  fxInrUsd?: number;
+  fxInrCad?: number;
   addOns: AddOnPricing;
   sampleSelected: boolean;
   documentationSelected: boolean;
@@ -84,28 +91,40 @@ export function computeBulkQuote(opts: {
   const freightTiers = opts.freightTiers ?? DEFAULT_FREIGHT_TIERS;
   const moistureTreatmentInr = moistureFeeInr(moistureSensitivity, moisturePricing);
 
-  const shippingRate =
-    opts.destination === "UK"
-      ? opts.spice.shipping_rate_inr_per_kg_uk
-      : opts.spice.shipping_rate_inr_per_kg_eu;
+  const shippingRate = shippingRateInrPerKg(opts.spice, opts.destination);
   const spiceCostInr = priced.unit * opts.qtyKg;
   const shippingCostInr = shippingRate * opts.qtyKg;
   const clearanceChargeInr = opts.spice.clearance_charge_inr;
   const testingChargeInr = opts.spice.testing_charge_inr;
   /** INR goods subtotal before FX — spice, clearance, testing, moisture. Shipping is converted separately. */
   const subtotalInr = spiceCostInr + clearanceChargeInr + testingChargeInr + moistureTreatmentInr;
+  const fxInrUsd = opts.fxInrUsd && opts.fxInrUsd > 0 ? opts.fxInrUsd : 0.012;
+  const fxInrCad = opts.fxInrCad && opts.fxInrCad > 0 ? opts.fxInrCad : 0.016;
   const estimatedGbp = subtotalInr * opts.fxInrGbp;
   const estimatedEur = subtotalInr * opts.fxInrEur;
-  const displayCurrency = opts.destination === "UK" ? "GBP" : "EUR";
-  const fx = displayCurrency === "GBP" ? opts.fxInrGbp : opts.fxInrEur;
-  const estimatedDisplay = displayCurrency === "GBP" ? estimatedGbp : estimatedEur;
-  const shippingCostDisplay = shippingCostInr * fx;
-  const sampleFeeDisplay =
-    displayCurrency === "GBP" ? opts.addOns.sample_fee_gbp : opts.addOns.sample_fee_eur;
-  const documentationFeeDisplay =
+  const estimatedUsd = subtotalInr * fxInrUsd;
+  const estimatedCad = subtotalInr * fxInrCad;
+  const displayCurrency = bulkDisplayCurrency(opts.destination);
+  const fx =
     displayCurrency === "GBP"
-      ? opts.addOns.documentation_handling_fee_gbp
-      : opts.addOns.documentation_handling_fee_eur;
+      ? opts.fxInrGbp
+      : displayCurrency === "EUR"
+        ? opts.fxInrEur
+        : displayCurrency === "CAD"
+          ? fxInrCad
+          : fxInrUsd;
+  const estimatedDisplay =
+    displayCurrency === "GBP"
+      ? estimatedGbp
+      : displayCurrency === "EUR"
+        ? estimatedEur
+        : displayCurrency === "CAD"
+          ? estimatedCad
+          : estimatedUsd;
+  const shippingCostDisplay = shippingCostInr * fx;
+  const addOnFees = addOnFeesForDestination(opts.addOns, opts.destination);
+  const sampleFeeDisplay = addOnFees.sample;
+  const documentationFeeDisplay = addOnFees.documentation;
   const addOnsTotalDisplay =
     (opts.sampleSelected ? sampleFeeDisplay : 0) +
     (opts.documentationSelected ? documentationFeeDisplay : 0);
@@ -126,8 +145,12 @@ export function computeBulkQuote(opts: {
     subtotalInr: roundQuoteMoney(subtotalInr),
     fxInrGbp: opts.fxInrGbp,
     fxInrEur: opts.fxInrEur,
+    fxInrUsd,
+    fxInrCad,
     estimatedGbp: roundQuoteMoney(estimatedGbp),
     estimatedEur: roundQuoteMoney(estimatedEur),
+    estimatedUsd: roundQuoteMoney(estimatedUsd),
+    estimatedCad: roundQuoteMoney(estimatedCad),
     displayCurrency,
     estimatedDisplay: roundQuoteMoney(estimatedDisplay),
     priceSource: priced.source,

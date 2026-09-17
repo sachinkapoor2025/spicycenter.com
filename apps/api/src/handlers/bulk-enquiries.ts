@@ -2,12 +2,13 @@ import { GetCommand, PutCommand, QueryCommand, ScanCommand, UpdateCommand } from
 import type { APIGatewayProxyEventV2 } from "aws-lambda";
 import Stripe from "stripe";
 import {
-  BULK_QUOTE_DISCLAIMER,
   bulkDestinationSchema,
   bulkEnquiryContactSchema,
   bulkEnquiryKeys,
+  bulkQuoteDisclaimer,
   computeBulkQuote,
   findTrackedCommodity,
+  isNorthAmericaBulk,
   qtyBelowMinimum,
   type BulkEnquiryStatus,
   type BulkQuoteBreakdown,
@@ -38,7 +39,7 @@ export type BulkEnquiryRecord = {
   spiceId: string;
   spiceName: string;
   qtyKg: number;
-  destination: "UK" | "EU";
+  destination: "UK" | "EU" | "US" | "CA";
   quote: BulkQuoteBreakdown | { pricingAvailable: false; message: string };
   contact: Record<string, string | undefined>;
   sampleSelected: boolean;
@@ -93,7 +94,7 @@ function quoteText(q: BulkEnquiryRecord["quote"]): string {
       : "Add-ons: none",
     `Grand total (${q.displayCurrency}): ${q.grandTotalDisplay}`,
     q.advisoryNote ? `Shipping advice: ${q.advisoryNote}` : "",
-    BULK_QUOTE_DISCLAIMER,
+    bulkQuoteDisclaimer(q.destination),
   ]
     .filter(Boolean)
     .join("\n");
@@ -130,7 +131,7 @@ export async function createBulkEnquiry(event: APIGatewayProxyEventV2) {
   const tracked = findTrackedCommodity(String(body.spiceId ?? body.commodity ?? ""));
   if (!tracked) return badRequest("Unknown spice.");
   const dest = bulkDestinationSchema.safeParse(String(body.destination ?? "UK").toUpperCase());
-  if (!dest.success) return badRequest("destination must be UK or EU.");
+  if (!dest.success) return badRequest("destination must be UK, EU, US or CA.");
   const qtyKg = Number(body.qtyKg);
   const spice = await getSpicePricing(tracked.spiceId);
   if (qtyBelowMinimum(qtyKg, spice.min_bulk_qty_kg)) {
@@ -155,6 +156,8 @@ export async function createBulkEnquiry(event: APIGatewayProxyEventV2) {
     agmarknetModalAvgInr: mandiInrPerKg(latest, gradeKey || undefined),
     fxInrGbp: fx.inr_gbp,
     fxInrEur: fx.inr_eur,
+    fxInrUsd: fx.inr_usd,
+    fxInrCad: fx.inr_cad,
     addOns,
     sampleSelected,
     documentationSelected,
@@ -181,8 +184,8 @@ export async function createBulkEnquiry(event: APIGatewayProxyEventV2) {
     contact: contactParse.data,
     sampleSelected,
     documentationSelected,
-    paymentStatus: addOnsWanted ? "pending" : "none",
-    disclaimer: BULK_QUOTE_DISCLAIMER,
+    paymentStatus: addOnsWanted && !isNorthAmericaBulk(dest.data) ? "pending" : "none",
+    disclaimer: bulkQuoteDisclaimer(dest.data),
   };
   await saveEnquiry(item);
   try {
@@ -191,7 +194,7 @@ export async function createBulkEnquiry(event: APIGatewayProxyEventV2) {
     console.error("Bulk enquiry email failed", err);
   }
 
-  if (!addOnsWanted) {
+  if (isNorthAmericaBulk(dest.data) || !addOnsWanted) {
     return created({ enquiryId: id, status: "new", requiresPayment: false, quote });
   }
   if (!quote.pricingAvailable) {
