@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { HubBreadcrumbs } from "@/components/HubBreadcrumbs";
 import { pageMetadata } from "@/lib/seo";
 import { FOOD_FAMILIES, getFoodFamily } from "@/lib/food-families";
 import { FreeEnquiryCtas } from "@/components/FreeEnquiryCtas";
@@ -31,6 +32,13 @@ export default async function FoodFamilyPage({ params }: Props) {
   if (!item) notFound();
   return (
     <div className="max-w-3xl mx-auto px-4 py-10">
+      <HubBreadcrumbs
+        items={[
+          { name: "Home", path: "/" },
+          { name: "Food sourcing", path: "/food" },
+          { name: item.name, path: `/food/${family}` },
+        ]}
+      />
       <p className="spice-kicker">
         <Link href="/food" className="text-nav">
           Food families

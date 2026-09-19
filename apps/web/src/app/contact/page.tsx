@@ -5,8 +5,8 @@ import { JsonLd } from "@/components/JsonLd";
 import { ContactForm } from "./ContactForm";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Contact Us — spice Delivery Support",
-  description: `Contact ${site.name} for spice delivery support, order help, and spice inquiries. ${site.supportEmail}`,
+  title: "Contact Us — retail support and wholesale sourcing",
+  description: `Contact ${site.name} for order help, or send a free wholesale / export enquiry. ${site.supportEmail}`,
   path: "/contact",
 });
 

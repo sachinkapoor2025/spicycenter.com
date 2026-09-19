@@ -13,6 +13,12 @@ type Enquiry = {
   createdAt: string;
   contact?: { fullName?: string; email?: string };
   paymentStatus?: string;
+  attribution?: {
+    attrFirstSource?: string;
+    attrFirstMedium?: string;
+    attrFirstCampaign?: string;
+    landingPage?: string;
+  };
 };
 
 const STATUSES = [
@@ -54,7 +60,11 @@ export default function AdminWholesalePage() {
     <div className="p-6">
       <h1 className="text-2xl font-semibold">Wholesale / bulk enquiries</h1>
       <p className="text-sm text-slate-600 mt-2">
-        Filter by status.{" "}
+        100kg+ bulk cargo enquiries. 10kg wholesale form submissions land in{" "}
+        <Link href="/admin/boost-sales?tab=leads" className="text-nav">
+          Boost Sales → Leads
+        </Link>{" "}
+        (source wholesale).{" "}
         <Link href="/admin/bulk-pricing" className="text-nav">
           Edit bulk pricing
         </Link>
@@ -77,6 +87,12 @@ export default function AdminWholesalePage() {
               {r.contact?.fullName} · {r.contact?.email} · {r.paymentStatus ?? "no add-on payment"}
             </p>
             <p className="text-slate-500">{r.createdAt}</p>
+            {(r.attribution?.landingPage || r.attribution?.attrFirstSource) && (
+              <p className="text-xs text-slate-500 mt-1">
+                First-touch: {r.attribution.attrFirstSource ?? "—"}/{r.attribution.attrFirstMedium ?? "—"}{" "}
+                {r.attribution.attrFirstCampaign ?? ""} · {r.attribution.landingPage ?? ""}
+              </p>
+            )}
             <select
               className="mt-2 border rounded px-2 py-1"
               value={r.status}

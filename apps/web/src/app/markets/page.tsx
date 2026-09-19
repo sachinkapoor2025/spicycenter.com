@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { HubBreadcrumbs } from "@/components/HubBreadcrumbs";
 import { pageMetadata } from "@/lib/seo";
 import { loadKeywordMarkets, loadKeywordUniverseMeta } from "@/lib/keyword-universe";
 
@@ -15,6 +16,7 @@ export default function MarketsIndexPage() {
   const meta = loadKeywordUniverseMeta();
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
+      <HubBreadcrumbs items={[{ name: "Home", path: "/" }, { name: "Export markets", path: "/markets" }]} />
       <p className="spice-kicker">B2B sourcing</p>
       <h1 className="spice-heading text-4xl mt-2">Export markets</h1>
       <p className="mt-4 text-muted max-w-3xl leading-relaxed">

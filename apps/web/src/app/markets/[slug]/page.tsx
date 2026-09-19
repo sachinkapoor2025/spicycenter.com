@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { HubBreadcrumbs } from "@/components/HubBreadcrumbs";
 import { canonical, pageMetadata } from "@/lib/seo";
 import { FreeEnquiryCtas } from "@/components/FreeEnquiryCtas";
 import { WholesaleQuoteForm } from "@/components/WholesaleQuoteForm";
@@ -72,6 +73,13 @@ export default async function MarketPage({ params }: Props) {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
+      <HubBreadcrumbs
+        items={[
+          { name: "Home", path: "/" },
+          { name: "Export markets", path: "/markets" },
+          { name: market.name, path: `/markets/${slug}` },
+        ]}
+      />
       <p className="spice-kicker">
         <Link href="/markets" className="text-nav">
           Export markets

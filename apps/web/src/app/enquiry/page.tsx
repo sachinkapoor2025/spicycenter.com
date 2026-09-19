@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { HubBreadcrumbs } from "@/components/HubBreadcrumbs";
 import { pageMetadata } from "@/lib/seo";
 import { WholesaleQuoteForm } from "@/components/WholesaleQuoteForm";
 
@@ -18,6 +19,7 @@ export default async function EnquiryPage({
   const { product = "", country = "" } = await searchParams;
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
+      <HubBreadcrumbs items={[{ name: "Home", path: "/" }, { name: "Free enquiry", path: "/enquiry" }]} />
       <p className="spice-kicker">B2B enquiry</p>
       <h1 className="spice-heading text-4xl mt-2">Free sourcing enquiry</h1>
       <p className="mt-4 text-muted leading-relaxed">

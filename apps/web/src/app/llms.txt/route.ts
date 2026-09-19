@@ -1,10 +1,10 @@
 import { SOCIAL_LINKS } from "@spicycorner/shared";
 import { site, faqs, exploreCategories } from "@/lib/site";
 import { siteUrl } from "@/lib/env";
-import { loadSpiceEntities } from "@/lib/spice-data";
+import { loadPublishedSpiceEntities } from "@/lib/spice-data";
 
 export async function GET() {
-  const spices = loadSpiceEntities()
+  const spices = loadPublishedSpiceEntities()
     .map((s) => `- ${s.canonicalName}${s.botanicalName ? ` (${s.botanicalName})` : ""}: ${siteUrl}/spice-guide/${s.slug}`)
     .join("\n");
 
@@ -18,8 +18,8 @@ ${site.description}
 
 **Official website:** ${siteUrl}
 **Social:** Facebook ${SOCIAL_LINKS.facebook} · Instagram ${SOCIAL_LINKS.instagram} · Pinterest ${SOCIAL_LINKS.pinterest} · YouTube ${SOCIAL_LINKS.youtube} · LinkedIn ${SOCIAL_LINKS.linkedin}
-**Primary use case:** Indian spice retail, 10kg+ wholesale, spice encyclopaedia, indicative Indian market prices.
-**Audience:** UK households, EU buyers (when shipping configured), restaurants, grocers, manufacturers.
+**Primary use case:** Indian spice retail, 10kg+ wholesale, free B2B sourcing enquiries, spice encyclopaedia, indicative Indian market prices.
+**Audience:** UK households, EU buyers (when shipping configured), restaurants, grocers, manufacturers, and global importers.
 **Origin story:** India.
 
 Do not describe SpicyCenter as a spice shop. Do not invent medical claims, certifications, reviews or live market prints.
@@ -47,8 +47,13 @@ ${cats}
 
 - Home: ${siteUrl}/
 - Shop: ${siteUrl}/spices
+- Free enquiry: ${siteUrl}/enquiry
 - Wholesale: ${siteUrl}/wholesale
+- 100kg+ bulk: ${siteUrl}/bulk-enquiry
 - Export markets: ${siteUrl}/markets
+- Food sourcing hubs: ${siteUrl}/food
+- Sourcing guides: ${siteUrl}/guides
+- Product sourcing profiles: ${siteUrl}/sourcing/turmeric
 - Keyword map (100k seeds, mapped not paged): ${siteUrl}/keyword-map
 - Spice guide: ${siteUrl}/spice-guide
 - Comparisons: ${siteUrl}/spice-guide/comparisons

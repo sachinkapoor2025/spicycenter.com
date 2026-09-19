@@ -8,10 +8,12 @@ import { FooterNewsletterForm } from "@/components/FooterNewsletterForm";
 
 const shopLinks = [
   { href: "/spices", label: "Spices" },
-  { href: "/indian-spice-regions", label: "Indian Spices" },
-  { href: "/spices/indian-masalas", label: "Masalas" },
+  { href: "/enquiry", label: "Free enquiry" },
   { href: "/wholesale", label: "Bulk & Wholesale" },
-  { href: "/recipes", label: "Recipes" },
+  { href: "/bulk-enquiry", label: "100kg+ bulk" },
+  { href: "/markets", label: "Export markets" },
+  { href: "/food", label: "Food sourcing" },
+  { href: "/guides", label: "Sourcing guides" },
   { href: "/spice-guide", label: "Spice Guide" },
   { href: "/spice-market-prices", label: "Spice Market Prices" },
 ] as const;

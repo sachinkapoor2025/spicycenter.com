@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/seo";
 import { api } from "@/lib/api";
 import { AGMARKNET_SOURCE_DISCLAIMER } from "@spicycorner/shared";
+import { FreeEnquiryCtas } from "@/components/FreeEnquiryCtas";
 import { LiveMandiPriceBoard } from "@/components/LiveMandiPriceBoard";
 import { loadSpiceEntities } from "@/lib/spice-data";
 import {
@@ -50,6 +51,7 @@ export default async function MarketPricesPage() {
           mandi row stay listed as pending until the daily fetch has a print.
         </p>
       </div>
+      <FreeEnquiryCtas productName="Indian spices" />
       <LiveMandiPriceBoard prices={prices} />
       <p className="mt-8 text-xs text-muted max-w-3xl leading-relaxed">
         {board?.disclaimer ?? AGMARKNET_SOURCE_DISCLAIMER} Historical rows in our database are never overwritten; each

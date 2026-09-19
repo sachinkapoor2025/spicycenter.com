@@ -82,7 +82,7 @@ export default async function HomePage() {
         <div className="max-w-7xl mx-auto px-4 py-14 grid md:grid-cols-3 gap-5">
         {[
           { href: "/spices/indian-masalas", img: "/images/promo-masalas.jpg", title: "Indian masalas", text: "Traditional blends for authentic taste.", cta: "Shop masalas →" },
-          { href: "/wholesale", img: "/images/promo-bulk.jpg", title: "Buy in bulk. Save more.", text: "Ideal for restaurants, retailers and businesses.", cta: "Bulk enquiry →" },
+          { href: "/enquiry", img: "/images/promo-bulk.jpg", title: "Buy in bulk. Save more.", text: "Ideal for restaurants, retailers and businesses.", cta: "Free enquiry →" },
           { href: "/recipes", img: "/images/promo-recipes.jpg", title: "Recipes with spices", text: "Turn everyday meals into something special.", cta: "View recipes →" },
         ].map((card) => (
           <Link key={card.href} href={card.href} className="card-spice overflow-hidden group">
@@ -121,7 +121,12 @@ export default async function HomePage() {
             From 10kg to commercial quantities for restaurants, grocers, manufacturers and importers. Tell us the spice, grade you want (when it applies), and whether you need 10kg, 25kg or 50kg bags. We quote selling price separately from Indian market reference prices.
           </p>
           <p className="mt-4 font-semibold">Minimum bulk order: 10kg</p>
-          <Link href="/wholesale" className="btn-primary mt-6">Request wholesale quote</Link>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Link href="/enquiry" className="btn-primary">Request free enquiry</Link>
+            <Link href="/markets" className="text-nav font-semibold inline-flex items-center">
+              Export markets →
+            </Link>
+          </div>
         </div>
         <div className="card-spice p-8 spice-panel">
           <p className="spice-kicker">UK / EU</p>

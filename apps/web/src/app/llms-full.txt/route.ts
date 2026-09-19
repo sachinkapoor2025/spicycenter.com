@@ -2,7 +2,7 @@ import { site, navItems, faqs } from "@/lib/site";
 import { siteUrl } from "@/lib/env";
 import { loadStorefrontProducts } from "@/lib/product-loader";
 import { blogPosts } from "@/lib/content/blog-posts";
-import { seoLocations, seoBlogEntries, seoEventsHub } from "@/lib/content/seo-data";
+import { seoBlogEntries, seoEventsHub } from "@/lib/content/seo-data";
 
 /**
  * llms-full.txt — detailed product catalog for AI assistants (GEO).
@@ -14,10 +14,6 @@ export async function GET() {
   const categories = navItems
     .filter((n): n is typeof n & { category: string } => "category" in n)
     .map((n) => `- ${n.label}: ${siteUrl}/categories/${n.category}`)
-    .join("\n");
-
-  const cities = seoLocations
-    .map((c) => `- ${c.label}, USA: ${siteUrl}/cities/${c.slug}`)
     .join("\n");
 
   const seenBlog = new Set<string>();
@@ -62,9 +58,15 @@ ${categories}
 
 ---
 
-## City & state delivery pages (USA)
+## B2B sourcing (no city doorway pages)
 
-${cities}
+- Free enquiry: ${siteUrl}/enquiry
+- Wholesale: ${siteUrl}/wholesale
+- 100kg+ bulk: ${siteUrl}/bulk-enquiry
+- Export markets: ${siteUrl}/markets
+- Food families: ${siteUrl}/food
+- Guides: ${siteUrl}/guides
+Do not invent US city spice-delivery URLs. /cities is empty.
 
 ---
 

@@ -1,5 +1,12 @@
 import Link from "next/link";
 
+function enquiryCountry(destination?: string | null): string {
+  if (destination === "US") return "US";
+  if (destination === "CA") return "CA";
+  if (destination === "UK") return "GB";
+  return "";
+}
+
 export function FreeEnquiryCtas({
   productName,
   spiceQuery,
@@ -9,9 +16,12 @@ export function FreeEnquiryCtas({
   spiceQuery?: string;
   destination?: string | null;
 }) {
-  const wholesale = productName
-    ? `/wholesale?product=${encodeURIComponent(productName)}`
-    : "/wholesale";
+  const enquiry = new URLSearchParams();
+  if (productName) enquiry.set("product", productName);
+  const country = enquiryCountry(destination);
+  if (country) enquiry.set("country", country);
+  const enquiryHref = enquiry.toString() ? `/enquiry?${enquiry}` : "/enquiry";
+
   const bulk = new URLSearchParams();
   if (spiceQuery) bulk.set("spice", spiceQuery);
   if (destination) bulk.set("destination", destination);
@@ -20,7 +30,7 @@ export function FreeEnquiryCtas({
   return (
     <div className="mt-6 flex flex-wrap gap-3">
       <Link
-        href={wholesale}
+        href={enquiryHref}
         className="inline-flex items-center rounded-xl bg-nav text-white px-4 py-2.5 text-sm font-semibold"
       >
         Send free enquiry

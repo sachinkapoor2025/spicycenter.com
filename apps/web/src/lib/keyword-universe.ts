@@ -150,6 +150,34 @@ export function bulkDestinationQuery(slug: string): string | null {
   return null;
 }
 
+/** Country SEO slug (`/countries/de`) → keyword market hub (`/markets/germany`). */
+export function marketSlugForCountryPage(countrySlug: string): string | undefined {
+  const map: Record<string, string> = {
+    us: "usa",
+    ca: "canada",
+    uk: "uk",
+    au: "australia",
+    in: "india",
+    de: "germany",
+    fr: "france",
+    es: "spain",
+    it: "italy",
+    nl: "netherlands",
+    ie: "ireland",
+    be: "belgium",
+    at: "austria",
+    pt: "portugal",
+    se: "sweden",
+    dk: "denmark",
+    pl: "poland",
+    fi: "finland",
+    cz: "czech-republic",
+    ae: "uae",
+    sa: "saudi-arabia",
+  };
+  return map[countrySlug];
+}
+
 export function existingCountryHub(slug: string): { href: string; label: string } | null {
   const map: Record<string, { href: string; label: string }> = {
     uk: { href: "/uk", label: "UK spice hub" },

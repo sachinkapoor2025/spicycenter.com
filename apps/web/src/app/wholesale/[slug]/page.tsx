@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { FreeEnquiryCtas } from "@/components/FreeEnquiryCtas";
+import { HubBreadcrumbs } from "@/components/HubBreadcrumbs";
 import { pageMetadata } from "@/lib/seo";
 import { WholesaleQuoteForm } from "@/components/WholesaleQuoteForm";
 import { getSpiceBySlug } from "@/lib/spice-data";
@@ -40,6 +42,13 @@ export default async function WholesaleSlugPage({ params }: Props) {
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-10">
+      <HubBreadcrumbs
+        items={[
+          { name: "Home", path: "/" },
+          { name: "Wholesale", path: "/wholesale" },
+          { name, path: `/wholesale/${slug}` },
+        ]}
+      />
       <p className="text-sm text-muted">
         <Link href="/wholesale">Wholesale</Link> / {name}
       </p>
@@ -49,6 +58,7 @@ export default async function WholesaleSlugPage({ params }: Props) {
           "Minimum 10kg. Quote depends on grade, origin, packaging and delivery country. We do not invent a warehouse in every city."}
       </p>
       <p className="mt-3 font-semibold">10kg minimum wholesale order</p>
+      <FreeEnquiryCtas productName={productDefault || name} spiceQuery={spice?.slug} />
       <div className="mt-4 flex flex-wrap gap-3 text-sm">
         <Link className="text-nav" href="/spices">
           Browse catalogue

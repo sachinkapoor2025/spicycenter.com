@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { HubBreadcrumbs } from "@/components/HubBreadcrumbs";
 import { pageMetadata } from "@/lib/seo";
 import { getSourcingGuide, SOURCING_GUIDES } from "@/lib/sourcing-guides";
 import { FreeEnquiryCtas } from "@/components/FreeEnquiryCtas";
@@ -30,6 +31,13 @@ export default async function GuidePage({ params }: Props) {
   if (!guide) notFound();
   return (
     <div className="max-w-3xl mx-auto px-4 py-10">
+      <HubBreadcrumbs
+        items={[
+          { name: "Home", path: "/" },
+          { name: "Guides", path: "/guides" },
+          { name: guide.title, path: `/guides/${slug}` },
+        ]}
+      />
       <p className="spice-kicker">
         <Link href="/guides" className="text-nav">
           Guides

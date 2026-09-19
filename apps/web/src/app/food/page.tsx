@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { HubBreadcrumbs } from "@/components/HubBreadcrumbs";
 import { pageMetadata } from "@/lib/seo";
 import { FOOD_FAMILIES } from "@/lib/food-families";
 
@@ -13,6 +14,7 @@ export const metadata: Metadata = pageMetadata({
 export default function FoodFamiliesPage() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
+      <HubBreadcrumbs items={[{ name: "Home", path: "/" }, { name: "Food sourcing", path: "/food" }]} />
       <p className="spice-kicker">B2B sourcing</p>
       <h1 className="spice-heading text-4xl mt-2">Indian vegetarian food families</h1>
       <p className="mt-4 text-muted leading-relaxed">

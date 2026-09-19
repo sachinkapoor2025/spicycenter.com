@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { HubBreadcrumbs } from "@/components/HubBreadcrumbs";
 import { pageMetadata } from "@/lib/seo";
 import { SOURCING_GUIDES } from "@/lib/sourcing-guides";
 
@@ -12,6 +13,7 @@ export const metadata: Metadata = pageMetadata({
 export default function GuidesPage() {
   return (
     <div className="max-w-3xl mx-auto px-4 py-10">
+      <HubBreadcrumbs items={[{ name: "Home", path: "/" }, { name: "Guides", path: "/guides" }]} />
       <h1 className="spice-heading text-4xl">Sourcing guides</h1>
       <ul className="mt-6 space-y-3">
         {SOURCING_GUIDES.map((g) => (

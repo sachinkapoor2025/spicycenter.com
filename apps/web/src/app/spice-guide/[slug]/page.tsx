@@ -12,6 +12,7 @@ import {
   loadSpiceEntities,
 } from "@/lib/spice-data";
 import { getCatalogProducts } from "@/lib/catalog-fallback";
+import { FreeEnquiryCtas } from "@/components/FreeEnquiryCtas";
 import { InternalLinksSection } from "@/components/InternalLinksSection";
 import { spiceHubLinks } from "@/lib/seo/spice-hub-links";
 import { recipesForSpice } from "@/lib/recipes";
@@ -148,6 +149,7 @@ export default async function SpiceGuidePage({ params }: Props) {
       </Block>
       <Block title="Buying guide">
         <p>Retail packs typically run from 100g to 5kg. Bulk starts at 10kg. Selling prices are checkout prices. Indian market figures, when present, are indicative only.</p>
+        <FreeEnquiryCtas productName={spice.canonicalName} spiceQuery={spice.slug} />
       </Block>
       {price && (
         <Block title="Indicative Indian market price">

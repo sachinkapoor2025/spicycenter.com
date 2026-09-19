@@ -11,6 +11,7 @@ import { breadcrumbJsonLd, faqJsonLd, pageMetadata, canonical } from "@/lib/seo"
 import { InternalLinksSection } from "@/components/InternalLinksSection";
 import { site } from "@/lib/site";
 import { getInternalLinkGroups } from "@spicycorner/shared";
+import { marketSlugForCountryPage } from "@/lib/keyword-universe";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -62,6 +63,8 @@ export default async function CountryLandingPage({ params }: Props) {
   ];
   const inlineLinks = countryPageInlineLinks[slug] ?? [];
   const spiceCountry = geoCountries().find((c) => c.legacyCountryPath === `/countries/${slug}`);
+  const marketSlug = marketSlugForCountryPage(slug);
+  const isNorthAmerica = slug === "us" || slug === "ca";
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-10">
@@ -86,6 +89,15 @@ export default async function CountryLandingPage({ params }: Props) {
       <p className="text-slate-600 mb-6">{applyInlineLinks(page.intro, inlineLinks)}</p>
       <p className="text-slate-700 mb-8">{page.fulfillment}</p>
 
+      {marketSlug && (
+        <p className="mb-6 text-sm">
+          Importers: use the{" "}
+          <Link href={`/markets/${marketSlug}`} className="text-nav font-semibold underline">
+            {page.name} sourcing hub
+          </Link>{" "}
+          for a free enquiry. This page is the retail/delivery note.
+        </p>
+      )}
       {spiceCountry && (
         <p className="mb-8 text-sm">
           <Link href={spiceCountry.path} className="text-nav underline">
@@ -102,11 +114,17 @@ export default async function CountryLandingPage({ params }: Props) {
       ))}
 
       <div className="flex flex-wrap gap-3 mb-10">
-        <Link href="/products" className="rounded-lg bg-nav px-4 py-2 text-sm font-semibold text-white">
-          Shop spices
-        </Link>
-        <Link href="/spices/whole-spices" className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold">
-          Whole spices
+        {isNorthAmerica ? (
+          <Link href="/bulk-enquiry" className="rounded-lg bg-nav px-4 py-2 text-sm font-semibold text-white">
+            Request 100kg+ bulk quote
+          </Link>
+        ) : (
+          <Link href="/products" className="rounded-lg bg-nav px-4 py-2 text-sm font-semibold text-white">
+            Shop spices
+          </Link>
+        )}
+        <Link href="/enquiry" className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold">
+          Free sourcing enquiry
         </Link>
         <Link href="/shipping" className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold">
           Shipping &amp; {page.postalLabel}

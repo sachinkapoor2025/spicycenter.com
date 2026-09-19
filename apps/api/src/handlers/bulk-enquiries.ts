@@ -10,6 +10,7 @@ import {
   findTrackedCommodity,
   isNorthAmericaBulk,
   qtyBelowMinimum,
+  bulkEnquiryStatusSchema,
   type BulkEnquiryStatus,
   type BulkQuoteBreakdown,
 } from "@spicycorner/shared";
@@ -315,9 +316,9 @@ export async function adminUpdateEnquiryStatus(event: APIGatewayProxyEventV2) {
   if (!requireAdmin(event)) return forbidden();
   const id = event.pathParameters?.enquiryId;
   if (!id) return badRequest("Missing enquiry id");
-  const status = String(JSON.parse(event.body || "{}").status ?? "") as BulkEnquiryStatus;
-  const allowed: BulkEnquiryStatus[] = ["new", "quoted", "converted", "lost", "paid_addons"];
-  if (!allowed.includes(status)) return badRequest("Invalid status");
+  const statusParse = bulkEnquiryStatusSchema.safeParse(JSON.parse(event.body || "{}").status);
+  if (!statusParse.success) return badRequest("Invalid status");
+  const status = statusParse.data;
   const item = await loadEnquiry(id);
   if (!item) return notFound("Enquiry not found");
   await docClient.send(

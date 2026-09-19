@@ -267,7 +267,7 @@ export function ProductDetailClient({
           )}
 
           <div className="mb-5 flex flex-wrap gap-3 text-sm">
-            <Link href={`/wholesale?product=${encodeURIComponent(product.name)}`} className="font-semibold text-nav">
+            <Link href={`/enquiry?product=${encodeURIComponent(product.name)}`} className="font-semibold text-nav">
               Send free wholesale enquiry
             </Link>
             <Link href="/bulk-enquiry" className="font-semibold text-nav">
