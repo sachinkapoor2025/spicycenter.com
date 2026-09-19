@@ -39,12 +39,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!p) return { title: "Product" };
 
   return productPageMetadata({
-    title: p.seoTitle ?? `${p.name} — buy Indian spices UK & EU`,
+    title: p.seoTitle ?? `${p.name} — Indian spices UK & EU`,
     seoDescription: p.seoDescription,
     description: p.description,
     path: `/products/${slug}`,
-    price: p.price,
-    currency: p.currency === "INR" ? "GBP" : p.currency,
     ogImage: resolveImageUrl(p.images?.[0]),
     keywords: [p.name, p.sku, ...(p.tags ?? []), "Indian spices UK", "SpicyCenter"].filter(Boolean).join(", "),
   });
@@ -60,7 +58,7 @@ export default async function ProductPage({ params }: Props) {
   const categoryLabel = product.categorySlug.replace(/-/g, " ");
   const crumbs = [
     { label: "Home", href: "/" },
-    { label: "Shop", href: "/products" },
+    { label: "Spices", href: "/spices" },
     { label: categoryLabel, href: `/categories/${product.categorySlug}` },
     { label: product.name },
   ];

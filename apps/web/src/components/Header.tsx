@@ -3,13 +3,13 @@
 import { useState, useEffect, type ReactNode } from "react";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
-import { useCart } from "@/lib/cart-context";
 import { navItems, regionLinks } from "@/lib/site";
 import { SearchBar } from "@/components/SearchBar";
 import { SiteLogoLink } from "@/components/SiteLogo";
 import { CountrySelector } from "@/components/CountrySelector";
-import { CurrencySelect } from "@/components/CurrencySelect";
 import { QuoteRibbon } from "@/components/QuoteRibbon";
+import { EnquireNowButton } from "@/components/EnquireNowButton";
+import { useEnquiry } from "@/lib/enquiry-context";
 
 function RegionsMenu({ onNavigate }: { onNavigate?: () => void }) {
   const [open, setOpen] = useState(false);
@@ -97,27 +97,6 @@ function WishlistLink({ className = "" }: { className?: string }) {
   );
 }
 
-function CartLink({ className = "" }: { className?: string }) {
-  const { itemCount } = useCart();
-
-  return (
-    <Link href="/cart" className={`relative p-2 text-primary hover:text-nav ${className}`} aria-label="Cart">
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-        />
-      </svg>
-      {itemCount > 0 && (
-        <span className="absolute -top-0.5 -right-0.5 bg-nav text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
-          {itemCount}
-        </span>
-      )}
-    </Link>
-  );
-}
 
 function DesktopHeaderAction({
   href,
@@ -136,29 +115,6 @@ function DesktopHeaderAction({
   );
 }
 
-function DesktopCartAction() {
-  const { itemCount } = useCart();
-
-  return (
-    <Link href="/cart" className="relative flex flex-col items-center gap-1 px-3 text-primary hover:text-nav min-w-[4.5rem]">
-      <span className="relative">
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-          />
-        </svg>
-        {itemCount > 0 && (
-          <span className="absolute -top-1.5 -right-2 bg-nav text-white text-[10px] rounded-full w-4 h-4 flex items-center justify-center font-bold">
-            {itemCount}
-          </span>
-        )}
-      </span>
-      <span className="text-xs font-medium leading-none">Cart</span>
-    </Link>
-  );
-}
 
 export function Header() {
   const pathname = usePathname();
@@ -166,6 +122,7 @@ export function Header() {
   const activeCategory = searchParams.get("category");
   const [menuOpen, setMenuOpen] = useState(false);
   const [citiesOpen, setCitiesOpen] = useState(false);
+  const { openEnquiry } = useEnquiry();
 
   const isActive = (href: string, category?: string) => {
     if (href === "/") return pathname === "/" && !activeCategory;
@@ -223,7 +180,7 @@ export function Header() {
         <div className="flex-1 min-w-0" />
 
         <div className="flex items-center shrink-0">
-          <CartLink className="p-1.5" />
+          <EnquireNowButton variant="icon" className="p-1.5" />
         </div>
       </div>
 
@@ -236,7 +193,6 @@ export function Header() {
         </div>
 
         <div className="flex items-start justify-end shrink-0 gap-3">
-          <CurrencySelect variant="header" className="mt-1" />
           <CountrySelector />
           <DesktopHeaderAction href="/account" label="Account">
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
@@ -256,7 +212,7 @@ export function Header() {
               />
             </svg>
           </DesktopHeaderAction>
-          <DesktopCartAction />
+          <EnquireNowButton variant="header" />
         </div>
       </div>
 
@@ -314,7 +270,6 @@ export function Header() {
 
             <nav className="flex-1 overflow-y-auto px-3 py-3 space-y-1 pb-[max(1rem,env(safe-area-inset-bottom))]">
               <div className="px-2 pb-3 space-y-2">
-                <CurrencySelect variant="inline" />
                 <CountrySelector />
               </div>
               <Link
@@ -381,6 +336,16 @@ export function Header() {
                   </div>
                 )}
               </div>
+            <button
+              type="button"
+              onClick={() => {
+                closeMenu();
+                openEnquiry();
+              }}
+              className="block w-full text-left rounded-lg px-4 py-3 text-sm font-semibold text-primary hover:bg-nav hover:text-white transition-colors"
+            >
+              Enquire Now
+            </button>
             <Link
               href="/contact"
               onClick={closeMenu}

@@ -9,11 +9,11 @@ export const productPageFaqs = [
   },
   {
     q: "Is the Indian market price what I pay?",
-    a: "No. Market prints are indicative and dated. Your checkout price is the selling price plus shipping and any tax configured.",
+    a: "No. Market prints are indicative and dated. We confirm availability and terms after you send an enquiry.",
   },
   {
-    q: "What payment methods do you accept?",
-    a: "Secure card checkout via Stripe. The storefront displays GBP in the UK and EUR in the EU. Card data is handled by the payment provider.",
+    q: "How do I order this spice?",
+    a: "Use Enquire Now on the product page. Include quantity, pack size and delivery country. There is no cart checkout on this site.",
   },
   {
     q: "Where is allergen and ingredient information?",

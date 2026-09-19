@@ -1,21 +1,6 @@
 "use client";
 
-import { quoteItemShipping } from "@/lib/quote-cart-shipping";
-import { useCurrency } from "@/lib/currency-context";
-
-export function ProductShippingPanel({
-  price,
-  currency = "USD",
-}: {
-  price: number;
-  currency?: string;
-}) {
-  const { format, usdInrRate } = useCurrency();
-  const quote = quoteItemShipping(price, currency, usdInrRate);
-  const shippingLabel = quote.qualifiesForFreeShipping
-    ? "FREE"
-    : format(quote.charge, currency === "INR" ? "INR" : "USD");
-
+export function ProductShippingPanel() {
   return (
     <div className="mb-4 space-y-2">
       <div className="flex items-start gap-2 rounded-md border border-orange-100 bg-orange-50/80 px-3 py-2.5 text-sm text-slate-700">
@@ -35,20 +20,11 @@ export function ProductShippingPanel({
         </svg>
         <div className="min-w-0">
           <p>
-            <span className="font-semibold text-primary">Delivering in 5–7 days</span>
+            <span className="font-semibold text-primary">UK &amp; EU delivery</span>
           </p>
           <p className="mt-1 text-slate-800">
-            Shipping for this item:{" "}
-            <span className={quote.qualifiesForFreeShipping ? "font-bold text-accent" : "font-semibold"}>
-              {shippingLabel}
-            </span>
+            Typical transit is 5–7 days after dispatch. Shipping is confirmed on your enquiry, not at checkout.
           </p>
-          {!quote.qualifiesForFreeShipping && (
-            <p className="mt-0.5 text-xs text-slate-600">
-              Add {format(quote.amountAwayFromFreeShipping, currency === "INR" ? "INR" : "USD")} more to unlock
-              free shipping when a threshold applies. Charged at checkout in your display currency.
-            </p>
-          )}
         </div>
       </div>
     </div>

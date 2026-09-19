@@ -1,8 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
-import { AddToCartControl } from "@/components/AddToCartControl";
 import { ProductImageGallery } from "@/components/ProductImageGallery";
 import { api } from "@/lib/api";
 import { WishlistButton } from "@/components/WishlistButton";
@@ -10,26 +8,14 @@ import { AssistantPromo } from "@/components/assistant/AssistantPromo";
 import { TrustBadges } from "@/components/TrustBadges";
 import { ProductReviewsPreview } from "@/components/ProductReviewsPreview";
 import { StickyAddToCartBar } from "@/components/StickyAddToCartBar";
-import { useSessionId, useDebouncedLeadCapture } from "@/lib/session";
 import { trackProductView } from "@/lib/track";
-import { CurrencySelect } from "@/components/CurrencySelect";
-import { useCurrency } from "@/lib/currency-context";
-import { getDiscountPercent } from "@/lib/pricing";
-import { LeadCaptureInput } from "@/components/LeadCaptureInput";
 import { HomeProductCard } from "@/components/HomeProductCard";
-import { useCart } from "@/lib/cart-context";
 import { productPageFaqs } from "@/lib/content/product-faqs";
 import { testimonials } from "@/lib/site";
 import { looksLikeHtml, stripHtml, shortPlainDescription } from "@/lib/html-text";
-import {
-  LOW_STOCK_THRESHOLD,
-  cjStorefrontProductVideosPath,
-  getUnitsSold,
-  isFastSelling,
-  type Product,
-} from "@spicycorner/shared";
+import { cjStorefrontProductVideosPath, type Product } from "@spicycorner/shared";
 import { ProductShippingPanel } from "@/components/ProductShippingPanel";
-import { FastSellingBanner } from "@/components/FastSellingBadge";
+import { EnquireNowButton } from "@/components/EnquireNowButton";
 
 type Tab = "description" | "reviews" | "faq";
 
@@ -112,13 +98,6 @@ export function ProductDetailClient({
   product: Product;
   relatedProducts?: Product[];
 }) {
-  const sessionId = useSessionId();
-  const captureLead = useDebouncedLeadCapture(sessionId);
-  const { cart, itemCount } = useCart();
-  const { format } = useCurrency();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
   const [tab, setTab] = useState<Tab>("description");
   const [productUrl, setProductUrl] = useState("");
   const variants = product.cjVariants ?? [];
@@ -167,24 +146,11 @@ export function ProductDetailClient({
   };
 
   const galleryImages = galleryForVariant(
-        [...(product.images ?? []), ...extraImages.filter((url) => !(product.images ?? []).includes(url))],
-        selectedVariant?.image
-      );
+    [...(product.images ?? []), ...extraImages.filter((url) => !(product.images ?? []).includes(url))],
+    selectedVariant?.image
+  );
 
-  const displayPrice = selectedVariant?.price ?? product.price;
-  const hamperBase = selectedVariant?.price ?? product.price;
-  const price = format(displayPrice, product.currency);
-  const comparePrice =
-    product.compareAtPrice && product.compareAtPrice > hamperBase
-      ? format(product.compareAtPrice, product.currency)
-      : null;
-  const discount = getDiscountPercent(hamperBase, product.compareAtPrice);
   const summary = shortPlainDescription(product.description);
-  const cartQuantity = cart?.items.find((i) => i.productSlug === product.slug)?.quantity ?? 0;
-  const inCart = cartQuantity > 0;
-  const lowStock = product.inventory > 0 && product.inventory <= LOW_STOCK_THRESHOLD;
-  const fastSelling = isFastSelling(product);
-  const unitsSold = getUnitsSold(product);
 
   return (
     <>
@@ -202,26 +168,9 @@ export function ProductDetailClient({
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold text-primary mb-3 leading-tight">{product.name}</h1>
 
-          <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-2">
-            {comparePrice && <span className="text-lg text-slate-400 line-through">{comparePrice}</span>}
-            <span className="text-2xl sm:text-3xl font-bold text-primary">{price}</span>
-            {discount !== null && (
-              <span className="text-sm font-semibold text-green-600">{discount}% OFF</span>
-            )}
-          </div>
-          <CurrencySelect variant="inline" className="mb-4" />
-
           <p className="text-slate-600 text-sm sm:text-base mb-3 leading-relaxed">{summary}</p>
 
-          {fastSelling && <FastSellingBanner unitsSold={unitsSold} />}
-
-          {lowStock && (
-            <p className="text-sm font-semibold text-orange-700 bg-orange-50 border border-orange-100 rounded-md px-3 py-2 mb-3">
-              Only {product.inventory} left in stock — order soon for spice delivery
-            </p>
-          )}
-
-          <ProductShippingPanel price={hamperBase} currency={product.currency} />
+          <ProductShippingPanel />
 
           {variants.length > 1 && (
             <div className="mb-4">
@@ -266,65 +215,24 @@ export function ProductDetailClient({
             </div>
           )}
 
-          <div className="mb-5 flex flex-wrap gap-3 text-sm">
-            <Link href={`/enquiry?product=${encodeURIComponent(product.name)}`} className="font-semibold text-nav">
-              Send free wholesale enquiry
-            </Link>
-            <Link href="/bulk-enquiry" className="font-semibold text-nav">
-              Request 100kg+ bulk quote
-            </Link>
-          </div>
           <TrustBadges variant="compact" className="mb-5" />
           <div className="mb-5">
             <AssistantPromo variant="product" productName={product.name} />
           </div>
 
-          {inCart ? (
-            <div className="flex flex-wrap items-center gap-3 mb-3">
-              <Link
-                href="/cart"
-                className="flex items-center gap-2 text-green-700 hover:text-green-800 shrink-0"
-              >
-                <span className="flex h-5 w-5 items-center justify-center rounded bg-green-600 text-white">
-                  <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={3} aria-hidden>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                  </svg>
-                </span>
-                <span className="text-sm font-semibold whitespace-nowrap">
-                  {itemCount} {itemCount === 1 ? "item" : "items"} in cart
-                </span>
-              </Link>
-
-              <div className="flex-1 min-w-[13rem] max-w-[18rem]">
-                <AddToCartControl
-                  productSlug={product.slug}
-                  disabled={product.inventory <= 0}
-                  fullWidth
-                  variant="detail"
-                  cjVid={selectedVid || undefined}
-                />
-              </div>
-
-              <div className="flex items-center gap-2 sm:ml-auto">
-                <WishlistButton product={product} variant="toolbar" />
-                {productUrl ? <ShareButton title={product.name} url={productUrl} /> : null}
-              </div>
+          <div className="flex items-stretch gap-2 mb-3">
+            <div className="flex-1 min-w-0">
+              <EnquireNowButton productName={product.name} variant="detail" />
             </div>
-          ) : (
-            <div className="flex items-stretch gap-2 mb-3">
-              <div className="flex-1 min-w-0">
-                <AddToCartControl
-                  productSlug={product.slug}
-                  disabled={product.inventory <= 0}
-                  fullWidth
-                  variant="detail"
-                  cjVid={selectedVid || undefined}
-                />
-              </div>
-              <WishlistButton product={product} variant="toolbar" />
-              {productUrl ? <ShareButton title={product.name} url={productUrl} /> : <div className="w-12 shrink-0" />}
-            </div>
-          )}
+            <WishlistButton product={product} variant="toolbar" />
+            {productUrl ? <ShareButton title={product.name} url={productUrl} /> : <div className="w-12 shrink-0" />}
+          </div>
+          <p className="text-sm text-muted mb-2">
+            Prefer email?{" "}
+            <a href="/contact" className="font-semibold text-nav">
+              Contact Us
+            </a>
+          </p>
 
         </div>
       </div>
@@ -389,59 +297,6 @@ export function ProductDetailClient({
               </div>
             )}
 
-            <div className="max-w-md space-y-3">
-              <LeadCaptureInput
-                label="Your name (helps us assist you)"
-                placeholder="Start typing your name..."
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                onDebouncedChange={(value) =>
-                  captureLead({
-                    name: value,
-                    email: email || undefined,
-                    phone: phone || undefined,
-                    page: `/products/${product.slug}`,
-                    productSlug: product.slug,
-                    source: "product",
-                  })
-                }
-              />
-              <LeadCaptureInput
-                label="Email (optional — for order updates)"
-                placeholder="you@example.com"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                onDebouncedChange={(value) =>
-                  captureLead({
-                    name: name || undefined,
-                    email: value,
-                    phone: phone || undefined,
-                    page: `/products/${product.slug}`,
-                    productSlug: product.slug,
-                    source: "product",
-                  })
-                }
-              />
-              <LeadCaptureInput
-                label="Phone (optional — WhatsApp support)"
-                placeholder="+1 555 000 0000"
-                type="tel"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                onDebouncedChange={(value) =>
-                  captureLead({
-                    name: name || undefined,
-                    email: email || undefined,
-                    phone: value,
-                    page: `/products/${product.slug}`,
-                    productSlug: product.slug,
-                    source: "product",
-                  })
-                }
-              />
-            </div>
-
             {relatedProducts.length > 0 && (
               <div>
                 <h2 className="text-lg font-bold text-primary mb-4">You might also like</h2>
@@ -481,11 +336,7 @@ export function ProductDetailClient({
         )}
       </section>
     </div>
-    <StickyAddToCartBar
-      product={product}
-      cjVid={selectedVid || undefined}
-      extraUsd={0}
-    />
+    <StickyAddToCartBar product={product} />
     </>
   );
 }

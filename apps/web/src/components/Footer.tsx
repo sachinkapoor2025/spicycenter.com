@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { SOCIAL_LINKS } from "@spicycorner/shared";
 import { site, STORE_LOCATIONS, whatsappChatUrl } from "@/lib/site";
-import { PaymentMethodIcons } from "@/components/PaymentMethodIcons";
 import { SiteLogoLink } from "@/components/SiteLogo";
 import { FooterNewsletterForm } from "@/components/FooterNewsletterForm";
 
@@ -92,7 +91,7 @@ export function Footer() {
               </div>
             </div>
             <div>
-              <p className="font-serif text-lg mb-3">Shop</p>
+              <p className="font-serif text-lg mb-3">Catalogue</p>
               <ul className="space-y-2 text-white/75">
                 {shopLinks.map((n) => (
                   <li key={n.href}>
@@ -151,7 +150,6 @@ export function Footer() {
           <div className="max-w-7xl mx-auto px-4 py-4 pb-24 md:pb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-xs text-white/55">
             <p>© {new Date().getFullYear()} {site.name}. All rights reserved.</p>
             <p className="font-serif italic text-accent/90 text-sm">Good Food · Better Tomorrow</p>
-            <PaymentMethodIcons />
             <p className="flex gap-3">
               <Link href="/uk" className="hover:text-white">UK</Link>
               <Link href="/eu" className="hover:text-white">Europe</Link>

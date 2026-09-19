@@ -64,16 +64,14 @@ export function productPageMetadata(opts: {
   seoDescription?: string;
   description: string;
   path: string;
-  price: number;
-  currency: string;
+  price?: number;
+  currency?: string;
   keywords?: string;
   ogImage?: string;
 }): Metadata {
   const description = productMetaDescription(opts.seoDescription, opts.description);
   const url = canonical(opts.path);
   const image = opts.ogImage ?? site.logoSrc;
-  const price = Number.isFinite(opts.price) ? opts.price.toFixed(2) : "0.00";
-  const currency = opts.currency === "INR" ? "GBP" : opts.currency || "GBP";
 
   return {
     title: opts.title,
@@ -100,10 +98,6 @@ export function productPageMetadata(opts: {
       title: opts.title,
       description,
       images: [image],
-    },
-    other: {
-      "product:price:amount": price,
-      "product:price:currency": currency,
     },
     robots: { index: true, follow: true },
   };
@@ -251,10 +245,6 @@ export function productJsonLd(product: {
     offers: {
       "@type": "Offer",
       url: canonical(`/products/${product.slug}`),
-      price: product.price,
-      priceCurrency: product.currency === "INR" ? "GBP" : product.currency || "GBP",
-      priceValidUntil: `${new Date().getFullYear()}-12-31`,
-      itemCondition: "https://schema.org/NewCondition",
       availability:
         product.inventory > 0
           ? "https://schema.org/InStock"
@@ -337,27 +327,27 @@ export function howToShopspiceJsonLd() {
       {
         "@type": "HowToStep",
         position: 2,
-        name: "Add to cart",
-        text: "Select spices and pack sizes and add items to your cart.",
+        name: "Send an enquiry",
+        text: "Open Enquire Now, tell us the spice, quantity and delivery country, and wait for availability.",
       },
       {
         "@type": "HowToStep",
         position: 3,
-        name: "Enter your delivery address",
-        text: "At checkout, enter the full destination address. Confirm the product-page shipping quote first.",
+        name: "Share delivery details",
+        text: "Include your delivery country in the enquiry. We confirm shipping when we reply.",
         url: canonical("/shipping"),
       },
       {
         "@type": "HowToStep",
         position: 4,
-        name: "Pay securely",
-        text: "Complete payment with Stripe. Storefront prices display in GBP or EUR.",
+        name: "Receive a reply",
+        text: "We respond with availability and next steps. There is no online cart checkout on this site.",
       },
       {
         "@type": "HowToStep",
         position: 5,
-        name: "Check the shipping quote",
-        text: "Delivery time depends on the product and destination. Use the quote on the product page rather than a blanket nationwide SLA.",
+        name: "Confirm dispatch",
+        text: "Delivery time depends on the product and destination. Typical transit is 5–7 days after dispatch.",
       },
     ],
   };

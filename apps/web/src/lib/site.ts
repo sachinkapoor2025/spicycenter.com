@@ -32,7 +32,7 @@ export const STORE_LOCATIONS = [
 ] as const;
 
 export const navItems = [
-  { label: "Shop Spices", href: "/spices" },
+  { label: "Spices", href: "/spices" },
   { label: "Bulk & Wholesale", href: "/bulk-enquiry" },
   { label: "Free enquiry", href: "/enquiry" },
   { label: "Spice Guide", href: "/spice-guide" },

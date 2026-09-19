@@ -198,7 +198,7 @@ export default async function SpiceGuidePage({ params }: Props) {
         <div className="grid gap-2">
           {products.map((p) => (
             <Link key={p.slug} href={`/products/${p.slug}`} className="text-nav text-sm">
-              {p.name} — view selling price
+              {p.name} — enquire now
             </Link>
           ))}
         </div>

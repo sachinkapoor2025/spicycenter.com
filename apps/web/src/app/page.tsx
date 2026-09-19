@@ -5,15 +5,14 @@ import { pageMetadata } from "@/lib/seo";
 import { JsonLd } from "@/components/JsonLd";
 import { faqs, exploreCategories, packSizes, regionLinks, site, homeBanners } from "@/lib/site";
 import { HomeBannerSlider } from "@/components/HomeBannerSlider";
-import { ProductReviewsPreview } from "@/components/ProductReviewsPreview";
 import { TrustBadges } from "@/components/TrustBadges";
 import { loadSpiceEntities } from "@/lib/spice-data";
 import { getCatalogProducts } from "@/lib/catalog-fallback";
 import { faqJsonLd } from "@/lib/seo";
 import { STOREFRONT_SHIPPING_COPY } from "@/lib/storefront-shipping-copy";
-import { api } from "@/lib/api";
-import { LiveMandiPriceBoard } from "@/components/LiveMandiPriceBoard";
-import type { LiveMandiBoard } from "@/lib/live-mandi-prices";
+import { FeaturedProducts } from "@/components/FeaturedProducts";
+import { HomeTestimonials } from "@/components/HomeTestimonials";
+import { featuredHomepageSpices } from "@/lib/featured-homepage-spices";
 
 export const metadata: Metadata = pageMetadata({
   title: "The world of Indian spices — retail packs and 10kg+ bulk",
@@ -27,13 +26,7 @@ export default async function HomePage() {
   const spices = loadSpiceEntities();
   const featured = spices.filter((s) => s.featured || s.featuredKnowledge).slice(0, 10);
   const products = getCatalogProducts();
-  let mandi: LiveMandiBoard | null = null;
-  try {
-    mandi = await api<LiveMandiBoard>("/prices", { revalidate: 3600, timeoutMs: 8000 });
-  } catch {
-    mandi = null;
-  }
-  const livePrices = (mandi?.prices ?? []).filter((p) => p.available).slice(0, 6);
+  const featuredProducts = featuredHomepageSpices(spices, products, 5);
 
   return (
     <div>
@@ -42,7 +35,7 @@ export default async function HomePage() {
       <HomeBannerSlider banners={homeBanners} />
 
       <section className="max-w-7xl mx-auto px-4 pt-8 pb-2 text-center md:text-left">
-        <h1 className="spice-heading text-3xl sm:text-4xl">Buy Indian spices online — UK &amp; Europe, retail and 10kg+ bulk</h1>
+        <h1 className="spice-heading text-3xl sm:text-4xl">Authentic Indian spices — UK &amp; Europe, retail and 10kg+ bulk</h1>
       </section>
 
       <section className="border-b border-[#e6d5bc] bg-beige/70">
@@ -64,7 +57,7 @@ export default async function HomePage() {
       <section className="max-w-7xl mx-auto px-4 py-10 md:py-14">
         <div className="text-center mb-8">
           <p className="spice-kicker">Spice-market collection</p>
-          <h2 className="font-serif text-2xl sm:text-3xl text-primary mt-2">Shop by spice type</h2>
+          <h2 className="font-serif text-2xl sm:text-3xl text-primary mt-2">Browse by spice type</h2>
         </div>
         <div className="grid grid-cols-4 md:grid-cols-8 gap-2 sm:gap-4">
           {exploreCategories.map((c) => (
@@ -81,7 +74,7 @@ export default async function HomePage() {
       <section className="bg-beige/50 border-y border-[#e6d5bc]">
         <div className="max-w-7xl mx-auto px-4 py-14 grid md:grid-cols-3 gap-5">
         {[
-          { href: "/spices/indian-masalas", img: "/images/promo-masalas.jpg", title: "Indian masalas", text: "Traditional blends for authentic taste.", cta: "Shop masalas →" },
+          { href: "/spices/indian-masalas", img: "/images/promo-masalas.jpg", title: "Indian masalas", text: "Traditional blends for authentic taste.", cta: "View masalas →" },
           { href: "/enquiry", img: "/images/promo-bulk.jpg", title: "Buy in bulk. Save more.", text: "Ideal for restaurants, retailers and businesses.", cta: "Free enquiry →" },
           { href: "/recipes", img: "/images/promo-recipes.jpg", title: "Recipes with spices", text: "Turn everyday meals into something special.", cta: "View recipes →" },
         ].map((card) => (
@@ -102,7 +95,7 @@ export default async function HomePage() {
 
       <section className="bg-paper border-b border-[#e6d5bc]">
         <div className="max-w-7xl mx-auto px-4 py-12">
-          <h2 className="spice-heading text-3xl mb-6">Shop by pack size</h2>
+          <h2 className="spice-heading text-3xl mb-6">Browse by pack size</h2>
           <div className="flex flex-wrap gap-2">
             {packSizes.map((p) => (
               <Link key={p} href={`/spices?pack=${encodeURIComponent(p)}`} className="rounded-md border border-[#e6d5bc] bg-cream px-4 py-2 text-sm font-semibold text-primary hover:border-nav hover:text-nav">
@@ -118,11 +111,11 @@ export default async function HomePage() {
           <p className="spice-kicker">Wholesale</p>
           <h2 className="font-serif text-3xl mt-2">Buy Indian spices in bulk</h2>
           <p className="mt-3 text-muted">
-            From 10kg to commercial quantities for restaurants, grocers, manufacturers and importers. Tell us the spice, grade you want (when it applies), and whether you need 10kg, 25kg or 50kg bags. We quote selling price separately from Indian market reference prices.
+            From 10kg to commercial quantities for restaurants, grocers, manufacturers and importers. Tell us the spice, grade you want (when it applies), and whether you need 10kg, 25kg or 50kg bags. We quote after your enquiry.
           </p>
           <p className="mt-4 font-semibold">Minimum bulk order: 10kg</p>
           <div className="mt-6 flex flex-wrap gap-3">
-            <Link href="/enquiry" className="btn-primary">Request free enquiry</Link>
+            <Link href="/enquiry" className="btn-primary">Enquire Now</Link>
             <Link href="/markets" className="text-nav font-semibold inline-flex items-center">
               Export markets →
             </Link>
@@ -136,22 +129,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {livePrices.length > 0 && (
-        <section className="bg-paper border-y border-[#e6d5bc] py-14">
-          <div className="max-w-7xl mx-auto px-4">
-            <p className="spice-kicker">Live Agmarknet</p>
-            <h2 className="font-serif text-3xl text-primary mt-2">Today&apos;s Indian spice market</h2>
-            <p className="mt-2 text-muted max-w-2xl">
-              Live mandi prices from India. They fluctuate every day with arrivals and demand. These are wholesale market
-              prints — not your SpicyCenter checkout price.
-            </p>
-            <LiveMandiPriceBoard prices={livePrices} compact />
-            <Link href="/spice-market-prices" className="inline-block mt-6 text-nav font-semibold">
-              Full live market board →
-            </Link>
-          </div>
-        </section>
-      )}
+      <FeaturedProducts items={featuredProducts} />
 
       <section className="max-w-7xl mx-auto px-4 py-14">
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 mb-3">
@@ -235,10 +213,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="max-w-7xl mx-auto px-4 pb-14">
-        <h2 className="spice-heading text-2xl sm:text-3xl mb-4">Customer reviews</h2>
-        <ProductReviewsPreview />
-      </section>
+      <HomeTestimonials />
     </div>
   );
 }
