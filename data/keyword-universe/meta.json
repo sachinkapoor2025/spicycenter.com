@@ -1,0 +1,40 @@
+{
+  "source": "spicycenter_global_keyword_universe_100k.xlsx",
+  "importedAt": "2026-09-19",
+  "keywordCount": 100000,
+  "validation": "Generated seed \u2014 not claimed as search volume",
+  "governance": [
+    {
+      "rule": "Do not auto-publish all keywords",
+      "guidance": "Use keyword-to-URL mapping and editorial approval"
+    },
+    {
+      "rule": "Protect USA traffic",
+      "guidance": "Retain existing URLs; use redirects only when necessary; compare pre/post GSC data"
+    },
+    {
+      "rule": "Free enquiry",
+      "guidance": "Remove mandatory $9 payment from enquiry flow; paid add-ons remain optional"
+    },
+    {
+      "rule": "Claims",
+      "guidance": "Do not claim certifications, lab testing, origin, MOQ, shipping time or health benefits unless verified"
+    },
+    {
+      "rule": "Location pages",
+      "guidance": "Publish only when unique local buyer value exists; avoid doorway pages"
+    },
+    {
+      "rule": "Product pages",
+      "guidance": "Use unique content, internal links, structured data and clear B2B intent"
+    },
+    {
+      "rule": "Measurement",
+      "guidance": "Track country, landing page, product, form start, form submit, qualified lead and add-on purchase"
+    },
+    {
+      "rule": "AI visibility",
+      "guidance": "Create crawlable expert content, citations, entity consistency, llms.txt where appropriate, and structured data"
+    }
+  ]
+}

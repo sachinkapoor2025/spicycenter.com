@@ -9,7 +9,12 @@ export const metadata: Metadata = pageMetadata({
   path: "/wholesale",
 });
 
-export default function WholesalePage() {
+export default async function WholesalePage({
+  searchParams,
+}: {
+  searchParams: Promise<{ product?: string }>;
+}) {
+  const { product = "" } = await searchParams;
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
       <h1 className="spice-heading text-3xl sm:text-4xl">Indian spice wholesale supplier</h1>
@@ -26,7 +31,12 @@ export default function WholesalePage() {
           (for example Kerala pepper or Unjha cumin). We will not print a region we cannot stand behind on that shipment.
         </p>
         <p>
-          UK and European buyers can use this form. Delivery is quoted to the destination country in the header — not to the United States, Gulf or Australia from this storefront.
+          UK and European buyers can request retail and 10kg+ wholesale quotes here. United States, Canada, Gulf and other
+          countries use a{" "}
+          <Link className="text-nav font-semibold" href="/markets">
+            free export-market enquiry
+          </Link>{" "}
+          or the 100kg+ bulk form — the enquiry itself is not paid.
         </p>
       </div>
       <ul className="mt-6 grid sm:grid-cols-2 gap-2 text-sm">
@@ -53,7 +63,7 @@ export default function WholesalePage() {
         . The form below is still the general wholesale request (from 10kg).
       </p>
       <h2 className="font-serif text-2xl mt-10 mb-4">Request wholesale quote</h2>
-      <WholesaleQuoteForm />
+      <WholesaleQuoteForm defaultProduct={product} />
     </div>
   );
 }

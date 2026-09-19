@@ -76,7 +76,10 @@ export function BulkEnquiryForm() {
   const [spiceQuery, setSpiceQuery] = useState("");
   const [qtyUnit, setQtyUnit] = useState<QtyUnit>("kg");
   const [qtyInput, setQtyInput] = useState("");
-  const [destination, setDestination] = useState<BulkDestination>("UK");
+  const destParam = (searchParams.get("destination") || "").toUpperCase();
+  const [destination, setDestination] = useState<BulkDestination>(
+    destParam === "US" || destParam === "CA" || destParam === "EU" || destParam === "UK" ? destParam : "UK"
+  );
   const [sampleSelected, setSampleSelected] = useState(false);
   const [documentationSelected, setDocumentationSelected] = useState(false);
   const [gradeKey, setGradeKey] = useState("");

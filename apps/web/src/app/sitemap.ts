@@ -3,13 +3,13 @@ import { loadStorefrontProducts } from "@/lib/product-loader";
 import { siteUrl } from "@/lib/env";
 import { categoryOrder } from "@/lib/site";
 import { blogPosts } from "@/lib/content/blog-posts";
-import { allSeoLocationSlugs, seoBlogEntries, seoEventsHub } from "@/lib/content/seo-data";
+import { seoBlogEntries, seoEventsHub } from "@/lib/content/seo-data";
 import { allCountrySeoSlugs } from "@/lib/content/country-pages";
 import { loadSpiceEntities } from "@/lib/spice-data";
 import { loadRecipes } from "@/lib/recipes";
 import { loadComparisons } from "@/lib/content/comparisons";
 import { listJournalPosts } from "@/lib/content/journal-posts";
-import { indexableGeoPaths } from "@/lib/content/geo";
+import { loadKeywordMarkets, loadKeywordProducts } from "@/lib/keyword-universe";
 
 function sitemapDate(value?: string): Date {
   if (!value) return new Date();
@@ -57,6 +57,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteUrl}/wholesale/uk`, lastModified: now, changeFrequency: "weekly", priority: 0.85 },
     { url: `${siteUrl}/wholesale/restaurants`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     { url: `${siteUrl}/bulk-enquiry`, lastModified: now, changeFrequency: "weekly", priority: 0.85 },
+    { url: `${siteUrl}/markets`, lastModified: now, changeFrequency: "weekly", priority: 0.85 },
+    { url: `${siteUrl}/keyword-map`, lastModified: now, changeFrequency: "weekly", priority: 0.5 },
     { url: `${siteUrl}/legal/food-information`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${siteUrl}/legal/allergens`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${siteUrl}/spice-guide`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
@@ -103,18 +105,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
-  const cityRoutes = allSeoLocationSlugs().map((slug) => ({
-    url: `${siteUrl}/cities/${slug}`,
+  const marketRoutes = loadKeywordMarkets().map((m) => ({
+    url: `${siteUrl}/markets/${m.slug}`,
     lastModified: now,
-    changeFrequency: "weekly" as const,
+    changeFrequency: "monthly" as const,
     priority: 0.75,
   }));
 
-  const spiceRoutes = indexableGeoPaths().map((path) => ({
-    url: `${siteUrl}${path}`,
+  const sourcingRoutes = loadKeywordProducts().map((p) => ({
+    url: `${siteUrl}/sourcing/${p.slug}`,
     lastModified: now,
-    changeFrequency: "weekly" as const,
-    priority: path.split("/").length <= 3 ? 0.8 : 0.7,
+    changeFrequency: "monthly" as const,
+    priority: 0.75,
   }));
 
   const blogRoutes = mergedBlogRoutes();
@@ -163,8 +165,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...staticRoutes,
     ...categoryRoutes,
     ...countryRoutes,
-    ...cityRoutes,
-    ...spiceRoutes,
+    ...marketRoutes,
+    ...sourcingRoutes,
     ...spiceGuideRoutes,
     ...spiceShopRoutes,
     ...recipeRoutes,

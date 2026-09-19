@@ -35,8 +35,18 @@ const empty = {
   message: "",
 };
 
-export function WholesaleQuoteForm({ defaultProduct = "" }: { defaultProduct?: string }) {
-  const [form, setForm] = useState({ ...empty, product: defaultProduct });
+export function WholesaleQuoteForm({
+  defaultProduct = "",
+  defaultCountry = "",
+}: {
+  defaultProduct?: string;
+  defaultCountry?: string;
+}) {
+  const [form, setForm] = useState({
+    ...empty,
+    product: defaultProduct,
+    country: defaultCountry || empty.country,
+  });
   const [done, setDone] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");

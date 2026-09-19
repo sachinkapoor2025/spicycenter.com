@@ -39,10 +39,11 @@ export function getSiteUrl(): string {
   const fromEnv = process.env.NEXT_PUBLIC_SITE_URL?.trim();
   if (fromEnv) return fromEnv.replace(/\/$/, "");
 
-  const amplifyBranch = getAmplifyBranchUrl();
-  if (amplifyBranch && process.env.NODE_ENV === "production") return amplifyBranch;
+  if (process.env.NODE_ENV === "production") return "https://www.spicycenter.com";
 
-  if (process.env.NODE_ENV === "production") return "https://spicycenter.com";
+  const amplifyBranch = getAmplifyBranchUrl();
+  if (amplifyBranch) return amplifyBranch;
+
   return "http://localhost:3000";
 }
 

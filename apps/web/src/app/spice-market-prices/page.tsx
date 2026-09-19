@@ -3,7 +3,12 @@ import { pageMetadata } from "@/lib/seo";
 import { api } from "@/lib/api";
 import { AGMARKNET_SOURCE_DISCLAIMER } from "@spicycorner/shared";
 import { LiveMandiPriceBoard } from "@/components/LiveMandiPriceBoard";
-import { formatMandiDate, type LiveMandiBoard } from "@/lib/live-mandi-prices";
+import { loadSpiceEntities } from "@/lib/spice-data";
+import {
+  formatMandiDate,
+  mergeMandiWithCatalog,
+  type LiveMandiBoard,
+} from "@/lib/live-mandi-prices";
 
 export const metadata: Metadata = pageMetadata({
   title: "Live Indian spice market prices",
@@ -24,7 +29,7 @@ async function loadBoard(): Promise<LiveMandiBoard | null> {
 
 export default async function MarketPricesPage() {
   const board = await loadBoard();
-  const prices = board?.prices ?? [];
+  const prices = mergeMandiWithCatalog(loadSpiceEntities(), board?.prices ?? []);
   const liveCount = prices.filter((p) => p.available).length;
   const asOf = formatMandiDate(board?.fetchedAt ?? prices.find((p) => p.arrivalDate)?.arrivalDate);
 
@@ -40,9 +45,9 @@ export default async function MarketPricesPage() {
           wholesale market reference, not SpicyCenter&apos;s retail checkout price or a confirmed bulk quote.
         </p>
         <p className="text-xs text-muted mt-3">
-          {liveCount > 0
-            ? `${liveCount} spices with a live print${asOf ? ` · last refreshed ${asOf}` : ""} · ${board?.source ?? "Agmarknet"}`
-            : "Waiting for the next daily Agmarknet fetch."}
+          {prices.length} spices on the board · {liveCount} with a live Agmarknet print
+          {asOf ? ` · last refreshed ${asOf}` : ""} · {board?.source ?? "Agmarknet / data.gov.in"}. Spices without a
+          mandi row stay listed as pending until the daily fetch has a print.
         </p>
       </div>
       <LiveMandiPriceBoard prices={prices} />

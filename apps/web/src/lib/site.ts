@@ -40,6 +40,7 @@ export const navItems = [
   { label: "Recipes", href: "/recipes" },
   { label: "Journal", href: "/journal" },
   { label: "Spice Market Prices", href: "/spice-market-prices" },
+  { label: "Markets", href: "/markets" },
   { label: "About", href: "/about" },
 ] as const;
 

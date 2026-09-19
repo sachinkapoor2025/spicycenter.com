@@ -48,6 +48,8 @@ ${cats}
 - Home: ${siteUrl}/
 - Shop: ${siteUrl}/spices
 - Wholesale: ${siteUrl}/wholesale
+- Export markets: ${siteUrl}/markets
+- Keyword map (100k seeds, mapped not paged): ${siteUrl}/keyword-map
 - Spice guide: ${siteUrl}/spice-guide
 - Comparisons: ${siteUrl}/spice-guide/comparisons
 - Journal: ${siteUrl}/journal

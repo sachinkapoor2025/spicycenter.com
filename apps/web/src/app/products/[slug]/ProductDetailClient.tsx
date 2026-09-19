@@ -266,6 +266,14 @@ export function ProductDetailClient({
             </div>
           )}
 
+          <div className="mb-5 flex flex-wrap gap-3 text-sm">
+            <Link href={`/wholesale?product=${encodeURIComponent(product.name)}`} className="font-semibold text-nav">
+              Send free wholesale enquiry
+            </Link>
+            <Link href="/bulk-enquiry" className="font-semibold text-nav">
+              Request 100kg+ bulk quote
+            </Link>
+          </div>
           <TrustBadges variant="compact" className="mb-5" />
           <div className="mb-5">
             <AssistantPromo variant="product" productName={product.name} />

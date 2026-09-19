@@ -1,0 +1,352 @@
+[
+  {
+    "name": "indian spices",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "indian-spices"
+  },
+  {
+    "name": "bulk spices",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "bulk-spices"
+  },
+  {
+    "name": "wholesale spices",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "wholesale-spices"
+  },
+  {
+    "name": "turmeric",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "turmeric"
+  },
+  {
+    "name": "turmeric powder",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "turmeric-powder"
+  },
+  {
+    "name": "cumin seeds",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "cumin-seeds"
+  },
+  {
+    "name": "cumin powder",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "cumin-powder"
+  },
+  {
+    "name": "coriander seeds",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "coriander-seeds"
+  },
+  {
+    "name": "coriander powder",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "coriander-powder"
+  },
+  {
+    "name": "black pepper",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "black-pepper"
+  },
+  {
+    "name": "cardamom",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "cardamom"
+  },
+  {
+    "name": "green cardamom",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "green-cardamom"
+  },
+  {
+    "name": "black cardamom",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "black-cardamom"
+  },
+  {
+    "name": "red chilli",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "red-chilli"
+  },
+  {
+    "name": "chilli powder",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "chilli-powder"
+  },
+  {
+    "name": "kashmiri chilli",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "kashmiri-chilli"
+  },
+  {
+    "name": "fenugreek",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "fenugreek"
+  },
+  {
+    "name": "fenugreek seeds",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "fenugreek-seeds"
+  },
+  {
+    "name": "ginger",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "ginger"
+  },
+  {
+    "name": "dry ginger",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "dry-ginger"
+  },
+  {
+    "name": "cinnamon",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "cinnamon"
+  },
+  {
+    "name": "cloves",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "cloves"
+  },
+  {
+    "name": "fennel seeds",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "fennel-seeds"
+  },
+  {
+    "name": "mustard seeds",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "mustard-seeds"
+  },
+  {
+    "name": "ajwain",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "ajwain"
+  },
+  {
+    "name": "asafoetida",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "asafoetida"
+  },
+  {
+    "name": "garam masala",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "garam-masala"
+  },
+  {
+    "name": "curry powder",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "curry-powder"
+  },
+  {
+    "name": "biryani masala",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "biryani-masala"
+  },
+  {
+    "name": "chaat masala",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "chaat-masala"
+  },
+  {
+    "name": "tea masala",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "tea-masala"
+  },
+  {
+    "name": "amchur powder",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "amchur-powder"
+  },
+  {
+    "name": "tamarind",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "tamarind"
+  },
+  {
+    "name": "bay leaf",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "bay-leaf"
+  },
+  {
+    "name": "star anise",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "star-anise"
+  },
+  {
+    "name": "nutmeg",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "nutmeg"
+  },
+  {
+    "name": "mace",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "mace"
+  },
+  {
+    "name": "sesame seeds",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "sesame-seeds"
+  },
+  {
+    "name": "flax seeds",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "flax-seeds"
+  },
+  {
+    "name": "chia seeds",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "chia-seeds"
+  },
+  {
+    "name": "makhana",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "makhana"
+  },
+  {
+    "name": "fox nuts",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "fox-nuts"
+  },
+  {
+    "name": "basmati rice",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "basmati-rice"
+  },
+  {
+    "name": "non basmati rice",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "non-basmati-rice"
+  },
+  {
+    "name": "sona masuri rice",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "sona-masuri-rice"
+  },
+  {
+    "name": "parboiled rice",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "parboiled-rice"
+  },
+  {
+    "name": "broken rice",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "broken-rice"
+  },
+  {
+    "name": "brown rice",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "brown-rice"
+  },
+  {
+    "name": "pulses",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "pulses"
+  },
+  {
+    "name": "lentils",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "lentils"
+  },
+  {
+    "name": "chickpeas",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "chickpeas"
+  },
+  {
+    "name": "kabuli chana",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "kabuli-chana"
+  },
+  {
+    "name": "toor dal",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "toor-dal"
+  },
+  {
+    "name": "moong dal",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "moong-dal"
+  },
+  {
+    "name": "urad dal",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "urad-dal"
+  },
+  {
+    "name": "masoor dal",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "masoor-dal"
+  },
+  {
+    "name": "rajma",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "rajma"
+  },
+  {
+    "name": "black beans",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "black-beans"
+  },
+  {
+    "name": "green gram",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "green-gram"
+  },
+  {
+    "name": "millets",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "millets"
+  },
+  {
+    "name": "wheat",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "wheat"
+  },
+  {
+    "name": "atta",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "atta"
+  },
+  {
+    "name": "gram flour",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "gram-flour"
+  },
+  {
+    "name": "poha",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "poha"
+  },
+  {
+    "name": "dry fruits",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "dry-fruits"
+  },
+  {
+    "name": "cashews",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "cashews"
+  },
+  {
+    "name": "almonds",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "almonds"
+  },
+  {
+    "name": "raisins",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "raisins"
+  },
+  {
+    "name": "coconut products",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "coconut-products"
+  },
+  {
+    "name": "vegetarian food products",
+    "contentRequired": "Origin, cultivation, varieties, grades, processing, uses, safety, packaging, MOQ, enquiry CTA",
+    "slug": "vegetarian-food-products"
+  }
+]
