@@ -15,6 +15,7 @@ import {
   marketFulfilment,
   spiceQueryForProduct,
 } from "@/lib/keyword-universe";
+import { isMeMarketSlug, mePlacesForMarket } from "@/lib/middle-east-locations";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -70,6 +71,7 @@ export default async function MarketPage({ params }: Props) {
   const topIntents = Object.entries(market.intentCounts)
     .sort((a, b) => b[1] - a[1])
     .slice(0, 8);
+  const mePlaces = isMeMarketSlug(slug) ? mePlacesForMarket(slug) : [];
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
@@ -90,6 +92,21 @@ export default async function MarketPage({ params }: Props) {
       <p className="mt-4 text-muted leading-relaxed">{fulfilmentCopy(slug, market.name)}</p>
       <p className="mt-3 text-sm text-muted">{market.recommendedContent}</p>
       <FreeEnquiryCtas productName="Indian spices" spiceQuery="cumin" destination={dest} />
+      {mePlaces.length > 0 && (
+        <div className="mt-6 rounded-2xl border border-[#e6d5bc] bg-white p-4">
+          <h2 className="font-serif text-xl text-primary">Middle East places on this market</h2>
+          <ul className="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-sm">
+            {mePlaces.map((p) => (
+              <li key={p.slug}>
+                <Link href={`/middle-east/${p.slug}`} className="text-nav font-semibold">
+                  {p.name}
+                </Link>
+                <span className="text-muted"> · {p.kind}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
       {hub && (
         <p className="mt-4 text-sm">
           Existing storefront page:{" "}

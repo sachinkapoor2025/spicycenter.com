@@ -22,7 +22,7 @@ export function WhatsAppFloat() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat with SpicyCenter on WhatsApp"
-      className="fixed bottom-[5.75rem] md:bottom-5 left-4 md:left-auto md:right-4 z-50 flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-b from-[#2fe06a] to-[#25D366] text-white shadow-[0_4px_12px_rgba(37,211,102,0.4)] hover:from-[#28d763] hover:to-[#20bd5a] hover:scale-105 active:scale-95 transition-transform"
+      className="fixed bottom-[5.25rem] md:bottom-24 left-4 md:left-auto md:right-6 z-50 flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-b from-[#2fe06a] to-[#25D366] text-white shadow-[0_4px_12px_rgba(37,211,102,0.4)] hover:from-[#28d763] hover:to-[#20bd5a] hover:scale-105 active:scale-95 transition-transform"
     >
       <WhatsAppIcon />
     </a>

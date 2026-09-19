@@ -24,6 +24,13 @@ export default function MarketsIndexPage() {
         quoted for the United Kingdom and listed EU countries. United States and Canada can request a 100kg+ bulk quote.
         Other markets submit a free sourcing enquiry — we do not invent warehouses, certifications, or shipping times.
       </p>
+      <p className="mt-6 rounded-2xl border border-[#e6d5bc] bg-white p-4 text-sm">
+        Targeting UAE and the Middle East? Use the{" "}
+        <Link href="/middle-east" className="text-nav font-semibold">
+          Middle East country, emirate and city pages
+        </Link>{" "}
+        plus the UAE / GCC market hubs below. Other countries on this list are unchanged.
+      </p>
       {meta && (
         <p className="mt-3 text-xs text-muted">
           {meta.keywordCount.toLocaleString("en-GB")} keyword seeds mapped to these hubs. {meta.validation}.{" "}

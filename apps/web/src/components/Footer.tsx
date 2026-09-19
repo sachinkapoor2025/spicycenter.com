@@ -12,6 +12,8 @@ const shopLinks = [
   { href: "/wholesale", label: "Bulk & Wholesale" },
   { href: "/bulk-enquiry", label: "100kg+ bulk" },
   { href: "/markets", label: "Export markets" },
+  { href: "/middle-east", label: "Middle East" },
+  { href: "/locations", label: "Location list" },
   { href: "/food", label: "Food sourcing" },
   { href: "/guides", label: "Sourcing guides" },
   { href: "/spice-guide", label: "Spice Guide" },

@@ -12,6 +12,7 @@ import { loadRecipes } from "@/lib/recipes";
 import { loadComparisons } from "@/lib/content/comparisons";
 import { listJournalPosts } from "@/lib/content/journal-posts";
 import { WHOLESALE_SLUGS } from "@/lib/content/wholesale-landings";
+import { ME_PLACES } from "@/lib/middle-east-locations";
 import { loadKeywordMarkets, loadKeywordProducts } from "@/lib/keyword-universe";
 
 function sitemapDate(value?: string): Date {
@@ -63,6 +64,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteUrl}/bulk-enquiry`, lastModified: now, changeFrequency: "weekly", priority: 0.85 },
     { url: `${siteUrl}/enquiry`, lastModified: now, changeFrequency: "weekly", priority: 0.85 },
     { url: `${siteUrl}/markets`, lastModified: now, changeFrequency: "weekly", priority: 0.85 },
+    { url: `${siteUrl}/middle-east`, lastModified: now, changeFrequency: "weekly", priority: 0.85 },
+    { url: `${siteUrl}/locations`, lastModified: now, changeFrequency: "monthly", priority: 0.5 },
     { url: `${siteUrl}/keyword-map`, lastModified: now, changeFrequency: "weekly", priority: 0.5 },
     { url: `${siteUrl}/food`, lastModified: now, changeFrequency: "weekly", priority: 0.75 },
     { url: `${siteUrl}/guides`, lastModified: now, changeFrequency: "weekly", priority: 0.75 },
@@ -133,6 +136,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.75,
   }));
 
+  const middleEastRoutes = ME_PLACES.map((p) => ({
+    url: `${siteUrl}/middle-east/${p.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.8,
+  }));
+
   const foodRoutes = FOOD_FAMILIES.map((f) => ({
     url: `${siteUrl}/food/${f.slug}`,
     lastModified: now,
@@ -195,6 +205,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...countryRoutes,
     ...wholesaleSlugRoutes,
     ...marketRoutes,
+    ...middleEastRoutes,
     ...sourcingRoutes,
     ...foodRoutes,
     ...guideRoutes,

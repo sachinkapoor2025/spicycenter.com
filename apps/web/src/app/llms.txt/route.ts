@@ -51,6 +51,8 @@ ${cats}
 - Wholesale: ${siteUrl}/wholesale
 - 100kg+ bulk: ${siteUrl}/bulk-enquiry
 - Export markets: ${siteUrl}/markets
+- Middle East (UAE emirates + GCC cities): ${siteUrl}/middle-east
+- Location inventory: ${siteUrl}/locations
 - Food sourcing hubs: ${siteUrl}/food
 - Sourcing guides: ${siteUrl}/guides
 - Product sourcing profiles: ${siteUrl}/sourcing/turmeric

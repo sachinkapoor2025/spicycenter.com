@@ -5,6 +5,7 @@ import { HubBreadcrumbs } from "@/components/HubBreadcrumbs";
 import { pageMetadata } from "@/lib/seo";
 import { getSourcingGuide, SOURCING_GUIDES } from "@/lib/sourcing-guides";
 import { FreeEnquiryCtas } from "@/components/FreeEnquiryCtas";
+import { mePlacesByKind } from "@/lib/middle-east-locations";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -51,6 +52,26 @@ export default async function GuidePage({ params }: Props) {
           <p className="mt-2 text-sm text-muted leading-relaxed">{s.body}</p>
         </section>
       ))}
+      {slug === "gcc-import" && (
+        <ul className="mt-8 flex flex-wrap gap-3 text-sm">
+          {mePlacesByKind("country")
+            .filter((p) =>
+              ["uae", "saudi-arabia", "qatar", "kuwait", "oman", "bahrain"].includes(p.marketSlug)
+            )
+            .map((p) => (
+              <li key={p.slug}>
+                <Link href={`/middle-east/${p.slug}`} className="text-nav font-semibold">
+                  {p.name}
+                </Link>
+              </li>
+            ))}
+          <li>
+            <Link href="/middle-east/dubai" className="text-nav font-semibold">
+              Dubai
+            </Link>
+          </li>
+        </ul>
+      )}
       <FreeEnquiryCtas />
     </div>
   );

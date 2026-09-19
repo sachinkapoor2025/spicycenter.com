@@ -8,6 +8,7 @@ import { MarketProvider } from "@/lib/market-context";
 import { LocaleProvider } from "@/lib/i18n/locale-context";
 import { HeaderShell } from "@/components/HeaderShell";
 import { FooterShell } from "@/components/FooterShell";
+import { EnquiryFloat } from "@/components/EnquiryFloat";
 import { WhatsAppFloat } from "@/components/WhatsAppFloat";
 import { TrackingProvider } from "@/components/TrackingProvider";
 import { JsonLd } from "@/components/JsonLd";
@@ -95,10 +96,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <LocaleProvider>
             <TrackingProvider />
             <HeaderShell />
-            <main className="flex-1 min-w-0 overflow-x-clip">{children}</main>
+            <main className="flex-1 min-w-0 overflow-x-clip pb-20 md:pb-0">{children}</main>
             <FooterShell />
             <ClientDeferredWidgets />
             <WhatsAppFloat />
+            <EnquiryFloat />
             </LocaleProvider>
             </MarketProvider>
             </CurrencyProvider>

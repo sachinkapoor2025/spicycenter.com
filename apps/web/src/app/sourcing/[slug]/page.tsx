@@ -7,11 +7,13 @@ import { FreeEnquiryCtas } from "@/components/FreeEnquiryCtas";
 import { WholesaleQuoteForm } from "@/components/WholesaleQuoteForm";
 import {
   existingUrlsForProduct,
+  getKeywordMarket,
   getKeywordProduct,
   loadKeywordMarkets,
   loadKeywordProducts,
   spiceQueryForProduct,
 } from "@/lib/keyword-universe";
+import { ME_MARKET_SLUGS } from "@/lib/middle-east-locations";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -93,6 +95,22 @@ export default async function SourcingPage({ params }: Props) {
             <span className="text-muted"> · {(product.countryCounts[m.slug] ?? 0).toLocaleString("en-GB")}</span>
           </li>
         ))}
+      </ul>
+
+      <h2 className="font-serif text-2xl text-primary mt-10">Middle East keyword hubs</h2>
+      <ul className="mt-3 flex flex-wrap gap-3 text-sm">
+        {ME_MARKET_SLUGS.map((slug) => (
+          <li key={slug}>
+            <Link href={`/markets/${slug}`} className="text-nav">
+              {getKeywordMarket(slug)?.name ?? slug}
+            </Link>
+          </li>
+        ))}
+        <li>
+          <Link href="/middle-east" className="text-nav font-semibold">
+            All Middle East places
+          </Link>
+        </li>
       </ul>
 
       <h2 className="font-serif text-2xl text-primary mt-10">Free enquiry</h2>

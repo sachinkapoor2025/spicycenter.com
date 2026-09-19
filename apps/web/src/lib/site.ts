@@ -42,6 +42,7 @@ export const navItems = [
   { label: "Journal", href: "/journal" },
   { label: "Spice Market Prices", href: "/spice-market-prices" },
   { label: "Markets", href: "/markets" },
+  { label: "Middle East", href: "/middle-east" },
   { label: "Food sourcing", href: "/food" },
   { label: "Guides", href: "/guides" },
   { label: "About", href: "/about" },

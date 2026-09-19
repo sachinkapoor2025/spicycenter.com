@@ -136,6 +136,23 @@ export default async function HomePage() {
         </div>
       </section>
 
+      <section className="max-w-7xl mx-auto px-4 pb-14">
+        <div className="card-spice p-8">
+          <p className="spice-kicker">UAE and Middle East</p>
+          <h2 className="font-serif text-3xl mt-2">Indian spices for Dubai, Abu Dhabi and the GCC</h2>
+          <p className="mt-3 text-muted max-w-3xl">
+            Importers and hotels in the UAE, Saudi Arabia, Qatar and nearby markets send a free bulk enquiry. We map
+            the keyword workbook to country and city hubs — we do not invent a warehouse in every emirate.
+          </p>
+          <div className="mt-5 flex flex-wrap gap-3">
+            <Link href="/middle-east" className="btn-primary">Middle East hubs</Link>
+            <Link href="/middle-east/dubai" className="text-nav font-semibold">Dubai</Link>
+            <Link href="/middle-east/abu-dhabi" className="text-nav font-semibold">Abu Dhabi</Link>
+            <Link href="/markets/uae" className="text-nav font-semibold">UAE keyword hub</Link>
+          </div>
+        </div>
+      </section>
+
       {livePrices.length > 0 && (
         <section className="bg-paper border-y border-[#e6d5bc] py-14">
           <div className="max-w-7xl mx-auto px-4">
