@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { pageMetadata } from "@/lib/seo";
+import { canonical, pageMetadata } from "@/lib/seo";
 import { FreeEnquiryCtas } from "@/components/FreeEnquiryCtas";
 import { WholesaleQuoteForm } from "@/components/WholesaleQuoteForm";
 import {
@@ -27,11 +27,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const market = getKeywordMarket(slug);
   if (!market) return { title: "Market" };
-  return pageMetadata({
+  const meta = pageMetadata({
     title: `Indian spices for ${market.name} — free sourcing enquiry`,
     description: `Bulk and wholesale Indian spice enquiries for ${market.name}. Standard enquiry is free. Optional add-ons are paid only if you choose them.`,
     path: `/markets/${slug}`,
   });
+  const lang = slug === "usa" ? "en-US" : "en-GB";
+  return {
+    ...meta,
+    alternates: {
+      canonical: canonical(`/markets/${slug}`),
+      languages: {
+        [lang]: canonical(`/markets/${slug}`),
+        "x-default": canonical("/markets"),
+      },
+    },
+  };
 }
 
 function fulfilmentCopy(slug: string, name: string): string {

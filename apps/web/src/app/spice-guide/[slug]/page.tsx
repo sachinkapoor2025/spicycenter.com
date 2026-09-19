@@ -4,7 +4,13 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { pageMetadata, faqJsonLd, spiceGuideArticleJsonLd, breadcrumbJsonLd } from "@/lib/seo";
 import { JsonLd } from "@/components/JsonLd";
-import { getSpiceBySlug, loadMarketPrices, loadSpiceEntities } from "@/lib/spice-data";
+import {
+  getSpiceBySlug,
+  isPublishedSpice,
+  loadMarketPrices,
+  loadPublishedSpiceEntities,
+  loadSpiceEntities,
+} from "@/lib/spice-data";
 import { getCatalogProducts } from "@/lib/catalog-fallback";
 import { InternalLinksSection } from "@/components/InternalLinksSection";
 import { spiceHubLinks } from "@/lib/seo/spice-hub-links";
@@ -14,7 +20,7 @@ import { nutritionDisclaimer, wholeVsGroundCopy } from "@/lib/content/spice-disp
 type Props = { params: Promise<{ slug: string }> };
 
 export async function generateStaticParams() {
-  return loadSpiceEntities().map((s) => ({ slug: s.slug }));
+  return loadPublishedSpiceEntities().map((s) => ({ slug: s.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -41,7 +47,7 @@ function Block({ title, children }: { title: string; children: ReactNode }) {
 export default async function SpiceGuidePage({ params }: Props) {
   const { slug } = await params;
   const spice = getSpiceBySlug(slug);
-  if (!spice) notFound();
+  if (!spice || !isPublishedSpice(spice)) notFound();
   const related = loadSpiceEntities().filter((s) => spice.relatedSpiceIds.includes(s.id));
   const products = getCatalogProducts().filter((p) => p.tags?.includes(`spice:${spice.id}`)).slice(0, 12);
   const price = loadMarketPrices().find((p) => p.spiceId === spice.id);

@@ -15,7 +15,21 @@ type Enquiry = {
   paymentStatus?: string;
 };
 
-const STATUSES = ["all", "new", "quoted", "converted", "lost", "paid_addons"] as const;
+const STATUSES = [
+  "all",
+  "new",
+  "contacted",
+  "qualified",
+  "quoted",
+  "quotation_sent",
+  "negotiation",
+  "converted",
+  "won",
+  "lost",
+  "spam",
+  "closed",
+  "paid_addons",
+] as const;
 
 export default function AdminWholesalePage() {
   const api = useApiClient();

@@ -93,6 +93,12 @@ export const EVENT_TYPES = {
   CHAT_OPEN: "chat_open",
   CHAT_CLOSE: "chat_close",
   CHAT_MESSAGE: "chat_message",
+  ENQUIRY_FORM_VIEW: "enquiry_form_view",
+  ENQUIRY_FORM_START: "enquiry_form_start",
+  ENQUIRY_FORM_SUBMIT: "enquiry_form_submit",
+  ENQUIRY_VALIDATION_ERROR: "enquiry_validation_error",
+  ADDON_VIEW: "addon_view",
+  ADDON_SELECT: "addon_select",
 } as const;
 
 export type EventType = (typeof EVENT_TYPES)[keyof typeof EVENT_TYPES];

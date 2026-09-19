@@ -47,6 +47,12 @@ export type BulkEnquiryRecord = {
   paymentStatus: "none" | "pending" | "paid" | "failed";
   paymentIntentId?: string;
   disclaimer: string;
+  attribution?: {
+    attrFirstSource?: string;
+    attrFirstMedium?: string;
+    attrFirstCampaign?: string;
+    landingPage?: string;
+  };
 };
 
 function enquiryId(): string {
@@ -108,6 +114,10 @@ async function notifyEnquiry(item: BulkEnquiryRecord) {
     `From: ${item.contact.fullName} <${item.contact.email}> ${item.contact.phone}`,
     `Country: ${item.contact.country}`,
     item.contact.companyName ? `Company: ${item.contact.companyName}` : "",
+    item.attribution?.attrFirstSource
+      ? `First-touch: ${item.attribution.attrFirstSource}/${item.attribution.attrFirstMedium ?? "—"} ${item.attribution.attrFirstCampaign ?? ""}`.trim()
+      : "",
+    item.attribution?.landingPage ? `Landing: ${item.attribution.landingPage}` : "",
     quoteText(item.quote),
     item.contact.notes ? `Notes: ${item.contact.notes}` : "",
   ]
@@ -128,6 +138,9 @@ async function notifyEnquiry(item: BulkEnquiryRecord) {
 
 export async function createBulkEnquiry(event: APIGatewayProxyEventV2) {
   const body = JSON.parse(event.body || "{}") as Record<string, unknown>;
+  if (typeof body.website === "string" && body.website.trim()) {
+    return created({ enquiryId: "BE-IGNORED", status: "new", requiresPayment: false });
+  }
   const tracked = findTrackedCommodity(String(body.spiceId ?? body.commodity ?? ""));
   if (!tracked) return badRequest("Unknown spice.");
   const dest = bulkDestinationSchema.safeParse(String(body.destination ?? "UK").toUpperCase());
@@ -186,6 +199,12 @@ export async function createBulkEnquiry(event: APIGatewayProxyEventV2) {
     documentationSelected,
     paymentStatus: addOnsWanted && !isNorthAmericaBulk(dest.data) ? "pending" : "none",
     disclaimer: bulkQuoteDisclaimer(dest.data),
+    attribution: {
+      attrFirstSource: contactParse.data.attrFirstSource,
+      attrFirstMedium: contactParse.data.attrFirstMedium,
+      attrFirstCampaign: contactParse.data.attrFirstCampaign,
+      landingPage: contactParse.data.landingPage,
+    },
   };
   await saveEnquiry(item);
   try {

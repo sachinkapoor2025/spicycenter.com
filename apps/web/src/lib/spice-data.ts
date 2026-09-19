@@ -20,6 +20,20 @@ export function loadSpiceEntities(): SpiceEntity[] {
   return (JSON.parse(readFileSync(path, "utf-8")) as SpiceEntity[]).map(withDisplayNames);
 }
 
+export function spiceEditorialStatus(spice: SpiceEntity): NonNullable<SpiceEntity["editorialStatus"]> {
+  if (spice.editorialStatus) return spice.editorialStatus;
+  return spice.status === "draft" ? "draft" : "published";
+}
+
+export function isPublishedSpice(spice: SpiceEntity): boolean {
+  const editorial = spiceEditorialStatus(spice);
+  return editorial === "published" || editorial === "approved";
+}
+
+export function loadPublishedSpiceEntities(): SpiceEntity[] {
+  return loadSpiceEntities().filter(isPublishedSpice);
+}
+
 export function loadMarketPrices(): MarketPrice[] {
   const path = resolvePath(["data/market-prices.json", "../../data/market-prices.json"]);
   if (!path) return [];

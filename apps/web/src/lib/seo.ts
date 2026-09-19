@@ -79,7 +79,13 @@ export function productPageMetadata(opts: {
     title: opts.title,
     description,
     keywords: opts.keywords ?? defaultKeywords,
-    alternates: { canonical: url },
+    alternates: {
+      canonical: url,
+      languages: {
+        "en-GB": url,
+        "x-default": url,
+      },
+    },
     openGraph: {
       title: opts.title,
       description,

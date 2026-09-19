@@ -1,58 +1,27 @@
-# Phased development backlog (after audit approval)
+# Phased development backlog (status)
 
-Each later phase must state: what changes, why, what it affects, how to test, how to roll back.
+Code-possible steps from the master prompt are implemented. Remaining items need credentials, inventory, or live AWS actions.
 
-## Step 1–3 (done / in this pack)
+## Done in repo
 
-Repository audit, live HTTP sample, risk assessment, enquiry diagram, taxonomies as **proposal**.
+- Enquiry analytics, honeypot, first-touch attribution, expanded lead/wholesale statuses
+- `/enquiry` unified form; PDP/free CTAs unchanged
+- Food-family hubs, sourcing guides (incl. GCC/Africa/LATAM), 48 market hubs
+- Spice editorial fields + published-only guides/sitemap
+- Keyword universe mapped to hubs; admin Keyword map + SEO ops
+- Canonical `www.spicycenter.com`, sitemap without geo 404s, hreflang on templates
+- CWV pings (LCP/CLS/INP) via existing event pipeline
+- `docs/ROLLBACK.md`
 
-## Step 4–5 — Enquiry (low risk)
+## Not possible in code (leave open)
 
-1. Analytics on forms.  
-2. Bulk attribution fields.  
-3. PDP → free enquiry with product slug.  
-**Affects:** forms, `/events`, bulk API.  
-**Test:** submit wholesale + bulk with and without add-ons; US/CA no Stripe.  
-**Rollback:** revert form commits.
+- GSC/GA4 baseline export
+- 1,400 invented food encyclopaedia pages / certified inventory
+- Validated keyword volumes
+- Full translated sites
+- Executing Amplify rollback
+- Guaranteeing 5,000 daily users in 15 days
 
-## Step 6 — Taxonomy (data, not 1,400 new URLs)
+## Related
 
-Editorial fields on spice entities. Category family enum. No public rice URLs until inventory exists.
-
-## Step 7 — Technical SEO (highest SEO ROI)
-
-1. `NEXT_PUBLIC_SITE_URL`.  
-2. Sitemap 200-only.  
-3. UK canonical.  
-4. Verify live H1/feed leftovers.  
-**Test:** curl robots Host, sitemap loc prefix, sample geo URL absent.  
-**Rollback:** env + sitemap commit.
-
-## Step 8–9 — Content + markets
-
-Quality templates; UAE hub if approved; no doorway cities.
-
-## Step 10 — Keyword database
-
-Dynamo or CSV + admin mapping UI. Generated vs validated.
-
-## Step 11–12 — Analytics + performance
-
-Admin country×source; measure CWV before/after tag reduction.
-
-## Step 13–14 — Staging then production
-
-Amplify preview branch. Explicit owner approval before `main`.
-
-## Explicitly deferred
-
-- 1,400 new food SKUs  
-- 100k public pages  
-- Full CMS  
-- Fake multilingual hreflang  
-- Mandatory enquiry payment  
-- Production deploy from this audit
-
-## Related prior plan
-
-See [implementation-plan.md](./implementation-plan.md) (A1–A6 analytics, T1 sitemap) — still valid and **approval required**.
+See [prompt-verification.md](./prompt-verification.md) and [implementation-plan.md](./implementation-plan.md).

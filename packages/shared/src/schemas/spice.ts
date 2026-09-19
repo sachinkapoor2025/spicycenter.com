@@ -116,6 +116,19 @@ export const spiceEntitySchema = z.object({
   featured: z.boolean().default(false),
   featuredKnowledge: z.boolean().default(false),
   status: z.enum(["active", "draft"]).default("active"),
+  editorialStatus: z
+    .enum([
+      "draft",
+      "research_required",
+      "editorial_review",
+      "seo_review",
+      "approved",
+      "published",
+      "needs_update",
+      "archived",
+    ])
+    .optional(),
+  lastReviewed: z.string().optional(),
   verificationStatus: verificationStatusSchema.default("requires_manual_verification"),
   seoTitle: z.string().optional(),
   metaDescription: z.string().optional(),

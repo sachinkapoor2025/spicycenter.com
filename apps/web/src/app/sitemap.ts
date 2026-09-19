@@ -5,7 +5,9 @@ import { categoryOrder } from "@/lib/site";
 import { blogPosts } from "@/lib/content/blog-posts";
 import { seoBlogEntries, seoEventsHub } from "@/lib/content/seo-data";
 import { allCountrySeoSlugs } from "@/lib/content/country-pages";
-import { loadSpiceEntities } from "@/lib/spice-data";
+import { loadPublishedSpiceEntities } from "@/lib/spice-data";
+import { FOOD_FAMILIES } from "@/lib/food-families";
+import { SOURCING_GUIDES } from "@/lib/sourcing-guides";
 import { loadRecipes } from "@/lib/recipes";
 import { loadComparisons } from "@/lib/content/comparisons";
 import { listJournalPosts } from "@/lib/content/journal-posts";
@@ -57,8 +59,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteUrl}/wholesale/uk`, lastModified: now, changeFrequency: "weekly", priority: 0.85 },
     { url: `${siteUrl}/wholesale/restaurants`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     { url: `${siteUrl}/bulk-enquiry`, lastModified: now, changeFrequency: "weekly", priority: 0.85 },
+    { url: `${siteUrl}/enquiry`, lastModified: now, changeFrequency: "weekly", priority: 0.85 },
     { url: `${siteUrl}/markets`, lastModified: now, changeFrequency: "weekly", priority: 0.85 },
     { url: `${siteUrl}/keyword-map`, lastModified: now, changeFrequency: "weekly", priority: 0.5 },
+    { url: `${siteUrl}/food`, lastModified: now, changeFrequency: "weekly", priority: 0.75 },
+    { url: `${siteUrl}/guides`, lastModified: now, changeFrequency: "weekly", priority: 0.75 },
     { url: `${siteUrl}/legal/food-information`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${siteUrl}/legal/allergens`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${siteUrl}/spice-guide`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
@@ -119,15 +124,29 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.75,
   }));
 
+  const foodRoutes = FOOD_FAMILIES.map((f) => ({
+    url: `${siteUrl}/food/${f.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
+  const guideRoutes = SOURCING_GUIDES.map((g) => ({
+    url: `${siteUrl}/guides/${g.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
   const blogRoutes = mergedBlogRoutes();
 
-  const spiceGuideRoutes = loadSpiceEntities().map((s) => ({
+  const spiceGuideRoutes = loadPublishedSpiceEntities().map((s) => ({
     url: `${siteUrl}/spice-guide/${s.slug}`,
     lastModified: now,
     changeFrequency: "monthly" as const,
     priority: 0.8,
   }));
-  const spiceShopRoutes = loadSpiceEntities().map((s) => ({
+  const spiceShopRoutes = loadPublishedSpiceEntities().map((s) => ({
     url: `${siteUrl}/spices/${s.slug}`,
     lastModified: now,
     changeFrequency: "weekly" as const,
@@ -167,6 +186,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...countryRoutes,
     ...marketRoutes,
     ...sourcingRoutes,
+    ...foodRoutes,
+    ...guideRoutes,
     ...spiceGuideRoutes,
     ...spiceShopRoutes,
     ...recipeRoutes,

@@ -19,7 +19,14 @@ export const LEAD_STATUS = {
   NEW: "new",
   CONTACTED: "contacted",
   FOLLOW_UP: "follow_up",
+  QUALIFIED: "qualified",
+  QUOTATION_SENT: "quotation_sent",
+  NEGOTIATION: "negotiation",
   CONVERTED: "converted",
+  WON: "won",
+  LOST: "lost",
+  SPAM: "spam",
+  CLOSED: "closed",
 } as const;
 
 export type LeadStatus = (typeof LEAD_STATUS)[keyof typeof LEAD_STATUS];
@@ -28,7 +35,14 @@ export const leadStatusSchema = z.enum([
   LEAD_STATUS.NEW,
   LEAD_STATUS.CONTACTED,
   LEAD_STATUS.FOLLOW_UP,
+  LEAD_STATUS.QUALIFIED,
+  LEAD_STATUS.QUOTATION_SENT,
+  LEAD_STATUS.NEGOTIATION,
   LEAD_STATUS.CONVERTED,
+  LEAD_STATUS.WON,
+  LEAD_STATUS.LOST,
+  LEAD_STATUS.SPAM,
+  LEAD_STATUS.CLOSED,
 ]);
 
 export const updateLeadSchema = z.object({

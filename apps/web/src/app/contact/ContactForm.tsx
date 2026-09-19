@@ -1,6 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { EVENT_TYPES } from "@spicycorner/shared";
+import { trackEnquiryEvent } from "@/lib/track";
 import Link from "next/link";
 import { site, whatsappChatUrl } from "@/lib/site";
 import { useSessionId } from "@/lib/session";
@@ -20,6 +22,12 @@ export function ContactForm() {
   const [sent, setSent] = useState(false);
   const [submittedEmail, setSubmittedEmail] = useState("");
   const [error, setError] = useState("");
+  const [website, setWebsite] = useState("");
+  const [formStarted, setFormStarted] = useState(false);
+
+  useEffect(() => {
+    trackEnquiryEvent(EVENT_TYPES.ENQUIRY_FORM_VIEW, { form: "contact" });
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -43,9 +51,10 @@ export function ContactForm() {
           phone,
           page: "/contact",
           source: "contact",
-          metadata: { message, countryIso },
+          metadata: { message, countryIso, website },
         }),
       });
+      trackEnquiryEvent(EVENT_TYPES.ENQUIRY_FORM_SUBMIT, { form: "contact" });
 
       setSubmittedEmail(email);
       setSent(true);
@@ -56,6 +65,7 @@ export function ContactForm() {
       setMessage("");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Could not send message");
+      trackEnquiryEvent(EVENT_TYPES.ENQUIRY_VALIDATION_ERROR, { form: "contact" });
     } finally {
       setLoading(false);
     }
@@ -113,12 +123,22 @@ export function ContactForm() {
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-4 border border-slate-200 rounded-xl p-6 bg-slate-50">
+          <label className="hidden" aria-hidden="true">
+            Website
+            <input tabIndex={-1} autoComplete="off" value={website} onChange={(e) => setWebsite(e.target.value)} />
+          </label>
           <div>
             <label className="block text-sm font-medium mb-1">Name</label>
             <input
               type="text"
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => {
+                if (!formStarted) {
+                  setFormStarted(true);
+                  trackEnquiryEvent(EVENT_TYPES.ENQUIRY_FORM_START, { form: "contact" });
+                }
+                setName(e.target.value);
+              }}
               className="w-full border border-slate-300 rounded-lg px-3 py-2 text-base"
               placeholder="Your name"
               required

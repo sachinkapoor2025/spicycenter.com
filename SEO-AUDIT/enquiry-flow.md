@@ -33,7 +33,7 @@ Legacy admin `sample_fee_gbp === 9` is migrated to **£29** as an **optional** s
 |-------------|--------|
 | Free standard enquiry | **Met** |
 | Optional paid add-ons | **Met** (UK/EU sample/docs) |
-| Product-preselected CTA on every product | Partial (PDP lead, not full B2B form) |
+| Product-preselected CTA on every product | Done (`FreeEnquiryCtas` + `/enquiry?product=`) |
 | Buyer type / qty / destination on one form | Wholesale + bulk differ |
 | Unique lead ID | Bulk yes (`BE-…`); general leads are session+timestamp |
 | Attribution on bulk | **Missing** |

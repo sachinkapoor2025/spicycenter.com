@@ -289,6 +289,27 @@ export const trackChatMessage = (intent?: string) =>
     metadata: { channel: "chat", ...(intent ? { intent } : {}) },
   });
 
+export function trackWebVital(name: string, value: number) {
+  track({
+    type: EVENT_TYPES.SESSION_PING,
+    metadata: { cwv: name, cwvValue: String(Math.round(value * 1000) / 1000) },
+    immediate: true,
+  });
+}
+
+export function trackEnquiryEvent(
+  type:
+    | typeof EVENT_TYPES.ENQUIRY_FORM_VIEW
+    | typeof EVENT_TYPES.ENQUIRY_FORM_START
+    | typeof EVENT_TYPES.ENQUIRY_FORM_SUBMIT
+    | typeof EVENT_TYPES.ENQUIRY_VALIDATION_ERROR
+    | typeof EVENT_TYPES.ADDON_VIEW
+    | typeof EVENT_TYPES.ADDON_SELECT,
+  metadata?: Record<string, string>
+) {
+  track({ type, metadata, immediate: true });
+}
+
 export const trackChatSearch = (query: string, resultCount: number, intent?: string) =>
   track({
     type: EVENT_TYPES.SEARCH,

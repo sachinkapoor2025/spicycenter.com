@@ -27,10 +27,17 @@ const STATUS_OPTIONS: { id: string; label: string }[] = [
   { id: LEAD_STATUS.NEW, label: "New" },
   { id: LEAD_STATUS.CONTACTED, label: "Contacted" },
   { id: LEAD_STATUS.FOLLOW_UP, label: "Follow-up" },
+  { id: LEAD_STATUS.QUALIFIED, label: "Qualified" },
+  { id: LEAD_STATUS.QUOTATION_SENT, label: "Quotation sent" },
+  { id: LEAD_STATUS.NEGOTIATION, label: "Negotiation" },
   { id: LEAD_STATUS.CONVERTED, label: "Converted" },
+  { id: LEAD_STATUS.WON, label: "Won" },
+  { id: LEAD_STATUS.LOST, label: "Lost" },
+  { id: LEAD_STATUS.SPAM, label: "Spam" },
+  { id: LEAD_STATUS.CLOSED, label: "Closed" },
 ];
 
-const SOURCE_OPTIONS = ["all", "checkout", "newsletter", "product", "browse", "contact"];
+const SOURCE_OPTIONS = ["all", "checkout", "newsletter", "product", "browse", "contact", "wholesale"];
 
 export function LeadsPanel() {
   const apiClient = useApiClient();

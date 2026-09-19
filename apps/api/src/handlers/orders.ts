@@ -101,6 +101,9 @@ export async function captureLead(event: APIGatewayProxyEventV2) {
   const body = JSON.parse(event.body ?? "{}");
   const parsed = leadCaptureSchema.safeParse(body);
   if (!parsed.success) return badRequest(parsed.error.message);
+  if (parsed.data.metadata?.website?.trim()) {
+    return created({ ok: true, ignored: true });
+  }
 
   const timestamp = now();
   const sessionId = parsed.data.sessionId;

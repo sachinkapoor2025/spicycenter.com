@@ -1,9 +1,11 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { api } from "@/lib/api";
 import { getOrCreateSessionId } from "@/lib/session";
 import { whatsappChatUrl } from "@/lib/site";
+import { EVENT_TYPES } from "@spicycorner/shared";
+import { trackEnquiryEvent } from "@/lib/track";
 
 const BUYER_TYPES = [
   "Restaurant",
@@ -47,11 +49,21 @@ export function WholesaleQuoteForm({
     product: defaultProduct,
     country: defaultCountry || empty.country,
   });
+  const [website, setWebsite] = useState("");
+  const [formStarted, setFormStarted] = useState(false);
+
+  useEffect(() => {
+    trackEnquiryEvent(EVENT_TYPES.ENQUIRY_FORM_VIEW, { form: "wholesale" });
+  }, []);
   const [done, setDone] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   function update(k: string, v: string) {
+    if (!formStarted) {
+      setFormStarted(true);
+      trackEnquiryEvent(EVENT_TYPES.ENQUIRY_FORM_START, { form: "wholesale" });
+    }
     setForm((f) => ({ ...f, [k]: v }));
   }
 
@@ -85,12 +97,14 @@ export function WholesaleQuoteForm({
           phone: form.phone,
           page: typeof window !== "undefined" ? window.location.pathname : "/wholesale",
           source: "wholesale",
-          metadata,
+          metadata: { ...metadata, website },
         }),
       });
+      trackEnquiryEvent(EVENT_TYPES.ENQUIRY_FORM_SUBMIT, { form: "wholesale" });
       setDone(true);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Could not send your quote request.");
+      trackEnquiryEvent(EVENT_TYPES.ENQUIRY_VALIDATION_ERROR, { form: "wholesale" });
     } finally {
       setLoading(false);
     }
@@ -108,6 +122,10 @@ export function WholesaleQuoteForm({
   return (
     <form onSubmit={submit} className="grid gap-3 card-spice p-6">
       <p className="text-sm font-semibold">10kg minimum wholesale order</p>
+      <label className="hidden" aria-hidden="true">
+        Website
+        <input tabIndex={-1} autoComplete="off" value={website} onChange={(e) => setWebsite(e.target.value)} />
+      </label>
       <label className="text-sm">
         <span className="block mb-1 font-medium">I am a</span>
         <select

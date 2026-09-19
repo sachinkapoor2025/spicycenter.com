@@ -4,6 +4,9 @@ import { useEffect, useMemo, useState, type FormEvent } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { api } from "@/lib/api";
+import { getAttributionSnapshotForCheckout } from "@/lib/attribution-store";
+import { EVENT_TYPES } from "@spicycorner/shared";
+import { trackEnquiryEvent } from "@/lib/track";
 import {
   TRACKED_COMMODITIES,
   BULK_ODOR_SEGREGATION_NOTE,
@@ -96,6 +99,8 @@ export function BulkEnquiryForm() {
   const [vatEori, setVatEori] = useState("");
   const [deliveryAddress, setDeliveryAddress] = useState("");
   const [notes, setNotes] = useState("");
+  const [website, setWebsite] = useState("");
+  const [formStarted, setFormStarted] = useState(false);
   const [incoterm, setIncoterm] = useState<"FOB" | "CIF">("FOB");
   const [submitError, setSubmitError] = useState("");
   const [submitting, setSubmitting] = useState(false);
@@ -153,6 +158,17 @@ export function BulkEnquiryForm() {
       cancelled = true;
     };
   }, []);
+
+  useEffect(() => {
+    trackEnquiryEvent(EVENT_TYPES.ENQUIRY_FORM_VIEW, { form: "bulk" });
+    trackEnquiryEvent(EVENT_TYPES.ADDON_VIEW, { form: "bulk" });
+  }, []);
+
+  function markFormStarted() {
+    if (formStarted) return;
+    setFormStarted(true);
+    trackEnquiryEvent(EVENT_TYPES.ENQUIRY_FORM_START, { form: "bulk" });
+  }
 
   useEffect(() => {
     let cancelled = false;
@@ -254,6 +270,7 @@ export function BulkEnquiryForm() {
           grade: gradeKey || undefined,
           sampleSelected,
           documentationSelected,
+          website,
           contact: {
             fullName,
             email,
@@ -264,9 +281,14 @@ export function BulkEnquiryForm() {
             deliveryAddress: deliveryAddress || undefined,
             notes: notes || undefined,
             incoterm,
+            attrFirstSource: getAttributionSnapshotForCheckout().firstTouch?.source,
+            attrFirstMedium: getAttributionSnapshotForCheckout().firstTouch?.medium,
+            attrFirstCampaign: getAttributionSnapshotForCheckout().firstTouch?.campaign,
+            landingPage: getAttributionSnapshotForCheckout().landingPage,
           },
         }),
       });
+      trackEnquiryEvent(EVENT_TYPES.ENQUIRY_FORM_SUBMIT, { form: "bulk", enquiryId: data.enquiryId });
       setEnquiryId(data.enquiryId);
       if (data.requiresPayment && data.clientSecret && !data.clientSecret.includes("_dev_")) {
         setStripeSecret(data.clientSecret);
@@ -275,6 +297,7 @@ export function BulkEnquiryForm() {
       router.push(`/bulk-enquiry/confirm/${data.enquiryId}`);
     } catch (err) {
       setSubmitError(err instanceof Error ? err.message : "Could not submit enquiry");
+      trackEnquiryEvent(EVENT_TYPES.ENQUIRY_VALIDATION_ERROR, { form: "bulk" });
     } finally {
       setSubmitting(false);
     }
@@ -489,7 +512,13 @@ export function BulkEnquiryForm() {
             <p className="text-sm text-muted mt-2 flex-1">A physical sample of the selected spice, shipped separately. Charged only if you add it.</p>
             <button
               type="button"
-              onClick={() => setSampleSelected((v) => !v)}
+              onClick={() => {
+                setSampleSelected((v) => {
+                  const next = !v;
+                  trackEnquiryEvent(EVENT_TYPES.ADDON_SELECT, { form: "bulk", addon: "sample", selected: String(next) });
+                  return next;
+                });
+              }}
               className={`mt-4 rounded-lg px-4 py-2.5 text-sm font-semibold ${
                 sampleSelected ? "bg-nav text-white" : "border border-nav text-nav hover:bg-orange-50"
               }`}
@@ -503,7 +532,17 @@ export function BulkEnquiryForm() {
             <p className="text-sm text-muted mt-2 flex-1">We prepare the export paperwork. Charged only if you add it — not the spice cargo.</p>
             <button
               type="button"
-              onClick={() => setDocumentationSelected((v) => !v)}
+              onClick={() => {
+                setDocumentationSelected((v) => {
+                  const next = !v;
+                  trackEnquiryEvent(EVENT_TYPES.ADDON_SELECT, {
+                    form: "bulk",
+                    addon: "documentation",
+                    selected: String(next),
+                  });
+                  return next;
+                });
+              }}
               className={`mt-4 rounded-lg px-4 py-2.5 text-sm font-semibold ${
                 documentationSelected ? "bg-nav text-white" : "border border-nav text-nav hover:bg-orange-50"
               }`}
@@ -535,7 +574,20 @@ export function BulkEnquiryForm() {
       <section>
         <h2 className="font-serif text-2xl text-primary">4. Contact</h2>
         <div className="grid sm:grid-cols-2 gap-3 mt-4">
-          <input required className="border rounded-lg px-3 py-2" placeholder="Full name *" value={fullName} onChange={(e) => setFullName(e.target.value)} />
+          <input
+            required
+            className="border rounded-lg px-3 py-2"
+            placeholder="Full name *"
+            value={fullName}
+            onChange={(e) => {
+              markFormStarted();
+              setFullName(e.target.value);
+            }}
+          />
+          <label className="hidden" aria-hidden="true">
+            Website
+            <input tabIndex={-1} autoComplete="off" value={website} onChange={(e) => setWebsite(e.target.value)} />
+          </label>
           <input required type="email" className="border rounded-lg px-3 py-2" placeholder="Email *" value={email} onChange={(e) => setEmail(e.target.value)} />
           <input required className="border rounded-lg px-3 py-2" placeholder="Phone *" value={phone} onChange={(e) => setPhone(e.target.value)} />
           <input required className="border rounded-lg px-3 py-2" placeholder="Country *" value={country} onChange={(e) => setCountry(e.target.value)} />

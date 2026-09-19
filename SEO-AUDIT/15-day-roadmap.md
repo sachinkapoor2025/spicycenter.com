@@ -6,32 +6,32 @@
 ## Days 1–2 — Audit and protect
 
 - [x] Repo + live HTTP audit (this folder).
-- [ ] Export GSC + GA4 28-day baseline (operators).
-- [ ] Confirm USA top queries/pages — do not retitle those yet.
-- [ ] Confirm enquiry email + admin lead creation on staging.
+- [ ] Export GSC + GA4 28-day baseline (operators — not possible from repo).
+- [ ] Confirm USA top queries/pages — do not retitle those yet (needs GSC).
+- [x] Enquiry email + lead/bulk pipelines in code (honeypot, attribution, admin statuses).
 
 ## Days 3–4 — Conversion and technical
 
-- [ ] Set `NEXT_PUBLIC_SITE_URL=https://www.spicycenter.com` (and rebuild) so robots/sitemap stop advertising Amplify.
-- [ ] Sitemap: only 200 URLs (drop geo 404s).
-- [ ] Enquiry analytics events (view/start/submit).
-- [ ] Product/wholesale “free enquiry” CTAs that preselect spice (no payment).
-- [ ] Mobile pass on `/bulk-enquiry` and `/wholesale`.
+- [x] `NEXT_PUBLIC_SITE_URL=https://www.spicycenter.com` in `amplify.yml` + production default in `getSiteUrl()`.
+- [x] Sitemap: only intended 200 URLs (drop geo 404s).
+- [x] Enquiry analytics events (view/start/submit/error + add-ons).
+- [x] Product/wholesale “free enquiry” CTAs + `/enquiry` hub (no payment).
+- [ ] Mobile pass on `/bulk-enquiry` and `/wholesale` (needs device QA).
 
 **$9 gate:** already absent — do not spend this window “removing” a fee that is not required.
 
 ## Days 5–7 — Market foundations
 
-- [ ] Canonical UK hub decision (`/uk` vs `/countries/uk`).
-- [ ] Deepen UAE **only** if ops approves copy (import/docs, no fake warehouse).
-- [ ] Strengthen existing DE/FR/NL/IE pages (unique facts).
-- [ ] Do not launch rice/pulses/makhana pages yet.
+- [x] Keep `/uk` plus `/markets/uk` (no extra doorway).
+- [x] GCC / Africa / LATAM educational guides (no fake warehouse).
+- [x] 48 market hubs with unique fulfilment copy (DE/FR/NL/IE still have country pages).
+- [x] Rice/pulses/makhana as `/food/*` enquiry hubs only — no invented SKUs.
 
 ## Days 8–10 — Content
 
-- [ ] Improve top spice entities (guide + wholesale + PDP links).
-- [ ] Honest sourcing/packaging sections.
-- [ ] No thin city pages.
+- [x] Published-only spice guides; editorial fields in admin.
+- [x] Honest sourcing/packaging/import guides.
+- [x] No thin city pages.
 
 ## Days 11–13 — Distribution and validation
 

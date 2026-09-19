@@ -34,6 +34,7 @@ export const STORE_LOCATIONS = [
 export const navItems = [
   { label: "Shop Spices", href: "/spices" },
   { label: "Bulk & Wholesale", href: "/bulk-enquiry" },
+  { label: "Free enquiry", href: "/enquiry" },
   { label: "Spice Guide", href: "/spice-guide" },
   { label: "Indian Spices", href: "/indian-spice-regions" },
   { label: "Masalas", href: "/spices/indian-masalas" },
@@ -41,6 +42,8 @@ export const navItems = [
   { label: "Journal", href: "/journal" },
   { label: "Spice Market Prices", href: "/spice-market-prices" },
   { label: "Markets", href: "/markets" },
+  { label: "Food sourcing", href: "/food" },
+  { label: "Guides", href: "/guides" },
   { label: "About", href: "/about" },
 ] as const;
 

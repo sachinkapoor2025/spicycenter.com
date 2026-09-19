@@ -64,7 +64,20 @@ export function moistureFeeInr(sensitivity: MoistureSensitivity, pricing: Moistu
   return sensitivity === "high" ? pricing.desiccant_fee_high_inr : pricing.desiccant_fee_standard_inr;
 }
 
-export const bulkEnquiryStatusSchema = z.enum(["new", "quoted", "converted", "lost", "paid_addons"]);
+export const bulkEnquiryStatusSchema = z.enum([
+  "new",
+  "contacted",
+  "qualified",
+  "quoted",
+  "quotation_sent",
+  "negotiation",
+  "converted",
+  "won",
+  "lost",
+  "spam",
+  "closed",
+  "paid_addons",
+]);
 export type BulkEnquiryStatus = z.infer<typeof bulkEnquiryStatusSchema>;
 
 export const bulkPricingSpiceSchema = z.object({
@@ -176,5 +189,9 @@ export const bulkEnquiryContactSchema = z.object({
   deliveryAddress: z.string().optional(),
   notes: z.string().optional(),
   incoterm: z.enum(["FOB", "CIF"]).optional(),
+  attrFirstSource: z.string().optional(),
+  attrFirstMedium: z.string().optional(),
+  attrFirstCampaign: z.string().optional(),
+  landingPage: z.string().optional(),
 });
 export type BulkEnquiryContact = z.infer<typeof bulkEnquiryContactSchema>;

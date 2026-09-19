@@ -1,4 +1,4 @@
-import { loadSpiceEntities, loadMarketPrices } from "@/lib/spice-data";
+import { loadSpiceEntities, loadMarketPrices, spiceEditorialStatus } from "@/lib/spice-data";
 import { getCatalogProducts } from "@/lib/catalog-fallback";
 
 export default function AdminSpicesPage() {
@@ -16,6 +16,8 @@ export default function AdminSpicesPage() {
               <th className="p-3">Name</th>
               <th className="p-3">Botanical</th>
               <th className="p-3">Status</th>
+              <th className="p-3">Editorial</th>
+              <th className="p-3">Last reviewed</th>
               <th className="p-3">Verification</th>
             </tr>
           </thead>
@@ -25,6 +27,8 @@ export default function AdminSpicesPage() {
                 <td className="p-3">{s.canonicalName}</td>
                 <td className="p-3">{s.botanicalName}</td>
                 <td className="p-3">{s.status}</td>
+                <td className="p-3">{spiceEditorialStatus(s)}</td>
+                <td className="p-3">{s.lastReviewed ?? "—"}</td>
                 <td className="p-3">{s.verificationStatus}</td>
               </tr>
             ))}
