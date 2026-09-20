@@ -12,3 +12,5 @@ infrastructure/.aws-sam
 * 2.tsx
 packages/*/dist
 **/*.tsbuildinfo
+# Next.js build output
+.next/

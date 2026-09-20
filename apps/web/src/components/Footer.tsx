@@ -5,6 +5,14 @@ import { site, STORE_LOCATIONS, whatsappChatUrl } from "@/lib/site";
 import { PaymentMethodIcons } from "@/components/PaymentMethodIcons";
 import { SiteLogoLink } from "@/components/SiteLogo";
 import { FooterNewsletterForm } from "@/components/FooterNewsletterForm";
+import {
+  FacebookIcon,
+  InstagramIcon,
+  LinkedInIcon,
+  PinterestIcon,
+  WhatsAppIcon,
+  YouTubeIcon,
+} from "@/components/SocialMediaIcons";
 
 const shopLinks = [
   { href: "/spices", label: "Spices" },
@@ -62,14 +70,14 @@ export function Footer() {
               <p className="text-white/75 leading-relaxed mt-3 text-[13px]">
                 Authentic Indian spices — retail packs and 10kg+ wholesale. From farms in India to kitchens in the UK and Europe.
               </p>
-              <div className="flex flex-wrap gap-3 mt-5 text-white/70">
+              <div className="flex flex-wrap gap-3 mt-5">
                 {(
                   [
-                    { href: SOCIAL_LINKS.facebook, label: "Facebook", short: "f" },
-                    { href: SOCIAL_LINKS.instagram, label: "Instagram", short: "ig" },
-                    { href: SOCIAL_LINKS.pinterest, label: "Pinterest", short: "pin" },
-                    { href: SOCIAL_LINKS.youtube, label: "YouTube", short: "yt" },
-                    { href: SOCIAL_LINKS.linkedin, label: "LinkedIn", short: "in" },
+                    { href: SOCIAL_LINKS.facebook, label: "Follow SpicyCenter on Facebook", icon: FacebookIcon },
+                    { href: SOCIAL_LINKS.instagram, label: "Follow SpicyCenter on Instagram", icon: InstagramIcon },
+                    { href: SOCIAL_LINKS.pinterest, label: "Follow SpicyCenter on Pinterest", icon: PinterestIcon },
+                    { href: SOCIAL_LINKS.youtube, label: "Follow SpicyCenter on YouTube", icon: YouTubeIcon },
+                    { href: SOCIAL_LINKS.linkedin, label: "Follow SpicyCenter on LinkedIn", icon: LinkedInIcon },
                   ] as const
                 ).map((item) => (
                   <a
@@ -78,18 +86,19 @@ export function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={item.label}
-                    className="h-8 min-w-8 px-2 rounded-md border border-white/25 inline-flex items-center justify-center text-[11px] uppercase hover:bg-white/10 hover:text-white"
+                    className="h-8 w-8 rounded-md border border-white/25 inline-flex items-center justify-center hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
                   >
-                    {item.short}
+                    <item.icon />
                   </a>
                 ))}
                 <a
                   href={whatsappChatUrl()}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="h-8 px-3 rounded-md border border-white/25 inline-flex items-center justify-center text-[11px] uppercase hover:bg-white/10 hover:text-white"
+                  aria-label="Chat with SpicyCenter on WhatsApp"
+                  className="h-8 w-8 rounded-md border border-white/25 inline-flex items-center justify-center hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
                 >
-                  WhatsApp
+                  <WhatsAppIcon />
                 </a>
               </div>
             </div>
