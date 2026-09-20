@@ -9,6 +9,7 @@ const nextConfig: NextConfig = {
   outputFileTracingRoot: repoRoot,
   outputFileTracingIncludes: {
     "*": [
+      "./public/maps/**/*",
       "./data/**/*",
       "../../data/products.json",
       "../../data/spices.json",
