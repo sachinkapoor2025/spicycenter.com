@@ -44,12 +44,11 @@ export function CustomerReviews({ showIntro = true }: CustomerReviewsProps) {
     <section className="bg-white border-t border-slate-100 py-12 md:py-16">
       <div className="max-w-7xl mx-auto px-4">
         <h2 className="text-2xl md:text-3xl font-bold text-primary mb-3 md:mb-4">
-          Loved by spice Enthusiasts
+          Customer reviews
         </h2>
         {showIntro && (
           <p className="text-slate-600 text-sm md:text-base max-w-2xl mb-8 md:mb-10 leading-relaxed">
-            Real stories from customers who transformed their homes and parties with SpicyCenter decorations
-            and spice packs.{" "}
+            Approved reviews only. Each one can show a display name, country, product, review and rating.{" "}
             <Link href="/reviews" className="text-nav font-semibold hover:underline">
               Share your review →
             </Link>
@@ -57,6 +56,11 @@ export function CustomerReviews({ showIntro = true }: CustomerReviewsProps) {
         )}
         {!showIntro && <div className="mb-8" />}
 
+        {testimonials.length === 0 ? (
+          <p className="text-sm text-muted max-w-2xl">
+            No approved reviews are published yet. Submissions stay off the site until they are checked.
+          </p>
+        ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6">
           {testimonials.map((review) => (
             <article key={review.name} className="flex flex-col">
@@ -82,6 +86,7 @@ export function CustomerReviews({ showIntro = true }: CustomerReviewsProps) {
             </article>
           ))}
         </div>
+        )}
       </div>
     </section>
   );

@@ -69,7 +69,7 @@ export function CountrySelector({ compact = false }: { compact?: boolean }) {
         <span className={compact ? "" : "truncate max-w-[min(46vw,220px)] sm:max-w-[280px]"}>
           {compact
             ? (market?.flagEmoji ?? "🌍")
-            : `${t("Delivering to:")} ${label}`}
+            : `${t("Country:")} ${label}`}
         </span>
         {!compact && (
           <span className="text-[10px] uppercase tracking-wide text-nav">{t("Change")}</span>
@@ -84,7 +84,10 @@ export function CountrySelector({ compact = false }: { compact?: boolean }) {
             aria-label={t("Change country & language")}
             className="absolute right-0 z-50 mt-2 w-[min(calc(100vw-1.5rem),360px)] max-w-[calc(100vw-1.5rem)] rounded-xl border border-[#e6d5bc] bg-paper p-4 shadow-xl"
           >
-            <p className="text-sm font-bold text-primary mb-3">{t("Change country & language")}</p>
+            <p className="text-sm font-bold text-primary mb-1">{t("Change country & language")}</p>
+            <p className="text-xs text-muted mb-3">
+              Worldwide catalogue. Your country does not hide products or set a delivery date.
+            </p>
             <label className="block text-xs font-semibold text-slate-500 mb-1">{t("Country")}</label>
             <select
               value={draftCountry}

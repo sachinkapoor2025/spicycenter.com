@@ -6,6 +6,7 @@ import { getCatalogProducts } from "@/lib/catalog-fallback";
 import { getSpiceBySlug, loadSpiceEntities } from "@/lib/spice-data";
 import { exploreCategories } from "@/lib/site";
 import { SpiceSkuCard } from "@/components/SpiceSkuCard";
+import { featuredBilingualName } from "@/lib/catalogue";
 
 type Props = { params: Promise<{ category: string }> };
 
@@ -15,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const cat = exploreCategories.find((c) => c.slug === category);
   const title = spice?.canonicalName ?? cat?.name ?? category;
   return pageMetadata({
-    title: `${title} — shop Indian spices UK & EU`,
+    title: `${title} — Indian spice catalogue`,
     description: spice?.shortDescription ?? `Shop ${title} from SpicyCenter.`,
     path: `/spices/${category}`,
   });
@@ -41,11 +42,18 @@ export default async function SpiceCategoryPage({ params }: Props) {
 
   if (!spice && !cat && !products.length) notFound();
   const title = spice?.canonicalName ?? cat?.name ?? category.replace(/-/g, " ");
+  const bilingual = featuredBilingualName(title, spice?.slug ?? category);
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-10">
       <p className="text-sm text-muted"><Link href="/spices">Shop</Link> / {title}</p>
       <h1 className="spice-heading text-4xl mt-2">{title}</h1>
+      {bilingual ? (
+        <p className="text-lg text-muted mt-1" lang="ar" dir="rtl">
+          {bilingual.english} — {bilingual.arabic}
+        </p>
+      ) : null}
+      <p className="text-sm text-muted mt-2">Brand: SpicyCenter · Origin: India · Pack sizes from 100 gm to 25 kg</p>
       {spice && (
         <div className="mt-4 max-w-3xl text-muted">
           <p>{spice.description}</p>

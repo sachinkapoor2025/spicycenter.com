@@ -11,8 +11,6 @@ export type ProductSort = StorefrontListingSort;
 
 const OPTIONS: { value: ProductSort; label: string }[] = [
   { value: "featured", label: "Featured" },
-  { value: "price-asc", label: "Price: Low to High" },
-  { value: "price-desc", label: "Price: High to Low" },
   { value: "name-asc", label: "Name: A → Z" },
   { value: "name-desc", label: "Name: Z → A" },
 ];

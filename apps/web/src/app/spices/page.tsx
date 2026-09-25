@@ -5,6 +5,7 @@ import { getCatalogProducts } from "@/lib/catalog-fallback";
 import { loadSpiceEntities, searchSpices } from "@/lib/spice-data";
 import { parseBulkHint } from "@spicycorner/shared";
 import { exploreCategories } from "@/lib/site";
+import { isKnownPackSize } from "@/lib/catalogue";
 import { InternalLinksSection } from "@/components/InternalLinksSection";
 import { SpiceSkuCard } from "@/components/SpiceSkuCard";
 
@@ -18,15 +19,15 @@ export async function generateMetadata({
     const bits = [sp.search, sp.pack, sp.category, sp.channel].filter(Boolean).join(" · ");
     return pageMetadata({
       title: `Shop Indian spices — ${bits}`,
-      description: `Filtered Indian spice catalogue (${bits}). Retail packs and 10kg+ bulk for UK and EU kitchens.`,
+      description: `Filtered Indian spice catalogue (${bits}). Bulk pack sizes for worldwide business enquiries.`,
       path: "/spices",
       noIndex: true,
     });
   }
   return pageMetadata({
-    title: "Shop Indian spices — retail and bulk",
+    title: "Indian spice catalogue",
     description:
-      "Browse whole spices, powders, Indian chillies, masalas and bulk packs. Search understands jeera, botanical names and 25kg.",
+      "Browse whole spices, powders, Indian chillies and masalas. Pack sizes from 100 gm to 25 kg. Enquire worldwide.",
     path: "/spices",
   });
 }
@@ -40,7 +41,7 @@ export default async function SpicesIndex({
   const q = sp.search ?? "";
   const pack = sp.pack ?? "";
   const category = sp.category ?? "";
-  const channel = sp.channel ?? "";
+  const channel = sp.channel === "retail" ? "" : (sp.channel ?? "");
   const { prefersBulk, kg } = parseBulkHint(q);
 
   let products = getCatalogProducts();
@@ -66,7 +67,7 @@ export default async function SpicesIndex({
       });
     }
   }
-  if (pack) {
+  if (pack && !isKnownPackSize(pack)) {
     const packTag = pack.endsWith("+") ? "50kg" : pack;
     products = products.filter((p) => p.tags?.some((t) => t === `pack:${packTag}` || (pack === "50kg+" && t.startsWith("pack:50"))));
   }
@@ -79,10 +80,10 @@ export default async function SpicesIndex({
   return (
     <div className="max-w-7xl mx-auto px-4 py-10">
       <p className="text-sm text-muted"><Link href="/">Home</Link> / Shop spices</p>
-      <h1 className="spice-heading text-3xl sm:text-4xl mt-2">Shop Indian spices</h1>
+      <h1 className="spice-heading text-3xl sm:text-4xl mt-2">Indian spice catalogue</h1>
       <p className="mt-3 text-muted max-w-2xl">
-        Filters cover type, origin, pack and retail vs bulk. {products.length} matching SKUs.
-        {q ? ` Search: “${q}”.` : ""} Whole spices for tadka, powders for everyday cooking, masalas for ready blends, and bulk bags from 10kg. Names include jeera, haldi, mirch and botanical names.
+        Browse by spice type. Every product can be enquired in pack sizes from 100 gm to 25 kg. Origin: India. Worldwide delivery is arranged on enquiry. {products.length} matching products.
+        {q ? ` Search: “${q}”.` : ""}
       </p>
       <div className="flex flex-wrap gap-2 mt-6">
         {exploreCategories.map((c) => (
@@ -90,8 +91,7 @@ export default async function SpicesIndex({
             {c.name}
           </Link>
         ))}
-        <Link href="/spices?channel=retail" className="rounded-full border px-3 py-1 text-sm">Retail</Link>
-        <Link href="/spices?channel=bulk" className="rounded-full border px-3 py-1 text-sm">Bulk</Link>
+        <Link href="/enquiry" className="rounded-full border px-3 py-1 text-sm">Enquire Now</Link>
       </div>
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
         {shown.map((p) => (

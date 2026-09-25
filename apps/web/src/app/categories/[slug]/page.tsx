@@ -84,14 +84,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description:
         c.seoDescription ??
         c.description?.slice(0, 160) ??
-        `Shop ${c.name} at SpicyCenter. Delivering in 5–7 days — confirm shipping on each product page.`,
+        `Browse ${c.name} at SpicyCenter. Send an enquiry for pack size and worldwide delivery.`,
       path,
     });
   } catch {
     const name = fallback?.name ?? slug.replace(/-/g, " ");
     return pageMetadata({
       title: `${name} | SpicyCenter`,
-      description: `Shop ${name} at SpicyCenter. Delivering in 5–7 days.`,
+      description: `Browse ${name} at SpicyCenter and send an enquiry.`,
       path,
     });
   }

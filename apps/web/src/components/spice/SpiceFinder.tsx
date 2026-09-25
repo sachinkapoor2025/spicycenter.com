@@ -44,7 +44,7 @@ export function SpiceFinder() {
               <p className="text-sm mt-1">Why: {s.culinaryUses.join(", ")}</p>
               <p className="text-sm">Flavour: {s.flavourProfile} · Heat: {s.heatLevel}</p>
               <div className="mt-3 flex gap-3 text-sm">
-                {product && <Link className="text-nav font-semibold" href={`/spices/${product.slug}`}>Buy retail</Link>}
+                {product && <Link className="text-nav font-semibold" href={`/spices/${product.slug}`}>View in catalogue</Link>}
                 <Link className="text-nav font-semibold" href="/wholesale">Buy bulk</Link>
                 <Link className="text-nav" href={`/spice-guide/${s.slug}`}>Guide</Link>
               </div>

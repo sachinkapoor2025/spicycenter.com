@@ -1,22 +1,22 @@
 export const productPageFaqs = [
   {
-    q: "How is shipping calculated?",
-    a: "Shipping is quoted in GBP for UK orders (EUR for configured EU countries) from a per-kilogram rule. Duty and VAT are separate unless a rule says they are included.",
+    q: "How is delivery handled?",
+    a: "Worldwide delivery is arranged through the enquiry. This page does not show a delivery date.",
   },
   {
-    q: "Can I buy this in bulk?",
-    a: "Bulk starts at 10kg. Open the bulk packs on this spice or request a wholesale quote for custom quantity, grade or packaging.",
+    q: "Which pack sizes can I request?",
+    a: "100 gm, 200 gm, 500 gm, 1 kg, 5 kg, 10 kg, 15 kg, 20 kg and 25 kg. These are pack sizes, not prices. Larger quantities can be described in the message.",
   },
   {
-    q: "Is the Indian market price what I pay?",
-    a: "No. Market prints are indicative and dated. Your checkout price is the selling price plus shipping and any tax configured.",
+    q: "Are prices shown here?",
+    a: "No. This is a catalogue. Availability and price are confirmed when you enquire.",
   },
   {
-    q: "What payment methods do you accept?",
-    a: "Secure card checkout via Stripe. The storefront displays GBP in the UK and EUR in the EU. Card data is handled by the payment provider.",
+    q: "Who can enquire?",
+    a: "Importers, distributors, restaurants, hotels and other food businesses.",
   },
   {
     q: "Where is allergen and ingredient information?",
-    a: "On the product record and legal pages. Multi-ingredient masalas must list ingredients and allergens before sale.",
+    a: "On the product record and legal pages. Multi-ingredient masalas must list ingredients and allergens before a shipment is agreed.",
   },
 ] as const;

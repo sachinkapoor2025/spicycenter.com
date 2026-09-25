@@ -2,34 +2,27 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { AddToCartControl } from "@/components/AddToCartControl";
 import { ProductImageGallery } from "@/components/ProductImageGallery";
 import { api } from "@/lib/api";
 import { WishlistButton } from "@/components/WishlistButton";
-import { AssistantPromo } from "@/components/assistant/AssistantPromo";
 import { TrustBadges } from "@/components/TrustBadges";
-import { ProductReviewsPreview } from "@/components/ProductReviewsPreview";
-import { StickyAddToCartBar } from "@/components/StickyAddToCartBar";
+import { ApprovedReviewList } from "@/components/ApprovedReviewList";
+import { EnquireNowLink } from "@/components/EnquireNowLink";
 import { useSessionId, useDebouncedLeadCapture } from "@/lib/session";
 import { trackProductView } from "@/lib/track";
-import { CurrencySelect } from "@/components/CurrencySelect";
-import { useCurrency } from "@/lib/currency-context";
-import { getDiscountPercent } from "@/lib/pricing";
 import { LeadCaptureInput } from "@/components/LeadCaptureInput";
 import { HomeProductCard } from "@/components/HomeProductCard";
-import { useCart } from "@/lib/cart-context";
 import { productPageFaqs } from "@/lib/content/product-faqs";
-import { testimonials } from "@/lib/site";
 import { looksLikeHtml, stripHtml, shortPlainDescription } from "@/lib/html-text";
+import { cjStorefrontProductVideosPath, type Product } from "@spicycorner/shared";
 import {
-  LOW_STOCK_THRESHOLD,
-  cjStorefrontProductVideosPath,
-  getUnitsSold,
-  isFastSelling,
-  type Product,
-} from "@spicycorner/shared";
-import { ProductShippingPanel } from "@/components/ProductShippingPanel";
-import { FastSellingBanner } from "@/components/FastSellingBadge";
+  BRAND_NAME,
+  BULK_PACK_SIZES,
+  PRODUCT_ORIGIN,
+  catalogueDescription,
+  featuredBilingualName,
+  productTypeLabel,
+} from "@/lib/catalogue";
 
 type Tab = "description" | "reviews" | "faq";
 
@@ -114,8 +107,7 @@ export function ProductDetailClient({
 }) {
   const sessionId = useSessionId();
   const captureLead = useDebouncedLeadCapture(sessionId);
-  const { cart, itemCount } = useCart();
-  const { format } = useCurrency();
+  const [packSize, setPackSize] = useState<(typeof BULK_PACK_SIZES)[number]>(BULK_PACK_SIZES[3]);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -161,30 +153,13 @@ export function ProductDetailClient({
     };
   }, [product.slug, product.cjPid, product.videos]);
 
-  const selectVariant = (vid: string) => {
-    setSelectedVid(vid);
-    persistVid(product.slug, vid);
-  };
-
   const galleryImages = galleryForVariant(
         [...(product.images ?? []), ...extraImages.filter((url) => !(product.images ?? []).includes(url))],
         selectedVariant?.image
       );
 
-  const displayPrice = selectedVariant?.price ?? product.price;
-  const hamperBase = selectedVariant?.price ?? product.price;
-  const price = format(displayPrice, product.currency);
-  const comparePrice =
-    product.compareAtPrice && product.compareAtPrice > hamperBase
-      ? format(product.compareAtPrice, product.currency)
-      : null;
-  const discount = getDiscountPercent(hamperBase, product.compareAtPrice);
-  const summary = shortPlainDescription(product.description);
-  const cartQuantity = cart?.items.find((i) => i.productSlug === product.slug)?.quantity ?? 0;
-  const inCart = cartQuantity > 0;
-  const lowStock = product.inventory > 0 && product.inventory <= LOW_STOCK_THRESHOLD;
-  const fastSelling = isFastSelling(product);
-  const unitsSold = getUnitsSold(product);
+  const summary = shortPlainDescription(catalogueDescription(product.description));
+  const bilingual = featuredBilingualName(product.name, product.slug);
 
   return (
     <>
@@ -200,131 +175,66 @@ export function ProductDetailClient({
         </div>
 
         <div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-primary mb-3 leading-tight">{product.name}</h1>
-
-          <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-2">
-            {comparePrice && <span className="text-lg text-slate-400 line-through">{comparePrice}</span>}
-            <span className="text-2xl sm:text-3xl font-bold text-primary">{price}</span>
-            {discount !== null && (
-              <span className="text-sm font-semibold text-green-600">{discount}% OFF</span>
-            )}
-          </div>
-          <CurrencySelect variant="inline" className="mb-4" />
-
-          <p className="text-slate-600 text-sm sm:text-base mb-3 leading-relaxed">{summary}</p>
-
-          {fastSelling && <FastSellingBanner unitsSold={unitsSold} />}
-
-          {lowStock && (
-            <p className="text-sm font-semibold text-orange-700 bg-orange-50 border border-orange-100 rounded-md px-3 py-2 mb-3">
-              Only {product.inventory} left in stock — order soon for spice delivery
+          <h1 className="text-2xl sm:text-3xl font-bold text-primary mb-1 leading-tight">{product.name}</h1>
+          {bilingual ? (
+            <p className="text-lg text-muted mb-3" lang="ar" dir="rtl">
+              {bilingual.english} — {bilingual.arabic}
             </p>
-          )}
+          ) : null}
 
-          <ProductShippingPanel price={hamperBase} currency={product.currency} />
+          <dl className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-sm mb-4">
+            <dt className="text-muted">Brand Name</dt>
+            <dd className="font-medium text-primary">{BRAND_NAME}</dd>
+            <dt className="text-muted">Product Type</dt>
+            <dd className="font-medium text-primary">{productTypeLabel(product.categorySlug)}</dd>
+            <dt className="text-muted">Origin</dt>
+            <dd className="font-medium text-primary">{PRODUCT_ORIGIN}</dd>
+          </dl>
 
-          {variants.length > 1 && (
-            <div className="mb-4">
-              <p className="text-sm font-semibold text-slate-700 mb-1">Options</p>
-              {selectedVariant && (
-                <p className="text-xs text-slate-600 mb-2">
-                  Selected:{" "}
-                  <span className="font-semibold text-primary">{variantLabel(selectedVariant)}</span>
-                </p>
-              )}
-              <div className="flex flex-wrap gap-2" role="listbox" aria-label="Product options">
-                {variants.map((v) => {
-                  const active = v.vid === selectedVid;
-                  const oos = (v.inventory ?? 1) <= 0;
-                  const label = variantLabel(v);
-                  return (
-                    <button
-                      key={v.vid}
-                      type="button"
-                      role="option"
-                      aria-selected={active}
-                      disabled={oos}
-                      onClick={() => selectVariant(v.vid)}
-                      className={`flex items-center gap-2 max-w-full text-sm px-2 py-1.5 rounded-lg border-2 transition ${
-                        active
-                          ? "border-nav bg-orange-50 text-primary shadow-sm"
-                          : "border-slate-200 text-slate-700 hover:border-slate-400 bg-white"
-                      } ${oos ? "opacity-40 cursor-not-allowed" : ""}`}
-                    >
-                      {v.image ? (
-                        <img
-                          src={v.image}
-                          alt=""
-                          className="h-9 w-9 rounded object-cover shrink-0 bg-slate-100"
-                        />
-                      ) : null}
-                      <span className="font-medium leading-snug text-left">{label}</span>
-                    </button>
-                  );
-                })}
-              </div>
+          <p className="text-slate-600 text-sm sm:text-base mb-4 leading-relaxed">{summary}</p>
+
+          <div className="mb-4">
+            <p className="text-sm font-semibold text-slate-700 mb-2">Available bulk quantities</p>
+            <div className="flex flex-wrap gap-2" role="listbox" aria-label="Pack size">
+              {BULK_PACK_SIZES.map((size) => {
+                const active = size === packSize;
+                return (
+                  <button
+                    key={size}
+                    type="button"
+                    role="option"
+                    aria-selected={active}
+                    onClick={() => setPackSize(size)}
+                    className={`text-sm px-3 py-1.5 rounded-lg border-2 ${
+                      active ? "border-nav bg-orange-50 text-primary" : "border-slate-200 text-slate-700 bg-white"
+                    }`}
+                  >
+                    {size}
+                  </button>
+                );
+              })}
             </div>
-          )}
-
-          <div className="mb-5 flex flex-wrap gap-3 text-sm">
-            <Link href={`/enquiry?product=${encodeURIComponent(product.name)}`} className="font-semibold text-nav">
-              Send free wholesale enquiry
-            </Link>
-            <Link href="/bulk-enquiry" className="font-semibold text-nav">
-              Request 100kg+ bulk quote
-            </Link>
+            <p className="text-xs text-muted mt-2">Pack sizes only. Prices and delivery dates are confirmed on enquiry.</p>
           </div>
+
           <TrustBadges variant="compact" className="mb-5" />
-          <div className="mb-5">
-            <AssistantPromo variant="product" productName={product.name} />
+
+          <div className="flex items-stretch gap-2 mb-3">
+            <div className="flex-1 min-w-0">
+              <EnquireNowLink
+                productName={product.name}
+                quantity={packSize}
+                className="btn-primary w-full justify-center"
+              />
+            </div>
+            <WishlistButton product={product} variant="toolbar" />
+            {productUrl ? <ShareButton title={product.name} url={productUrl} /> : <div className="w-12 shrink-0" />}
           </div>
-
-          {inCart ? (
-            <div className="flex flex-wrap items-center gap-3 mb-3">
-              <Link
-                href="/cart"
-                className="flex items-center gap-2 text-green-700 hover:text-green-800 shrink-0"
-              >
-                <span className="flex h-5 w-5 items-center justify-center rounded bg-green-600 text-white">
-                  <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={3} aria-hidden>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                  </svg>
-                </span>
-                <span className="text-sm font-semibold whitespace-nowrap">
-                  {itemCount} {itemCount === 1 ? "item" : "items"} in cart
-                </span>
-              </Link>
-
-              <div className="flex-1 min-w-[13rem] max-w-[18rem]">
-                <AddToCartControl
-                  productSlug={product.slug}
-                  disabled={product.inventory <= 0}
-                  fullWidth
-                  variant="detail"
-                  cjVid={selectedVid || undefined}
-                />
-              </div>
-
-              <div className="flex items-center gap-2 sm:ml-auto">
-                <WishlistButton product={product} variant="toolbar" />
-                {productUrl ? <ShareButton title={product.name} url={productUrl} /> : null}
-              </div>
-            </div>
-          ) : (
-            <div className="flex items-stretch gap-2 mb-3">
-              <div className="flex-1 min-w-0">
-                <AddToCartControl
-                  productSlug={product.slug}
-                  disabled={product.inventory <= 0}
-                  fullWidth
-                  variant="detail"
-                  cjVid={selectedVid || undefined}
-                />
-              </div>
-              <WishlistButton product={product} variant="toolbar" />
-              {productUrl ? <ShareButton title={product.name} url={productUrl} /> : <div className="w-12 shrink-0" />}
-            </div>
-          )}
+          <p className="text-sm">
+            <Link href="/enquiry" className="font-semibold text-nav">
+              Worldwide delivery is arranged through enquiry
+            </Link>
+          </p>
 
         </div>
       </div>
@@ -351,7 +261,7 @@ export function ProductDetailClient({
                 : "border-transparent text-slate-500 hover:text-primary"
             }`}
           >
-            Reviews ({testimonials.length})
+            Reviews
           </button>
           <button
             type="button"
@@ -369,7 +279,7 @@ export function ProductDetailClient({
         {tab === "description" ? (
           <div className="space-y-8">
             <article className="text-slate-700 leading-relaxed space-y-4 max-w-4xl">
-              {(looksLikeHtml(product.description) ? stripHtml(product.description) : product.description)
+              {(looksLikeHtml(product.description) ? stripHtml(catalogueDescription(product.description)) : catalogueDescription(product.description))
                 .split(/(?<=\.)\s+/)
                 .map((para, i) => (
                   <p key={i}>{para}</p>
@@ -407,7 +317,7 @@ export function ProductDetailClient({
                 }
               />
               <LeadCaptureInput
-                label="Email (optional — for order updates)"
+                label="Email (optional — for enquiry updates)"
                 placeholder="you@example.com"
                 type="email"
                 value={email}
@@ -467,7 +377,7 @@ export function ProductDetailClient({
           </div>
         ) : tab === "reviews" ? (
           <div className="space-y-4">
-            <ProductReviewsPreview productSlug={product.slug} productName={product.name} />
+            <ApprovedReviewList productSlug={product.slug} productName={product.name} />
           </div>
         ) : (
           <dl className="space-y-5 max-w-2xl">
@@ -481,11 +391,9 @@ export function ProductDetailClient({
         )}
       </section>
     </div>
-    <StickyAddToCartBar
-      product={product}
-      cjVid={selectedVid || undefined}
-      extraUsd={0}
-    />
+    <div className="fixed bottom-0 inset-x-0 z-40 border-t border-[#e6d5bc] bg-paper p-3 md:hidden">
+      <EnquireNowLink productName={product.name} quantity={packSize} className="btn-primary w-full justify-center" />
+    </div>
     </>
   );
 }

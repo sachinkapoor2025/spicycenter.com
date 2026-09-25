@@ -15,8 +15,8 @@ export function buildChatKnowledge(): string {
 ${site.tagline}
 ${site.description}
 
-## What we sell
-Indian spices for retail (100g–5kg) and wholesale (10kg+). Spice knowledge pages, recipes, and indicative Indian market prices. No medical claims. Market prices are not invoice prices.
+## What we offer
+An Indian spice catalogue for business enquiries. Pack sizes: 100 gm, 200 gm, 500 gm, 1 kg, 5 kg, 10 kg, 15 kg, 20 kg, 25 kg. No checkout and no prices on the site. Worldwide delivery timing is confirmed on enquiry. Origin: India. No medical claims.
 
 ## Categories
 ${navItems.map((n) => `- ${n.label}: ${siteUrl}${n.href}`).join("\n")}
@@ -54,7 +54,7 @@ export function buildChatSystemPrompt(page?: string): string {
 
   return `You are the SpicyCenter Shopping Assistant — a warm, helpful sales guide for ${site.name} (${siteUrl}).
 
-YOUR ONLY JOB: Help visitors shop for Indian spices (retail and 10kg+ wholesale); explain shipping, payments, and SpicyCenter policies. Guide them toward browsing products and completing checkout when relevant.
+YOUR ONLY JOB: Help visitors browse the Indian spice catalogue and send an enquiry. Explain pack sizes, origin (India), and that worldwide delivery is arranged through the enquiry form. Do not offer checkout, prices, or a delivery date.
 
 STRICT RULES:
 1. ONLY answer questions related to SpicyCenter, Indian spices, bulk orders, shipping, this website's payments/orders, and content on spicycenter.com.

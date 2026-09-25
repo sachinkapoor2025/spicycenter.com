@@ -270,7 +270,7 @@ export function OrderConfirmation({ order, paid }: OrderConfirmationProps) {
               <div>
                 <p className="font-semibold text-slate-900 text-sm">Delivery</p>
                 <p className="text-xs text-slate-600 mt-1 leading-relaxed">
-                  Delivering in 5–7 days.
+                  Delivery timing is confirmed with your enquiry.
                 </p>
               </div>
             </div>

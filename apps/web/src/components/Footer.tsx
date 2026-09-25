@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { SOCIAL_LINKS } from "@spicycorner/shared";
 import { site, STORE_LOCATIONS, whatsappChatUrl } from "@/lib/site";
-import { PaymentMethodIcons } from "@/components/PaymentMethodIcons";
 import { SiteLogoLink } from "@/components/SiteLogo";
 import { FooterNewsletterForm } from "@/components/FooterNewsletterForm";
 import {
@@ -41,7 +40,7 @@ export function Footer() {
             <p className="spice-kicker">The spice kitchen list</p>
             <h2 className="font-serif text-3xl text-primary mt-2">Join the SpicyCenter Family</h2>
             <p className="text-sm text-muted mt-2 max-w-xl">
-              Get spice arrivals, recipes and flavour inspiration — harvest notes for UK and European kitchens.
+              Spice notes for importers, distributors and commercial kitchens worldwide.
             </p>
           </div>
           <FooterNewsletterForm />
@@ -68,7 +67,7 @@ export function Footer() {
               <SiteLogoLink size="desktop" className="mb-4 bg-paper rounded-md px-1.5 py-1 inline-block" />
               <p className="font-serif italic text-accent text-lg leading-snug">King of Every Kitchen</p>
               <p className="text-white/75 leading-relaxed mt-3 text-[13px]">
-                Authentic Indian spices — retail packs and 10kg+ wholesale. From farms in India to kitchens in the UK and Europe.
+                Indian spice catalogue. Origin: India. Worldwide delivery is arranged through enquiry for business buyers.
               </p>
               <div className="flex flex-wrap gap-3 mt-5">
                 {(
@@ -162,8 +161,8 @@ export function Footer() {
           <div className="max-w-7xl mx-auto px-4 py-4 pb-24 md:pb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-xs text-white/55">
             <p>© {new Date().getFullYear()} {site.name}. All rights reserved.</p>
             <p className="font-serif italic text-accent/90 text-sm">Good Food · Better Tomorrow</p>
-            <PaymentMethodIcons />
             <p className="flex gap-3">
+              <Link href="/enquiry" className="hover:text-white">Worldwide</Link>
               <Link href="/uk" className="hover:text-white">UK</Link>
               <Link href="/eu" className="hover:text-white">Europe</Link>
               <Link href="/legal/terms" className="hover:text-white">Terms</Link>

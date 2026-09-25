@@ -4,10 +4,10 @@ type Variant = "compact" | "full";
 
 export function TrustBadges({ variant = "full", className = "" }: { variant?: Variant; className?: string }) {
   const items = [
-    { icon: "🚚", label: "Delivering in 5–7 days" },
-    { icon: "🔒", label: "SSL Secure Checkout" },
-    { icon: "💳", label: "Stripe payments" },
-    { icon: "✓", label: "Returns policy", href: "/legal/returns" },
+    { icon: "🌍", label: "Worldwide delivery via enquiry" },
+    { icon: "🇮🇳", label: "Origin: India" },
+    { icon: "📦", label: "Pack sizes 100 gm–25 kg" },
+    { icon: "✉", label: "Enquire Now", href: "/enquiry" },
   ] as const;
 
   if (variant === "compact") {

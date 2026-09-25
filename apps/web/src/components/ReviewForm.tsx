@@ -10,7 +10,7 @@ export function ReviewForm({ productSlug }: { productSlug?: string }) {
   const sessionId = useSessionId();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [city, setCity] = useState("");
+  const [country, setCountry] = useState("");
   const [rating, setRating] = useState("5");
   const [orderId, setOrderId] = useState("");
   const [review, setReview] = useState("");
@@ -41,7 +41,7 @@ export function ReviewForm({ productSlug }: { productSlug?: string }) {
           metadata: {
             message: review.trim(),
             rating,
-            city: city.trim(),
+            country: country.trim(),
             orderId: orderId.trim(),
             productSlug: productSlug || undefined,
           },
@@ -64,8 +64,8 @@ export function ReviewForm({ productSlug }: { productSlug?: string }) {
           Your review was sent to the SpicyCenter owner for approval. We will contact you for permission before displaying
           it on the website.
         </p>
-        <Link href="/products" className="inline-block mt-4 text-sm font-semibold text-nav hover:underline">
-          Continue shopping →
+        <Link href="/spices" className="inline-block mt-4 text-sm font-semibold text-nav hover:underline">
+          Back to the catalogue →
         </Link>
       </div>
     );
@@ -75,7 +75,7 @@ export function ReviewForm({ productSlug }: { productSlug?: string }) {
     <form onSubmit={handleSubmit} className="space-y-4 border border-slate-200 rounded-xl p-6 bg-white shadow-sm">
       <div className="grid sm:grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium mb-1">Your first name</label>
+          <label className="block text-sm font-medium mb-1">Display name</label>
           <input
             type="text"
             value={name}
@@ -97,13 +97,14 @@ export function ReviewForm({ productSlug }: { productSlug?: string }) {
       </div>
       <div className="grid sm:grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium mb-1">City / state (optional)</label>
+          <label className="block text-sm font-medium mb-1">Country</label>
           <input
             type="text"
-            value={city}
-            onChange={(e) => setCity(e.target.value)}
-            placeholder="e.g. Southampton"
+            value={country}
+            onChange={(e) => setCountry(e.target.value)}
+            placeholder="Country"
             className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm"
+            required
           />
         </div>
         <div>
@@ -138,12 +139,12 @@ export function ReviewForm({ productSlug }: { productSlug?: string }) {
           value={review}
           onChange={(e) => setReview(e.target.value)}
           className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm"
-          placeholder="How was delivery? Did you love your spice order? Would you recommend SpicyCenter?"
+          placeholder="How was the spice, and would you recommend it to another business buyer?"
           required
         />
       </div>
       {error && <p className="text-red-600 text-sm">{error}</p>}
-      <button type="submit" disabled={loading} className="btn-cart px-8 disabled:opacity-50">
+      <button type="submit" disabled={loading} className="btn-primary px-8 disabled:opacity-50">
         {loading ? "Submitting…" : "Submit review"}
       </button>
       <p className="text-xs text-slate-500">

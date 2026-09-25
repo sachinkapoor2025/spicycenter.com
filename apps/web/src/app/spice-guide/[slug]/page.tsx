@@ -148,7 +148,7 @@ export default async function SpiceGuidePage({ params }: Props) {
         <p>{nutritionDisclaimer(spice)}</p>
       </Block>
       <Block title="Buying guide">
-        <p>Retail packs typically run from 100g to 5kg. Bulk starts at 10kg. Selling prices are checkout prices. Indian market figures, when present, are indicative only.</p>
+        <p>Available pack sizes are 100 gm, 200 gm, 500 gm, 1 kg, 5 kg, 10 kg, 15 kg, 20 kg and 25 kg. They are quantities, not prices. Indian market figures, when present, are reference only.</p>
         <FreeEnquiryCtas productName={spice.canonicalName} spiceQuery={spice.slug} />
       </Block>
       {price && (
@@ -156,7 +156,7 @@ export default async function SpiceGuidePage({ params }: Props) {
           <p>
             {price.averagePrice == null
               ? "No dated market print has been imported yet. Admin must enter min/max/average with market, grade, date and source."
-              : `Indicative Indian mandi ${price.currency === "INR" ? "₹" : ""}${price.averagePrice}/${price.unit} (${price.market}, ${price.grade}, ${price.priceDate}) — not the SpicyCenter checkout price.`}
+              : `Indicative Indian mandi ${price.currency === "INR" ? "₹" : ""}${price.averagePrice}/${price.unit} (${price.market}, ${price.grade}, ${price.priceDate}) — market reference only, not a catalogue price.`}
           </p>
           <p className="text-sm text-muted">{price.notes}</p>
           <Link href="/spice-market-prices" className="text-nav text-sm">Market prices →</Link>
@@ -194,11 +194,11 @@ export default async function SpiceGuidePage({ params }: Props) {
         </div>
       </Block>
 
-      <Block title="Retail and bulk">
+      <Block title="Catalogue">
         <div className="grid gap-2">
           {products.map((p) => (
             <Link key={p.slug} href={`/products/${p.slug}`} className="text-nav text-sm">
-              {p.name} — view selling price
+              {p.name} — view and enquire
             </Link>
           ))}
         </div>

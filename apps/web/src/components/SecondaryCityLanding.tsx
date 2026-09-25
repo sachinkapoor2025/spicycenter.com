@@ -36,7 +36,7 @@ export function SecondaryCityLanding({ city }: { city: SecondaryCity }) {
           with shipping to {place} when that destination is configured. Confirm the quote on each product page.
         </p>
         <p>
-          Browse retail packs and bulk bags. Checkout with Stripe or Razorpay where enabled.
+          Browse the catalogue and send an enquiry. Worldwide delivery is confirmed in the reply.
         </p>
       </section>
 

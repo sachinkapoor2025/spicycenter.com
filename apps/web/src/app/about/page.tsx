@@ -16,17 +16,16 @@ export default function AboutPage() {
       <h1 className="font-serif text-4xl mb-6 mt-2">About {site.name}</h1>
       <div className="space-y-4 text-slate-700 leading-relaxed">
         <p>
-          {site.name} ({site.domain}) is an Indian spice marketplace and knowledge site: retail packs, 10kg+ wholesale,
-          spice guides, recipes, and indicative Indian market prices. Primary market is the UK, then Europe. India is the sourcing story.
+          {site.name} ({site.domain}) is an Indian spice catalogue and knowledge site for worldwide business enquiries:
+          spice guides, recipes, and indicative Indian market prices. Buyers enquire from anywhere. India is the origin.
         </p>
         <p>
-          We exist so a cook in Southampton and a restaurateur in Amsterdam can buy the same cumin, chilli or garam masala
-          with honest names: English, Hindi, botanical where it helps, and a pack size that matches how kitchens actually buy —
-          100g, 500g, 1kg, 5kg, then 10kg and up for wholesale.
+          Importers, distributors and restaurant buyers can enquire for the same cumin, chilli or garam masala
+          with honest names: English, Hindi, Arabic on featured spices, and pack sizes from 100 gm to 25 kg.
         </p>
         <p>
           Spices are agricultural goods. Colour, oil and aroma change with harvest, storage and grind. We do not invent
-          laboratory numbers, medical claims, fake reviews, or unsourced “today’s mandi rate” as your checkout price.
+          laboratory numbers, medical claims, fake reviews, or unsourced “today’s mandi rate” as a selling price.
           Indicative Indian market prices, when published, carry date, market, grade and source, and they are never overwritten.
         </p>
         <p>

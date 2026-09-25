@@ -124,7 +124,7 @@ export function ContactForm() {
         </div>
         <div className="border border-slate-200 rounded-xl p-6">
           <h2 className="font-bold text-primary mb-2">Delivery</h2>
-          <p className="text-slate-600 text-sm">Delivering in 5–7 days.</p>
+          <p className="text-slate-600 text-sm">Worldwide. Timing is confirmed when you enquire.</p>
         </div>
       </div>
       <div className="mb-10">

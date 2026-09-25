@@ -39,7 +39,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!p) return { title: "Product" };
 
   return productPageMetadata({
-    title: p.seoTitle ?? `${p.name} — buy Indian spices UK & EU`,
+    title: p.seoTitle ?? `${p.name} — enquire`,
     seoDescription: p.seoDescription,
     description: p.description,
     path: `/products/${slug}`,

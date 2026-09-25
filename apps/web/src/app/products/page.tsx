@@ -75,9 +75,9 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
     });
   }
   return pageMetadata({
-    title: "Shop Indian spices — retail and bulk",
+    title: "Indian spice catalogue",
     description:
-      "Browse Indian spices in retail packs and 10kg+ bulk. Search jeera, botanical names and 25kg.",
+      "Browse Indian spices and send an enquiry. Pack sizes from 100 gm to 25 kg. Origin: India.",
     path: "/products",
   });
 }

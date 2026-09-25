@@ -72,9 +72,6 @@ export function productPageMetadata(opts: {
   const description = productMetaDescription(opts.seoDescription, opts.description);
   const url = canonical(opts.path);
   const image = opts.ogImage ?? site.logoSrc;
-  const price = Number.isFinite(opts.price) ? opts.price.toFixed(2) : "0.00";
-  const currency = opts.currency === "INR" ? "GBP" : opts.currency || "GBP";
-
   return {
     title: opts.title,
     description,
@@ -100,10 +97,6 @@ export function productPageMetadata(opts: {
       title: opts.title,
       description,
       images: [image],
-    },
-    other: {
-      "product:price:amount": price,
-      "product:price:currency": currency,
     },
     robots: { index: true, follow: true },
   };
@@ -248,35 +241,6 @@ export function productJsonLd(product: {
     brand: { "@type": "Brand", name: site.name },
     category: product.categorySlug?.replace(/-/g, " "),
     countryOfOrigin: { "@type": "Country", name: "India" },
-    offers: {
-      "@type": "Offer",
-      url: canonical(`/products/${product.slug}`),
-      price: product.price,
-      priceCurrency: product.currency === "INR" ? "GBP" : product.currency || "GBP",
-      priceValidUntil: `${new Date().getFullYear()}-12-31`,
-      itemCondition: "https://schema.org/NewCondition",
-      availability:
-        product.inventory > 0
-          ? "https://schema.org/InStock"
-          : "https://schema.org/OutOfStock",
-      seller: { "@id": `${siteUrl}/#organization` },
-      shippingDetails: {
-        "@type": "OfferShippingDetails",
-        deliveryTime: {
-          "@type": "ShippingDeliveryTime",
-          transitTime: {
-            "@type": "QuantitativeValue",
-            minValue: 5,
-            maxValue: 7,
-            unitCode: "DAY",
-          },
-        },
-        shippingDestination: VERIFIED_COUNTRY_LINKS.map((c) => ({
-          "@type": "DefinedRegion",
-          addressCountry: c.code,
-        })),
-      },
-    },
   };
 }
 

@@ -4,8 +4,7 @@ import { useEffect } from "react";
 import Link from "next/link";
 import type { AssistantProduct, ChatBlock, ChatQuickAction } from "@spicycorner/shared";
 import { ProductImage } from "@/components/ProductImage";
-import { useCurrency } from "@/lib/currency-context";
-import { getDiscountPercent } from "@/lib/pricing";
+import { enquiryHref } from "@/lib/catalogue";
 import { markChatAssistedTouch } from "@/lib/attribution-store";
 import { trackChatProductClick, trackChatProductImpression } from "@/lib/track";
 
@@ -65,17 +64,12 @@ export function QuickActionRow({
 function AssistantProductCard({
   product,
   position,
-  onAddToCart,
-  adding,
 }: {
   product: AssistantProduct;
   position: number;
-  onAddToCart: (product: AssistantProduct) => void;
+  onAddToCart?: (product: AssistantProduct) => void;
   adding?: boolean;
 }) {
-  const { format } = useCurrency();
-  const discount = getDiscountPercent(product.price, product.compareAtPrice);
-
   useEffect(() => {
     trackChatProductImpression(product.slug, position);
   }, [product.slug, position]);
@@ -100,13 +94,7 @@ function AssistantProductCard({
         </div>
         <div className="p-2">
           <h3 className="line-clamp-2 min-h-[2.25rem] text-[11px] font-semibold leading-snug">{product.name}</h3>
-          <p className="mt-1 text-sm font-bold text-accent">{format(product.price, product.currency)}</p>
-          {product.compareAtPrice && product.compareAtPrice > product.price && (
-            <p className="text-[10px] text-slate-400 line-through">
-              {format(product.compareAtPrice, product.currency)}
-              {discount ? ` · ${discount}% off` : ""}
-            </p>
-          )}
+          <p className="mt-1 text-[10px] text-white/70">Enquire for a pack size</p>
         </div>
       </Link>
       <div className="flex gap-1 px-2 pb-2">
@@ -120,14 +108,12 @@ function AssistantProductCard({
         >
           View
         </Link>
-        <button
-          type="button"
-          disabled={adding || product.available === false}
-          onClick={() => onAddToCart(product)}
-          className="flex-1 rounded-lg bg-nav px-2 py-1.5 text-[10px] font-semibold text-white disabled:opacity-50"
+        <Link
+          href={enquiryHref(product.name)}
+          className="flex-1 rounded-lg bg-nav px-2 py-1.5 text-center text-[10px] font-semibold text-white"
         >
-          {adding ? "…" : "Add"}
-        </button>
+          Enquire
+        </Link>
       </div>
     </article>
   );

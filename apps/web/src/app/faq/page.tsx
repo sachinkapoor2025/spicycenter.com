@@ -7,7 +7,7 @@ import { faqJsonLd, pageMetadata } from "@/lib/seo";
 export const metadata: Metadata = pageMetadata({
     title: "FAQ — Indian spices, bulk orders and UK shipping",
   description:
-    "Questions about retail packs, 10kg wholesale, market prices, allergens and UK/EU delivery.",
+    "Questions about pack sizes, business enquiries, market reference prices and worldwide delivery.",
   path: "/faq",
 });
 

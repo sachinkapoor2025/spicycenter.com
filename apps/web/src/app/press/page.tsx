@@ -25,7 +25,7 @@ export default function PressPage() {
           <h2 className="text-xl font-bold text-primary mb-3">About {site.name}</h2>
           <p>
             {site.name} ({siteUrl}) is a dedicated online spice shop operated by Divit Global Ventures, selling
-            Indian spices, spices, and spice packs. Delivering in 5–7 days.
+            Indian spice catalogue for worldwide business enquiries. Origin: India.
           </p>
         </section>
 
@@ -33,7 +33,7 @@ export default function PressPage() {
           <h2 className="text-xl font-bold text-primary mb-3">Key facts</h2>
           <ul className="list-disc pl-5 space-y-2 text-sm">
             <li>99+ spice products across decor, spices, spice packs, and novelty</li>
-            <li>Delivering in 5–7 days</li>
+            <li>Worldwide delivery arranged through enquiry</li>
             <li>spice season: your requested date, 2026</li>
             <li>Payments: Stripe — storefront display GBP (UK) / EUR (EU)</li>
           </ul>

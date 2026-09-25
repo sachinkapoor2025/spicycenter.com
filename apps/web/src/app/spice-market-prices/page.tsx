@@ -43,7 +43,7 @@ export default async function MarketPricesPage() {
         <p className="text-sm text-muted mt-2 leading-relaxed">
           Figures come from India&apos;s official Agmarknet (data.gov.in) feed, pulled by our daily Lambda. A spice can
           move with arrivals, quality, grade and local demand — so yesterday&apos;s print is not today&apos;s. They are a
-          wholesale market reference, not SpicyCenter&apos;s retail checkout price or a confirmed bulk quote.
+          wholesale market reference, not a SpicyCenter selling price. Send an enquiry for a quote.
         </p>
         <p className="text-xs text-muted mt-3">
           {prices.length} spices on the board · {liveCount} with a live Agmarknet print
