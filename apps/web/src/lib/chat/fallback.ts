@@ -10,7 +10,7 @@ const SITE_KEYWORDS =
 
 function categoriesReply(): string {
   const links = navItems.map((n) => `- [${n.label}](${siteUrl}${n.href})`).join("\n");
-  return `Browse the Indian spice catalogue and send an enquiry:\n\n${links}\n\nPack sizes run from 100 gm to 25 kg. Worldwide delivery is confirmed on enquiry.`;
+  return `Browse the Indian spice catalogue and send an enquiry:\n\n${links}\n\nPack sizes run from 100 gm to 1 metric ton. Worldwide delivery is confirmed on enquiry.`;
 }
 
 function deliveryReply(): string {
@@ -48,7 +48,7 @@ export function fallbackReply(query: string): string {
   if (/categor|what do you sell|shop|browse/.test(q)) return categoriesReply();
   if (/ship|deliver|uk|duty|vat|postage/.test(q)) return deliveryReply();
   if (/wholesale|10kg|25kg|bulk|enquire|pack/.test(q)) {
-    return `Pack sizes are 100 gm, 200 gm, 500 gm, 1 kg, 5 kg, 10 kg, 15 kg, 20 kg and 25 kg. [Enquire Now](${siteUrl}/enquiry)`;
+    return `Pack sizes are 100 gm, 200 gm, 500 gm, 1 kg, 5 kg, 10 kg, 15 kg, 20 kg, 25 kg and 1 metric ton. [Enquire Now](${siteUrl}/enquiry)`;
   }
   if (/payment|pay|stripe|razorpay|card|checkout/.test(q)) return paymentReply();
   if (/hello|hi\b|hey|help|start/.test(q) && q.length < 30) return greetingReply();

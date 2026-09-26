@@ -148,7 +148,7 @@ export default async function SpiceGuidePage({ params }: Props) {
         <p>{nutritionDisclaimer(spice)}</p>
       </Block>
       <Block title="Buying guide">
-        <p>Available pack sizes are 100 gm, 200 gm, 500 gm, 1 kg, 5 kg, 10 kg, 15 kg, 20 kg and 25 kg. They are quantities, not prices. Indian market figures, when present, are reference only.</p>
+        <p>Available pack sizes are 100 gm, 200 gm, 500 gm, 1 kg, 5 kg, 10 kg, 15 kg, 20 kg, 25 kg and 1 metric ton (1,000 kg). They are quantities, not prices. Indian market figures, when present, are reference only.</p>
         <FreeEnquiryCtas productName={spice.canonicalName} spiceQuery={spice.slug} />
       </Block>
       {price && (

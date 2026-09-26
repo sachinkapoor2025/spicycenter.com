@@ -53,7 +53,7 @@ export default async function SpiceCategoryPage({ params }: Props) {
           {bilingual.english} — {bilingual.arabic}
         </p>
       ) : null}
-      <p className="text-sm text-muted mt-2">Brand: SpicyCenter · Origin: India · Pack sizes from 100 gm to 25 kg</p>
+      <p className="text-sm text-muted mt-2">Brand: SpicyCenter · Origin: India · Pack sizes from 100 gm to 1 metric ton</p>
       {spice && (
         <div className="mt-4 max-w-3xl text-muted">
           <p>{spice.description}</p>

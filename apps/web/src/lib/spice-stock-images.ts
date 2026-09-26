@@ -7,13 +7,13 @@ const DEFAULT_IMAGE = "/images/spices/mixed.jpg";
 
 /** Longer / more specific needles first. */
 const NEEDLES: [string, string][] = [
-  ["black cumin", "cumin"],
-  ["kala jeera", "cumin"],
+  ["black cumin", "black-cumin"],
+  ["kala jeera", "black-cumin"],
   ["green cardamom", "green-cardamom"],
   ["black cardamom", "black-cardamom"],
   ["white pepper", "white-pepper"],
   ["black pepper", "black-pepper"],
-  ["long pepper", "black-pepper"],
+  ["long pepper", "long-pepper"],
   ["kashmiri", "chilli"],
   ["byadgi", "chilli"],
   ["guntur", "chilli"],
@@ -66,7 +66,10 @@ const NEEDLES: [string, string][] = [
   ["mirch", "chilli"],
   ["garlic", "garlic"],
   ["mint", "mint"],
+  ["panch phoron", "masala"],
+  ["kitchen king", "masala"],
   ["masala", "masala"],
+  ["blend", "masala"],
   ["curry powder", "masala"],
   ["rasam", "masala"],
   ["sambar", "masala"],
@@ -79,7 +82,7 @@ const NEEDLES: [string, string][] = [
 ];
 
 export function spiceStockImagePath(haystack: string): string {
-  const hay = haystack.toLowerCase();
+  const hay = haystack.toLowerCase().replace(/-/g, " ");
   for (const [needle, file] of NEEDLES) {
     if (hay.includes(needle)) return `/images/spices/${file}.jpg`;
   }

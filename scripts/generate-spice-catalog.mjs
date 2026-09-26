@@ -1129,7 +1129,7 @@ for (const s of spices) {
       products.push({
         slug,
         name,
-        description: `${s.shortDescription} Form: ${form}. Available bulk quantities: 100 gm, 200 gm, 500 gm, 1 kg, 5 kg, 10 kg, 15 kg, 20 kg, 25 kg. Origin: India. Enquire for availability.`,
+        description: `${s.shortDescription} Form: ${form}. Available bulk quantities: 100 gm, 200 gm, 500 gm, 1 kg, 5 kg, 10 kg, 15 kg, 20 kg, 25 kg, 1 metric ton. Origin: India. Enquire for availability.`,
         price,
         currency: "INR",
         categorySlug: cat,

@@ -77,7 +77,7 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
   return pageMetadata({
     title: "Indian spice catalogue",
     description:
-      "Browse Indian spices and send an enquiry. Pack sizes from 100 gm to 25 kg. Origin: India.",
+      "Browse Indian spices and send an enquiry. Pack sizes from 100 gm to 1 metric ton. Origin: India.",
     path: "/products",
   });
 }

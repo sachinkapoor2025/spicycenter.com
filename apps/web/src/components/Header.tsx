@@ -3,11 +3,10 @@
 import { useState, useEffect, type ReactNode } from "react";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
-import { navItems, regionLinks } from "@/lib/site";
+import { navItems, regionLinks, site } from "@/lib/site";
 import { SearchBar } from "@/components/SearchBar";
 import { SiteLogoLink } from "@/components/SiteLogo";
 import { CountrySelector } from "@/components/CountrySelector";
-import { QuoteRibbon } from "@/components/QuoteRibbon";
 
 function RegionsMenu({ onNavigate }: { onNavigate?: () => void }) {
   const [open, setOpen] = useState(false);
@@ -170,7 +169,9 @@ export function Header() {
     <header className="border-b border-[#e6d5bc] bg-cream sticky top-0 z-[90] shadow-card overflow-visible">
       <div className="text-[#f6efe3]" style={{ backgroundColor: "#2c1810" }}>
         <div className="relative max-w-7xl mx-auto px-3 sm:px-4 py-3 flex items-center justify-end gap-4 min-h-[3.25rem]">
-          <QuoteRibbon />
+          <p className="flex-1 min-w-0 text-center text-[13px] sm:text-base font-semibold leading-snug text-[#f6efe3] px-2">
+            {site.tagline}
+          </p>
           <div className="hidden sm:flex items-center gap-4 shrink-0 text-[13px] font-semibold text-[#f6efe3]/90 relative z-10">
             <Link href="/faq" className="hover:text-white">Help</Link>
             <Link href="/contact" className="hover:text-white">Contact</Link>

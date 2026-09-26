@@ -13,7 +13,11 @@ export const BULK_PACK_SIZES = [
   "15 kg",
   "20 kg",
   "25 kg",
+  "1 metric ton",
 ] as const;
+
+/** Short label for the full enquiry range, including metric ton. */
+export const PACK_SIZE_RANGE = "100 gm to 1 metric ton";
 
 export type BulkPackSize = (typeof BULK_PACK_SIZES)[number];
 

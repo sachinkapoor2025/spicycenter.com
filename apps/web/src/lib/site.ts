@@ -1,3 +1,5 @@
+import { BULK_PACK_SIZES } from "@/lib/catalogue";
+
 export const site = {
   name: "SpicyCenter",
   domain: "spicycenter.com",
@@ -164,7 +166,7 @@ export const exploreCategories = [
   { slug: "bulk-spices", name: "Bulk Spices", href: "/bulk-spices", image: "/images/cat-7.jpg" },
 ] as const;
 
-export const packSizes = ["100 gm", "200 gm", "500 gm", "1 kg", "5 kg", "10 kg", "15 kg", "20 kg", "25 kg"] as const;
+export const packSizes = BULK_PACK_SIZES;
 
 export const homeCategoryOrder = exploreCategories.map((c) => c.slug);
 
@@ -190,7 +192,7 @@ export const testimonials: readonly {
 export const faqs = [
   {
     q: "Which pack sizes can I enquire about?",
-    a: "Catalogue pack sizes are 100 gm, 200 gm, 500 gm, 1 kg, 5 kg, 10 kg, 15 kg, 20 kg and 25 kg. Larger commercial quantities can be described in the enquiry message. These are pack sizes, not prices.",
+    a: `Catalogue pack sizes are ${packSizes.join(", ")}. These are pack sizes, not prices. 1 metric ton is 1,000 kg.`,
   },
   {
     q: "Do you show prices on the website?",

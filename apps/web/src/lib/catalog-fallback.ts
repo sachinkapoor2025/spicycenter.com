@@ -19,7 +19,7 @@ export function getCatalogProducts(): Product[] {
       ...p,
       description: catalogueDescription(p.description),
       seoDescription: p.seoDescription ? catalogueDescription(p.seoDescription) : p.seoDescription,
-      images: p.images?.length ? p.images : spiceStockImagesForProduct(p),
+      images: spiceStockImagesForProduct(p),
     }));
   return cachedProducts;
 }

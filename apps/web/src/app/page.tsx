@@ -10,7 +10,8 @@ import { TrustBadges } from "@/components/TrustBadges";
 import { loadSpiceEntities } from "@/lib/spice-data";
 import { getCatalogProducts } from "@/lib/catalog-fallback";
 import { faqJsonLd } from "@/lib/seo";
-import { featuredBilingualName } from "@/lib/catalogue";
+import { featuredBilingualName, PACK_SIZE_RANGE } from "@/lib/catalogue";
+import { spiceStockImagePath } from "@/lib/spice-stock-images";
 import { api } from "@/lib/api";
 import { LiveMandiPriceBoard } from "@/components/LiveMandiPriceBoard";
 import type { LiveMandiBoard } from "@/lib/live-mandi-prices";
@@ -42,7 +43,7 @@ export default async function HomePage() {
       <HomeBannerSlider banners={homeBanners} />
 
       <section className="max-w-7xl mx-auto px-4 pt-8 pb-2 text-center md:text-left">
-        <h1 className="spice-heading text-3xl sm:text-4xl">Indian spice catalogue for importers, distributors and kitchens worldwide</h1>
+        <h1 className="spice-heading text-3xl sm:text-4xl">{site.tagline}</h1>
       </section>
 
       <section className="border-b border-[#e6d5bc] bg-beige/70">
@@ -50,7 +51,7 @@ export default async function HomePage() {
           {[
             ["100% Pure & Natural", "No filler blends sold as a single spice"],
             ["Worldwide delivery", "Timing is confirmed on your enquiry"],
-            ["Bulk pack sizes", "100 gm to 25 kg — quantities, not prices"],
+            ["Bulk pack sizes", `${PACK_SIZE_RANGE} — quantities, not prices`],
             ["Origin: India", "For importers, distributors and restaurants"],
           ].map(([t, d]) => (
             <div key={t}>
@@ -118,7 +119,7 @@ export default async function HomePage() {
           <p className="spice-kicker">Wholesale</p>
           <h2 className="font-serif text-3xl mt-2">Browse the catalogue, then enquire</h2>
           <p className="mt-3 text-muted">
-            Pack sizes run from 100 gm to 25 kg for importers, distributors, restaurants and other food businesses. Tell us the spice and the pack size. We reply with availability. This site does not take payment or show a delivery date.
+            Pack sizes run from {PACK_SIZE_RANGE} for importers, distributors, restaurants and other food businesses. Tell us the spice and the pack size. We reply with availability. This site does not take payment or show a delivery date.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <Link href="/enquiry" className="btn-primary">Enquire Now</Link>
@@ -192,7 +193,17 @@ export default async function HomePage() {
           {featured.map((s) => {
             const bilingual = featuredBilingualName(s.canonicalName, s.slug);
             return (
-            <Link key={s.id} href={`/spices/${s.slug}`} className="card-spice p-5">
+            <Link key={s.id} href={`/spices/${s.slug}`} className="card-spice overflow-hidden">
+              <span className="relative block h-40 w-full bg-beige">
+                <Image
+                  src={spiceStockImagePath(`${s.slug} ${s.canonicalName}`)}
+                  alt={s.canonicalName}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
+              </span>
+              <span className="block p-5">
               <p className="font-serif text-xl text-primary">{s.canonicalName}</p>
               {bilingual ? (
                 <p className="text-sm text-muted" lang="ar" dir="rtl">
@@ -201,7 +212,8 @@ export default async function HomePage() {
               ) : null}
               <p className="text-sm text-muted">{s.hindiName} {s.botanicalName ? `· ${s.botanicalName}` : ""}</p>
               <p className="mt-2 text-sm">{s.shortDescription}</p>
-              <p className="mt-2 text-xs text-muted">Origin: India · Enquire for 100 gm–25 kg packs</p>
+              <p className="mt-2 text-xs text-muted">Origin: India · Enquire for {PACK_SIZE_RANGE}</p>
+              </span>
             </Link>
             );
           })}

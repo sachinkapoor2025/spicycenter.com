@@ -16,7 +16,7 @@ ${site.tagline}
 ${site.description}
 
 ## What we offer
-An Indian spice catalogue for business enquiries. Pack sizes: 100 gm, 200 gm, 500 gm, 1 kg, 5 kg, 10 kg, 15 kg, 20 kg, 25 kg. No checkout and no prices on the site. Worldwide delivery timing is confirmed on enquiry. Origin: India. No medical claims.
+An Indian spice catalogue for business enquiries. Pack sizes: 100 gm, 200 gm, 500 gm, 1 kg, 5 kg, 10 kg, 15 kg, 20 kg, 25 kg, 1 metric ton (1,000 kg). No checkout and no prices on the site. Worldwide delivery timing is confirmed on enquiry. Origin: India. No medical claims.
 
 ## Categories
 ${navItems.map((n) => `- ${n.label}: ${siteUrl}${n.href}`).join("\n")}

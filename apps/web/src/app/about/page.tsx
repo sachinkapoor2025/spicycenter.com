@@ -21,7 +21,7 @@ export default function AboutPage() {
         </p>
         <p>
           Importers, distributors and restaurant buyers can enquire for the same cumin, chilli or garam masala
-          with honest names: English, Hindi, Arabic on featured spices, and pack sizes from 100 gm to 25 kg.
+          with honest names: English, Hindi, Arabic on featured spices, and pack sizes from 100 gm to 1 metric ton.
         </p>
         <p>
           Spices are agricultural goods. Colour, oil and aroma change with harvest, storage and grind. We do not invent

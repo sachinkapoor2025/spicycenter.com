@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { PACK_SIZE_RANGE } from "@/lib/catalogue";
 
 type Variant = "compact" | "full";
 
@@ -6,7 +7,7 @@ export function TrustBadges({ variant = "full", className = "" }: { variant?: Va
   const items = [
     { icon: "🌍", label: "Worldwide delivery via enquiry" },
     { icon: "🇮🇳", label: "Origin: India" },
-    { icon: "📦", label: "Pack sizes 100 gm–25 kg" },
+    { icon: "📦", label: `Pack sizes ${PACK_SIZE_RANGE}` },
     { icon: "✉", label: "Enquire Now", href: "/enquiry" },
   ] as const;
 

@@ -27,7 +27,7 @@ export async function generateMetadata({
   return pageMetadata({
     title: "Indian spice catalogue",
     description:
-      "Browse whole spices, powders, Indian chillies and masalas. Pack sizes from 100 gm to 25 kg. Enquire worldwide.",
+      "Browse whole spices, powders, Indian chillies and masalas. Pack sizes from 100 gm to 1 metric ton. Enquire worldwide.",
     path: "/spices",
   });
 }
@@ -82,7 +82,7 @@ export default async function SpicesIndex({
       <p className="text-sm text-muted"><Link href="/">Home</Link> / Shop spices</p>
       <h1 className="spice-heading text-3xl sm:text-4xl mt-2">Indian spice catalogue</h1>
       <p className="mt-3 text-muted max-w-2xl">
-        Browse by spice type. Every product can be enquired in pack sizes from 100 gm to 25 kg. Origin: India. Worldwide delivery is arranged on enquiry. {products.length} matching products.
+        Browse by spice type. Every product can be enquired in pack sizes from 100 gm to 1 metric ton. Origin: India. Worldwide delivery is arranged on enquiry. {products.length} matching products.
         {q ? ` Search: “${q}”.` : ""}
       </p>
       <div className="flex flex-wrap gap-2 mt-6">
