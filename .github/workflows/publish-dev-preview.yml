@@ -1,0 +1,121 @@
+name: Publish dev preview
+
+# Connects the git branch `dev` on the existing Amplify app and keeps
+# auto-build on, so https://dev.dlvo7vcdxgylt.amplifyapp.com stays available.
+# Production `main` / www.spicycenter.com is not changed.
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - dev
+
+concurrency:
+  group: publish-dev-preview
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+env:
+  AWS_REGION: ${{ vars.AWS_REGION || vars.REGION || secrets.AWS_REGION || secrets.AWS_DEFAULT_REGION || secrets.REGION }}
+  AMPLIFY_APP_ID: dlvo7vcdxgylt
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Require AWS_REGION from GitHub
+        run: |
+          if [ -z "${AWS_REGION}" ]; then
+            echo "::error::Set AWS_REGION in GitHub → Settings → Secrets and variables → Actions."
+            exit 1
+          fi
+
+      - uses: aws-actions/configure-aws-credentials@v6
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Publish the dev branch preview
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          COMMIT_SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          APP="$AMPLIFY_APP_ID"
+          REGION=""
+          for candidate in "$AWS_REGION" us-east-1 eu-west-2 eu-west-1 us-west-2 ap-south-1 ap-southeast-1; do
+            if aws amplify get-app --app-id "$APP" --region "$candidate" --query 'app.appId' --output text >/dev/null 2>&1; then
+              REGION="$candidate"
+              break
+            fi
+          done
+          if [ -z "$REGION" ]; then
+            echo "::error::Could not find Amplify app $APP. The Actions AWS user may not be allowed to call Amplify."
+            aws amplify get-app --app-id "$APP" --region "$AWS_REGION" >/dev/null
+            exit 1
+          fi
+          echo "Amplify region: $REGION"
+          echo "Preview URL: https://dev.${APP}.amplifyapp.com"
+
+          created=0
+          if ! aws amplify get-branch --app-id "$APP" --branch-name dev --region "$REGION" >/dev/null 2>&1; then
+            aws amplify get-branch --app-id "$APP" --branch-name main --region "$REGION" --output json > /tmp/main-branch.json
+            jq --arg app "$APP" '{
+              appId: $app,
+              branchName: "dev",
+              description: "Standing client preview of the catalogue",
+              stage: "DEVELOPMENT",
+              enableAutoBuild: true,
+              environmentVariables: (.branch.environmentVariables // {})
+            } + (if .branch.framework then {framework: .branch.framework} else {} end)' /tmp/main-branch.json > /tmp/create-branch.json
+            rm -f /tmp/main-branch.json
+            aws amplify create-branch --region "$REGION" --cli-input-json file:///tmp/create-branch.json >/dev/null
+            rm -f /tmp/create-branch.json
+            created=1
+            echo "Connected Amplify branch dev."
+          else
+            aws amplify update-branch --app-id "$APP" --branch-name dev --region "$REGION" --enable-auto-build >/dev/null
+            echo "Amplify branch dev is already connected."
+          fi
+
+          start=0
+          if [ "$created" = "1" ] || [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            start=1
+          else
+            latest=$(aws amplify list-jobs --app-id "$APP" --branch-name dev --region "$REGION" --max-items 1 --query 'jobSummaries[0].status' --output text 2>/dev/null || true)
+            case "$latest" in
+              PENDING|RUNNING|SUCCEED) start=0 ;;
+              *) start=1 ;;
+            esac
+          fi
+
+          if [ "$start" = "1" ]; then
+            job_id=$(aws amplify start-job \
+              --app-id "$APP" \
+              --branch-name dev \
+              --region "$REGION" \
+              --job-type RELEASE \
+              --commit-id "$COMMIT_SHA" \
+              --job-reason "Publish standing client preview" \
+              --query 'jobSummary.jobId' \
+              --output text)
+            echo "Amplify job: $job_id"
+            for _ in $(seq 1 70); do
+              status=$(aws amplify get-job --app-id "$APP" --branch-name dev --job-id "$job_id" --region "$REGION" --query 'job.summary.status' --output text)
+              echo "Build status: $status"
+              case "$status" in
+                SUCCEED) exit 0 ;;
+                FAILED|CANCELLED)
+                  echo "::error::Amplify preview build $status"
+                  exit 1
+                  ;;
+              esac
+              sleep 30
+            done
+            echo "::error::Timed out waiting for the Amplify preview build."
+            exit 1
+          fi
