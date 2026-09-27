@@ -5,11 +5,12 @@ import Link from "next/link";
 import type { Product } from "@spicycorner/shared";
 import { spiceStockImagesForProduct } from "@/lib/spice-stock-images";
 import { EnquireNowLink } from "@/components/EnquireNowLink";
-import { BRAND_NAME, BULK_PACK_SIZES, PRODUCT_ORIGIN, featuredBilingualName, productTypeLabel } from "@/lib/catalogue";
+import { BRAND_NAME, PACK_SIZE_RANGE, PRODUCT_ORIGIN, enquiryProductName, featuredBilingualName, productTypeLabel } from "@/lib/catalogue";
 
 export function SpiceSkuCard({ product }: { product: Product }) {
   const src = product.images?.[0] || spiceStockImagesForProduct(product)[0];
-  const bilingual = featuredBilingualName(product.name, product.slug);
+  const displayName = enquiryProductName(product.name);
+  const bilingual = featuredBilingualName(displayName, product.slug);
 
   return (
     <article className="card-spice overflow-hidden group flex flex-col">
@@ -24,7 +25,7 @@ export function SpiceSkuCard({ product }: { product: Product }) {
       </Link>
       <div className="p-4 flex flex-col flex-1">
         <Link href={`/products/${product.slug}`} className="font-semibold text-primary group-hover:text-nav">
-          {product.name}
+          {displayName}
         </Link>
         {bilingual ? (
           <p className="text-sm text-muted mt-1" lang="ar" dir="rtl">
@@ -34,9 +35,9 @@ export function SpiceSkuCard({ product }: { product: Product }) {
         <p className="text-xs text-muted mt-2">
           {BRAND_NAME} · {productTypeLabel(product.categorySlug)} · Origin: {PRODUCT_ORIGIN}
         </p>
-        <p className="text-xs text-slate-600 mt-2">Available pack sizes: {BULK_PACK_SIZES.join(", ")}</p>
+        <p className="text-xs text-slate-600 mt-2">Choose your quantity on the enquiry, from {PACK_SIZE_RANGE}.</p>
         <div className="mt-3">
-          <EnquireNowLink productName={product.name} className="btn-primary w-full justify-center text-sm" />
+          <EnquireNowLink productName={displayName} className="btn-primary w-full justify-center text-sm" />
         </div>
       </div>
     </article>

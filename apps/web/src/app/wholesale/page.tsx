@@ -24,11 +24,8 @@ export default async function WholesalePage({
       <p className="mt-3 font-semibold">Minimum bulk order: 10kg</p>
       <div className="mt-4 space-y-3 text-sm text-muted leading-relaxed">
         <p>
-          Initial prices can be calculated from weight, but wholesale still depends on grade, origin, crop, packaging and market. Always request a quote for commercial lots.
-        </p>
-        <p>
-          Tell us whether you need whole or ground, 10kg, 25kg or 50kg bags, and whether the lot must match a named growing region
-          (for example Kerala pepper or Unjha cumin). We will not print a region we cannot stand behind on that shipment.
+          Tell us the spice, whether you need it whole or ground, and the quantity you want. You can name a growing region
+          when it matters (for example Kerala pepper or Unjha cumin). We will not print a region we cannot stand behind on that shipment.
         </p>
         <p>
           UK and European buyers can request retail and 10kg+ wholesale quotes here. United States, Canada, Gulf and other

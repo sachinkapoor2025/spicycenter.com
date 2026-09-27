@@ -30,12 +30,25 @@ export default function PressPage() {
         </section>
 
         <section>
+          <h2 className="text-xl font-bold text-primary mb-3">Taglines</h2>
+          <ul className="list-disc pl-5 space-y-2 text-sm">
+            <li>Main tagline: {site.tagline}</li>
+            <li>Homepage: {site.homepageTagline}</li>
+            <li>{site.homepageSubline}</li>
+            <li>{site.promise}</li>
+          </ul>
+          <p className="text-sm mt-3">
+            Social profiles and link previews should use the logo and these lines together. Share image: {siteUrl}{site.socialImage}
+          </p>
+        </section>
+
+        <section>
           <h2 className="text-xl font-bold text-primary mb-3">Key facts</h2>
           <ul className="list-disc pl-5 space-y-2 text-sm">
-            <li>99+ spice products across decor, spices, spice packs, and novelty</li>
+            <li>Indian spice catalogue. Origin: India.</li>
+            <li>One enquiry per product. The buyer types the quantity.</li>
+            <li>Prices are not published on the website.</li>
             <li>Worldwide delivery arranged through enquiry</li>
-            <li>spice season: your requested date, 2026</li>
-            <li>Payments: Stripe — storefront display GBP (UK) / EUR (EU)</li>
           </ul>
         </section>
 

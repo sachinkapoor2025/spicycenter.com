@@ -67,3 +67,40 @@ export function catalogueDescription(text: string): string {
 export function isKnownPackSize(value: string): value is BulkPackSize {
   return (BULK_PACK_SIZES as readonly string[]).includes(value);
 }
+
+const PACK_SLUG_SUFFIX =
+  /-(100g|200g|500g|1kg|2kg|5kg|10kg|15kg|20kg|25kg|50kg|100kg)$/i;
+
+type EnquiryGroupingProduct = {
+  slug: string;
+  name: string;
+  tags?: string[];
+};
+
+/** One catalogue card per spice and form. Pack size is chosen on the enquiry. */
+export function enquiryProductKey(product: EnquiryGroupingProduct): string {
+  const spice = product.tags?.find((tag) => tag.startsWith("spice:"))?.slice(6);
+  const form = product.tags?.find((tag) => tag.startsWith("form:"))?.slice(5);
+  if (spice && form) return `${spice}|${form}`;
+  return product.slug.replace(PACK_SLUG_SUFFIX, "");
+}
+
+export function enquiryProductName(name: string): string {
+  return name
+    .replace(/\s+[—–-]\s+[\d.]+\s*(g|kg|gm)\s*(bulk)?\s*$/i, "")
+    .replace(/\s+bulk\s*$/i, "")
+    .trim();
+}
+
+export function collapseToOneEnquiryProduct<T extends EnquiryGroupingProduct>(products: T[]): T[] {
+  const groups = new Map<string, T>();
+  for (const product of products) {
+    const key = enquiryProductKey(product);
+    const named = { ...product, name: enquiryProductName(product.name) };
+    const current = groups.get(key);
+    if (!current || (!/-1kg$/i.test(current.slug) && /-1kg$/i.test(product.slug))) {
+      groups.set(key, named);
+    }
+  }
+  return [...groups.values()];
+}

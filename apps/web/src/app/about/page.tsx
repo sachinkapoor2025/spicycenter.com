@@ -17,7 +17,7 @@ export default function AboutPage() {
       <div className="space-y-4 text-slate-700 leading-relaxed">
         <p>
           {site.name} ({site.domain}) is an Indian spice catalogue and knowledge site for worldwide business enquiries:
-          spice guides, recipes, and indicative Indian market prices. Buyers enquire from anywhere. India is the origin.
+          spice guides and recipes. Buyers enquire from anywhere. India is the origin. Prices are not published on this website.
         </p>
         <p>
           Importers, distributors and restaurant buyers can enquire for the same cumin, chilli or garam masala
@@ -25,8 +25,7 @@ export default function AboutPage() {
         </p>
         <p>
           Spices are agricultural goods. Colour, oil and aroma change with harvest, storage and grind. We do not invent
-          laboratory numbers, medical claims, fake reviews, or unsourced “today’s mandi rate” as a selling price.
-          Indicative Indian market prices, when published, carry date, market, grade and source, and they are never overwritten.
+          laboratory numbers, medical claims or fake reviews, and we do not publish a price on the website.
         </p>
         <p>
           Food-information fields (ingredients, allergens, origin, instructions for use) exist so UK and EU distance-selling

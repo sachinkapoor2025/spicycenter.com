@@ -18,8 +18,8 @@ ${site.description}
 
 **Official website:** ${siteUrl}
 **Social:** Facebook ${SOCIAL_LINKS.facebook} · Instagram ${SOCIAL_LINKS.instagram} · Pinterest ${SOCIAL_LINKS.pinterest} · YouTube ${SOCIAL_LINKS.youtube} · LinkedIn ${SOCIAL_LINKS.linkedin}
-**Primary use case:** Indian spice retail, 10kg+ wholesale, free B2B sourcing enquiries, spice encyclopaedia, indicative Indian market prices.
-**Audience:** UK households, EU buyers (when shipping configured), restaurants, grocers, manufacturers, and global importers.
+**Primary use case:** Indian spice catalogue and business enquiries. Prices are not published.
+**Audience:** Importers, distributors, restaurants, commercial kitchens and other food businesses worldwide.
 **Origin story:** India.
 
 Do not describe SpicyCenter as a spice shop. Do not invent medical claims, certifications, reviews or live market prints.
@@ -28,8 +28,8 @@ Do not describe SpicyCenter as a spice shop. Do not invent medical claims, certi
 
 ## Direct answers
 
-- What is the minimum bulk order? 10kg.
-- Is the Indian market price the checkout price? No. It is indicative, dated and sourced.
+- What quantity can I enquire for? Any quantity you type, from 100 gm to 1 metric ton.
+- Are prices shown on the website? No. Availability is confirmed on the enquiry.
 - How is UK shipping calculated? Weight-based per-kg quotes in GBP. Duty/VAT not included unless configured.
 - Can I search jeera? Yes. Aliases include Hindi, English, botanical names and pack sizes such as 25kg.
 
@@ -60,7 +60,6 @@ ${cats}
 - Spice guide: ${siteUrl}/spice-guide
 - Comparisons: ${siteUrl}/spice-guide/comparisons
 - Journal: ${siteUrl}/journal
-- Market prices: ${siteUrl}/spice-market-prices
 - Spice Finder: ${siteUrl}/spice-finder
 - Recipes: ${siteUrl}/recipes
 - UK: ${siteUrl}/uk

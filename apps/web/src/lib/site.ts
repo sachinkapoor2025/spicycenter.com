@@ -3,7 +3,11 @@ import { BULK_PACK_SIZES } from "@/lib/catalogue";
 export const site = {
   name: "SpicyCenter",
   domain: "spicycenter.com",
-  tagline: "Indian spice catalogue for worldwide business enquiries",
+  tagline: "King of Every Kitchen",
+  homepageTagline: "Authentic Indian Spices",
+  homepageSubline: "From our farms to your kitchen",
+  promise: "Spices for a Better Tomorrow",
+  socialImage: "/images/social-card.jpg",
   description:
     "SpicyCenter is a product catalogue for Indian spices. Browse products and send a bulk enquiry for importers, distributors, restaurants and commercial kitchens. Worldwide delivery is arranged through enquiry. Origin: India.",
   supportEmail: "enquiry@spicycenter.com",
@@ -42,7 +46,6 @@ export const navItems = [
   { label: "Masalas", href: "/spices/indian-masalas" },
   { label: "Recipes", href: "/recipes" },
   { label: "Journal", href: "/journal" },
-  { label: "Spice Market Prices", href: "/spice-market-prices" },
   { label: "Markets", href: "/markets" },
   { label: "Middle East", href: "/middle-east" },
   { label: "Food sourcing", href: "/food" },

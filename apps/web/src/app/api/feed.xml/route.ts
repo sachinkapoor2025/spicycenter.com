@@ -65,26 +65,17 @@ export async function GET() {
 
   const items = products
     .map((p) => {
-      const currency = p.currency === "INR" ? "INR" : "USD";
-      const price = p.price.toFixed(2);
-      const availability = (p.inventory ?? 1) > 0 ? "in stock" : "out of stock";
       const description = stripHtml(p.description ?? p.name).slice(0, 5000);
       return `<item>
   <g:id>${escapeXml(p.sku ?? p.slug)}</g:id>
   <g:title>${escapeXml(p.name)}</g:title>
   <g:description>${escapeXml(description)}</g:description>
-  <g:link>${escapeXml(`${site}/products/${p.slug}`)}</g:link>
+  <g:link>${escapeXml(`${site}/enquiry?product=${encodeURIComponent(p.name)}`)}</g:link>
   <g:image_link>${escapeXml(productImage(p))}</g:image_link>
-  <g:price>${price} ${currency}</g:price>
-  <g:availability>${availability}</g:availability>
+  <g:availability>in stock</g:availability>
   <g:condition>new</g:condition>
   <g:brand>SpicyCenter</g:brand>
   <g:google_product_category>632</g:google_product_category>
-  <g:shipping>
-    <g:country>US</g:country>
-    <g:service>Standard</g:service>
-    <g:price>0.00 USD</g:price>
-  </g:shipping>
 </item>`;
     })
     .join("\n");

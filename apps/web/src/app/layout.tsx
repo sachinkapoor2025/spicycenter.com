@@ -30,7 +30,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(canonical("/")),
   title: {
-    default: "SpicyCenter — Authentic Indian Spices, Retail & Bulk",
+    default: "SpicyCenter — King of Every Kitchen",
     template: "%s | SpicyCenter",
   },
   description: site.description,
@@ -47,15 +47,15 @@ export const metadata: Metadata = {
     locale: "en_GB",
     siteName: site.name,
     url: canonical("/"),
-    title: "SpicyCenter — Authentic Indian Spices, Retail & Bulk Supply",
-    description: site.description,
-    images: [{ url: site.logoSrc, alt: site.name }],
+    title: `SpicyCenter — ${site.tagline}`,
+    description: `${site.homepageTagline}. ${site.homepageSubline}. ${site.promise}.`,
+    images: [{ url: site.socialImage, alt: `${site.name} — ${site.tagline}` }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "SpicyCenter — Indian spices for UK & EU, 100g to 10kg+",
-    description: site.description,
-    images: [site.logoSrc],
+    title: `SpicyCenter — ${site.tagline}. ${site.promise}`,
+    description: `${site.homepageTagline}. ${site.homepageSubline}.`,
+    images: [site.socialImage],
   },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 } },
   ...(siteVerification.google

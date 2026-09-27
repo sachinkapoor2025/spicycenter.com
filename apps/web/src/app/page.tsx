@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { pageMetadata } from "@/lib/seo";
 import { JsonLd } from "@/components/JsonLd";
-import { faqs, exploreCategories, packSizes, regionLinks, site, homeBanners } from "@/lib/site";
+import { faqs, exploreCategories, regionLinks, site, homeBanners } from "@/lib/site";
 import { HomeBannerSlider } from "@/components/HomeBannerSlider";
 import { ProductReviewsPreview } from "@/components/ProductReviewsPreview";
 import { TrustBadges } from "@/components/TrustBadges";
@@ -12,13 +12,10 @@ import { getCatalogProducts } from "@/lib/catalog-fallback";
 import { faqJsonLd } from "@/lib/seo";
 import { featuredBilingualName, PACK_SIZE_RANGE } from "@/lib/catalogue";
 import { spiceStockImagePath } from "@/lib/spice-stock-images";
-import { api } from "@/lib/api";
-import { LiveMandiPriceBoard } from "@/components/LiveMandiPriceBoard";
-import type { LiveMandiBoard } from "@/lib/live-mandi-prices";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Indian spice catalogue — worldwide business enquiries",
-  description: site.description,
+  title: `${site.homepageTagline} — ${site.tagline}`,
+  description: `${site.homepageTagline}. ${site.homepageSubline}. ${site.promise}. ${site.description}`,
   path: "/",
 });
 
@@ -28,13 +25,6 @@ export default async function HomePage() {
   const spices = loadSpiceEntities();
   const featured = spices.filter((s) => s.featured || s.featuredKnowledge).slice(0, 10);
   const products = getCatalogProducts();
-  let mandi: LiveMandiBoard | null = null;
-  try {
-    mandi = await api<LiveMandiBoard>("/prices", { revalidate: 3600, timeoutMs: 8000 });
-  } catch {
-    mandi = null;
-  }
-  const livePrices = (mandi?.prices ?? []).filter((p) => p.available).slice(0, 6);
 
   return (
     <div>
@@ -42,8 +32,11 @@ export default async function HomePage() {
 
       <HomeBannerSlider banners={homeBanners} />
 
-      <section className="max-w-7xl mx-auto px-4 pt-8 pb-2 text-center md:text-left">
-        <h1 className="spice-heading text-3xl sm:text-4xl">{site.tagline}</h1>
+      <section className="max-w-7xl mx-auto px-4 pt-8 pb-2 text-center">
+        <p className="spice-kicker">{site.tagline}</p>
+        <h1 className="spice-heading text-4xl sm:text-5xl mt-2">{site.homepageTagline}</h1>
+        <p className="mt-3 text-lg sm:text-xl text-primary">{site.homepageSubline}</p>
+        <p className="mt-2 font-serif italic text-xl text-nav">{site.promise}</p>
       </section>
 
       <section className="border-b border-[#e6d5bc] bg-beige/70">
@@ -103,14 +96,11 @@ export default async function HomePage() {
 
       <section className="bg-paper border-b border-[#e6d5bc]">
         <div className="max-w-7xl mx-auto px-4 py-12">
-          <h2 className="spice-heading text-3xl mb-6">Available bulk quantities</h2>
-          <div className="flex flex-wrap gap-2">
-            {packSizes.map((p) => (
-              <Link key={p} href={`/spices?pack=${encodeURIComponent(p)}`} className="rounded-md border border-[#e6d5bc] bg-cream px-4 py-2 text-sm font-semibold text-primary hover:border-nav hover:text-nav">
-                {p}
-              </Link>
-            ))}
-          </div>
+          <h2 className="spice-heading text-3xl mb-3">Choose your own quantity</h2>
+          <p className="text-muted max-w-2xl">
+            Each spice has one Enquire Now button. On the form, type the quantity you need — {PACK_SIZE_RANGE}. We confirm availability in the reply. Prices are not published on this website.
+          </p>
+          <Link href="/enquiry" className="btn-primary mt-5">Enquire Now</Link>
         </div>
       </section>
 
@@ -156,21 +146,29 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {livePrices.length > 0 && (
-        <section className="bg-paper border-y border-[#e6d5bc] py-14">
-          <div className="max-w-7xl mx-auto px-4">
-            <p className="spice-kicker">Live Agmarknet</p>
-            <h2 className="font-serif text-3xl text-primary mt-2">Today&apos;s Indian spice market</h2>
-            <p className="mt-2 text-muted max-w-2xl">
-              Live mandi prints from India are market reference only. They are not catalogue prices. Ask for a quote on the enquiry form.
-            </p>
-            <LiveMandiPriceBoard prices={livePrices} compact />
-            <Link href="/spice-market-prices" className="inline-block mt-6 text-nav font-semibold">
-              Full live market board →
-            </Link>
-          </div>
-        </section>
-      )}
+      <section className="max-w-7xl mx-auto px-4 py-14">
+        <p className="spice-kicker">Why enquire with SpicyCenter</p>
+        <h2 className="spice-heading text-3xl mt-2 mb-3">A catalogue built for a conversation, not a checkout</h2>
+        <p className="text-muted max-w-3xl mb-6">
+          Other spice sites publish a price for one pack size and leave the rest as a guess. SpicyCenter lists the spice once. You tell us the quantity, the destination and how you buy, and the reply is for that enquiry.
+        </p>
+        <TrustBadges className="mb-8" />
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {[
+            ["One product, your quantity", "Cumin is one enquiry, not a separate button for 100 gm, 1 kg and 25 kg. You type the amount you actually need."],
+            ["No list price on the site", "Grade, crop, packaging and destination change the number. We confirm it in the reply instead of showing a figure that will not match your lot."],
+            ["Named for the buyer", "The form asks whether you are a wholesaler, retailer, restaurant, foodservice distributor or a private-label buyer."],
+            ["Origin stated as India", "Growing-region notes stay on the spice guides when the lot supports them. The catalogue itself is open to buyers worldwide."],
+            ["Whole spices and masala blends", "Single spices and dish blends such as garam masala, sambar and chettinad sit in the same catalogue, each with its own photograph."],
+            ["Delivery arranged in the reply", "We do not print a delivery date on the product page. Timing is part of the enquiry, for any country you name."],
+          ].map(([t, d]) => (
+            <div key={t} className="card-spice p-5">
+              <p className="font-semibold text-primary">{t}</p>
+              <p className="text-sm text-muted mt-2">{d}</p>
+            </div>
+          ))}
+        </div>
+      </section>
 
       <section className="max-w-7xl mx-auto px-4 py-14">
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 mb-3">
@@ -250,27 +248,6 @@ export default async function HomePage() {
               ))}
             </ul>
           </div>
-        </div>
-      </section>
-
-      <section className="max-w-7xl mx-auto px-4 py-14">
-        <p className="spice-kicker">Quality you can taste</p>
-        <h2 className="spice-heading text-3xl mt-2 mb-6">Why SpicyCenter</h2>
-        <TrustBadges className="mb-8" />
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {[
-            ["Indian origin", "Cumin from Rajasthan and Gujarat, pepper from the Ghats, chilli from Guntur or Kashmir — named when the lot supports it."],
-            ["Grades when they apply", "We print a grade only if it belongs to that spice and lot, not as decoration."],
-            ["Business buyers", "Importers, distributors, restaurants and commercial kitchens."],
-            ["Worldwide delivery", "Any country can enquire. Timing is confirmed in the reply, not on the product page."],
-            ["Food information", "Fields for ingredients, allergens and origin so UK/EU distance selling can be completed properly."],
-            ["Spice encyclopaedia", "Guides, comparisons and recipes sit next to the shop so you know what you are buying."],
-          ].map(([t, d]) => (
-            <div key={t} className="card-spice p-5">
-              <p className="font-semibold text-primary">{t}</p>
-              <p className="text-sm text-muted mt-2">{d}</p>
-            </div>
-          ))}
         </div>
       </section>
 

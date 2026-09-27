@@ -5,10 +5,11 @@ import type { Product } from "@spicycorner/shared";
 import { WishlistButton } from "@/components/WishlistButton";
 import { ProductImageRotator } from "@/components/ProductImageRotator";
 import { EnquireNowLink } from "@/components/EnquireNowLink";
-import { BRAND_NAME, BULK_PACK_SIZES, PRODUCT_ORIGIN, featuredBilingualName, productTypeLabel } from "@/lib/catalogue";
+import { BRAND_NAME, PACK_SIZE_RANGE, PRODUCT_ORIGIN, enquiryProductName, featuredBilingualName, productTypeLabel } from "@/lib/catalogue";
 
 export function ProductCard({ product }: { product: Product }) {
-  const bilingual = featuredBilingualName(product.name, product.slug);
+  const displayName = enquiryProductName(product.name);
+  const bilingual = featuredBilingualName(displayName, product.slug);
 
   return (
     <div className="group border border-slate-200 rounded-xl overflow-hidden hover:shadow-lg transition-shadow bg-white relative flex flex-col">
@@ -26,7 +27,7 @@ export function ProductCard({ product }: { product: Product }) {
       <div className="p-4 flex flex-col flex-1">
         <Link href={`/products/${product.slug}`}>
           <h3 className="font-semibold text-slate-900 group-hover:text-primary line-clamp-2 min-h-[2.5rem]">
-            {product.name}
+            {displayName}
           </h3>
           {bilingual ? (
             <p className="text-sm text-muted mt-1" dir="rtl" lang="ar">
@@ -37,9 +38,9 @@ export function ProductCard({ product }: { product: Product }) {
         <p className="mt-2 text-xs text-muted">
           {BRAND_NAME} · {productTypeLabel(product.categorySlug)} · Origin: {PRODUCT_ORIGIN}
         </p>
-        <p className="mt-2 text-xs text-slate-600">Pack sizes: {BULK_PACK_SIZES.join(", ")}</p>
+        <p className="mt-2 text-xs text-slate-600">Choose your quantity on the enquiry, from {PACK_SIZE_RANGE}.</p>
         <div className="mt-3">
-          <EnquireNowLink productName={product.name} className="btn-primary w-full justify-center text-sm" />
+          <EnquireNowLink productName={displayName} className="btn-primary w-full justify-center text-sm" />
         </div>
       </div>
     </div>

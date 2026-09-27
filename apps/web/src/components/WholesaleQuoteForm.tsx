@@ -6,7 +6,17 @@ import { getOrCreateSessionId } from "@/lib/session";
 import { whatsappChatUrl } from "@/lib/site";
 import { EVENT_TYPES } from "@spicycorner/shared";
 import { trackEnquiryEvent } from "@/lib/track";
-import { BULK_PACK_SIZES, isKnownPackSize } from "@/lib/catalogue";
+
+const BUYER_TYPES = [
+  "Wholesaler",
+  "White Label",
+  "Retailer",
+  "Restaurant",
+  "Foodservice Distributor",
+  "Other",
+] as const;
+
+const ENQUIRY_TYPES = ["Quote", "Bulk Order", "Sample Request", "General Enquiry"] as const;
 
 export function WholesaleQuoteForm({
   defaultProduct = "",
@@ -17,18 +27,17 @@ export function WholesaleQuoteForm({
   defaultCountry?: string;
   defaultQuantity?: string;
 }) {
-  const quantityOptions = isKnownPackSize(defaultQuantity) || !defaultQuantity
-    ? [...BULK_PACK_SIZES]
-    : [defaultQuantity, ...BULK_PACK_SIZES];
-
   const [form, setForm] = useState({
-    contactName: "",
-    company: "",
+    firstName: "",
+    lastName: "",
     email: "",
     phone: "",
-    country: defaultCountry,
+    company: "",
+    address: defaultCountry ? "" : "",
+    buyerType: "",
+    quantity: defaultQuantity,
     product: defaultProduct,
-    quantity: defaultQuantity && quantityOptions.includes(defaultQuantity) ? defaultQuantity : BULK_PACK_SIZES[0],
+    enquiryType: "",
     message: "",
   });
   const [website, setWebsite] = useState("");
@@ -45,13 +54,9 @@ export function WholesaleQuoteForm({
     setForm((current) => ({
       ...current,
       product: defaultProduct || current.product,
-      country: defaultCountry || current.country,
-      quantity:
-        defaultQuantity && (isKnownPackSize(defaultQuantity) || quantityOptions.includes(defaultQuantity))
-          ? defaultQuantity
-          : current.quantity,
+      quantity: defaultQuantity || current.quantity,
     }));
-  }, [defaultProduct, defaultCountry, defaultQuantity]);
+  }, [defaultProduct, defaultQuantity]);
 
   function update(key: keyof typeof form, value: string) {
     if (!formStarted) {
@@ -65,6 +70,7 @@ export function WholesaleQuoteForm({
     e.preventDefault();
     setLoading(true);
     setError("");
+    const contactName = `${form.firstName} ${form.lastName}`.trim();
     try {
       const sessionId = getOrCreateSessionId();
       await api("/leads", {
@@ -72,17 +78,22 @@ export function WholesaleQuoteForm({
         sessionId,
         body: JSON.stringify({
           sessionId,
-          name: form.contactName,
+          name: contactName,
           email: form.email,
           phone: form.phone,
           page: typeof window !== "undefined" ? window.location.pathname : "/enquiry",
           source: "catalogue-enquiry",
           metadata: {
             company: form.company,
-            contactName: form.contactName,
-            country: form.country,
+            contactName,
+            firstName: form.firstName,
+            lastName: form.lastName,
+            address: form.address,
+            buyerType: form.buyerType,
+            country: defaultCountry,
             product: form.product,
             quantity: form.quantity,
+            enquiryType: form.enquiryType,
             message: form.message,
             website,
           },
@@ -101,73 +112,110 @@ export function WholesaleQuoteForm({
   if (done) {
     return (
       <p className="card-spice p-6">
-        Thank you, {form.contactName}. We have your enquiry for {form.product}
-        {form.quantity ? ` (${form.quantity})` : ""}. Delivery timing is confirmed in our reply — this catalogue does not
-        quote a delivery date.
+        Thank you, {form.firstName}. We have your {form.enquiryType.toLowerCase() || "enquiry"}
+        {form.product ? ` for ${form.product}` : ""}
+        {form.quantity ? ` (${form.quantity})` : ""}. We reply with availability. This catalogue does not publish a price
+        or a delivery date.
       </p>
     );
   }
 
+  const fieldClass = "w-full border border-[#dcc9a8] rounded-lg px-3 py-2 text-base bg-paper";
+
   return (
-    <form onSubmit={submit} className="grid gap-3 card-spice p-6">
-      <p className="text-sm font-semibold">Business enquiry — importers, distributors, restaurants and commercial kitchens</p>
+    <form onSubmit={submit} className="grid gap-4 card-spice p-6 sm:p-8">
+      <div>
+        <p className="spice-kicker">Get in touch</p>
+        <h2 className="font-serif text-2xl text-primary mt-1">Send us a message</h2>
+        <p className="text-sm text-muted mt-2">
+          Quotes, sample requests, bulk orders or a general question — tell us what you need and we will reply.
+        </p>
+      </div>
       <label className="hidden" aria-hidden="true">
         Website
         <input tabIndex={-1} autoComplete="off" value={website} onChange={(e) => setWebsite(e.target.value)} />
       </label>
-      {(
-        [
-          ["contactName", "Customer Name", "text"],
-          ["company", "Company Name", "text"],
-          ["email", "Email", "email"],
-          ["phone", "Phone/WhatsApp", "tel"],
-          ["country", "Country", "text"],
-          ["product", "Product Name", "text"],
-        ] as const
-      ).map(([key, label, type]) => (
-        <label key={key} className="text-sm">
-          <span className="block mb-1 font-medium">{label}</span>
-          <input
-            required
-            type={type}
-            value={form[key]}
-            onChange={(e) => update(key, e.target.value)}
-            className="w-full border border-[#dcc9a8] rounded-lg px-3 py-2 text-base"
-          />
+      <div className="grid sm:grid-cols-2 gap-3">
+        <label className="text-sm">
+          <span className="block mb-1 font-medium">First name*</span>
+          <input required className={fieldClass} value={form.firstName} onChange={(e) => update("firstName", e.target.value)} />
         </label>
-      ))}
+        <label className="text-sm">
+          <span className="block mb-1 font-medium">Last name</span>
+          <input className={fieldClass} value={form.lastName} onChange={(e) => update("lastName", e.target.value)} />
+        </label>
+      </div>
+      <div className="grid sm:grid-cols-2 gap-3">
+        <label className="text-sm">
+          <span className="block mb-1 font-medium">Email*</span>
+          <input required type="email" className={fieldClass} value={form.email} onChange={(e) => update("email", e.target.value)} />
+        </label>
+        <label className="text-sm">
+          <span className="block mb-1 font-medium">Phone number*</span>
+          <input required type="tel" className={fieldClass} value={form.phone} onChange={(e) => update("phone", e.target.value)} />
+        </label>
+      </div>
       <label className="text-sm">
-        <span className="block mb-1 font-medium">Required Quantity</span>
-        <select
-          required
-          value={form.quantity}
-          onChange={(e) => update("quantity", e.target.value)}
-          className="w-full border border-[#dcc9a8] rounded-lg px-3 py-2 text-base bg-paper"
-        >
-          {quantityOptions.map((size) => (
-            <option key={size} value={size}>
-              {size}
+        <span className="block mb-1 font-medium">Company name*</span>
+        <input required className={fieldClass} value={form.company} onChange={(e) => update("company", e.target.value)} />
+      </label>
+      <label className="text-sm">
+        <span className="block mb-1 font-medium">Company address</span>
+        <input className={fieldClass} value={form.address} onChange={(e) => update("address", e.target.value)} />
+      </label>
+      <label className="text-sm">
+        <span className="block mb-1 font-medium">What best describes you?*</span>
+        <select required className={fieldClass} value={form.buyerType} onChange={(e) => update("buyerType", e.target.value)}>
+          <option value="">Please select</option>
+          {BUYER_TYPES.map((type) => (
+            <option key={type} value={type}>
+              {type}
             </option>
           ))}
         </select>
-        <span className="block mt-1 text-xs text-muted">Pack size only — not a price.</span>
       </label>
       <label className="text-sm">
-        <span className="block mb-1 font-medium">Message/Requirements</span>
+        <span className="block mb-1 font-medium">Approximate quantity*</span>
+        <textarea
+          required
+          value={form.quantity}
+          onChange={(e) => update("quantity", e.target.value)}
+          placeholder="Type the quantity you need, for example 25 kg, 500 gm, or 1 metric ton"
+          className={`${fieldClass} min-h-20`}
+        />
+        <span className="block mt-1 text-xs text-muted">You choose the quantity. It is not a price.</span>
+      </label>
+      <label className="text-sm">
+        <span className="block mb-1 font-medium">Product interested in</span>
+        <input className={fieldClass} value={form.product} onChange={(e) => update("product", e.target.value)} />
+      </label>
+      <label className="text-sm">
+        <span className="block mb-1 font-medium">Enquiry type</span>
+        <select className={fieldClass} value={form.enquiryType} onChange={(e) => update("enquiryType", e.target.value)}>
+          <option value="">Please select</option>
+          {ENQUIRY_TYPES.map((type) => (
+            <option key={type} value={type}>
+              {type}
+            </option>
+          ))}
+        </select>
+      </label>
+      <label className="text-sm">
+        <span className="block mb-1 font-medium">Message</span>
         <textarea
           value={form.message}
           onChange={(e) => update("message", e.target.value)}
-          className="w-full border border-[#dcc9a8] rounded-lg px-3 py-2 min-h-24"
+          className={`${fieldClass} min-h-28`}
         />
       </label>
       {error ? <p className="text-sm text-red-800">{error}</p> : null}
       <div className="flex flex-wrap gap-3 items-center">
         <button type="submit" disabled={loading} className="btn-primary justify-self-start disabled:opacity-50">
-          {loading ? "Sending..." : "Enquire Now"}
+          {loading ? "Sending..." : "Send your enquiry"}
         </button>
         <a
           href={whatsappChatUrl(
-            `Hi SpicyCenter, I would like to enquire about ${form.product || "Indian spices"} (${form.quantity}).`
+            `Hi SpicyCenter, I would like to enquire about ${form.product || "Indian spices"}${form.quantity ? ` (${form.quantity})` : ""}.`
           )}
           target="_blank"
           rel="noopener noreferrer"

@@ -25,7 +25,7 @@ export function pageMetadata(opts: {
   absoluteTitle?: boolean;
 }): Metadata {
   const url = canonical(opts.path);
-  const image = opts.ogImage ?? site.logoSrc;
+  const image = opts.ogImage ?? site.socialImage;
   return {
     title: opts.absoluteTitle ? { absolute: opts.title } : opts.title,
     description: opts.description,
@@ -71,7 +71,7 @@ export function productPageMetadata(opts: {
 }): Metadata {
   const description = productMetaDescription(opts.seoDescription, opts.description);
   const url = canonical(opts.path);
-  const image = opts.ogImage ?? site.logoSrc;
+  const image = opts.ogImage ?? site.socialImage;
   return {
     title: opts.title,
     description,

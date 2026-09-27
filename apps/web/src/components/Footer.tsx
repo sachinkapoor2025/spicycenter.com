@@ -24,7 +24,6 @@ const shopLinks = [
   { href: "/food", label: "Food sourcing" },
   { href: "/guides", label: "Sourcing guides" },
   { href: "/spice-guide", label: "Spice Guide" },
-  { href: "/spice-market-prices", label: "Spice Market Prices" },
 ] as const;
 
 const stores = [...STORE_LOCATIONS].sort((a, b) => Number(a.id === "uk") - Number(b.id === "uk"));
@@ -65,7 +64,10 @@ export function Footer() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-sm">
             <div className="col-span-2 lg:col-span-1">
               <SiteLogoLink size="desktop" className="mb-4 bg-paper rounded-md px-1.5 py-1 inline-block" />
-              <p className="font-serif italic text-accent text-lg leading-snug">King of Every Kitchen</p>
+              <p className="font-serif italic text-accent text-lg leading-snug">{site.tagline}</p>
+              <p className="font-serif text-white text-base leading-snug mt-1">{site.homepageTagline}</p>
+              <p className="text-white/80 text-sm">{site.homepageSubline}</p>
+              <p className="font-serif italic text-accent/90 text-sm mt-1">{site.promise}</p>
               <p className="text-white/75 leading-relaxed mt-3 text-[13px]">
                 Indian spice catalogue. Origin: India. Worldwide delivery is arranged through enquiry for business buyers.
               </p>

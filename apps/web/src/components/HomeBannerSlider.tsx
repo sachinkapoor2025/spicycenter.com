@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { site } from "@/lib/site";
 
 export type HomeBannerSlide = {
   src: string;
@@ -100,6 +101,13 @@ export function HomeBannerSlider({ banners }: { banners: readonly HomeBannerSlid
               </div>
             </>
           )}
+        </div>
+        <div className="mt-4 text-center text-primary">
+          <p className="font-serif text-2xl sm:text-3xl">{site.tagline}</p>
+          <p className="mt-1 text-base sm:text-lg">
+            {site.homepageTagline} — {site.homepageSubline}
+          </p>
+          <p className="mt-1 font-serif italic text-lg text-nav">{site.promise}</p>
         </div>
       </div>
     </section>

@@ -23,8 +23,8 @@ export default async function EnquiryPage({
       <p className="spice-kicker">Business enquiry</p>
       <h1 className="spice-heading text-4xl mt-2">Enquire Now</h1>
       <p className="mt-4 text-muted leading-relaxed">
-        Tell us the product and pack size. This form is for importers, distributors, restaurants and other commercial
-        buyers. We confirm price and delivery timing in the reply. Worldwide destinations are welcome.
+        One form for any spice and any quantity you type yourself. Tell us who you buy for — wholesaler, retailer,
+        restaurant, foodservice or private label — and we reply with availability. This website does not publish prices.
       </p>
       <p className="mt-3 text-sm">
         <Link href="/bulk-enquiry" className="text-nav font-semibold">

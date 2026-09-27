@@ -7,7 +7,6 @@ import { JsonLd } from "@/components/JsonLd";
 import {
   getSpiceBySlug,
   isPublishedSpice,
-  loadMarketPrices,
   loadPublishedSpiceEntities,
   loadSpiceEntities,
 } from "@/lib/spice-data";
@@ -51,7 +50,6 @@ export default async function SpiceGuidePage({ params }: Props) {
   if (!spice || !isPublishedSpice(spice)) notFound();
   const related = loadSpiceEntities().filter((s) => spice.relatedSpiceIds.includes(s.id));
   const products = getCatalogProducts().filter((p) => p.tags?.includes(`spice:${spice.id}`)).slice(0, 12);
-  const price = loadMarketPrices().find((p) => p.spiceId === spice.id);
   const recipes = recipesForSpice(spice.id).slice(0, 8);
 
   const facts = [
@@ -148,20 +146,9 @@ export default async function SpiceGuidePage({ params }: Props) {
         <p>{nutritionDisclaimer(spice)}</p>
       </Block>
       <Block title="Buying guide">
-        <p>Available pack sizes are 100 gm, 200 gm, 500 gm, 1 kg, 5 kg, 10 kg, 15 kg, 20 kg, 25 kg and 1 metric ton (1,000 kg). They are quantities, not prices. Indian market figures, when present, are reference only.</p>
+        <p>Tell us the quantity you need, from 100 gm to 1 metric ton. Prices are not published on this website. Availability is confirmed on the enquiry.</p>
         <FreeEnquiryCtas productName={spice.canonicalName} spiceQuery={spice.slug} />
       </Block>
-      {price && (
-        <Block title="Indicative Indian market price">
-          <p>
-            {price.averagePrice == null
-              ? "No dated market print has been imported yet. Admin must enter min/max/average with market, grade, date and source."
-              : `Indicative Indian mandi ${price.currency === "INR" ? "₹" : ""}${price.averagePrice}/${price.unit} (${price.market}, ${price.grade}, ${price.priceDate}) — market reference only, not a catalogue price.`}
-          </p>
-          <p className="text-sm text-muted">{price.notes}</p>
-          <Link href="/spice-market-prices" className="text-nav text-sm">Market prices →</Link>
-        </Block>
-      )}
       {spice.faqs?.length ? (
         <Block title="FAQs">
           {spice.faqs.map((f) => (

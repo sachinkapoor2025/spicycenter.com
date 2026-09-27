@@ -17,9 +17,10 @@ import { looksLikeHtml, stripHtml, shortPlainDescription } from "@/lib/html-text
 import { cjStorefrontProductVideosPath, type Product } from "@spicycorner/shared";
 import {
   BRAND_NAME,
-  BULK_PACK_SIZES,
+  PACK_SIZE_RANGE,
   PRODUCT_ORIGIN,
   catalogueDescription,
+  enquiryProductName,
   featuredBilingualName,
   productTypeLabel,
 } from "@/lib/catalogue";
@@ -107,7 +108,6 @@ export function ProductDetailClient({
 }) {
   const sessionId = useSessionId();
   const captureLead = useDebouncedLeadCapture(sessionId);
-  const [packSize, setPackSize] = useState<(typeof BULK_PACK_SIZES)[number]>(BULK_PACK_SIZES[3]);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -159,7 +159,8 @@ export function ProductDetailClient({
       );
 
   const summary = shortPlainDescription(catalogueDescription(product.description));
-  const bilingual = featuredBilingualName(product.name, product.slug);
+  const displayName = enquiryProductName(product.name);
+  const bilingual = featuredBilingualName(displayName, product.slug);
 
   return (
     <>
@@ -175,7 +176,7 @@ export function ProductDetailClient({
         </div>
 
         <div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-primary mb-1 leading-tight">{product.name}</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-primary mb-1 leading-tight">{displayName}</h1>
           {bilingual ? (
             <p className="text-lg text-muted mb-3" lang="ar" dir="rtl">
               {bilingual.english} — {bilingual.arabic}
@@ -193,39 +194,15 @@ export function ProductDetailClient({
 
           <p className="text-slate-600 text-sm sm:text-base mb-4 leading-relaxed">{summary}</p>
 
-          <div className="mb-4">
-            <p className="text-sm font-semibold text-slate-700 mb-2">Available bulk quantities</p>
-            <div className="flex flex-wrap gap-2" role="listbox" aria-label="Pack size">
-              {BULK_PACK_SIZES.map((size) => {
-                const active = size === packSize;
-                return (
-                  <button
-                    key={size}
-                    type="button"
-                    role="option"
-                    aria-selected={active}
-                    onClick={() => setPackSize(size)}
-                    className={`text-sm px-3 py-1.5 rounded-lg border-2 ${
-                      active ? "border-nav bg-orange-50 text-primary" : "border-slate-200 text-slate-700 bg-white"
-                    }`}
-                  >
-                    {size}
-                  </button>
-                );
-              })}
-            </div>
-            <p className="text-xs text-muted mt-2">Pack sizes only. Prices and delivery dates are confirmed on enquiry.</p>
-          </div>
+          <p className="text-sm text-slate-600 mb-4">
+            One enquiry for this product. On the form, type the quantity you need — from {PACK_SIZE_RANGE}.
+          </p>
 
           <TrustBadges variant="compact" className="mb-5" />
 
           <div className="flex items-stretch gap-2 mb-3">
             <div className="flex-1 min-w-0">
-              <EnquireNowLink
-                productName={product.name}
-                quantity={packSize}
-                className="btn-primary w-full justify-center"
-              />
+              <EnquireNowLink productName={displayName} className="btn-primary w-full justify-center" />
             </div>
             <WishlistButton product={product} variant="toolbar" />
             {productUrl ? <ShareButton title={product.name} url={productUrl} /> : <div className="w-12 shrink-0" />}
@@ -392,7 +369,7 @@ export function ProductDetailClient({
       </section>
     </div>
     <div className="fixed bottom-0 inset-x-0 z-40 border-t border-[#e6d5bc] bg-paper p-3 md:hidden">
-      <EnquireNowLink productName={product.name} quantity={packSize} className="btn-primary w-full justify-center" />
+      <EnquireNowLink productName={displayName} className="btn-primary w-full justify-center" />
     </div>
     </>
   );

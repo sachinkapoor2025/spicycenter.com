@@ -6,7 +6,7 @@ import { seoBlogEntries, seoEventsHub } from "@/lib/content/seo-data";
 
 /**
  * llms-full.txt — detailed product catalog for AI assistants (GEO).
- * Extends /llms.txt with per-product name, price, category, description.
+ * Extends /llms.txt with per-product name, category and description. Prices are not published.
  */
 export async function GET() {
   const products = await loadStorefrontProducts();
@@ -33,7 +33,7 @@ export async function GET() {
     .map((p) => {
       const desc = p.description.replace(/\s+/g, " ").slice(0, 200);
       const tags = p.tags?.length ? ` | Tags: ${p.tags.join(", ")}` : "";
-      return `- **${p.name}** | ${p.currency} ${p.price} | ${p.categorySlug} | ${siteUrl}/products/${p.slug}\n  ${desc}${tags}`;
+      return `- **${p.name}** | ${p.categorySlug} | ${siteUrl}/products/${p.slug}\n  ${desc}${tags}`;
     })
     .join("\n\n");
 
@@ -46,9 +46,8 @@ export async function GET() {
 ${site.description}
 
 **Website:** ${siteUrl}
-**Catalog:** Indian spices — retail and 10kg+ wholesale.
-**Delivery:** Confirm shipping on each product page. UK rates are per kilogram when configured.
-**Payments:** Stripe. Display prices in GBP (UK) or EUR (EU).
+**Catalog:** Indian spices. One enquiry per product. The buyer chooses the quantity.
+**Delivery:** Timing is confirmed on the enquiry.
 
 ---
 
