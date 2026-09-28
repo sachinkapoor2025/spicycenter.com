@@ -26,7 +26,7 @@ function escapeXml(value: string): string {
 
 function productImage(p: FeedProduct): string {
   const raw = p.images?.[0];
-  if (!raw) return `${getSiteUrl()}/logo.png`;
+  if (!raw) return `${getSiteUrl()}/brand-logo.jpg`;
   if (raw.startsWith("http")) return raw;
   return `${getCdnUrl()}${raw.startsWith("/") ? raw : `/${raw}`}`;
 }

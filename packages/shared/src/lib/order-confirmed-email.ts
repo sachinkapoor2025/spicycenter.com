@@ -32,7 +32,7 @@ const SUPPORT_EMAIL = "enquiry@spicycenter.com";
 const SUPPORT_PHONE = "+1 (669) 260-3819";
 const ORDER_EMAIL = "enquiry@spicycenter.com";
 
-const LOGO = `${DEFAULT_SITE}/logo.png`;
+const LOGO = `${DEFAULT_SITE}/brand-logo.jpg`;
 const HERO_DECOR = `${DEFAULT_SITE}/banners/bannerpage1.png`;
 
 export type OrderConfirmedLineAddon = {

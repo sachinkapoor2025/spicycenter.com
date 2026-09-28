@@ -63,7 +63,7 @@ export function Footer() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-sm">
             <div className="col-span-2 lg:col-span-1">
-              <SiteLogoLink size="desktop" className="mb-4 bg-paper rounded-md px-1.5 py-1 inline-block" />
+              <SiteLogoLink size="desktop" className="mb-4 inline-block" />
               <p className="font-serif italic text-accent text-lg leading-snug">{site.tagline}</p>
               <p className="font-serif text-white text-base leading-snug mt-1">{site.homepageTagline}</p>
               <p className="text-white/80 text-sm">{site.homepageSubline}</p>

@@ -29,6 +29,8 @@ function isPlaceholderUrl(url: string): boolean {
     u.includes("product-fallback") ||
     u.includes("_placeholder") ||
     u.includes("/logo.png") ||
+    u.includes("/brand-logo.jpg") ||
+    u.includes("/logo.svg") ||
     u.includes("logo-option") ||
     u.includes("placeholder.jpg") ||
     u.includes("placeholder.svg")
