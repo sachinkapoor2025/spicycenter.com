@@ -12,7 +12,7 @@ import { SOCIAL_LINKS } from "../constants";
 const SITE = "https://www.spicycenter.com";
 const SITE_SHORT = "https://spicycenter.com";
 const SHOP = `${SITE}/products`;
-const LOGO = `${SITE}/brand-logo.jpg`;
+const LOGO = `${SITE}/brand-logo.png`;
 const HERO = `${SITE}/banners/bannerpage1.png`;
 const FB = `${SITE}/email-templates/icons/facebook.png`;
 const IG = `${SITE}/email-templates/icons/instagram.png`;

@@ -62,7 +62,7 @@ const CDN_IG = `${SITE}/email-templates/icons/instagram.png`;
 
 export const DEFAULT_PREMIUM_MARKETING_EMAIL_CONTENT: MarketingEmailContent = {
   preheader: "Indian spices for retail and 10kg+ wholesale — SpicyCenter.",
-  logoUrl: `${SITE}/brand-logo.jpg`,
+  logoUrl: `${SITE}/brand-logo.png`,
   logoHref: SITE,
   logoAlt: "SpicyCenter — Indian spices",
   heroImageUrl: `${SITE}/banners/bannerpage1.png`,
@@ -214,7 +214,7 @@ function categoriesGrid(categories: MarketingEmailCategory[]): string {
     cats.push({
       name: "Shop All",
       description: "Browse the full SpicyCenter collection.",
-      imageUrl: `${SITE}/brand-logo.jpg`,
+      imageUrl: `${SITE}/brand-logo.png`,
       href: `${SITE}/products`,
       buttonText: "Shop Now",
     });

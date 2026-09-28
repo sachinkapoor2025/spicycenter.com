@@ -14,7 +14,7 @@ export const site = {
   phone: "",
   whatsapp: "919266467887",
   whatsappDisplay: "",
-  logoSrc: "/brand-logo.jpg",
+  logoSrc: "/brand-logo.png",
   primaryColor: "#2c1810",
   navBlue: "#c45c26",
   accentColor: "#d4a017",
