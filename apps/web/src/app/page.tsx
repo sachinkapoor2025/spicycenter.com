@@ -13,9 +13,13 @@ import { faqJsonLd } from "@/lib/seo";
 import { featuredBilingualName, PACK_SIZE_RANGE } from "@/lib/catalogue";
 import { spiceStockImagePath } from "@/lib/spice-stock-images";
 
+const HOME_H1 = "Indian Spices, Rice & Food Ingredients — Sourced from India to Worldwide";
+const HOME_INTRO =
+  "We supply Indian spices, rice and food ingredients to businesses worldwide. Explore our product range and send us your requirements for bulk quantities, wholesale supply and international enquiries.";
+
 export const metadata: Metadata = pageMetadata({
-  title: `${site.homepageTagline} — ${site.tagline}`,
-  description: `${site.homepageTagline}. ${site.homepageSubline}. ${site.promise}. ${site.description}`,
+  title: HOME_H1,
+  description: HOME_INTRO,
   path: "/",
 });
 
@@ -34,13 +38,22 @@ export default async function HomePage() {
 
       <section className="max-w-7xl mx-auto px-4 pt-8 pb-2 text-center">
         <p className="spice-kicker">{site.tagline}</p>
-        <h1 className="spice-heading text-4xl sm:text-5xl mt-2">{site.homepageTagline}</h1>
+        <h1 className="spice-heading text-3xl sm:text-4xl lg:text-5xl mt-2 leading-tight max-w-5xl mx-auto">
+          {HOME_H1}
+        </h1>
+        <h2 className="mt-4 text-base sm:text-lg font-sans font-normal leading-relaxed text-primary max-w-3xl mx-auto">
+          {HOME_INTRO}
+        </h2>
         <p className="mt-3 text-lg sm:text-xl text-primary">{site.homepageSubline}</p>
         <p className="mt-2 font-serif italic text-xl text-nav">{site.promise}</p>
       </section>
 
       <section className="border-b border-[#e6d5bc] bg-beige/70">
-        <div className="max-w-7xl mx-auto px-4 py-6 grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 text-center text-sm text-primary">
+        <div className="max-w-7xl mx-auto px-4 py-6">
+          <h2 className="font-serif text-xl sm:text-2xl text-primary text-center mb-4">
+            Pure spices, bulk packs and worldwide supply
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 text-center text-sm text-primary">
           {[
             ["100% Pure & Natural", "No filler blends sold as a single spice"],
             ["Worldwide delivery", "Timing is confirmed on your enquiry"],
@@ -48,10 +61,11 @@ export default async function HomePage() {
             ["Origin: India", "For importers, distributors and restaurants"],
           ].map(([t, d]) => (
             <div key={t}>
-              <p className="font-serif text-base md:text-lg leading-tight">{t}</p>
+              <h3 className="font-serif text-base md:text-lg font-normal leading-tight">{t}</h3>
               <p className="text-muted text-xs mt-1">{d}</p>
             </div>
           ))}
+          </div>
         </div>
       </section>
 
@@ -73,7 +87,11 @@ export default async function HomePage() {
       </section>
 
       <section className="bg-beige/50 border-y border-[#e6d5bc]">
-        <div className="max-w-7xl mx-auto px-4 py-14 grid md:grid-cols-3 gap-5">
+        <div className="max-w-7xl mx-auto px-4 py-14">
+        <h2 className="font-serif text-2xl sm:text-3xl text-primary text-center mb-8">
+          Indian masalas, bulk packs and recipes
+        </h2>
+        <div className="grid md:grid-cols-3 gap-5">
         {[
           { href: "/spices/indian-masalas", img: "/images/promo-masalas.jpg", title: "Indian masalas", text: "Traditional blends for authentic taste.", cta: "Shop masalas →" },
           { href: "/enquiry", img: "/images/promo-bulk.jpg", title: "Enquire for bulk packs", text: "For restaurants, importers, distributors and commercial kitchens.", cta: "Enquire Now →" },
@@ -83,7 +101,7 @@ export default async function HomePage() {
             <span className="relative block h-44 sm:h-56">
               <Image src={card.img} alt="" fill className="object-cover group-hover:scale-[1.03] transition" sizes="(max-width: 640px) 100vw, (min-width: 768px) 33vw, 100vw" />
               <span className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent" />
-              <span className="absolute bottom-3 left-4 right-4 font-serif text-2xl text-paper">{card.title}</span>
+              <h3 className="absolute bottom-3 left-4 right-4 font-serif text-2xl font-normal text-paper">{card.title}</h3>
             </span>
             <span className="block p-5">
               <span className="text-sm text-muted block">{card.text}</span>
@@ -91,6 +109,7 @@ export default async function HomePage() {
             </span>
           </Link>
         ))}
+        </div>
         </div>
       </section>
 
@@ -163,7 +182,7 @@ export default async function HomePage() {
             ["Delivery arranged in the reply", "We do not print a delivery date on the product page. Timing is part of the enquiry, for any country you name."],
           ].map(([t, d]) => (
             <div key={t} className="card-spice p-5">
-              <p className="font-semibold text-primary">{t}</p>
+              <h3 className="font-semibold text-primary">{t}</h3>
               <p className="text-sm text-muted mt-2">{d}</p>
             </div>
           ))}
@@ -202,7 +221,7 @@ export default async function HomePage() {
                 />
               </span>
               <span className="block p-5">
-              <p className="font-serif text-xl text-primary">{s.canonicalName}</p>
+              <h3 className="font-serif text-xl font-normal text-primary">{s.canonicalName}</h3>
               {bilingual ? (
                 <p className="text-sm text-muted" lang="ar" dir="rtl">
                   {bilingual.english} — {bilingual.arabic}
