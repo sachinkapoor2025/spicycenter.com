@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { pageMetadata } from "@/lib/seo";
-import { getCatalogProducts } from "@/lib/catalog-fallback";
+import { getCatalogProducts, productMatchesCategory } from "@/lib/catalog-fallback";
 import { loadSpiceEntities, searchSpices } from "@/lib/spice-data";
 import { parseBulkHint } from "@spicycorner/shared";
 import { exploreCategories } from "@/lib/site";
@@ -71,7 +71,7 @@ export default async function SpicesIndex({
     const packTag = pack.endsWith("+") ? "50kg" : pack;
     products = products.filter((p) => p.tags?.some((t) => t === `pack:${packTag}` || (pack === "50kg+" && t.startsWith("pack:50"))));
   }
-  if (category) products = products.filter((p) => p.categorySlug === category || p.additionalCategorySlugs?.includes(category));
+  if (category) products = products.filter((p) => productMatchesCategory(p, category));
   if (channel) products = products.filter((p) => p.tags?.includes(`channel:${channel}`));
 
   const spices = loadSpiceEntities();

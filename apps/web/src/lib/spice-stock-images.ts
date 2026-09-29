@@ -102,10 +102,53 @@ const NEEDLES: [string, string][] = [
   ["cubeb", "black-pepper"],
 ];
 
-export function spiceStockImagePath(haystack: string): string {
+/** What the unsuffixed stock photo actually shows. */
+const POWDER_PHOTOS = new Set(["turmeric", "asafoetida"]);
+const LEAF_PHOTOS = new Set(["bay", "curry-leaf", "mint"]);
+
+type PhotoForm = "whole" | "powder" | "leaves" | "blend";
+
+function photoFormOf(file: string): PhotoForm {
+  if (
+    file.endsWith("-masala") ||
+    file === "kitchen-king" ||
+    file === "rasam-powder" ||
+    file === "panch-phoron"
+  ) {
+    return "blend";
+  }
+  if (LEAF_PHOTOS.has(file)) return "leaves";
+  if (POWDER_PHOTOS.has(file)) return "powder";
+  return "whole";
+}
+
+function wantedPhotoForm(form: string | undefined, hay: string): PhotoForm | undefined {
+  const tagged = form?.toLowerCase();
+  if (tagged === "powder" || tagged === "crushed" || tagged === "flakes") return "powder";
+  if (tagged === "leaves") return "leaves";
+  if (tagged === "blend") return "blend";
+  if (tagged === "whole" || tagged === "seeds" || tagged === "roasted") return "whole";
+  if (/\b(powder|crushed|flakes)\b/.test(hay)) return "powder";
+  if (/\bleaf\b|\bleaves\b/.test(hay)) return "leaves";
+  if (/\b(whole|seeds?)\b/.test(hay)) return "whole";
+  return undefined;
+}
+
+function formImage(file: string, want: PhotoForm): string {
+  if (want === "blend") return `/images/spices/${file}.jpg`;
+  if (want === "powder" && file === "chilli") return "/images/spices/chilli-powder.jpg";
+  if (want === "whole" && LEAF_PHOTOS.has(file)) return `/images/spices/${file}.jpg`;
+  if (want === "powder" && photoFormOf(file) === "blend") return `/images/spices/${file}.jpg`;
+  return `/images/spices/${file}-${want}.jpg`;
+}
+
+export function spiceStockImagePath(haystack: string, form?: string): string {
   const hay = haystack.toLowerCase().replace(/-/g, " ");
+  const want = wantedPhotoForm(form, hay);
   for (const [needle, file] of NEEDLES) {
-    if (hay.includes(needle)) return `/images/spices/${file}.jpg`;
+    if (!hay.includes(needle)) continue;
+    if (!want || want === photoFormOf(file)) return `/images/spices/${file}.jpg`;
+    return formImage(file, want);
   }
   return DEFAULT_IMAGE;
 }
@@ -116,8 +159,9 @@ export function spiceStockImagesForProduct(product: {
   categorySlug?: string;
   tags?: string[];
 }): string[] {
+  const form = product.tags?.find((tag) => tag.startsWith("form:"))?.slice(5);
   const hay = [product.slug, product.name, product.categorySlug, ...(product.tags ?? [])]
     .filter(Boolean)
     .join(" ");
-  return [spiceStockImagePath(hay)];
+  return [spiceStockImagePath(hay, form)];
 }

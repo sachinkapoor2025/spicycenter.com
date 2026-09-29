@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { pageMetadata } from "@/lib/seo";
-import { getCatalogProducts } from "@/lib/catalog-fallback";
+import { getCatalogProducts, productMatchesCategory } from "@/lib/catalog-fallback";
 import { getSpiceBySlug, loadSpiceEntities } from "@/lib/spice-data";
 import { exploreCategories } from "@/lib/site";
 import { SpiceSkuCard } from "@/components/SpiceSkuCard";
@@ -34,7 +34,7 @@ export default async function SpiceCategoryPage({ params }: Props) {
   const cat = exploreCategories.find((c) => c.slug === category);
   const products = getCatalogProducts()
     .filter((p) => {
-      if (p.categorySlug === category || p.additionalCategorySlugs?.includes(category)) return true;
+      if (productMatchesCategory(p, category)) return true;
       if (spice && p.tags?.includes(`spice:${spice.id}`)) return true;
       return false;
     })

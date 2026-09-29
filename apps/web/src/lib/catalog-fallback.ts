@@ -1,4 +1,4 @@
-import { isStorefrontVisibleProduct, type Category, type Product } from "@spicycorner/shared";
+import { categorySlugVariants, isStorefrontVisibleProduct, type Category, type Product } from "@spicycorner/shared";
 import { loadSpiceCatalogFile } from "@/lib/spice-data";
 import { spiceStockImagesForProduct } from "@/lib/spice-stock-images";
 import { catalogueDescription, collapseToOneEnquiryProduct, enquiryProductKey, enquiryProductName } from "@/lib/catalogue";
@@ -55,10 +55,17 @@ export function getCatalogCategory(slug: string): Category | undefined {
   return getCatalogCategories().find((c) => c.slug === slug);
 }
 
+export function productMatchesCategory(
+  product: { categorySlug?: string; additionalCategorySlugs?: string[] },
+  categorySlug: string
+): boolean {
+  const variants = new Set(categorySlugVariants(categorySlug));
+  if (product.categorySlug && variants.has(product.categorySlug)) return true;
+  return product.additionalCategorySlugs?.some((slug) => variants.has(slug)) ?? false;
+}
+
 export function getCatalogProductsByCategory(categorySlug: string): Product[] {
-  return getCatalogProducts().filter(
-    (p) => p.categorySlug === categorySlug || p.additionalCategorySlugs?.includes(categorySlug)
-  );
+  return getCatalogProducts().filter((p) => productMatchesCategory(p, categorySlug));
 }
 
 export { categorySlugVariants } from "@spicycorner/shared";

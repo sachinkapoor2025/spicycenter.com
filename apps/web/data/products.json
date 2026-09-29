@@ -4214,7 +4214,7 @@
     "description": "Bitter-maple seeds and dried leaves (kasuri methi). Form: leaves. Pack: 100g. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 18,
     "currency": "INR",
-    "categorySlug": "dried-herbs",
+    "categorySlug": "herbs",
     "additionalCategorySlugs": [
       "pickling-spices",
       "regional-spices"
@@ -4243,7 +4243,7 @@
     "description": "Bitter-maple seeds and dried leaves (kasuri methi). Form: leaves. Pack: 500g. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 90,
     "currency": "INR",
-    "categorySlug": "dried-herbs",
+    "categorySlug": "herbs",
     "additionalCategorySlugs": [
       "pickling-spices",
       "regional-spices"
@@ -4272,7 +4272,7 @@
     "description": "Bitter-maple seeds and dried leaves (kasuri methi). Form: leaves. Pack: 1kg. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 180,
     "currency": "INR",
-    "categorySlug": "dried-herbs",
+    "categorySlug": "herbs",
     "additionalCategorySlugs": [
       "pickling-spices",
       "regional-spices"
@@ -4301,7 +4301,7 @@
     "description": "Bitter-maple seeds and dried leaves (kasuri methi). Form: leaves. Pack: 10kg. Minimum bulk order 10kg. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 1476,
     "currency": "INR",
-    "categorySlug": "dried-herbs",
+    "categorySlug": "herbs",
     "additionalCategorySlugs": [
       "pickling-spices",
       "bulk-spices",
@@ -6273,7 +6273,7 @@
   },
   {
     "slug": "fennel-seeds-100g",
-    "name": "Fennel seed seeds — 100g",
+    "name": "Fennel seeds — 100g",
     "description": "Sweet anise-like seeds used as spice and mukhwas. Form: seeds. Pack: 100g. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 32,
     "currency": "INR",
@@ -6293,7 +6293,7 @@
       "weightKg:0.1",
       "draft-pricing"
     ],
-    "seoTitle": "Fennel seed seeds 100g",
+    "seoTitle": "Fennel seeds 100g",
     "seoDescription": "Buy Fennel seed (सौंफ) as seeds in 100g. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 3.5274,
@@ -6302,7 +6302,7 @@
   },
   {
     "slug": "fennel-seeds-200g",
-    "name": "Fennel seed seeds — 200g",
+    "name": "Fennel seeds — 200g",
     "description": "Sweet anise-like seeds used as spice and mukhwas. Form: seeds. Pack: 200g. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 64,
     "currency": "INR",
@@ -6322,7 +6322,7 @@
       "weightKg:0.2",
       "draft-pricing"
     ],
-    "seoTitle": "Fennel seed seeds 200g",
+    "seoTitle": "Fennel seeds 200g",
     "seoDescription": "Buy Fennel seed (सौंफ) as seeds in 200g. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 7.0548,
@@ -6331,7 +6331,7 @@
   },
   {
     "slug": "fennel-seeds-500g",
-    "name": "Fennel seed seeds — 500g",
+    "name": "Fennel seeds — 500g",
     "description": "Sweet anise-like seeds used as spice and mukhwas. Form: seeds. Pack: 500g. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 160,
     "currency": "INR",
@@ -6351,7 +6351,7 @@
       "weightKg:0.5",
       "draft-pricing"
     ],
-    "seoTitle": "Fennel seed seeds 500g",
+    "seoTitle": "Fennel seeds 500g",
     "seoDescription": "Buy Fennel seed (सौंफ) as seeds in 500g. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 17.637,
@@ -6360,7 +6360,7 @@
   },
   {
     "slug": "fennel-seeds-1kg",
-    "name": "Fennel seed seeds — 1kg",
+    "name": "Fennel seeds — 1kg",
     "description": "Sweet anise-like seeds used as spice and mukhwas. Form: seeds. Pack: 1kg. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 320,
     "currency": "INR",
@@ -6380,7 +6380,7 @@
       "weightKg:1",
       "draft-pricing"
     ],
-    "seoTitle": "Fennel seed seeds 1kg",
+    "seoTitle": "Fennel seeds 1kg",
     "seoDescription": "Buy Fennel seed (सौंफ) as seeds in 1kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 35.274,
@@ -6389,7 +6389,7 @@
   },
   {
     "slug": "fennel-seeds-2kg",
-    "name": "Fennel seed seeds — 2kg",
+    "name": "Fennel seeds — 2kg",
     "description": "Sweet anise-like seeds used as spice and mukhwas. Form: seeds. Pack: 2kg. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 640,
     "currency": "INR",
@@ -6409,7 +6409,7 @@
       "weightKg:2",
       "draft-pricing"
     ],
-    "seoTitle": "Fennel seed seeds 2kg",
+    "seoTitle": "Fennel seeds 2kg",
     "seoDescription": "Buy Fennel seed (सौंफ) as seeds in 2kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 70.548,
@@ -6418,7 +6418,7 @@
   },
   {
     "slug": "fennel-seeds-5kg",
-    "name": "Fennel seed seeds — 5kg",
+    "name": "Fennel seeds — 5kg",
     "description": "Sweet anise-like seeds used as spice and mukhwas. Form: seeds. Pack: 5kg. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 1600,
     "currency": "INR",
@@ -6438,7 +6438,7 @@
       "weightKg:5",
       "draft-pricing"
     ],
-    "seoTitle": "Fennel seed seeds 5kg",
+    "seoTitle": "Fennel seeds 5kg",
     "seoDescription": "Buy Fennel seed (सौंफ) as seeds in 5kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 176.37,
@@ -6447,7 +6447,7 @@
   },
   {
     "slug": "fennel-seeds-10kg",
-    "name": "Fennel seed seeds — 10kg bulk",
+    "name": "Fennel seeds — 10kg bulk",
     "description": "Sweet anise-like seeds used as spice and mukhwas. Form: seeds. Pack: 10kg. Minimum bulk order 10kg. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 2624,
     "currency": "INR",
@@ -6468,7 +6468,7 @@
       "weightKg:10",
       "draft-pricing"
     ],
-    "seoTitle": "Fennel seed seeds 10kg",
+    "seoTitle": "Fennel seeds 10kg",
     "seoDescription": "Buy Fennel seed (सौंफ) as seeds in 10kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 352.74,
@@ -6477,7 +6477,7 @@
   },
   {
     "slug": "fennel-seeds-25kg",
-    "name": "Fennel seed seeds — 25kg bulk",
+    "name": "Fennel seeds — 25kg bulk",
     "description": "Sweet anise-like seeds used as spice and mukhwas. Form: seeds. Pack: 25kg. Minimum bulk order 10kg. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 6560,
     "currency": "INR",
@@ -6498,7 +6498,7 @@
       "weightKg:25",
       "draft-pricing"
     ],
-    "seoTitle": "Fennel seed seeds 25kg",
+    "seoTitle": "Fennel seeds 25kg",
     "seoDescription": "Buy Fennel seed (सौंफ) as seeds in 25kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 881.85,
@@ -6507,7 +6507,7 @@
   },
   {
     "slug": "fennel-seeds-50kg",
-    "name": "Fennel seed seeds — 50kg bulk",
+    "name": "Fennel seeds — 50kg bulk",
     "description": "Sweet anise-like seeds used as spice and mukhwas. Form: seeds. Pack: 50kg. Minimum bulk order 10kg. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 13120,
     "currency": "INR",
@@ -6528,7 +6528,7 @@
       "weightKg:50",
       "draft-pricing"
     ],
-    "seoTitle": "Fennel seed seeds 50kg",
+    "seoTitle": "Fennel seeds 50kg",
     "seoDescription": "Buy Fennel seed (सौंफ) as seeds in 50kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 1763.7,
@@ -6801,7 +6801,7 @@
   },
   {
     "slug": "mustard-seeds-100g",
-    "name": "Mustard seed seeds — 100g",
+    "name": "Mustard seeds — 100g",
     "description": "Black, brown, or yellow seeds for tadka and pickles. Allergen: mustard. Form: seeds. Pack: 100g. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 16,
     "currency": "INR",
@@ -6821,7 +6821,7 @@
       "weightKg:0.1",
       "draft-pricing"
     ],
-    "seoTitle": "Mustard seed seeds 100g",
+    "seoTitle": "Mustard seeds 100g",
     "seoDescription": "Buy Mustard seed (राई / सरसों) as seeds in 100g. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 3.5274,
@@ -6830,7 +6830,7 @@
   },
   {
     "slug": "mustard-seeds-200g",
-    "name": "Mustard seed seeds — 200g",
+    "name": "Mustard seeds — 200g",
     "description": "Black, brown, or yellow seeds for tadka and pickles. Allergen: mustard. Form: seeds. Pack: 200g. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 32,
     "currency": "INR",
@@ -6850,7 +6850,7 @@
       "weightKg:0.2",
       "draft-pricing"
     ],
-    "seoTitle": "Mustard seed seeds 200g",
+    "seoTitle": "Mustard seeds 200g",
     "seoDescription": "Buy Mustard seed (राई / सरसों) as seeds in 200g. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 7.0548,
@@ -6859,7 +6859,7 @@
   },
   {
     "slug": "mustard-seeds-500g",
-    "name": "Mustard seed seeds — 500g",
+    "name": "Mustard seeds — 500g",
     "description": "Black, brown, or yellow seeds for tadka and pickles. Allergen: mustard. Form: seeds. Pack: 500g. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 80,
     "currency": "INR",
@@ -6879,7 +6879,7 @@
       "weightKg:0.5",
       "draft-pricing"
     ],
-    "seoTitle": "Mustard seed seeds 500g",
+    "seoTitle": "Mustard seeds 500g",
     "seoDescription": "Buy Mustard seed (राई / सरसों) as seeds in 500g. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 17.637,
@@ -6888,7 +6888,7 @@
   },
   {
     "slug": "mustard-seeds-1kg",
-    "name": "Mustard seed seeds — 1kg",
+    "name": "Mustard seeds — 1kg",
     "description": "Black, brown, or yellow seeds for tadka and pickles. Allergen: mustard. Form: seeds. Pack: 1kg. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 160,
     "currency": "INR",
@@ -6908,7 +6908,7 @@
       "weightKg:1",
       "draft-pricing"
     ],
-    "seoTitle": "Mustard seed seeds 1kg",
+    "seoTitle": "Mustard seeds 1kg",
     "seoDescription": "Buy Mustard seed (राई / सरसों) as seeds in 1kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 35.274,
@@ -6917,7 +6917,7 @@
   },
   {
     "slug": "mustard-seeds-2kg",
-    "name": "Mustard seed seeds — 2kg",
+    "name": "Mustard seeds — 2kg",
     "description": "Black, brown, or yellow seeds for tadka and pickles. Allergen: mustard. Form: seeds. Pack: 2kg. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 320,
     "currency": "INR",
@@ -6937,7 +6937,7 @@
       "weightKg:2",
       "draft-pricing"
     ],
-    "seoTitle": "Mustard seed seeds 2kg",
+    "seoTitle": "Mustard seeds 2kg",
     "seoDescription": "Buy Mustard seed (राई / सरसों) as seeds in 2kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 70.548,
@@ -6946,7 +6946,7 @@
   },
   {
     "slug": "mustard-seeds-5kg",
-    "name": "Mustard seed seeds — 5kg",
+    "name": "Mustard seeds — 5kg",
     "description": "Black, brown, or yellow seeds for tadka and pickles. Allergen: mustard. Form: seeds. Pack: 5kg. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 800,
     "currency": "INR",
@@ -6966,7 +6966,7 @@
       "weightKg:5",
       "draft-pricing"
     ],
-    "seoTitle": "Mustard seed seeds 5kg",
+    "seoTitle": "Mustard seeds 5kg",
     "seoDescription": "Buy Mustard seed (राई / सरसों) as seeds in 5kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 176.37,
@@ -6975,7 +6975,7 @@
   },
   {
     "slug": "mustard-seeds-10kg",
-    "name": "Mustard seed seeds — 10kg bulk",
+    "name": "Mustard seeds — 10kg bulk",
     "description": "Black, brown, or yellow seeds for tadka and pickles. Allergen: mustard. Form: seeds. Pack: 10kg. Minimum bulk order 10kg. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 1312,
     "currency": "INR",
@@ -6996,7 +6996,7 @@
       "weightKg:10",
       "draft-pricing"
     ],
-    "seoTitle": "Mustard seed seeds 10kg",
+    "seoTitle": "Mustard seeds 10kg",
     "seoDescription": "Buy Mustard seed (राई / सरसों) as seeds in 10kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 352.74,
@@ -7005,7 +7005,7 @@
   },
   {
     "slug": "mustard-seeds-25kg",
-    "name": "Mustard seed seeds — 25kg bulk",
+    "name": "Mustard seeds — 25kg bulk",
     "description": "Black, brown, or yellow seeds for tadka and pickles. Allergen: mustard. Form: seeds. Pack: 25kg. Minimum bulk order 10kg. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 3280,
     "currency": "INR",
@@ -7026,7 +7026,7 @@
       "weightKg:25",
       "draft-pricing"
     ],
-    "seoTitle": "Mustard seed seeds 25kg",
+    "seoTitle": "Mustard seeds 25kg",
     "seoDescription": "Buy Mustard seed (राई / सरसों) as seeds in 25kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 881.85,
@@ -7035,7 +7035,7 @@
   },
   {
     "slug": "mustard-seeds-50kg",
-    "name": "Mustard seed seeds — 50kg bulk",
+    "name": "Mustard seeds — 50kg bulk",
     "description": "Black, brown, or yellow seeds for tadka and pickles. Allergen: mustard. Form: seeds. Pack: 50kg. Minimum bulk order 10kg. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 6560,
     "currency": "INR",
@@ -7056,7 +7056,7 @@
       "weightKg:50",
       "draft-pricing"
     ],
-    "seoTitle": "Mustard seed seeds 50kg",
+    "seoTitle": "Mustard seeds 50kg",
     "seoDescription": "Buy Mustard seed (राई / सरसों) as seeds in 50kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 1763.7,
@@ -8358,11 +8358,11 @@
   },
   {
     "slug": "indian-bay-leaf-leaves-100g",
-    "name": "Indian bay leaf leaves — 100g",
+    "name": "Indian bay leaves — 100g",
     "description": "Tejpatta — cassia-family leaf, not Mediterranean Laurus nobilis. Form: leaves. Pack: 100g. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 40,
     "currency": "INR",
-    "categorySlug": "dried-herbs",
+    "categorySlug": "herbs",
     "additionalCategorySlugs": [
       "regional-spices"
     ],
@@ -8377,7 +8377,7 @@
       "weightKg:0.1",
       "draft-pricing"
     ],
-    "seoTitle": "Indian bay leaf leaves 100g",
+    "seoTitle": "Indian bay leaves 100g",
     "seoDescription": "Buy Indian bay leaf (तेजपत्ता) as leaves in 100g. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 3.5274,
@@ -8386,11 +8386,11 @@
   },
   {
     "slug": "indian-bay-leaf-leaves-500g",
-    "name": "Indian bay leaf leaves — 500g",
+    "name": "Indian bay leaves — 500g",
     "description": "Tejpatta — cassia-family leaf, not Mediterranean Laurus nobilis. Form: leaves. Pack: 500g. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 200,
     "currency": "INR",
-    "categorySlug": "dried-herbs",
+    "categorySlug": "herbs",
     "additionalCategorySlugs": [
       "regional-spices"
     ],
@@ -8405,7 +8405,7 @@
       "weightKg:0.5",
       "draft-pricing"
     ],
-    "seoTitle": "Indian bay leaf leaves 500g",
+    "seoTitle": "Indian bay leaves 500g",
     "seoDescription": "Buy Indian bay leaf (तेजपत्ता) as leaves in 500g. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 17.637,
@@ -8414,11 +8414,11 @@
   },
   {
     "slug": "indian-bay-leaf-leaves-1kg",
-    "name": "Indian bay leaf leaves — 1kg",
+    "name": "Indian bay leaves — 1kg",
     "description": "Tejpatta — cassia-family leaf, not Mediterranean Laurus nobilis. Form: leaves. Pack: 1kg. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 400,
     "currency": "INR",
-    "categorySlug": "dried-herbs",
+    "categorySlug": "herbs",
     "additionalCategorySlugs": [
       "regional-spices"
     ],
@@ -8433,7 +8433,7 @@
       "weightKg:1",
       "draft-pricing"
     ],
-    "seoTitle": "Indian bay leaf leaves 1kg",
+    "seoTitle": "Indian bay leaves 1kg",
     "seoDescription": "Buy Indian bay leaf (तेजपत्ता) as leaves in 1kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 35.274,
@@ -8442,11 +8442,11 @@
   },
   {
     "slug": "indian-bay-leaf-leaves-10kg",
-    "name": "Indian bay leaf leaves — 10kg bulk",
+    "name": "Indian bay leaves — 10kg bulk",
     "description": "Tejpatta — cassia-family leaf, not Mediterranean Laurus nobilis. Form: leaves. Pack: 10kg. Minimum bulk order 10kg. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 3280,
     "currency": "INR",
-    "categorySlug": "dried-herbs",
+    "categorySlug": "herbs",
     "additionalCategorySlugs": [
       "bulk-spices",
       "regional-spices"
@@ -8462,7 +8462,7 @@
       "weightKg:10",
       "draft-pricing"
     ],
-    "seoTitle": "Indian bay leaf leaves 10kg",
+    "seoTitle": "Indian bay leaves 10kg",
     "seoDescription": "Buy Indian bay leaf (तेजपत्ता) as leaves in 10kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 352.74,
@@ -12763,7 +12763,7 @@
   },
   {
     "slug": "poppy-seed-seeds-100g",
-    "name": "White poppy seed seeds — 100g",
+    "name": "White poppy seeds — 100g",
     "description": "White poppy seed (posto / khus khus) for thickening gravies. Form: seeds. Pack: 100g. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 40,
     "currency": "INR",
@@ -12782,7 +12782,7 @@
       "weightKg:0.1",
       "draft-pricing"
     ],
-    "seoTitle": "White poppy seed seeds 100g",
+    "seoTitle": "White poppy seeds 100g",
     "seoDescription": "Buy White poppy seed (खसखस) as seeds in 100g. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 3.5274,
@@ -12791,7 +12791,7 @@
   },
   {
     "slug": "poppy-seed-seeds-200g",
-    "name": "White poppy seed seeds — 200g",
+    "name": "White poppy seeds — 200g",
     "description": "White poppy seed (posto / khus khus) for thickening gravies. Form: seeds. Pack: 200g. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 80,
     "currency": "INR",
@@ -12810,7 +12810,7 @@
       "weightKg:0.2",
       "draft-pricing"
     ],
-    "seoTitle": "White poppy seed seeds 200g",
+    "seoTitle": "White poppy seeds 200g",
     "seoDescription": "Buy White poppy seed (खसखस) as seeds in 200g. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 7.0548,
@@ -12819,7 +12819,7 @@
   },
   {
     "slug": "poppy-seed-seeds-500g",
-    "name": "White poppy seed seeds — 500g",
+    "name": "White poppy seeds — 500g",
     "description": "White poppy seed (posto / khus khus) for thickening gravies. Form: seeds. Pack: 500g. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 200,
     "currency": "INR",
@@ -12838,7 +12838,7 @@
       "weightKg:0.5",
       "draft-pricing"
     ],
-    "seoTitle": "White poppy seed seeds 500g",
+    "seoTitle": "White poppy seeds 500g",
     "seoDescription": "Buy White poppy seed (खसखस) as seeds in 500g. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 17.637,
@@ -12847,7 +12847,7 @@
   },
   {
     "slug": "poppy-seed-seeds-1kg",
-    "name": "White poppy seed seeds — 1kg",
+    "name": "White poppy seeds — 1kg",
     "description": "White poppy seed (posto / khus khus) for thickening gravies. Form: seeds. Pack: 1kg. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 400,
     "currency": "INR",
@@ -12866,7 +12866,7 @@
       "weightKg:1",
       "draft-pricing"
     ],
-    "seoTitle": "White poppy seed seeds 1kg",
+    "seoTitle": "White poppy seeds 1kg",
     "seoDescription": "Buy White poppy seed (खसखस) as seeds in 1kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 35.274,
@@ -12875,7 +12875,7 @@
   },
   {
     "slug": "poppy-seed-seeds-2kg",
-    "name": "White poppy seed seeds — 2kg",
+    "name": "White poppy seeds — 2kg",
     "description": "White poppy seed (posto / khus khus) for thickening gravies. Form: seeds. Pack: 2kg. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 800,
     "currency": "INR",
@@ -12894,7 +12894,7 @@
       "weightKg:2",
       "draft-pricing"
     ],
-    "seoTitle": "White poppy seed seeds 2kg",
+    "seoTitle": "White poppy seeds 2kg",
     "seoDescription": "Buy White poppy seed (खसखस) as seeds in 2kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 70.548,
@@ -12903,7 +12903,7 @@
   },
   {
     "slug": "poppy-seed-seeds-5kg",
-    "name": "White poppy seed seeds — 5kg",
+    "name": "White poppy seeds — 5kg",
     "description": "White poppy seed (posto / khus khus) for thickening gravies. Form: seeds. Pack: 5kg. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 2000,
     "currency": "INR",
@@ -12922,7 +12922,7 @@
       "weightKg:5",
       "draft-pricing"
     ],
-    "seoTitle": "White poppy seed seeds 5kg",
+    "seoTitle": "White poppy seeds 5kg",
     "seoDescription": "Buy White poppy seed (खसखस) as seeds in 5kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 176.37,
@@ -12931,7 +12931,7 @@
   },
   {
     "slug": "poppy-seed-seeds-10kg",
-    "name": "White poppy seed seeds — 10kg bulk",
+    "name": "White poppy seeds — 10kg bulk",
     "description": "White poppy seed (posto / khus khus) for thickening gravies. Form: seeds. Pack: 10kg. Minimum bulk order 10kg. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 3280,
     "currency": "INR",
@@ -12951,7 +12951,7 @@
       "weightKg:10",
       "draft-pricing"
     ],
-    "seoTitle": "White poppy seed seeds 10kg",
+    "seoTitle": "White poppy seeds 10kg",
     "seoDescription": "Buy White poppy seed (खसखस) as seeds in 10kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 352.74,
@@ -12960,7 +12960,7 @@
   },
   {
     "slug": "poppy-seed-seeds-25kg",
-    "name": "White poppy seed seeds — 25kg bulk",
+    "name": "White poppy seeds — 25kg bulk",
     "description": "White poppy seed (posto / khus khus) for thickening gravies. Form: seeds. Pack: 25kg. Minimum bulk order 10kg. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 8200,
     "currency": "INR",
@@ -12980,7 +12980,7 @@
       "weightKg:25",
       "draft-pricing"
     ],
-    "seoTitle": "White poppy seed seeds 25kg",
+    "seoTitle": "White poppy seeds 25kg",
     "seoDescription": "Buy White poppy seed (खसखस) as seeds in 25kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 881.85,
@@ -12989,7 +12989,7 @@
   },
   {
     "slug": "poppy-seed-seeds-50kg",
-    "name": "White poppy seed seeds — 50kg bulk",
+    "name": "White poppy seeds — 50kg bulk",
     "description": "White poppy seed (posto / khus khus) for thickening gravies. Form: seeds. Pack: 50kg. Minimum bulk order 10kg. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 16400,
     "currency": "INR",
@@ -13009,7 +13009,7 @@
       "weightKg:50",
       "draft-pricing"
     ],
-    "seoTitle": "White poppy seed seeds 50kg",
+    "seoTitle": "White poppy seeds 50kg",
     "seoDescription": "Buy White poppy seed (खसखस) as seeds in 50kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 1763.7,
@@ -13018,7 +13018,7 @@
   },
   {
     "slug": "sesame-seeds-100g",
-    "name": "Sesame seed seeds — 100g",
+    "name": "Sesame seeds — 100g",
     "description": "White or black sesame. Allergen: sesame. Form: seeds. Pack: 100g. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 26,
     "currency": "INR",
@@ -13037,7 +13037,7 @@
       "weightKg:0.1",
       "draft-pricing"
     ],
-    "seoTitle": "Sesame seed seeds 100g",
+    "seoTitle": "Sesame seeds 100g",
     "seoDescription": "Buy Sesame seed (तिल) as seeds in 100g. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 3.5274,
@@ -13046,7 +13046,7 @@
   },
   {
     "slug": "sesame-seeds-200g",
-    "name": "Sesame seed seeds — 200g",
+    "name": "Sesame seeds — 200g",
     "description": "White or black sesame. Allergen: sesame. Form: seeds. Pack: 200g. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 52,
     "currency": "INR",
@@ -13065,7 +13065,7 @@
       "weightKg:0.2",
       "draft-pricing"
     ],
-    "seoTitle": "Sesame seed seeds 200g",
+    "seoTitle": "Sesame seeds 200g",
     "seoDescription": "Buy Sesame seed (तिल) as seeds in 200g. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 7.0548,
@@ -13074,7 +13074,7 @@
   },
   {
     "slug": "sesame-seeds-500g",
-    "name": "Sesame seed seeds — 500g",
+    "name": "Sesame seeds — 500g",
     "description": "White or black sesame. Allergen: sesame. Form: seeds. Pack: 500g. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 130,
     "currency": "INR",
@@ -13093,7 +13093,7 @@
       "weightKg:0.5",
       "draft-pricing"
     ],
-    "seoTitle": "Sesame seed seeds 500g",
+    "seoTitle": "Sesame seeds 500g",
     "seoDescription": "Buy Sesame seed (तिल) as seeds in 500g. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 17.637,
@@ -13102,7 +13102,7 @@
   },
   {
     "slug": "sesame-seeds-1kg",
-    "name": "Sesame seed seeds — 1kg",
+    "name": "Sesame seeds — 1kg",
     "description": "White or black sesame. Allergen: sesame. Form: seeds. Pack: 1kg. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 260,
     "currency": "INR",
@@ -13121,7 +13121,7 @@
       "weightKg:1",
       "draft-pricing"
     ],
-    "seoTitle": "Sesame seed seeds 1kg",
+    "seoTitle": "Sesame seeds 1kg",
     "seoDescription": "Buy Sesame seed (तिल) as seeds in 1kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 35.274,
@@ -13130,7 +13130,7 @@
   },
   {
     "slug": "sesame-seeds-2kg",
-    "name": "Sesame seed seeds — 2kg",
+    "name": "Sesame seeds — 2kg",
     "description": "White or black sesame. Allergen: sesame. Form: seeds. Pack: 2kg. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 520,
     "currency": "INR",
@@ -13149,7 +13149,7 @@
       "weightKg:2",
       "draft-pricing"
     ],
-    "seoTitle": "Sesame seed seeds 2kg",
+    "seoTitle": "Sesame seeds 2kg",
     "seoDescription": "Buy Sesame seed (तिल) as seeds in 2kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 70.548,
@@ -13158,7 +13158,7 @@
   },
   {
     "slug": "sesame-seeds-5kg",
-    "name": "Sesame seed seeds — 5kg",
+    "name": "Sesame seeds — 5kg",
     "description": "White or black sesame. Allergen: sesame. Form: seeds. Pack: 5kg. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 1300,
     "currency": "INR",
@@ -13177,7 +13177,7 @@
       "weightKg:5",
       "draft-pricing"
     ],
-    "seoTitle": "Sesame seed seeds 5kg",
+    "seoTitle": "Sesame seeds 5kg",
     "seoDescription": "Buy Sesame seed (तिल) as seeds in 5kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 176.37,
@@ -13186,7 +13186,7 @@
   },
   {
     "slug": "sesame-seeds-10kg",
-    "name": "Sesame seed seeds — 10kg bulk",
+    "name": "Sesame seeds — 10kg bulk",
     "description": "White or black sesame. Allergen: sesame. Form: seeds. Pack: 10kg. Minimum bulk order 10kg. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 2132,
     "currency": "INR",
@@ -13206,7 +13206,7 @@
       "weightKg:10",
       "draft-pricing"
     ],
-    "seoTitle": "Sesame seed seeds 10kg",
+    "seoTitle": "Sesame seeds 10kg",
     "seoDescription": "Buy Sesame seed (तिल) as seeds in 10kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 352.74,
@@ -13215,7 +13215,7 @@
   },
   {
     "slug": "sesame-seeds-25kg",
-    "name": "Sesame seed seeds — 25kg bulk",
+    "name": "Sesame seeds — 25kg bulk",
     "description": "White or black sesame. Allergen: sesame. Form: seeds. Pack: 25kg. Minimum bulk order 10kg. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 5330,
     "currency": "INR",
@@ -13235,7 +13235,7 @@
       "weightKg:25",
       "draft-pricing"
     ],
-    "seoTitle": "Sesame seed seeds 25kg",
+    "seoTitle": "Sesame seeds 25kg",
     "seoDescription": "Buy Sesame seed (तिल) as seeds in 25kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 881.85,
@@ -13244,7 +13244,7 @@
   },
   {
     "slug": "sesame-seeds-50kg",
-    "name": "Sesame seed seeds — 50kg bulk",
+    "name": "Sesame seeds — 50kg bulk",
     "description": "White or black sesame. Allergen: sesame. Form: seeds. Pack: 50kg. Minimum bulk order 10kg. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 10660,
     "currency": "INR",
@@ -13264,7 +13264,7 @@
       "weightKg:50",
       "draft-pricing"
     ],
-    "seoTitle": "Sesame seed seeds 50kg",
+    "seoTitle": "Sesame seeds 50kg",
     "seoDescription": "Buy Sesame seed (तिल) as seeds in 50kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 1763.7,
@@ -13273,7 +13273,7 @@
   },
   {
     "slug": "anise-seeds-100g",
-    "name": "Anise seed seeds — 100g",
+    "name": "Anise seeds — 100g",
     "description": "True aniseed, smaller and different from fennel saunf. Form: seeds. Pack: 100g. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 40,
     "currency": "INR",
@@ -13292,7 +13292,7 @@
       "weightKg:0.1",
       "draft-pricing"
     ],
-    "seoTitle": "Anise seed seeds 100g",
+    "seoTitle": "Anise seeds 100g",
     "seoDescription": "Buy Anise seed (Anise seed) as seeds in 100g. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 3.5274,
@@ -13301,7 +13301,7 @@
   },
   {
     "slug": "anise-seeds-200g",
-    "name": "Anise seed seeds — 200g",
+    "name": "Anise seeds — 200g",
     "description": "True aniseed, smaller and different from fennel saunf. Form: seeds. Pack: 200g. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 80,
     "currency": "INR",
@@ -13320,7 +13320,7 @@
       "weightKg:0.2",
       "draft-pricing"
     ],
-    "seoTitle": "Anise seed seeds 200g",
+    "seoTitle": "Anise seeds 200g",
     "seoDescription": "Buy Anise seed (Anise seed) as seeds in 200g. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 7.0548,
@@ -13329,7 +13329,7 @@
   },
   {
     "slug": "anise-seeds-500g",
-    "name": "Anise seed seeds — 500g",
+    "name": "Anise seeds — 500g",
     "description": "True aniseed, smaller and different from fennel saunf. Form: seeds. Pack: 500g. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 200,
     "currency": "INR",
@@ -13348,7 +13348,7 @@
       "weightKg:0.5",
       "draft-pricing"
     ],
-    "seoTitle": "Anise seed seeds 500g",
+    "seoTitle": "Anise seeds 500g",
     "seoDescription": "Buy Anise seed (Anise seed) as seeds in 500g. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 17.637,
@@ -13357,7 +13357,7 @@
   },
   {
     "slug": "anise-seeds-1kg",
-    "name": "Anise seed seeds — 1kg",
+    "name": "Anise seeds — 1kg",
     "description": "True aniseed, smaller and different from fennel saunf. Form: seeds. Pack: 1kg. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 400,
     "currency": "INR",
@@ -13376,7 +13376,7 @@
       "weightKg:1",
       "draft-pricing"
     ],
-    "seoTitle": "Anise seed seeds 1kg",
+    "seoTitle": "Anise seeds 1kg",
     "seoDescription": "Buy Anise seed (Anise seed) as seeds in 1kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 35.274,
@@ -13385,7 +13385,7 @@
   },
   {
     "slug": "anise-seeds-2kg",
-    "name": "Anise seed seeds — 2kg",
+    "name": "Anise seeds — 2kg",
     "description": "True aniseed, smaller and different from fennel saunf. Form: seeds. Pack: 2kg. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 800,
     "currency": "INR",
@@ -13404,7 +13404,7 @@
       "weightKg:2",
       "draft-pricing"
     ],
-    "seoTitle": "Anise seed seeds 2kg",
+    "seoTitle": "Anise seeds 2kg",
     "seoDescription": "Buy Anise seed (Anise seed) as seeds in 2kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 70.548,
@@ -13413,7 +13413,7 @@
   },
   {
     "slug": "anise-seeds-5kg",
-    "name": "Anise seed seeds — 5kg",
+    "name": "Anise seeds — 5kg",
     "description": "True aniseed, smaller and different from fennel saunf. Form: seeds. Pack: 5kg. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 2000,
     "currency": "INR",
@@ -13432,7 +13432,7 @@
       "weightKg:5",
       "draft-pricing"
     ],
-    "seoTitle": "Anise seed seeds 5kg",
+    "seoTitle": "Anise seeds 5kg",
     "seoDescription": "Buy Anise seed (Anise seed) as seeds in 5kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 176.37,
@@ -13441,7 +13441,7 @@
   },
   {
     "slug": "anise-seeds-10kg",
-    "name": "Anise seed seeds — 10kg bulk",
+    "name": "Anise seeds — 10kg bulk",
     "description": "True aniseed, smaller and different from fennel saunf. Form: seeds. Pack: 10kg. Minimum bulk order 10kg. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 3280,
     "currency": "INR",
@@ -13461,7 +13461,7 @@
       "weightKg:10",
       "draft-pricing"
     ],
-    "seoTitle": "Anise seed seeds 10kg",
+    "seoTitle": "Anise seeds 10kg",
     "seoDescription": "Buy Anise seed (Anise seed) as seeds in 10kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 352.74,
@@ -13470,7 +13470,7 @@
   },
   {
     "slug": "anise-seeds-25kg",
-    "name": "Anise seed seeds — 25kg bulk",
+    "name": "Anise seeds — 25kg bulk",
     "description": "True aniseed, smaller and different from fennel saunf. Form: seeds. Pack: 25kg. Minimum bulk order 10kg. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 8200,
     "currency": "INR",
@@ -13490,7 +13490,7 @@
       "weightKg:25",
       "draft-pricing"
     ],
-    "seoTitle": "Anise seed seeds 25kg",
+    "seoTitle": "Anise seeds 25kg",
     "seoDescription": "Buy Anise seed (Anise seed) as seeds in 25kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 881.85,
@@ -13499,7 +13499,7 @@
   },
   {
     "slug": "anise-seeds-50kg",
-    "name": "Anise seed seeds — 50kg bulk",
+    "name": "Anise seeds — 50kg bulk",
     "description": "True aniseed, smaller and different from fennel saunf. Form: seeds. Pack: 50kg. Minimum bulk order 10kg. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 16400,
     "currency": "INR",
@@ -13519,7 +13519,7 @@
       "weightKg:50",
       "draft-pricing"
     ],
-    "seoTitle": "Anise seed seeds 50kg",
+    "seoTitle": "Anise seeds 50kg",
     "seoDescription": "Buy Anise seed (Anise seed) as seeds in 50kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 1763.7,
@@ -13783,7 +13783,7 @@
   },
   {
     "slug": "dill-seed-seeds-100g",
-    "name": "Dill seed seeds — 100g",
+    "name": "Dill seeds — 100g",
     "description": "Dried dill seed for pickles and some dals. Form: seeds. Pack: 100g. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 40,
     "currency": "INR",
@@ -13802,7 +13802,7 @@
       "weightKg:0.1",
       "draft-pricing"
     ],
-    "seoTitle": "Dill seed seeds 100g",
+    "seoTitle": "Dill seeds 100g",
     "seoDescription": "Buy Dill seed (सूवा / सोल्वा) as seeds in 100g. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 3.5274,
@@ -13811,7 +13811,7 @@
   },
   {
     "slug": "dill-seed-seeds-200g",
-    "name": "Dill seed seeds — 200g",
+    "name": "Dill seeds — 200g",
     "description": "Dried dill seed for pickles and some dals. Form: seeds. Pack: 200g. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 80,
     "currency": "INR",
@@ -13830,7 +13830,7 @@
       "weightKg:0.2",
       "draft-pricing"
     ],
-    "seoTitle": "Dill seed seeds 200g",
+    "seoTitle": "Dill seeds 200g",
     "seoDescription": "Buy Dill seed (सूवा / सोल्वा) as seeds in 200g. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 7.0548,
@@ -13839,7 +13839,7 @@
   },
   {
     "slug": "dill-seed-seeds-500g",
-    "name": "Dill seed seeds — 500g",
+    "name": "Dill seeds — 500g",
     "description": "Dried dill seed for pickles and some dals. Form: seeds. Pack: 500g. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 200,
     "currency": "INR",
@@ -13858,7 +13858,7 @@
       "weightKg:0.5",
       "draft-pricing"
     ],
-    "seoTitle": "Dill seed seeds 500g",
+    "seoTitle": "Dill seeds 500g",
     "seoDescription": "Buy Dill seed (सूवा / सोल्वा) as seeds in 500g. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 17.637,
@@ -13867,7 +13867,7 @@
   },
   {
     "slug": "dill-seed-seeds-1kg",
-    "name": "Dill seed seeds — 1kg",
+    "name": "Dill seeds — 1kg",
     "description": "Dried dill seed for pickles and some dals. Form: seeds. Pack: 1kg. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 400,
     "currency": "INR",
@@ -13886,7 +13886,7 @@
       "weightKg:1",
       "draft-pricing"
     ],
-    "seoTitle": "Dill seed seeds 1kg",
+    "seoTitle": "Dill seeds 1kg",
     "seoDescription": "Buy Dill seed (सूवा / सोल्वा) as seeds in 1kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 35.274,
@@ -13895,7 +13895,7 @@
   },
   {
     "slug": "dill-seed-seeds-2kg",
-    "name": "Dill seed seeds — 2kg",
+    "name": "Dill seeds — 2kg",
     "description": "Dried dill seed for pickles and some dals. Form: seeds. Pack: 2kg. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 800,
     "currency": "INR",
@@ -13914,7 +13914,7 @@
       "weightKg:2",
       "draft-pricing"
     ],
-    "seoTitle": "Dill seed seeds 2kg",
+    "seoTitle": "Dill seeds 2kg",
     "seoDescription": "Buy Dill seed (सूवा / सोल्वा) as seeds in 2kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 70.548,
@@ -13923,7 +13923,7 @@
   },
   {
     "slug": "dill-seed-seeds-5kg",
-    "name": "Dill seed seeds — 5kg",
+    "name": "Dill seeds — 5kg",
     "description": "Dried dill seed for pickles and some dals. Form: seeds. Pack: 5kg. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 2000,
     "currency": "INR",
@@ -13942,7 +13942,7 @@
       "weightKg:5",
       "draft-pricing"
     ],
-    "seoTitle": "Dill seed seeds 5kg",
+    "seoTitle": "Dill seeds 5kg",
     "seoDescription": "Buy Dill seed (सूवा / सोल्वा) as seeds in 5kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 176.37,
@@ -13951,7 +13951,7 @@
   },
   {
     "slug": "dill-seed-seeds-10kg",
-    "name": "Dill seed seeds — 10kg bulk",
+    "name": "Dill seeds — 10kg bulk",
     "description": "Dried dill seed for pickles and some dals. Form: seeds. Pack: 10kg. Minimum bulk order 10kg. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 3280,
     "currency": "INR",
@@ -13971,7 +13971,7 @@
       "weightKg:10",
       "draft-pricing"
     ],
-    "seoTitle": "Dill seed seeds 10kg",
+    "seoTitle": "Dill seeds 10kg",
     "seoDescription": "Buy Dill seed (सूवा / सोल्वा) as seeds in 10kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 352.74,
@@ -13980,7 +13980,7 @@
   },
   {
     "slug": "dill-seed-seeds-25kg",
-    "name": "Dill seed seeds — 25kg bulk",
+    "name": "Dill seeds — 25kg bulk",
     "description": "Dried dill seed for pickles and some dals. Form: seeds. Pack: 25kg. Minimum bulk order 10kg. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 8200,
     "currency": "INR",
@@ -14000,7 +14000,7 @@
       "weightKg:25",
       "draft-pricing"
     ],
-    "seoTitle": "Dill seed seeds 25kg",
+    "seoTitle": "Dill seeds 25kg",
     "seoDescription": "Buy Dill seed (सूवा / सोल्वा) as seeds in 25kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 881.85,
@@ -14009,7 +14009,7 @@
   },
   {
     "slug": "dill-seed-seeds-50kg",
-    "name": "Dill seed seeds — 50kg bulk",
+    "name": "Dill seeds — 50kg bulk",
     "description": "Dried dill seed for pickles and some dals. Form: seeds. Pack: 50kg. Minimum bulk order 10kg. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 16400,
     "currency": "INR",
@@ -14029,7 +14029,7 @@
       "weightKg:50",
       "draft-pricing"
     ],
-    "seoTitle": "Dill seed seeds 50kg",
+    "seoTitle": "Dill seeds 50kg",
     "seoDescription": "Buy Dill seed (सूवा / सोल्वा) as seeds in 50kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 1763.7,
@@ -14038,7 +14038,7 @@
   },
   {
     "slug": "celery-seed-seeds-100g",
-    "name": "Celery seed seeds — 100g",
+    "name": "Celery seeds — 100g",
     "description": "Celery seed — EU allergen. Form: seeds. Pack: 100g. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 40,
     "currency": "INR",
@@ -14057,7 +14057,7 @@
       "weightKg:0.1",
       "draft-pricing"
     ],
-    "seoTitle": "Celery seed seeds 100g",
+    "seoTitle": "Celery seeds 100g",
     "seoDescription": "Buy Celery seed (Celery seed) as seeds in 100g. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 3.5274,
@@ -14066,7 +14066,7 @@
   },
   {
     "slug": "celery-seed-seeds-200g",
-    "name": "Celery seed seeds — 200g",
+    "name": "Celery seeds — 200g",
     "description": "Celery seed — EU allergen. Form: seeds. Pack: 200g. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 80,
     "currency": "INR",
@@ -14085,7 +14085,7 @@
       "weightKg:0.2",
       "draft-pricing"
     ],
-    "seoTitle": "Celery seed seeds 200g",
+    "seoTitle": "Celery seeds 200g",
     "seoDescription": "Buy Celery seed (Celery seed) as seeds in 200g. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 7.0548,
@@ -14094,7 +14094,7 @@
   },
   {
     "slug": "celery-seed-seeds-500g",
-    "name": "Celery seed seeds — 500g",
+    "name": "Celery seeds — 500g",
     "description": "Celery seed — EU allergen. Form: seeds. Pack: 500g. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 200,
     "currency": "INR",
@@ -14113,7 +14113,7 @@
       "weightKg:0.5",
       "draft-pricing"
     ],
-    "seoTitle": "Celery seed seeds 500g",
+    "seoTitle": "Celery seeds 500g",
     "seoDescription": "Buy Celery seed (Celery seed) as seeds in 500g. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 17.637,
@@ -14122,7 +14122,7 @@
   },
   {
     "slug": "celery-seed-seeds-1kg",
-    "name": "Celery seed seeds — 1kg",
+    "name": "Celery seeds — 1kg",
     "description": "Celery seed — EU allergen. Form: seeds. Pack: 1kg. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 400,
     "currency": "INR",
@@ -14141,7 +14141,7 @@
       "weightKg:1",
       "draft-pricing"
     ],
-    "seoTitle": "Celery seed seeds 1kg",
+    "seoTitle": "Celery seeds 1kg",
     "seoDescription": "Buy Celery seed (Celery seed) as seeds in 1kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 35.274,
@@ -14150,7 +14150,7 @@
   },
   {
     "slug": "celery-seed-seeds-2kg",
-    "name": "Celery seed seeds — 2kg",
+    "name": "Celery seeds — 2kg",
     "description": "Celery seed — EU allergen. Form: seeds. Pack: 2kg. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 800,
     "currency": "INR",
@@ -14169,7 +14169,7 @@
       "weightKg:2",
       "draft-pricing"
     ],
-    "seoTitle": "Celery seed seeds 2kg",
+    "seoTitle": "Celery seeds 2kg",
     "seoDescription": "Buy Celery seed (Celery seed) as seeds in 2kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 70.548,
@@ -14178,7 +14178,7 @@
   },
   {
     "slug": "celery-seed-seeds-5kg",
-    "name": "Celery seed seeds — 5kg",
+    "name": "Celery seeds — 5kg",
     "description": "Celery seed — EU allergen. Form: seeds. Pack: 5kg. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 2000,
     "currency": "INR",
@@ -14197,7 +14197,7 @@
       "weightKg:5",
       "draft-pricing"
     ],
-    "seoTitle": "Celery seed seeds 5kg",
+    "seoTitle": "Celery seeds 5kg",
     "seoDescription": "Buy Celery seed (Celery seed) as seeds in 5kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 176.37,
@@ -14206,7 +14206,7 @@
   },
   {
     "slug": "celery-seed-seeds-10kg",
-    "name": "Celery seed seeds — 10kg bulk",
+    "name": "Celery seeds — 10kg bulk",
     "description": "Celery seed — EU allergen. Form: seeds. Pack: 10kg. Minimum bulk order 10kg. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 3280,
     "currency": "INR",
@@ -14226,7 +14226,7 @@
       "weightKg:10",
       "draft-pricing"
     ],
-    "seoTitle": "Celery seed seeds 10kg",
+    "seoTitle": "Celery seeds 10kg",
     "seoDescription": "Buy Celery seed (Celery seed) as seeds in 10kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 352.74,
@@ -14235,7 +14235,7 @@
   },
   {
     "slug": "celery-seed-seeds-25kg",
-    "name": "Celery seed seeds — 25kg bulk",
+    "name": "Celery seeds — 25kg bulk",
     "description": "Celery seed — EU allergen. Form: seeds. Pack: 25kg. Minimum bulk order 10kg. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 8200,
     "currency": "INR",
@@ -14255,7 +14255,7 @@
       "weightKg:25",
       "draft-pricing"
     ],
-    "seoTitle": "Celery seed seeds 25kg",
+    "seoTitle": "Celery seeds 25kg",
     "seoDescription": "Buy Celery seed (Celery seed) as seeds in 25kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 881.85,
@@ -14264,7 +14264,7 @@
   },
   {
     "slug": "celery-seed-seeds-50kg",
-    "name": "Celery seed seeds — 50kg bulk",
+    "name": "Celery seeds — 50kg bulk",
     "description": "Celery seed — EU allergen. Form: seeds. Pack: 50kg. Minimum bulk order 10kg. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 16400,
     "currency": "INR",
@@ -14284,7 +14284,7 @@
       "weightKg:50",
       "draft-pricing"
     ],
-    "seoTitle": "Celery seed seeds 50kg",
+    "seoTitle": "Celery seeds 50kg",
     "seoDescription": "Buy Celery seed (Celery seed) as seeds in 50kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 1763.7,
@@ -14293,11 +14293,11 @@
   },
   {
     "slug": "dried-curry-leaves-leaves-100g",
-    "name": "Dried curry leaf leaves — 100g",
+    "name": "Dried curry leaves — 100g",
     "description": "Dried Murraya koenigii leaves for South Indian tempering. Form: leaves. Pack: 100g. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 40,
     "currency": "INR",
-    "categorySlug": "dried-herbs",
+    "categorySlug": "herbs",
     "additionalCategorySlugs": [
       "regional-spices"
     ],
@@ -14312,7 +14312,7 @@
       "weightKg:0.1",
       "draft-pricing"
     ],
-    "seoTitle": "Dried curry leaf leaves 100g",
+    "seoTitle": "Dried curry leaves 100g",
     "seoDescription": "Buy Dried curry leaf (कढ़ी पत्ता) as leaves in 100g. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 3.5274,
@@ -14321,11 +14321,11 @@
   },
   {
     "slug": "dried-curry-leaves-leaves-500g",
-    "name": "Dried curry leaf leaves — 500g",
+    "name": "Dried curry leaves — 500g",
     "description": "Dried Murraya koenigii leaves for South Indian tempering. Form: leaves. Pack: 500g. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 200,
     "currency": "INR",
-    "categorySlug": "dried-herbs",
+    "categorySlug": "herbs",
     "additionalCategorySlugs": [
       "regional-spices"
     ],
@@ -14340,7 +14340,7 @@
       "weightKg:0.5",
       "draft-pricing"
     ],
-    "seoTitle": "Dried curry leaf leaves 500g",
+    "seoTitle": "Dried curry leaves 500g",
     "seoDescription": "Buy Dried curry leaf (कढ़ी पत्ता) as leaves in 500g. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 17.637,
@@ -14349,11 +14349,11 @@
   },
   {
     "slug": "dried-curry-leaves-leaves-1kg",
-    "name": "Dried curry leaf leaves — 1kg",
+    "name": "Dried curry leaves — 1kg",
     "description": "Dried Murraya koenigii leaves for South Indian tempering. Form: leaves. Pack: 1kg. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 400,
     "currency": "INR",
-    "categorySlug": "dried-herbs",
+    "categorySlug": "herbs",
     "additionalCategorySlugs": [
       "regional-spices"
     ],
@@ -14368,7 +14368,7 @@
       "weightKg:1",
       "draft-pricing"
     ],
-    "seoTitle": "Dried curry leaf leaves 1kg",
+    "seoTitle": "Dried curry leaves 1kg",
     "seoDescription": "Buy Dried curry leaf (कढ़ी पत्ता) as leaves in 1kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 35.274,
@@ -14377,11 +14377,11 @@
   },
   {
     "slug": "dried-curry-leaves-leaves-10kg",
-    "name": "Dried curry leaf leaves — 10kg bulk",
+    "name": "Dried curry leaves — 10kg bulk",
     "description": "Dried Murraya koenigii leaves for South Indian tempering. Form: leaves. Pack: 10kg. Minimum bulk order 10kg. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 3280,
     "currency": "INR",
-    "categorySlug": "dried-herbs",
+    "categorySlug": "herbs",
     "additionalCategorySlugs": [
       "bulk-spices",
       "regional-spices"
@@ -14397,7 +14397,7 @@
       "weightKg:10",
       "draft-pricing"
     ],
-    "seoTitle": "Dried curry leaf leaves 10kg",
+    "seoTitle": "Dried curry leaves 10kg",
     "seoDescription": "Buy Dried curry leaf (कढ़ी पत्ता) as leaves in 10kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 352.74,
@@ -14410,7 +14410,7 @@
     "description": "Dried mint for raita, chaat, and some rice dishes. Form: leaves. Pack: 100g. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 40,
     "currency": "INR",
-    "categorySlug": "dried-herbs",
+    "categorySlug": "herbs",
     "additionalCategorySlugs": [
       "regional-spices"
     ],
@@ -14438,7 +14438,7 @@
     "description": "Dried mint for raita, chaat, and some rice dishes. Form: leaves. Pack: 500g. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 200,
     "currency": "INR",
-    "categorySlug": "dried-herbs",
+    "categorySlug": "herbs",
     "additionalCategorySlugs": [
       "regional-spices"
     ],
@@ -14466,7 +14466,7 @@
     "description": "Dried mint for raita, chaat, and some rice dishes. Form: leaves. Pack: 1kg. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 400,
     "currency": "INR",
-    "categorySlug": "dried-herbs",
+    "categorySlug": "herbs",
     "additionalCategorySlugs": [
       "regional-spices"
     ],
@@ -14494,7 +14494,7 @@
     "description": "Dried mint for raita, chaat, and some rice dishes. Form: leaves. Pack: 10kg. Minimum bulk order 10kg. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 3280,
     "currency": "INR",
-    "categorySlug": "dried-herbs",
+    "categorySlug": "herbs",
     "additionalCategorySlugs": [
       "bulk-spices",
       "regional-spices"
@@ -34627,7 +34627,7 @@
   },
   {
     "slug": "rasam-powder-powder-100g",
-    "name": "Rasam Powder powder — 100g",
+    "name": "Rasam Powder — 100g",
     "description": "Indian spice blend: Rasam Powder. Ingredients must be listed before sale. Form: powder. Pack: 100g. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 38,
     "currency": "INR",
@@ -34646,7 +34646,7 @@
       "weightKg:0.1",
       "draft-pricing"
     ],
-    "seoTitle": "Rasam Powder powder 100g",
+    "seoTitle": "Rasam Powder 100g",
     "seoDescription": "Buy Rasam Powder (Rasam Powder) as powder in 100g. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 3.5274,
@@ -34655,7 +34655,7 @@
   },
   {
     "slug": "rasam-powder-powder-200g",
-    "name": "Rasam Powder powder — 200g",
+    "name": "Rasam Powder — 200g",
     "description": "Indian spice blend: Rasam Powder. Ingredients must be listed before sale. Form: powder. Pack: 200g. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 76,
     "currency": "INR",
@@ -34674,7 +34674,7 @@
       "weightKg:0.2",
       "draft-pricing"
     ],
-    "seoTitle": "Rasam Powder powder 200g",
+    "seoTitle": "Rasam Powder 200g",
     "seoDescription": "Buy Rasam Powder (Rasam Powder) as powder in 200g. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 7.0548,
@@ -34683,7 +34683,7 @@
   },
   {
     "slug": "rasam-powder-powder-500g",
-    "name": "Rasam Powder powder — 500g",
+    "name": "Rasam Powder — 500g",
     "description": "Indian spice blend: Rasam Powder. Ingredients must be listed before sale. Form: powder. Pack: 500g. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 190,
     "currency": "INR",
@@ -34702,7 +34702,7 @@
       "weightKg:0.5",
       "draft-pricing"
     ],
-    "seoTitle": "Rasam Powder powder 500g",
+    "seoTitle": "Rasam Powder 500g",
     "seoDescription": "Buy Rasam Powder (Rasam Powder) as powder in 500g. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 17.637,
@@ -34711,7 +34711,7 @@
   },
   {
     "slug": "rasam-powder-powder-1kg",
-    "name": "Rasam Powder powder — 1kg",
+    "name": "Rasam Powder — 1kg",
     "description": "Indian spice blend: Rasam Powder. Ingredients must be listed before sale. Form: powder. Pack: 1kg. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 380,
     "currency": "INR",
@@ -34730,7 +34730,7 @@
       "weightKg:1",
       "draft-pricing"
     ],
-    "seoTitle": "Rasam Powder powder 1kg",
+    "seoTitle": "Rasam Powder 1kg",
     "seoDescription": "Buy Rasam Powder (Rasam Powder) as powder in 1kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 35.274,
@@ -34739,7 +34739,7 @@
   },
   {
     "slug": "rasam-powder-powder-2kg",
-    "name": "Rasam Powder powder — 2kg",
+    "name": "Rasam Powder — 2kg",
     "description": "Indian spice blend: Rasam Powder. Ingredients must be listed before sale. Form: powder. Pack: 2kg. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 760,
     "currency": "INR",
@@ -34758,7 +34758,7 @@
       "weightKg:2",
       "draft-pricing"
     ],
-    "seoTitle": "Rasam Powder powder 2kg",
+    "seoTitle": "Rasam Powder 2kg",
     "seoDescription": "Buy Rasam Powder (Rasam Powder) as powder in 2kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 70.548,
@@ -34767,7 +34767,7 @@
   },
   {
     "slug": "rasam-powder-powder-5kg",
-    "name": "Rasam Powder powder — 5kg",
+    "name": "Rasam Powder — 5kg",
     "description": "Indian spice blend: Rasam Powder. Ingredients must be listed before sale. Form: powder. Pack: 5kg. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 1900,
     "currency": "INR",
@@ -34786,7 +34786,7 @@
       "weightKg:5",
       "draft-pricing"
     ],
-    "seoTitle": "Rasam Powder powder 5kg",
+    "seoTitle": "Rasam Powder 5kg",
     "seoDescription": "Buy Rasam Powder (Rasam Powder) as powder in 5kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 176.37,
@@ -34795,7 +34795,7 @@
   },
   {
     "slug": "rasam-powder-powder-10kg",
-    "name": "Rasam Powder powder — 10kg bulk",
+    "name": "Rasam Powder — 10kg bulk",
     "description": "Indian spice blend: Rasam Powder. Ingredients must be listed before sale. Form: powder. Pack: 10kg. Minimum bulk order 10kg. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 3116,
     "currency": "INR",
@@ -34815,7 +34815,7 @@
       "weightKg:10",
       "draft-pricing"
     ],
-    "seoTitle": "Rasam Powder powder 10kg",
+    "seoTitle": "Rasam Powder 10kg",
     "seoDescription": "Buy Rasam Powder (Rasam Powder) as powder in 10kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 352.74,
@@ -34824,7 +34824,7 @@
   },
   {
     "slug": "rasam-powder-powder-25kg",
-    "name": "Rasam Powder powder — 25kg bulk",
+    "name": "Rasam Powder — 25kg bulk",
     "description": "Indian spice blend: Rasam Powder. Ingredients must be listed before sale. Form: powder. Pack: 25kg. Minimum bulk order 10kg. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 7790,
     "currency": "INR",
@@ -34844,7 +34844,7 @@
       "weightKg:25",
       "draft-pricing"
     ],
-    "seoTitle": "Rasam Powder powder 25kg",
+    "seoTitle": "Rasam Powder 25kg",
     "seoDescription": "Buy Rasam Powder (Rasam Powder) as powder in 25kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 881.85,
@@ -34853,7 +34853,7 @@
   },
   {
     "slug": "rasam-powder-powder-50kg",
-    "name": "Rasam Powder powder — 50kg bulk",
+    "name": "Rasam Powder — 50kg bulk",
     "description": "Indian spice blend: Rasam Powder. Ingredients must be listed before sale. Form: powder. Pack: 50kg. Minimum bulk order 10kg. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 15580,
     "currency": "INR",
@@ -34873,7 +34873,7 @@
       "weightKg:50",
       "draft-pricing"
     ],
-    "seoTitle": "Rasam Powder powder 50kg",
+    "seoTitle": "Rasam Powder 50kg",
     "seoDescription": "Buy Rasam Powder (Rasam Powder) as powder in 50kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 1763.7,
@@ -35058,7 +35058,7 @@
   },
   {
     "slug": "madras-curry-powder-powder-100g",
-    "name": "Madras Curry Powder powder — 100g",
+    "name": "Madras Curry Powder — 100g",
     "description": "Indian spice blend: Madras Curry Powder. Ingredients must be listed before sale. Form: powder. Pack: 100g. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 38,
     "currency": "INR",
@@ -35077,7 +35077,7 @@
       "weightKg:0.1",
       "draft-pricing"
     ],
-    "seoTitle": "Madras Curry Powder powder 100g",
+    "seoTitle": "Madras Curry Powder 100g",
     "seoDescription": "Buy Madras Curry Powder (Madras Curry Powder) as powder in 100g. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 3.5274,
@@ -35086,7 +35086,7 @@
   },
   {
     "slug": "madras-curry-powder-powder-200g",
-    "name": "Madras Curry Powder powder — 200g",
+    "name": "Madras Curry Powder — 200g",
     "description": "Indian spice blend: Madras Curry Powder. Ingredients must be listed before sale. Form: powder. Pack: 200g. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 76,
     "currency": "INR",
@@ -35105,7 +35105,7 @@
       "weightKg:0.2",
       "draft-pricing"
     ],
-    "seoTitle": "Madras Curry Powder powder 200g",
+    "seoTitle": "Madras Curry Powder 200g",
     "seoDescription": "Buy Madras Curry Powder (Madras Curry Powder) as powder in 200g. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 7.0548,
@@ -35114,7 +35114,7 @@
   },
   {
     "slug": "madras-curry-powder-powder-500g",
-    "name": "Madras Curry Powder powder — 500g",
+    "name": "Madras Curry Powder — 500g",
     "description": "Indian spice blend: Madras Curry Powder. Ingredients must be listed before sale. Form: powder. Pack: 500g. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 190,
     "currency": "INR",
@@ -35133,7 +35133,7 @@
       "weightKg:0.5",
       "draft-pricing"
     ],
-    "seoTitle": "Madras Curry Powder powder 500g",
+    "seoTitle": "Madras Curry Powder 500g",
     "seoDescription": "Buy Madras Curry Powder (Madras Curry Powder) as powder in 500g. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 17.637,
@@ -35142,7 +35142,7 @@
   },
   {
     "slug": "madras-curry-powder-powder-1kg",
-    "name": "Madras Curry Powder powder — 1kg",
+    "name": "Madras Curry Powder — 1kg",
     "description": "Indian spice blend: Madras Curry Powder. Ingredients must be listed before sale. Form: powder. Pack: 1kg. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 380,
     "currency": "INR",
@@ -35161,7 +35161,7 @@
       "weightKg:1",
       "draft-pricing"
     ],
-    "seoTitle": "Madras Curry Powder powder 1kg",
+    "seoTitle": "Madras Curry Powder 1kg",
     "seoDescription": "Buy Madras Curry Powder (Madras Curry Powder) as powder in 1kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 35.274,
@@ -35170,7 +35170,7 @@
   },
   {
     "slug": "madras-curry-powder-powder-2kg",
-    "name": "Madras Curry Powder powder — 2kg",
+    "name": "Madras Curry Powder — 2kg",
     "description": "Indian spice blend: Madras Curry Powder. Ingredients must be listed before sale. Form: powder. Pack: 2kg. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 760,
     "currency": "INR",
@@ -35189,7 +35189,7 @@
       "weightKg:2",
       "draft-pricing"
     ],
-    "seoTitle": "Madras Curry Powder powder 2kg",
+    "seoTitle": "Madras Curry Powder 2kg",
     "seoDescription": "Buy Madras Curry Powder (Madras Curry Powder) as powder in 2kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 70.548,
@@ -35198,7 +35198,7 @@
   },
   {
     "slug": "madras-curry-powder-powder-5kg",
-    "name": "Madras Curry Powder powder — 5kg",
+    "name": "Madras Curry Powder — 5kg",
     "description": "Indian spice blend: Madras Curry Powder. Ingredients must be listed before sale. Form: powder. Pack: 5kg. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 1900,
     "currency": "INR",
@@ -35217,7 +35217,7 @@
       "weightKg:5",
       "draft-pricing"
     ],
-    "seoTitle": "Madras Curry Powder powder 5kg",
+    "seoTitle": "Madras Curry Powder 5kg",
     "seoDescription": "Buy Madras Curry Powder (Madras Curry Powder) as powder in 5kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 176.37,
@@ -35226,7 +35226,7 @@
   },
   {
     "slug": "madras-curry-powder-powder-10kg",
-    "name": "Madras Curry Powder powder — 10kg bulk",
+    "name": "Madras Curry Powder — 10kg bulk",
     "description": "Indian spice blend: Madras Curry Powder. Ingredients must be listed before sale. Form: powder. Pack: 10kg. Minimum bulk order 10kg. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 3116,
     "currency": "INR",
@@ -35246,7 +35246,7 @@
       "weightKg:10",
       "draft-pricing"
     ],
-    "seoTitle": "Madras Curry Powder powder 10kg",
+    "seoTitle": "Madras Curry Powder 10kg",
     "seoDescription": "Buy Madras Curry Powder (Madras Curry Powder) as powder in 10kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 352.74,
@@ -35255,7 +35255,7 @@
   },
   {
     "slug": "madras-curry-powder-powder-25kg",
-    "name": "Madras Curry Powder powder — 25kg bulk",
+    "name": "Madras Curry Powder — 25kg bulk",
     "description": "Indian spice blend: Madras Curry Powder. Ingredients must be listed before sale. Form: powder. Pack: 25kg. Minimum bulk order 10kg. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 7790,
     "currency": "INR",
@@ -35275,7 +35275,7 @@
       "weightKg:25",
       "draft-pricing"
     ],
-    "seoTitle": "Madras Curry Powder powder 25kg",
+    "seoTitle": "Madras Curry Powder 25kg",
     "seoDescription": "Buy Madras Curry Powder (Madras Curry Powder) as powder in 25kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 881.85,
@@ -35284,7 +35284,7 @@
   },
   {
     "slug": "madras-curry-powder-powder-50kg",
-    "name": "Madras Curry Powder powder — 50kg bulk",
+    "name": "Madras Curry Powder — 50kg bulk",
     "description": "Indian spice blend: Madras Curry Powder. Ingredients must be listed before sale. Form: powder. Pack: 50kg. Minimum bulk order 10kg. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 15580,
     "currency": "INR",
@@ -35304,7 +35304,7 @@
       "weightKg:50",
       "draft-pricing"
     ],
-    "seoTitle": "Madras Curry Powder powder 50kg",
+    "seoTitle": "Madras Curry Powder 50kg",
     "seoDescription": "Buy Madras Curry Powder (Madras Curry Powder) as powder in 50kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 1763.7,
@@ -40069,11 +40069,11 @@
   },
   {
     "slug": "fenugreek-leaves-leaves-100g",
-    "name": "Dried fenugreek leaves leaves — 100g",
+    "name": "Dried fenugreek leaves — 100g",
     "description": "Dried fenugreek leaves Form: leaves. Pack: 100g. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 40,
     "currency": "INR",
-    "categorySlug": "dried-herbs",
+    "categorySlug": "herbs",
     "additionalCategorySlugs": [
       "regional-spices"
     ],
@@ -40088,7 +40088,7 @@
       "weightKg:0.1",
       "draft-pricing"
     ],
-    "seoTitle": "Dried fenugreek leaves leaves 100g",
+    "seoTitle": "Dried fenugreek leaves 100g",
     "seoDescription": "Buy Dried fenugreek leaves (Dried fenugreek leaves) as leaves in 100g. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 3.5274,
@@ -40097,11 +40097,11 @@
   },
   {
     "slug": "fenugreek-leaves-leaves-500g",
-    "name": "Dried fenugreek leaves leaves — 500g",
+    "name": "Dried fenugreek leaves — 500g",
     "description": "Dried fenugreek leaves Form: leaves. Pack: 500g. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 200,
     "currency": "INR",
-    "categorySlug": "dried-herbs",
+    "categorySlug": "herbs",
     "additionalCategorySlugs": [
       "regional-spices"
     ],
@@ -40116,7 +40116,7 @@
       "weightKg:0.5",
       "draft-pricing"
     ],
-    "seoTitle": "Dried fenugreek leaves leaves 500g",
+    "seoTitle": "Dried fenugreek leaves 500g",
     "seoDescription": "Buy Dried fenugreek leaves (Dried fenugreek leaves) as leaves in 500g. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 17.637,
@@ -40125,11 +40125,11 @@
   },
   {
     "slug": "fenugreek-leaves-leaves-1kg",
-    "name": "Dried fenugreek leaves leaves — 1kg",
+    "name": "Dried fenugreek leaves — 1kg",
     "description": "Dried fenugreek leaves Form: leaves. Pack: 1kg. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 400,
     "currency": "INR",
-    "categorySlug": "dried-herbs",
+    "categorySlug": "herbs",
     "additionalCategorySlugs": [
       "regional-spices"
     ],
@@ -40144,7 +40144,7 @@
       "weightKg:1",
       "draft-pricing"
     ],
-    "seoTitle": "Dried fenugreek leaves leaves 1kg",
+    "seoTitle": "Dried fenugreek leaves 1kg",
     "seoDescription": "Buy Dried fenugreek leaves (Dried fenugreek leaves) as leaves in 1kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 35.274,
@@ -40153,11 +40153,11 @@
   },
   {
     "slug": "fenugreek-leaves-leaves-10kg",
-    "name": "Dried fenugreek leaves leaves — 10kg bulk",
+    "name": "Dried fenugreek leaves — 10kg bulk",
     "description": "Dried fenugreek leaves Form: leaves. Pack: 10kg. Minimum bulk order 10kg. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 3280,
     "currency": "INR",
-    "categorySlug": "dried-herbs",
+    "categorySlug": "herbs",
     "additionalCategorySlugs": [
       "bulk-spices",
       "regional-spices"
@@ -40173,7 +40173,7 @@
       "weightKg:10",
       "draft-pricing"
     ],
-    "seoTitle": "Dried fenugreek leaves leaves 10kg",
+    "seoTitle": "Dried fenugreek leaves 10kg",
     "seoDescription": "Buy Dried fenugreek leaves (Dried fenugreek leaves) as leaves in 10kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 352.74,
@@ -40182,11 +40182,11 @@
   },
   {
     "slug": "dried-coriander-leaves-leaves-100g",
-    "name": "Dried coriander leaves leaves — 100g",
+    "name": "Dried coriander leaves — 100g",
     "description": "Dried coriander leaves Form: leaves. Pack: 100g. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 40,
     "currency": "INR",
-    "categorySlug": "dried-herbs",
+    "categorySlug": "herbs",
     "additionalCategorySlugs": [
       "regional-spices"
     ],
@@ -40201,7 +40201,7 @@
       "weightKg:0.1",
       "draft-pricing"
     ],
-    "seoTitle": "Dried coriander leaves leaves 100g",
+    "seoTitle": "Dried coriander leaves 100g",
     "seoDescription": "Buy Dried coriander leaves (Dried coriander leaves) as leaves in 100g. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 3.5274,
@@ -40210,11 +40210,11 @@
   },
   {
     "slug": "dried-coriander-leaves-leaves-500g",
-    "name": "Dried coriander leaves leaves — 500g",
+    "name": "Dried coriander leaves — 500g",
     "description": "Dried coriander leaves Form: leaves. Pack: 500g. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 200,
     "currency": "INR",
-    "categorySlug": "dried-herbs",
+    "categorySlug": "herbs",
     "additionalCategorySlugs": [
       "regional-spices"
     ],
@@ -40229,7 +40229,7 @@
       "weightKg:0.5",
       "draft-pricing"
     ],
-    "seoTitle": "Dried coriander leaves leaves 500g",
+    "seoTitle": "Dried coriander leaves 500g",
     "seoDescription": "Buy Dried coriander leaves (Dried coriander leaves) as leaves in 500g. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 17.637,
@@ -40238,11 +40238,11 @@
   },
   {
     "slug": "dried-coriander-leaves-leaves-1kg",
-    "name": "Dried coriander leaves leaves — 1kg",
+    "name": "Dried coriander leaves — 1kg",
     "description": "Dried coriander leaves Form: leaves. Pack: 1kg. Retail pack. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 400,
     "currency": "INR",
-    "categorySlug": "dried-herbs",
+    "categorySlug": "herbs",
     "additionalCategorySlugs": [
       "regional-spices"
     ],
@@ -40257,7 +40257,7 @@
       "weightKg:1",
       "draft-pricing"
     ],
-    "seoTitle": "Dried coriander leaves leaves 1kg",
+    "seoTitle": "Dried coriander leaves 1kg",
     "seoDescription": "Buy Dried coriander leaves (Dried coriander leaves) as leaves in 1kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 35.274,
@@ -40266,11 +40266,11 @@
   },
   {
     "slug": "dried-coriander-leaves-leaves-10kg",
-    "name": "Dried coriander leaves leaves — 10kg bulk",
+    "name": "Dried coriander leaves — 10kg bulk",
     "description": "Dried coriander leaves Form: leaves. Pack: 10kg. Minimum bulk order 10kg. Selling price is a draft placeholder, not an Indian market reference price.",
     "price": 3280,
     "currency": "INR",
-    "categorySlug": "dried-herbs",
+    "categorySlug": "herbs",
     "additionalCategorySlugs": [
       "bulk-spices",
       "regional-spices"
@@ -40286,7 +40286,7 @@
       "weightKg:10",
       "draft-pricing"
     ],
-    "seoTitle": "Dried coriander leaves leaves 10kg",
+    "seoTitle": "Dried coriander leaves 10kg",
     "seoDescription": "Buy Dried coriander leaves (Dried coriander leaves) as leaves in 10kg. Retail and bulk Indian spices for UK and EU customers.",
     "published": true,
     "weightOz": 352.74,

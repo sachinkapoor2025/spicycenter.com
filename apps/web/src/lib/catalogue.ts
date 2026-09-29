@@ -89,6 +89,11 @@ export function enquiryProductName(name: string): string {
   return name
     .replace(/\s+[—–-]\s+[\d.]+\s*(g|kg|gm)\s*(bulk)?\s*$/i, "")
     .replace(/\s+bulk\s*$/i, "")
+    .replace(/\bseed seeds\b/gi, "seeds")
+    .replace(/\bleaves leaves\b/gi, "leaves")
+    .replace(/\bleaf leaves\b/gi, "leaves")
+    .replace(/\bpowder powder\b/gi, "powder")
+    .replace(/\s{2,}/g, " ")
     .trim();
 }
 
