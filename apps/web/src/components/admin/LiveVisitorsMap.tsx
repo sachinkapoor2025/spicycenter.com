@@ -75,11 +75,22 @@ export function LiveVisitorsMap({ visitors, activeWithinSeconds, byCountry = [] 
     const host = hostRef.current;
     if (!host) return;
 
-    fetch("/maps/world.svg")
-      .then((res) => {
-        if (!res.ok) throw new Error("Map failed to load");
-        return res.text();
-      })
+    const loadSvg = async (): Promise<string> => {
+      const urls = ["/maps/world.svg", "/api/maps/world"];
+      for (const url of urls) {
+        try {
+          const res = await fetch(url, { cache: "force-cache" });
+          if (!res.ok) continue;
+          const text = await res.text();
+          if (text.includes("<svg")) return text;
+        } catch {
+          /* try the next source */
+        }
+      }
+      throw new Error("Map failed to load");
+    };
+
+    loadSvg()
       .then((svgText) => {
         if (cancelled || !hostRef.current) return;
         hostRef.current.innerHTML = svgText;

@@ -1,0 +1,5 @@
+Simple World Map (world.svg)
+Source: https://github.com/flekschas/simple-world-map
+License: Creative Commons Attribution-ShareAlike 3.0 (CC BY-SA 3.0)
+Author: Al MacDonald
+Editor: Fritz Lekschas

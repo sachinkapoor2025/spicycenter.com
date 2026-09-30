@@ -24,7 +24,7 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 25
     steps:
       - uses: actions/checkout@v6
@@ -37,7 +37,7 @@ jobs:
       - run: npm run typecheck
 
   deploy-api:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 45
     needs: build
     steps:
@@ -162,7 +162,7 @@ jobs:
       # Run manually only: Actions → Import SpicyCorner Catalog (workflow_dispatch).
 
   deploy-web:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 30
     needs: deploy-api
     steps:
