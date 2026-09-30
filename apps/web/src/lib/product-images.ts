@@ -10,6 +10,9 @@ export function isPlaceholderProductImage(url: string | undefined | null): boole
     u.includes("product-fallback") ||
     u.includes("_placeholder") ||
     u.endsWith("/logo.png") ||
+    u.endsWith("/brand-logo.jpg") ||
+    u.endsWith("/brand-logo.png") ||
+    u.endsWith("/logo.svg") ||
     u.includes("/logo-options/") ||
     u.includes("logo-option-") ||
     u.includes("placeholder.jpg") ||

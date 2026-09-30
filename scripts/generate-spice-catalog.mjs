@@ -296,7 +296,7 @@ const spices = [
     growingRegions: ["Rajasthan", "Gujarat", "Madhya Pradesh", "Uttar Pradesh"],
     shortDescription: "Bitter-maple seeds and dried leaves (kasuri methi).",
     description: "Fenugreek seeds and dried leaves are related but used differently. Seeds are bitter; kasuri methi is aromatic dried leaf.",
-    forms: ["seeds", "leaves", "powder"],
+    forms: ["seeds", "powder"],
     flavourProfile: "Bitter, maple-like, savoury",
     heatLevel: "none",
     culinaryUses: ["Curry", "Pickle", "Paratha", "Methi malai"],
@@ -984,7 +984,7 @@ const categoryByForm = {
   flakes: "indian-chillies",
   crushed: "ground-spices",
   roasted: "whole-spices",
-  leaves: "dried-herbs",
+  leaves: "herbs",
   blend: "indian-masalas",
 };
 
@@ -1100,6 +1100,17 @@ function packsFor(spice, form) {
   return [...retail, ...bulk];
 }
 
+function catalogueItemName(canonicalName, form) {
+  const name = String(canonicalName).trim();
+  const lower = name.toLowerCase();
+  if (form === "seeds" && /\bseeds?$/.test(lower)) return name.replace(/seed$/i, "seeds");
+  if (form === "leaves" && /\bleaves?$/.test(lower)) return name.replace(/leaf$/i, "leaves");
+  if (form === "powder" && /\bpowder$/.test(lower)) return name;
+  if (form === "whole" && /\bwhole$/.test(lower)) return name;
+  if (form === "blend" && /\bblend$/.test(lower)) return name;
+  return `${name} ${form}`;
+}
+
 function formsFor(s) {
   const forms = s.forms?.length ? s.forms : ["whole"];
   // Avoid duplicate whole+seeds SKUs
@@ -1122,14 +1133,15 @@ for (const s of spices) {
       const bulkDiscount = pack.channel === "bulk" ? 0.82 : 1;
       const price = Math.max(1, Math.round(kgPrice * pack.kg * bulkDiscount * 100) / 100);
       const cat = categoryFor(s.id, form);
+      const title = catalogueItemName(s.canonicalName, form);
       const name =
         pack.channel === "bulk"
-          ? `${s.canonicalName} ${form} — ${pack.label} bulk`
-          : `${s.canonicalName} ${form} — ${pack.label}`;
+          ? `${title} — ${pack.label} bulk`
+          : `${title} — ${pack.label}`;
       products.push({
         slug,
         name,
-        description: `${s.shortDescription} Form: ${form}. Pack: ${pack.label}. ${pack.channel === "bulk" ? "Minimum bulk order 10kg." : "Retail pack."} Selling price is a draft placeholder, not an Indian market reference price.`,
+        description: `${s.shortDescription} Form: ${form}. Available bulk quantities: 100 gm, 200 gm, 500 gm, 1 kg, 5 kg, 10 kg, 15 kg, 20 kg, 25 kg, 1 metric ton. Origin: India. Enquire for availability.`,
         price,
         currency: "INR",
         categorySlug: cat,
@@ -1145,8 +1157,8 @@ for (const s of spices) {
           `weightKg:${pack.kg}`,
           "draft-pricing",
         ],
-        seoTitle: `${s.canonicalName} ${form} ${pack.label} | SpicyCorner`,
-        seoDescription: `Buy ${s.canonicalName} (${s.hindiName || s.canonicalName}) as ${form} in ${pack.label}. Retail and bulk Indian spices for UK and EU customers.`,
+        seoTitle: `${title} ${pack.label} | SpicyCorner`,
+        seoDescription: `Buy ${title} (${s.hindiName || s.canonicalName}) in ${pack.label}. Retail and bulk Indian spices for UK and EU customers.`,
         published: true,
         weightOz: Math.max(0.04, pack.kg * 35.274),
         createdAt: ts,

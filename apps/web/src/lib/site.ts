@@ -1,14 +1,20 @@
+import { BULK_PACK_SIZES } from "@/lib/catalogue";
+
 export const site = {
   name: "SpicyCenter",
   domain: "spicycenter.com",
-  tagline: "Authentic Indian Spices — Retail & Bulk Supply",
+  tagline: "King of Every Kitchen",
+  homepageTagline: "Authentic Indian Spices",
+  homepageSubline: "From our farms to your kitchen",
+  promise: "Spices for a Better Tomorrow",
+  socialImage: "/images/social-card.jpg",
   description:
-    "SpicyCenter is an Indian spice marketplace and reference site: retail packs, 10kg+ wholesale, spice knowledge, and indicative Indian market prices. Sourced from India's spice-growing regions for customers in the United Kingdom and the European Union.",
+    "SpicyCenter is a product catalogue for Indian spices. Browse products and send a bulk enquiry for importers, distributors, restaurants and commercial kitchens. Worldwide delivery is arranged through enquiry. Origin: India.",
   supportEmail: "enquiry@spicycenter.com",
   phone: "",
   whatsapp: "919266467887",
   whatsappDisplay: "",
-  logoSrc: "/brand-logo.jpg",
+  logoSrc: "/brand-logo.png",
   primaryColor: "#2c1810",
   navBlue: "#c45c26",
   accentColor: "#d4a017",
@@ -32,7 +38,7 @@ export const STORE_LOCATIONS = [
 ] as const;
 
 export const navItems = [
-  { label: "Shop Spices", href: "/spices" },
+  { label: "Catalogue", href: "/spices" },
   { label: "Bulk & Wholesale", href: "/bulk-enquiry" },
   { label: "Free enquiry", href: "/enquiry" },
   { label: "Spice Guide", href: "/spice-guide" },
@@ -40,7 +46,6 @@ export const navItems = [
   { label: "Masalas", href: "/spices/indian-masalas" },
   { label: "Recipes", href: "/recipes" },
   { label: "Journal", href: "/journal" },
-  { label: "Spice Market Prices", href: "/spice-market-prices" },
   { label: "Markets", href: "/markets" },
   { label: "Middle East", href: "/middle-east" },
   { label: "Food sourcing", href: "/food" },
@@ -146,7 +151,7 @@ export const homeBanners = [
   },
   {
     src: "/images/banner-3.jpg",
-    alt: "SpicyCenter Indian spices — shop retail packs and bulk",
+    alt: "SpicyCenter Indian spice catalogue — worldwide bulk enquiries",
     href: "/spices",
   },
 ] as const;
@@ -164,7 +169,7 @@ export const exploreCategories = [
   { slug: "bulk-spices", name: "Bulk Spices", href: "/bulk-spices", image: "/images/cat-7.jpg" },
 ] as const;
 
-export const packSizes = ["100g", "200g", "500g", "1kg", "5kg", "10kg", "25kg", "50kg+"] as const;
+export const packSizes = BULK_PACK_SIZES;
 
 export const homeCategoryOrder = exploreCategories.map((c) => c.slug);
 
@@ -189,39 +194,39 @@ export const testimonials: readonly {
 
 export const faqs = [
   {
-    q: "What is the minimum bulk order?",
-    a: "Wholesale starts at 10kg per bulk line. Larger bags (25kg, 50kg, 100kg+) and custom quantities can be quoted.",
+    q: "Which pack sizes can I enquire about?",
+    a: `Catalogue pack sizes are ${packSizes.join(", ")}. These are pack sizes, not prices. 1 metric ton is 1,000 kg.`,
   },
   {
-    q: "Is the Indian market price what I pay?",
-    a: "No. Indicative Indian market prices are reference data with date, market, grade and source. Your invoice is the retail or wholesale selling price plus shipping and any tax/duty that applies.",
+    q: "Do you show prices on the website?",
+    a: "No. This is a product catalogue. Availability and price are confirmed when you send an enquiry.",
   },
   {
-    q: "How is UK shipping calculated?",
-    a: "Shipping is quoted in GBP for UK deliveries (EUR where an EU country rate is configured) from a weight-based per-kg rule. Import duty and VAT are extra unless a rule is marked inclusive.",
+    q: "How does worldwide delivery work?",
+    a: "SpicyCenter supplies importers, distributors, restaurants and commercial kitchens worldwide. Delivery timing is agreed in the enquiry reply. The site does not show an estimated delivery date.",
   },
   {
-    q: "Do you ship to the EU?",
-    a: "The EU is a planned market. Country rates, VAT and food-information rules must be configured before we accept EU checkouts for that country.",
+    q: "Who is this catalogue for?",
+    a: "Importers, distributors, restaurants, hotels, caterers and other food businesses. It is not a retail checkout.",
   },
   {
     q: "Why do some spices need extra documents?",
-    a: "Certain dried spices from India can face increased official controls in the UK and EU. We track that in compliance fields rather than hiding it.",
+    a: "Some destinations ask for extra documents on dried spices from India. Tell us the destination country on the enquiry and we will confirm what applies.",
   },
   {
-    q: "Can I buy cumin as jeera or Cuminum cyminum?",
-    a: "Yes. Search understands English, Hindi, botanical names and pack sizes such as 25kg.",
+    q: "Can I search cumin as jeera or Cuminum cyminum?",
+    a: "Yes. Search understands English, Hindi, botanical names and pack sizes such as 25 kg.",
   },
   {
-    q: "Do you deliver outside the UK and Europe?",
-    a: "The storefront currently quotes delivery for the United Kingdom and listed European countries only. India is our sourcing story, not a checkout destination on this site.",
+    q: "Where do the spices come from?",
+    a: "Origin is India. Growing region notes stay on the spice guides. The catalogue itself is available worldwide.",
   },
   {
     q: "What is the difference between whole and ground spices?",
-    a: "Whole spices keep aroma longer; grind or crush just before cooking when you can. Ground spices are convenient for everyday tadka and masala blends but fade faster if stored warm or in light.",
+    a: "Whole spices keep aroma longer; grind or crush just before cooking when you can. Ground spices are convenient for everyday cooking but fade faster if stored warm or in light.",
   },
   {
-    q: "How should I store Indian spices in the UK?",
-    a: "Airtight tins or jars, away from the hob and sunlight. Buy retail packs for home use and 10kg+ only if you will turn the stock. We do not print fake ‘best before 5 years’ claims.",
+    q: "How should spices be stored?",
+    a: "Airtight containers, away from heat and sunlight. We do not print invented best-before claims.",
   },
 ] as const;

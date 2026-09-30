@@ -5,6 +5,7 @@ export const productReviewSchema = z.object({
   reviewId: z.string().min(1),
   productSlug: z.string().min(1),
   authorName: z.string().min(1).max(120),
+  country: z.string().max(80).optional(),
   rating: z.number().int().min(1).max(5),
   title: z.string().max(200).optional(),
   body: z.string().min(1).max(4000),

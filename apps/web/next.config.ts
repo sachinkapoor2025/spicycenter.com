@@ -4,6 +4,7 @@ import type { NextConfig } from "next";
 const repoRoot = path.join(__dirname, "../..");
 
 const nextConfig: NextConfig = {
+  allowedDevOrigins: ["*.trycloudflare.com"],
   transpilePackages: ["@spicycorner/shared"],
   staticPageGenerationTimeout: 120,
   outputFileTracingRoot: repoRoot,

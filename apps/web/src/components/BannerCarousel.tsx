@@ -28,7 +28,7 @@ const TRUST_FEATURES = [
     ),
   },
   {
-    label: "Delivering in 5–7 days",
+    label: "Worldwide enquiry",
     icon: (
       <path
         strokeLinecap="round"

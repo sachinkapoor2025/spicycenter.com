@@ -3,7 +3,6 @@
 import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-
 export type HomeBannerSlide = {
   src: string;
   alt: string;

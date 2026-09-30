@@ -234,6 +234,13 @@ export function scoreProducts(
   }).sort((a, b) => b.homepagePriority - a.homepagePriority || b.score - a.score);
 }
 
+/** Prefer a high-signal subset, then the rest of the ranked catalog so diversity caps can still mix categories. */
+function preferThenRest(preferred: RankedProduct[], all: RankedProduct[]): RankedProduct[] {
+  if (!preferred.length) return all;
+  const inPreferred = new Set(preferred.map((p) => p.slug));
+  return [...preferred, ...all.filter((p) => !inPreferred.has(p.slug))];
+}
+
 function takeDiverse(
   ranked: RankedProduct[],
   limit: number,
@@ -246,17 +253,28 @@ function takeDiverse(
   const maxCat = Math.max(2, Math.floor(limit * cfg.maxShareSameCategory));
   const maxTheme = Math.max(2, Math.floor(limit * cfg.maxShareSameTheme));
 
-  for (const p of ranked) {
-    if (out.length >= limit) break;
-    if (used.has(p.slug)) continue;
-    if (cfg.overrides[p.slug]?.exclude) continue;
+  const tryTake = (p: RankedProduct, ignoreThemeCap: boolean): boolean => {
+    if (out.length >= limit) return false;
+    if (used.has(p.slug) || cfg.overrides[p.slug]?.exclude) return false;
     const cats = catCount.get(p.categorySlug) ?? 0;
     const themes = themeCount.get(p.theme) ?? 0;
-    if (cats >= maxCat || themes >= maxTheme) continue;
+    if (cats >= maxCat) return false;
+    if (!ignoreThemeCap && themes >= maxTheme) return false;
     out.push(p.slug);
     used.add(p.slug);
     catCount.set(p.categorySlug, cats + 1);
     themeCount.set(p.theme, themes + 1);
+    return true;
+  };
+
+  for (const p of ranked) tryTake(p, false);
+
+  // Same inferred theme can span categories; still mix categories up to maxShareSameCategory.
+  if (out.length < limit) {
+    const rest = ranked
+      .filter((p) => !used.has(p.slug) && !cfg.overrides[p.slug]?.exclude)
+      .sort((a, b) => (catCount.get(a.categorySlug) ?? 0) - (catCount.get(b.categorySlug) ?? 0));
+    for (const p of rest) tryTake(p, true);
   }
 
   if (out.length < limit) {
@@ -303,8 +321,8 @@ export function buildHomepageSnapshot(
 
   const groups = [
     { id: "pinned", title: "Featured", slugs: pinned },
-    { id: "top", title: "Top Performing Products", slugs: takeDiverse(top.length ? top : ranked, cfg.slotTopPerformers, cfg, used) },
-    { id: "trending", title: "Trending Products", slugs: takeDiverse(trending.length ? trending : ranked, cfg.slotTrending, cfg, used) },
+    { id: "top", title: "Top Performing Products", slugs: takeDiverse(preferThenRest(top, ranked), cfg.slotTopPerformers, cfg, used) },
+    { id: "trending", title: "Trending Products", slugs: takeDiverse(preferThenRest(trending, ranked), cfg.slotTrending, cfg, used) },
     { id: "most_clicked", title: "Most Clicked", slugs: takeDiverse(mostClicked, 40, cfg, new Set()) },
     { id: "most_ordered", title: "Most Ordered", slugs: takeDiverse(mostOrdered, 40, cfg, new Set()) },
     { id: "best_sellers", title: "spice Best Sellers", slugs: takeDiverse(mostOrdered, 40, cfg, used) },

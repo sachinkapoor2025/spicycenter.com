@@ -13,7 +13,6 @@ import {
   DEFAULT_MARKETS,
   displayCurrencyForCountry,
   inferViewerCountryCode,
-  isStorefrontDeliveryCountry,
 } from "@spicycorner/shared";
 
 const STOREFRONT_DEFAULT_COUNTRY = "GB";
@@ -74,14 +73,18 @@ interface MarketContextValue {
 
 const MarketContext = createContext<MarketContextValue | null>(null);
 
+function isCatalogueCountry(code: string): boolean {
+  return /^[A-Z]{2}$/.test(code.trim().toUpperCase());
+}
+
 function readStoredCountry(): string {
   if (typeof window === "undefined") return STOREFRONT_DEFAULT_COUNTRY;
-  const stored = localStorage.getItem(COUNTRY_KEY) || STOREFRONT_DEFAULT_COUNTRY;
-  return isStorefrontDeliveryCountry(stored) ? stored : STOREFRONT_DEFAULT_COUNTRY;
+  const stored = (localStorage.getItem(COUNTRY_KEY) || STOREFRONT_DEFAULT_COUNTRY).toUpperCase();
+  return isCatalogueCountry(stored) ? stored : STOREFRONT_DEFAULT_COUNTRY;
 }
 
 function toStorefrontMarkets(list: PublicMarket[]): PublicMarket[] {
-  return list.filter((m) => isStorefrontDeliveryCountry(m.countryCode));
+  return list.filter((m) => isCatalogueCountry(m.countryCode));
 }
 
 function fallbackPublicMarkets(): PublicMarket[] {
@@ -166,7 +169,7 @@ export function MarketProvider({ children }: { children: ReactNode }) {
   const setMarketLocation = useCallback(
     (nextCountry: string, nextPostal?: string, source: "manual" | "geo" = "manual") => {
       const requested = nextCountry.trim().toUpperCase() || STOREFRONT_DEFAULT_COUNTRY;
-      const code = isStorefrontDeliveryCountry(requested) ? requested : STOREFRONT_DEFAULT_COUNTRY;
+      const code = isCatalogueCountry(requested) ? requested : STOREFRONT_DEFAULT_COUNTRY;
       setCountryCode(code);
       if (typeof window !== "undefined") {
         localStorage.setItem(COUNTRY_KEY, code);

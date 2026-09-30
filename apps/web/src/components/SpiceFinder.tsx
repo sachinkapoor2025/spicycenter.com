@@ -106,7 +106,7 @@ export function SpiceFinder() {
             <p className="text-sm"><strong>Typical quantity:</strong> {r.qty} (adjust to taste; not a professional recipe spec).</p>
             <div className="flex gap-3 mt-3 text-sm">
               <Link className="text-nav font-semibold" href={`/spice-guide/${r.slug}`}>Guide</Link>
-              <Link className="text-nav font-semibold" href={`/spices/${r.slug}`}>Buy retail</Link>
+              <Link className="text-nav font-semibold" href={`/spices/${r.slug}`}>View in catalogue</Link>
               <Link className="text-nav font-semibold" href={`/bulk-spices/${r.slug}`}>Buy bulk</Link>
             </div>
           </article>

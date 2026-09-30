@@ -20,6 +20,7 @@ import {
 } from "./catalog-fallback";
 import { filterDisplayableProductImages, isPlaceholderProductImage } from "./product-images";
 import { spiceStockImagesForProduct } from "./spice-stock-images";
+import { collapseToOneEnquiryProduct, enquiryProductName } from "./catalogue";
 
 /**
  * Always use absolute CloudFront URLs on storefront listings/PDP.
@@ -45,6 +46,7 @@ function withDisplayImages(product: Product): Product {
   }));
   return {
     ...product,
+    name: enquiryProductName(product.name),
     images: resolved.length > 0 ? resolved : spiceStockImagesForProduct(product),
     ...(cjVariants ? { cjVariants } : {}),
   };
@@ -101,7 +103,7 @@ function listingFromCatalog(
         p.tags?.some((t) => t.toLowerCase().includes(search))
     );
   }
-  const sorted = sortStorefrontListing(items, opts.sort ?? "featured");
+  const sorted = sortStorefrontListing(collapseToOneEnquiryProduct(items), opts.sort ?? "featured");
   const page = paginateStorefrontListing(sorted, opts.offset ?? 0, opts.limit);
   return {
     products: withListingImages(page.items),
@@ -137,7 +139,7 @@ export async function loadStorefrontListing(query: {
       }),
       { revalidate: query.revalidate }
     );
-    const incoming = withListingImages(data.products ?? []);
+    const incoming = collapseToOneEnquiryProduct(withListingImages(data.products ?? []));
     const products = incoming.slice(0, limit);
     const total = data.total ?? incoming.length;
     if (products.length === 0) {

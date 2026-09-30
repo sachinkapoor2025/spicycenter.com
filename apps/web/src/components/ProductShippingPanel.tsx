@@ -35,7 +35,7 @@ export function ProductShippingPanel({
         </svg>
         <div className="min-w-0">
           <p>
-            <span className="font-semibold text-primary">Delivering in 5–7 days</span>
+            <span className="font-semibold text-primary">Delivery timing is confirmed on enquiry</span>
           </p>
           <p className="mt-1 text-slate-800">
             Shipping for this item:{" "}

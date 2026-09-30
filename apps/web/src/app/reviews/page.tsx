@@ -9,7 +9,7 @@ import { pageMetadata, canonical } from "@/lib/seo";
 export const metadata: Metadata = pageMetadata({
   title: "Customer Reviews — SpicyCenter",
   description:
-    "Read customer reviews of SpicyCenter. Share your spice shopping experience — delivering in 5–7 days.",
+    "Approved customer reviews for SpicyCenter. We publish a name, country, product, review and rating only after moderation.",
   path: "/reviews",
 });
 
@@ -49,8 +49,8 @@ export default async function ReviewsPage({ searchParams }: ReviewsPageProps) {
       <section className="max-w-3xl mx-auto px-4 pt-12 pb-6">
         <h1 className="text-3xl font-bold text-primary mb-3">Customer Reviews</h1>
         <p className="text-slate-600 leading-relaxed mb-2">
-          We publish reviews from delivered UK and EU orders after moderation. We do not buy fake ratings or invent
-          star scores. A Trustpilot or Judge.me widget can be added later if the business chooses a platform.
+          Reviews show a customer name, country, product, review text and rating only after they are approved. We do
+          not invent ratings.
         </p>
         <p className="text-sm text-slate-500">
           Received your spice?{" "}

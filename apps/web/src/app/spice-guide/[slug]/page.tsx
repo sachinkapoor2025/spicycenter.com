@@ -7,7 +7,6 @@ import { JsonLd } from "@/components/JsonLd";
 import {
   getSpiceBySlug,
   isPublishedSpice,
-  loadMarketPrices,
   loadPublishedSpiceEntities,
   loadSpiceEntities,
 } from "@/lib/spice-data";
@@ -51,7 +50,6 @@ export default async function SpiceGuidePage({ params }: Props) {
   if (!spice || !isPublishedSpice(spice)) notFound();
   const related = loadSpiceEntities().filter((s) => spice.relatedSpiceIds.includes(s.id));
   const products = getCatalogProducts().filter((p) => p.tags?.includes(`spice:${spice.id}`)).slice(0, 12);
-  const price = loadMarketPrices().find((p) => p.spiceId === spice.id);
   const recipes = recipesForSpice(spice.id).slice(0, 8);
 
   const facts = [
@@ -148,20 +146,9 @@ export default async function SpiceGuidePage({ params }: Props) {
         <p>{nutritionDisclaimer(spice)}</p>
       </Block>
       <Block title="Buying guide">
-        <p>Retail packs typically run from 100g to 5kg. Bulk starts at 10kg. Selling prices are checkout prices. Indian market figures, when present, are indicative only.</p>
+        <p>Tell us the quantity you need, from 100 gm to 1 metric ton. Prices are not published on this website. Availability is confirmed on the enquiry.</p>
         <FreeEnquiryCtas productName={spice.canonicalName} spiceQuery={spice.slug} />
       </Block>
-      {price && (
-        <Block title="Indicative Indian market price">
-          <p>
-            {price.averagePrice == null
-              ? "No dated market print has been imported yet. Admin must enter min/max/average with market, grade, date and source."
-              : `Indicative Indian mandi ${price.currency === "INR" ? "₹" : ""}${price.averagePrice}/${price.unit} (${price.market}, ${price.grade}, ${price.priceDate}) — not the SpicyCenter checkout price.`}
-          </p>
-          <p className="text-sm text-muted">{price.notes}</p>
-          <Link href="/spice-market-prices" className="text-nav text-sm">Market prices →</Link>
-        </Block>
-      )}
       {spice.faqs?.length ? (
         <Block title="FAQs">
           {spice.faqs.map((f) => (
@@ -194,11 +181,11 @@ export default async function SpiceGuidePage({ params }: Props) {
         </div>
       </Block>
 
-      <Block title="Retail and bulk">
+      <Block title="Catalogue">
         <div className="grid gap-2">
           {products.map((p) => (
             <Link key={p.slug} href={`/products/${p.slug}`} className="text-nav text-sm">
-              {p.name} — view selling price
+              {p.name} — view and enquire
             </Link>
           ))}
         </div>

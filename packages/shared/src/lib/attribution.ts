@@ -36,7 +36,13 @@ const SOCIAL_PLATFORMS: Array<{ match: RegExp; source: string }> = [
   { match: /(^|\.)(reddit\.com)$/i, source: "reddit" },
 ];
 
-const INTERNAL_HOSTS = [/spicycorner\.com$/i, /localhost$/i, /amplifyapp\.com$/i];
+const INTERNAL_HOSTS = [
+  /spicycenter\.com$/i,
+  /spicycorner\.com$/i,
+  /localhost$/i,
+  /127\.0\.0\.1$/i,
+  /amplifyapp\.com$/i,
+];
 
 const CLICK_ID_KEYS = ["gclid", "wbraid", "gbraid", "msclkid", "fbclid", "ttclid", "twclid", "li_fat_id", "yclid"] as const;
 
@@ -57,9 +63,11 @@ export function referrerHostname(referrer?: string): string | undefined {
   return u.hostname.replace(/^www\./i, "").toLowerCase();
 }
 
-export function isInternalHost(host?: string): boolean {
+export function isInternalHost(host?: string, pageHost?: string): boolean {
   if (!host) return false;
-  return INTERNAL_HOSTS.some((re) => re.test(host));
+  if (INTERNAL_HOSTS.some((re) => re.test(host))) return true;
+  if (pageHost && host === pageHost) return true;
+  return false;
 }
 
 export function extractCampaignParams(pageUrl?: string): {
@@ -139,7 +147,8 @@ function touch(
 export function resolveTrafficSource(input: ResolveTrafficInput): TrafficTouch {
   const { utm, clickIds, path } = extractCampaignParams(input.pageUrl);
   const refHost = referrerHostname(input.referrer);
-  const internalRef = isInternalHost(refHost);
+  const pageHost = referrerHostname(input.pageUrl);
+  const internalRef = isInternalHost(refHost, pageHost);
   const landingPage = path.split("?")[0] || path || undefined;
   const entryUrl = input.pageUrl?.slice(0, 1024);
 

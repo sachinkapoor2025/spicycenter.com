@@ -3,21 +3,23 @@ import Image from "next/image";
 import Link from "next/link";
 import { pageMetadata } from "@/lib/seo";
 import { JsonLd } from "@/components/JsonLd";
-import { faqs, exploreCategories, packSizes, regionLinks, site, homeBanners } from "@/lib/site";
+import { faqs, exploreCategories, regionLinks, site, homeBanners } from "@/lib/site";
 import { HomeBannerSlider } from "@/components/HomeBannerSlider";
 import { ProductReviewsPreview } from "@/components/ProductReviewsPreview";
 import { TrustBadges } from "@/components/TrustBadges";
 import { loadSpiceEntities } from "@/lib/spice-data";
 import { getCatalogProducts } from "@/lib/catalog-fallback";
 import { faqJsonLd } from "@/lib/seo";
-import { STOREFRONT_SHIPPING_COPY } from "@/lib/storefront-shipping-copy";
-import { api } from "@/lib/api";
-import { LiveMandiPriceBoard } from "@/components/LiveMandiPriceBoard";
-import type { LiveMandiBoard } from "@/lib/live-mandi-prices";
+import { featuredBilingualName, PACK_SIZE_RANGE } from "@/lib/catalogue";
+import { spiceStockImagePath } from "@/lib/spice-stock-images";
+
+const HOME_H1 = "Indian Spices, Rice & Food Ingredients — Sourced from India to Worldwide";
+const HOME_INTRO =
+  "We supply Indian spices, rice and food ingredients to businesses worldwide. Explore our product range and send us your requirements for bulk quantities, wholesale supply and international enquiries.";
 
 export const metadata: Metadata = pageMetadata({
-  title: "The world of Indian spices — retail packs and 10kg+ bulk",
-  description: site.description,
+  title: HOME_H1,
+  description: HOME_INTRO,
   path: "/",
 });
 
@@ -27,13 +29,6 @@ export default async function HomePage() {
   const spices = loadSpiceEntities();
   const featured = spices.filter((s) => s.featured || s.featuredKnowledge).slice(0, 10);
   const products = getCatalogProducts();
-  let mandi: LiveMandiBoard | null = null;
-  try {
-    mandi = await api<LiveMandiBoard>("/prices", { revalidate: 3600, timeoutMs: 8000 });
-  } catch {
-    mandi = null;
-  }
-  const livePrices = (mandi?.prices ?? []).filter((p) => p.available).slice(0, 6);
 
   return (
     <div>
@@ -41,23 +36,36 @@ export default async function HomePage() {
 
       <HomeBannerSlider banners={homeBanners} />
 
-      <section className="max-w-7xl mx-auto px-4 pt-8 pb-2 text-center md:text-left">
-        <h1 className="spice-heading text-3xl sm:text-4xl">Buy Indian spices online — UK &amp; Europe, retail and 10kg+ bulk</h1>
+      <section className="max-w-7xl mx-auto px-4 pt-8 pb-2 text-center">
+        <p className="spice-kicker">{site.tagline}</p>
+        <h1 className="spice-heading text-3xl sm:text-4xl lg:text-5xl mt-2 leading-tight max-w-5xl mx-auto">
+          {HOME_H1}
+        </h1>
+        <h2 className="mt-4 text-base sm:text-lg font-sans font-normal leading-relaxed text-primary max-w-3xl mx-auto">
+          {HOME_INTRO}
+        </h2>
+        <p className="mt-3 text-lg sm:text-xl text-primary">{site.homepageSubline}</p>
+        <p className="mt-2 font-serif italic text-xl text-nav">{site.promise}</p>
       </section>
 
       <section className="border-b border-[#e6d5bc] bg-beige/70">
-        <div className="max-w-7xl mx-auto px-4 py-6 grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 text-center text-sm text-primary">
+        <div className="max-w-7xl mx-auto px-4 py-6">
+          <h2 className="font-serif text-xl sm:text-2xl text-primary text-center mb-4">
+            Pure spices, bulk packs and worldwide supply
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 text-center text-sm text-primary">
           {[
             ["100% Pure & Natural", "No filler blends sold as a single spice"],
-            ["UK & EU Delivery", "Quotes for the United Kingdom and Europe"],
-            ["Bulk & Wholesale", "10kg minimum on wholesale lines"],
-            ["Sourced from India", "Growing regions named, lots labelled honestly"],
+            ["Worldwide delivery", "Timing is confirmed on your enquiry"],
+            ["Bulk pack sizes", `${PACK_SIZE_RANGE} — quantities, not prices`],
+            ["Origin: India", "For importers, distributors and restaurants"],
           ].map(([t, d]) => (
             <div key={t}>
-              <p className="font-serif text-base md:text-lg leading-tight">{t}</p>
+              <h3 className="font-serif text-base md:text-lg font-normal leading-tight">{t}</h3>
               <p className="text-muted text-xs mt-1">{d}</p>
             </div>
           ))}
+          </div>
         </div>
       </section>
 
@@ -79,17 +87,21 @@ export default async function HomePage() {
       </section>
 
       <section className="bg-beige/50 border-y border-[#e6d5bc]">
-        <div className="max-w-7xl mx-auto px-4 py-14 grid md:grid-cols-3 gap-5">
+        <div className="max-w-7xl mx-auto px-4 py-14">
+        <h2 className="font-serif text-2xl sm:text-3xl text-primary text-center mb-8">
+          Indian masalas, bulk packs and recipes
+        </h2>
+        <div className="grid md:grid-cols-3 gap-5">
         {[
           { href: "/spices/indian-masalas", img: "/images/promo-masalas.jpg", title: "Indian masalas", text: "Traditional blends for authentic taste.", cta: "Shop masalas →" },
-          { href: "/enquiry", img: "/images/promo-bulk.jpg", title: "Buy in bulk. Save more.", text: "Ideal for restaurants, retailers and businesses.", cta: "Free enquiry →" },
+          { href: "/enquiry", img: "/images/promo-bulk.jpg", title: "Enquire for bulk packs", text: "For restaurants, importers, distributors and commercial kitchens.", cta: "Enquire Now →" },
           { href: "/recipes", img: "/images/promo-recipes.jpg", title: "Recipes with spices", text: "Turn everyday meals into something special.", cta: "View recipes →" },
         ].map((card) => (
           <Link key={card.href} href={card.href} className="card-spice overflow-hidden group">
             <span className="relative block h-44 sm:h-56">
               <Image src={card.img} alt="" fill className="object-cover group-hover:scale-[1.03] transition" sizes="(max-width: 640px) 100vw, (min-width: 768px) 33vw, 100vw" />
               <span className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent" />
-              <span className="absolute bottom-3 left-4 right-4 font-serif text-2xl text-paper">{card.title}</span>
+              <h3 className="absolute bottom-3 left-4 right-4 font-serif text-2xl font-normal text-paper">{card.title}</h3>
             </span>
             <span className="block p-5">
               <span className="text-sm text-muted block">{card.text}</span>
@@ -98,40 +110,40 @@ export default async function HomePage() {
           </Link>
         ))}
         </div>
+        </div>
       </section>
 
       <section className="bg-paper border-b border-[#e6d5bc]">
         <div className="max-w-7xl mx-auto px-4 py-12">
-          <h2 className="spice-heading text-3xl mb-6">Shop by pack size</h2>
-          <div className="flex flex-wrap gap-2">
-            {packSizes.map((p) => (
-              <Link key={p} href={`/spices?pack=${encodeURIComponent(p)}`} className="rounded-md border border-[#e6d5bc] bg-cream px-4 py-2 text-sm font-semibold text-primary hover:border-nav hover:text-nav">
-                {p}
-              </Link>
-            ))}
-          </div>
+          <h2 className="spice-heading text-3xl mb-3">Choose your own quantity</h2>
+          <p className="text-muted max-w-2xl">
+            Each spice has one Enquire Now button. On the form, type the quantity you need — {PACK_SIZE_RANGE}. We confirm availability in the reply. Prices are not published on this website.
+          </p>
+          <Link href="/enquiry" className="btn-primary mt-5">Enquire Now</Link>
         </div>
       </section>
 
       <section className="max-w-7xl mx-auto px-4 py-14 grid md:grid-cols-2 gap-8">
         <div className="card-spice p-8 spice-panel">
           <p className="spice-kicker">Wholesale</p>
-          <h2 className="font-serif text-3xl mt-2">Buy Indian spices in bulk</h2>
+          <h2 className="font-serif text-3xl mt-2">Browse the catalogue, then enquire</h2>
           <p className="mt-3 text-muted">
-            From 10kg to commercial quantities for restaurants, grocers, manufacturers and importers. Tell us the spice, grade you want (when it applies), and whether you need 10kg, 25kg or 50kg bags. We quote selling price separately from Indian market reference prices.
+            Pack sizes run from {PACK_SIZE_RANGE} for importers, distributors, restaurants and other food businesses. Tell us the spice and the pack size. We reply with availability. This site does not take payment or show a delivery date.
           </p>
-          <p className="mt-4 font-semibold">Minimum bulk order: 10kg</p>
           <div className="mt-6 flex flex-wrap gap-3">
-            <Link href="/enquiry" className="btn-primary">Request free enquiry</Link>
+            <Link href="/enquiry" className="btn-primary">Enquire Now</Link>
             <Link href="/markets" className="text-nav font-semibold inline-flex items-center">
               Export markets →
             </Link>
           </div>
         </div>
         <div className="card-spice p-8 spice-panel">
-          <p className="spice-kicker">UK / EU</p>
-          <h2 className="font-serif text-3xl mt-2">Delivery information</h2>
-          <p className="mt-3 text-muted">{STOREFRONT_SHIPPING_COPY.combined}</p>
+          <p className="spice-kicker">Worldwide</p>
+          <h2 className="font-serif text-3xl mt-2">Global delivery</h2>
+          <p className="mt-3 text-muted">
+            SpicyCenter supplies worldwide. Choose your country in the header for local context, then send an enquiry.
+            Delivery timing is handled in that conversation, not as a date on the product page.
+          </p>
           <Link href="/legal/shipping" className="text-nav font-semibold mt-4 inline-block">Shipping details →</Link>
         </div>
       </section>
@@ -153,22 +165,29 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {livePrices.length > 0 && (
-        <section className="bg-paper border-y border-[#e6d5bc] py-14">
-          <div className="max-w-7xl mx-auto px-4">
-            <p className="spice-kicker">Live Agmarknet</p>
-            <h2 className="font-serif text-3xl text-primary mt-2">Today&apos;s Indian spice market</h2>
-            <p className="mt-2 text-muted max-w-2xl">
-              Live mandi prices from India. They fluctuate every day with arrivals and demand. These are wholesale market
-              prints — not your SpicyCenter checkout price.
-            </p>
-            <LiveMandiPriceBoard prices={livePrices} compact />
-            <Link href="/spice-market-prices" className="inline-block mt-6 text-nav font-semibold">
-              Full live market board →
-            </Link>
-          </div>
-        </section>
-      )}
+      <section className="max-w-7xl mx-auto px-4 py-14">
+        <p className="spice-kicker">Why enquire with SpicyCenter</p>
+        <h2 className="spice-heading text-3xl mt-2 mb-3">A catalogue built for a conversation, not a checkout</h2>
+        <p className="text-muted max-w-3xl mb-6">
+          Other spice sites publish a price for one pack size and leave the rest as a guess. SpicyCenter lists the spice once. You tell us the quantity, the destination and how you buy, and the reply is for that enquiry.
+        </p>
+        <TrustBadges className="mb-8" />
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {[
+            ["One product, your quantity", "Cumin is one enquiry, not a separate button for 100 gm, 1 kg and 25 kg. You type the amount you actually need."],
+            ["No list price on the site", "Grade, crop, packaging and destination change the number. We confirm it in the reply instead of showing a figure that will not match your lot."],
+            ["Named for the buyer", "The form asks whether you are a wholesaler, retailer, restaurant, foodservice distributor or a private-label buyer."],
+            ["Origin stated as India", "Growing-region notes stay on the spice guides when the lot supports them. The catalogue itself is open to buyers worldwide."],
+            ["Whole spices and masala blends", "Single spices and dish blends such as garam masala, sambar and chettinad sit in the same catalogue, each with its own photograph."],
+            ["Delivery arranged in the reply", "We do not print a delivery date on the product page. Timing is part of the enquiry, for any country you name."],
+          ].map(([t, d]) => (
+            <div key={t} className="card-spice p-5">
+              <h3 className="font-semibold text-primary">{t}</h3>
+              <p className="text-sm text-muted mt-2">{d}</p>
+            </div>
+          ))}
+        </div>
+      </section>
 
       <section className="max-w-7xl mx-auto px-4 py-14">
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 mb-3">
@@ -185,16 +204,36 @@ export default async function HomePage() {
         <p className="text-muted mb-6">
           {products.length > 0
             ? `${products.length} SKUs from real varieties, forms and pack sizes — not thin duplicate pages.`
-            : "Retail packs and 10kg+ wholesale bags. Open the catalogue to browse cumin, turmeric, pepper and masalas."}
+            : "Open the catalogue to browse cumin, turmeric, pepper and masalas, then send an enquiry."}
         </p>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {featured.map((s) => (
-            <Link key={s.id} href={`/spice-guide/${s.slug}`} className="card-spice p-5">
-              <p className="font-serif text-xl text-primary">{s.canonicalName}</p>
+          {featured.map((s) => {
+            const bilingual = featuredBilingualName(s.canonicalName, s.slug);
+            return (
+            <Link key={s.id} href={`/spices/${s.slug}`} className="card-spice overflow-hidden">
+              <span className="relative block h-40 w-full bg-beige">
+                <Image
+                  src={spiceStockImagePath(`${s.slug} ${s.canonicalName}`)}
+                  alt={s.canonicalName}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
+              </span>
+              <span className="block p-5">
+              <h3 className="font-serif text-xl font-normal text-primary">{s.canonicalName}</h3>
+              {bilingual ? (
+                <p className="text-sm text-muted" lang="ar" dir="rtl">
+                  {bilingual.english} — {bilingual.arabic}
+                </p>
+              ) : null}
               <p className="text-sm text-muted">{s.hindiName} {s.botanicalName ? `· ${s.botanicalName}` : ""}</p>
               <p className="mt-2 text-sm">{s.shortDescription}</p>
+              <p className="mt-2 text-xs text-muted">Origin: India · Enquire for {PACK_SIZE_RANGE}</p>
+              </span>
             </Link>
-          ))}
+            );
+          })}
         </div>
       </section>
 
@@ -228,27 +267,6 @@ export default async function HomePage() {
               ))}
             </ul>
           </div>
-        </div>
-      </section>
-
-      <section className="max-w-7xl mx-auto px-4 py-14">
-        <p className="spice-kicker">Quality you can taste</p>
-        <h2 className="spice-heading text-3xl mt-2 mb-6">Why SpicyCenter</h2>
-        <TrustBadges className="mb-8" />
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {[
-            ["Indian origin", "Cumin from Rajasthan and Gujarat, pepper from the Ghats, chilli from Guntur or Kashmir — named when the lot supports it."],
-            ["Grades when they apply", "We print a grade only if it belongs to that spice and lot, not as decoration."],
-            ["Retail and wholesale", "100g for the kitchen drawer, 10kg+ for the restaurant store."],
-            ["UK and Europe only", "Delivery quotes for the United Kingdom and listed EU/EEA countries — not a worldwide doorway map."],
-            ["Food information", "Fields for ingredients, allergens and origin so UK/EU distance selling can be completed properly."],
-            ["Spice encyclopaedia", "Guides, comparisons and recipes sit next to the shop so you know what you are buying."],
-          ].map(([t, d]) => (
-            <div key={t} className="card-spice p-5">
-              <p className="font-semibold text-primary">{t}</p>
-              <p className="text-sm text-muted mt-2">{d}</p>
-            </div>
-          ))}
         </div>
       </section>
 

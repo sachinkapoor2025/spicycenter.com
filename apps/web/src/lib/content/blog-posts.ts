@@ -18,7 +18,7 @@ export const blogPosts: BlogPost[] = [
     excerpt: "A practical spice list for everyday Indian curry, with retail and bulk pack notes.",
     publishedAt: "2026-09-13",
     updatedAt: "2026-09-13",
-    image: "/logo.svg",
+    image: "/brand-logo.png",
     relatedCategory: "ground-spices",
     sections: [
       {
@@ -36,7 +36,7 @@ export const blogPosts: BlogPost[] = [
     excerpt: "Whole spices keep aroma longer; powder is convenient. Buy the form that matches how you cook.",
     publishedAt: "2026-09-13",
     updatedAt: "2026-09-13",
-    image: "/logo.svg",
+    image: "/brand-logo.png",
     relatedCategory: "whole-spices",
     sections: [
       {
@@ -54,7 +54,7 @@ export const blogPosts: BlogPost[] = [
     excerpt: "How restaurants and grocers can order 10kg+ Indian spices for UK delivery.",
     publishedAt: "2026-09-13",
     updatedAt: "2026-09-13",
-    image: "/logo.svg",
+    image: "/brand-logo.png",
     relatedCategory: "bulk-spices",
     sections: [
       {

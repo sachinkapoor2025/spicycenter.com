@@ -8,6 +8,7 @@ This document lists image sources used in the storefront and sync scripts. **Onl
 |-------|------|---------|
 | Product fallback (chilli SVG) | `apps/web/public/product-fallback.svg` | Original work — SpicyCorner project |
 | Product placeholder (JPEG) | `apps/web/public/uploads/_placeholder.jpg` | [Pumpkin (cropped)](https://commons.wikimedia.org/wiki/File:Pumpkin_(cropped).jpg) — Wikimedia Commons, public domain |
+| Catalogue spice photos | `apps/web/public/images/spices/*.jpg` | Wikimedia Commons photographs of each spice (public domain, CC0, CC BY, or CC BY-SA). Examples: [Muscade](https://commons.wikimedia.org/wiki/File:Muscade.jpg) (nutmeg), [Bhiwapur Chilli - Red Dried](https://commons.wikimedia.org/wiki/File:Bhiwapur_Chilli_-_Red_Dried.jpg), [Green Cardamom Pods](https://commons.wikimedia.org/wiki/File:Green_Cardamom_Pods.jpg) |
 | Site logo | `apps/web/public/logo.png` | Original branding — verify you own or commissioned this file |
 | Home banners | `apps/web/public/banners/bannerpage1.png`, `bannerpage2.png` | Original branding — verify you own or commissioned these files |
 | Testimonial avatars | `apps/web/public/testimonials/*.svg` | Original SVG initials — SpicyCorner project |
