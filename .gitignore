@@ -13,4 +13,4 @@ infrastructure/.aws-sam
 packages/*/dist
 **/*.tsbuildinfo
 # Next.js build output
-.next/
+apps/api/dist/
