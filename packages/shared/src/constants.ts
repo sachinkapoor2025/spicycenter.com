@@ -1,9 +1,9 @@
 /** Public social profiles (no admin/session query params). */
 export const SOCIAL_LINKS = {
-  facebook: "https://www.facebook.com/people/Spicycenter/61594383689623/",
-  pinterest: "https://pin.it/bUhQjY2la",
-  instagram: "https://www.instagram.com/spi.cycenter/",
-  youtube: "https://www.youtube.com/channel/UCTqDpdnRKMZFueSSMkcOwlA",
+  facebook: "https://www.facebook.com/spicycenterofficial/",
+  pinterest: "https://in.pinterest.com/spicycenter/",
+  instagram: "https://www.instagram.com/spicycenterofficial/",
+  youtube: "https://www.youtube.com/@SpicyCenterOfficial",
   linkedin: "https://www.linkedin.com/company/spicycenter-com/",
 } as const;
 
