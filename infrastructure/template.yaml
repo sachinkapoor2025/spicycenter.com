@@ -138,6 +138,7 @@ Parameters:
 
 Conditions:
   VendorApiEnabled: !Equals [!Ref EnableVendorApi, "true"]
+  IsProd: !Equals [!Ref Environment, "prod"]
 
 Globals:
   Function:
@@ -666,6 +667,7 @@ Resources:
 
   SesDomainIdentity:
     Type: AWS::SES::EmailIdentity
+    Condition: IsProd
     Properties:
       EmailIdentity: spicycenter.com
       DkimSigningAttributes:
