@@ -7,18 +7,22 @@ SpicyCenter stores Indian mandi prints as a **domestic wholesale reference**, no
 | Where | Name | Purpose |
 | --- | --- | --- |
 | GitHub Actions repo secret | `AGMARKNET_API_KEY` | data.gov.in / Agmarknet key. **Never commit it.** |
-| AWS Secrets Manager | `agmarknet/api-key` | Runtime value the `spicycenter-agmarknet-fetcher-{env}` Lambda reads via `GetSecretValue`. |
+| AWS Secrets Manager (prod) | `agmarknet/api-key-prod` | Runtime value for `spicycenter-agmarknet-fetcher-prod`. |
+| AWS Secrets Manager (dev) | `agmarknet/api-key-dev` | Runtime value for `spicycenter-agmarknet-fetcher-dev`. |
+| AWS Secrets Manager (legacy) | `agmarknet/api-key` | Pre-isolation shared name. Do not delete until operators confirm both env-specific secrets work. New deploys must not write this name. |
 
-Deploy (`deploy.yml`) copies the GitHub secret into Secrets Manager (create or `put-secret-value`) **before** SAM deploy. The Lambda package does not bake the key in.
+The SAM template sets `AGMARKNET_SECRET_NAME` to `agmarknet/api-key-${Environment}`. Deploy (`deploy.yml`) upserts **only** that env-specific name before SAM deploy. The Lambda package does not bake the key in.
 
 ### Rotate the key
 
 1. Generate a new key on data.gov.in.
 2. Update GitHub → Settings → Secrets → Actions → `AGMARKNET_API_KEY`.
-3. Re-run **Deploy**, or run:
+3. Re-run **Deploy** from the matching branch (`main` → prod secret, `dev` → dev secret), or run (do not log the value):
 
 ```bash
-aws secretsmanager put-secret-value --secret-id agmarknet/api-key --secret-string 'NEW_KEY'
+aws secretsmanager put-secret-value --secret-id agmarknet/api-key-prod --secret-string "$NEW_KEY"
+# development only, after a separate approved process:
+# aws secretsmanager put-secret-value --secret-id agmarknet/api-key-dev --secret-string "$NEW_KEY"
 ```
 
 4. Optionally invoke the fetcher: Admin → Bulk Pricing → **Run Agmarknet fetch now**, or:
