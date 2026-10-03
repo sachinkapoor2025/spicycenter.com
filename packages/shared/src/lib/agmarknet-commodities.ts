@@ -4,7 +4,23 @@ export const AGMARKNET_SOURCE_DISCLAIMER =
 export const AGMARKNET_RESOURCE_URL =
   "https://api.data.gov.in/resource/9ef84268-d588-465a-a308-a864a43d0070";
 
-export const AGMARKNET_SECRET_NAME = "agmarknet/api-key";
+/** Legacy shared Secrets Manager name. Do not use for new deploys; keep the secret until operators retire it. */
+export const LEGACY_SHARED_AGMARKNET_SECRET_NAME = "agmarknet/api-key";
+
+export const AGMARKNET_SECRET_ENVIRONMENTS = ["dev", "staging", "prod"] as const;
+export type AgmarknetSecretEnvironment = (typeof AGMARKNET_SECRET_ENVIRONMENTS)[number];
+
+/** Env-isolated Secrets Manager name: agmarknet/api-key-dev | agmarknet/api-key-staging | agmarknet/api-key-prod */
+export function agmarknetSecretName(environment: string): `agmarknet/api-key-${AgmarknetSecretEnvironment}` {
+  if (!AGMARKNET_SECRET_ENVIRONMENTS.includes(environment as AgmarknetSecretEnvironment)) {
+    throw new Error(`Invalid Agmarknet environment '${environment}'. Use ${AGMARKNET_SECRET_ENVIRONMENTS.join(", ")}.`);
+  }
+  return `agmarknet/api-key-${environment as AgmarknetSecretEnvironment}`;
+}
+
+export function isAllowedAgmarknetSecretName(name: string): boolean {
+  return AGMARKNET_SECRET_ENVIRONMENTS.some((environment) => name === agmarknetSecretName(environment));
+}
 
 export const DEFAULT_BULK_MIN_QTY_KG = 100;
 export const DEFAULT_SHIPPING_INR_PER_KG_UK = 750;

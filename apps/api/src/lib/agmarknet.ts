@@ -1,10 +1,11 @@
 import { GetSecretValueCommand, SecretsManagerClient } from "@aws-sdk/client-secrets-manager";
 import {
   AGMARKNET_RESOURCE_URL,
-  AGMARKNET_SECRET_NAME,
   AGMARKNET_SOURCE_DISCLAIMER,
   TRACKED_COMMODITIES,
   agmarknetFilterNames,
+  agmarknetSecretName,
+  isAllowedAgmarknetSecretName,
   type TrackedCommodity,
 } from "@spicycorner/shared";
 
@@ -41,8 +42,21 @@ function parseSecret(raw: string): string {
   return trimmed;
 }
 
+export function resolveAgmarknetSecretName(): string {
+  const explicit = process.env.AGMARKNET_SECRET_NAME?.trim();
+  if (explicit) {
+    if (!isAllowedAgmarknetSecretName(explicit)) {
+      throw new Error("Refusing unexpected Agmarknet secret name");
+    }
+    return explicit;
+  }
+  const environment = process.env.ENVIRONMENT?.trim();
+  if (environment) return agmarknetSecretName(environment);
+  throw new Error("AGMARKNET_SECRET_NAME or ENVIRONMENT must be set");
+}
+
 export async function readAgmarknetApiKey(): Promise<string> {
-  const secretId = process.env.AGMARKNET_SECRET_NAME?.trim() || AGMARKNET_SECRET_NAME;
+  const secretId = resolveAgmarknetSecretName();
   const client = new SecretsManagerClient({});
   const result = await client.send(new GetSecretValueCommand({ SecretId: secretId }));
   const raw = result.SecretString;
