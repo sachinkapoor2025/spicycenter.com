@@ -71,6 +71,12 @@ export function Footer() {
               <p className="text-white/75 leading-relaxed mt-3 text-[13px]">
                 Indian spice catalogue. Origin: India. Worldwide delivery is arranged through enquiry for business buyers.
               </p>
+              <a
+                href={`mailto:${site.contactEmail}`}
+                className="inline-block text-[13px] text-white/80 hover:text-white hover:underline mt-3"
+              >
+                {site.contactEmail}
+              </a>
               <div className="flex flex-wrap gap-3 mt-5">
                 {(
                   [

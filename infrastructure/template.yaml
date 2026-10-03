@@ -138,6 +138,7 @@ Parameters:
 
 Conditions:
   VendorApiEnabled: !Equals [!Ref EnableVendorApi, "true"]
+  IsProd: !Equals [!Ref Environment, "prod"]
 
 Globals:
   Function:
@@ -212,7 +213,7 @@ Globals:
         SPICE_MANDI_PRICES_TABLE: !Ref SpiceMandiPricesTable
         BULK_PRICING_TABLE: !Ref BulkPricingConfigTable
         BULK_ENQUIRIES_TABLE: !Ref BulkEnquiriesTable
-        AGMARKNET_SECRET_NAME: agmarknet/api-key
+        AGMARKNET_SECRET_NAME: !Sub agmarknet/api-key-${Environment}
         AGMARKNET_ALERT_TOPIC_ARN: !Ref AgmarknetAlertTopic
         AGMARKNET_FETCHER_FUNCTION: !Sub spicycenter-agmarknet-fetcher-${Environment}
 
@@ -666,6 +667,7 @@ Resources:
 
   SesDomainIdentity:
     Type: AWS::SES::EmailIdentity
+    Condition: IsProd
     Properties:
       EmailIdentity: spicycenter.com
       DkimSigningAttributes:
@@ -840,7 +842,7 @@ Resources:
             - Effect: Allow
               Action:
                 - secretsmanager:GetSecretValue
-              Resource: !Sub arn:aws:secretsmanager:${AWS::Region}:${AWS::AccountId}:secret:agmarknet/api-key*
+              Resource: !Sub arn:aws:secretsmanager:${AWS::Region}:${AWS::AccountId}:secret:agmarknet/api-key-${Environment}-*
             - Effect: Allow
               Action:
                 - cloudwatch:PutMetricData
@@ -1251,3 +1253,6 @@ Outputs:
     Value: !Ref SpiceMandiPricesTable
   BulkEnquiriesTableName:
     Value: !Ref BulkEnquiriesTable
+  AgmarknetSecretName:
+    Description: Env-isolated Secrets Manager name (never the legacy shared agmarknet/api-key)
+    Value: !Sub agmarknet/api-key-${Environment}

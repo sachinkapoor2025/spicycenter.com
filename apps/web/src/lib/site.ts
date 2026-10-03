@@ -11,6 +11,7 @@ export const site = {
   description:
     "SpicyCenter is a product catalogue for Indian spices. Browse products and send a bulk enquiry for importers, distributors, restaurants and commercial kitchens. Worldwide delivery is arranged through enquiry. Origin: India.",
   supportEmail: "enquiry@spicycenter.com",
+  contactEmail: "contactus@spicycenter.com",
   phone: "",
   whatsapp: "919266467887",
   whatsappDisplay: "",
