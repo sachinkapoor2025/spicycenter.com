@@ -6,18 +6,35 @@ import { useAuth } from "@/lib/auth-context";
 import {
   isDevAuthEnabled,
   isUnconfirmedError,
+  isAlreadyConfirmedError,
+  shouldRevealForgotFailure,
   formatAuthError,
+  passwordMeetsPolicy,
+  PASSWORD_POLICY_HINT,
 } from "@/lib/cognito";
 import { AccountDashboard } from "@/components/account/AccountDashboard";
 
-type AuthMode = "login" | "register" | "confirm";
+type AuthMode = "login" | "register" | "confirm" | "forgot" | "reset";
+
+const RESET_CODE_SENT =
+  "If an account exists for that email, a reset code has been sent. Check your inbox and spam folder.";
 
 function AccountLoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const redirect = searchParams.get("redirect") ?? "/account";
-  const { user, login, register, confirmSignUp, resendConfirmationCode, logout, isAdmin, loading: authLoading } =
-    useAuth();
+  const {
+    user,
+    login,
+    register,
+    confirmSignUp,
+    resendConfirmationCode,
+    forgotPassword,
+    confirmForgotPassword,
+    logout,
+    isAdmin,
+    loading: authLoading,
+  } = useAuth();
 
   const [mode, setMode] = useState<AuthMode>("login");
   const [email, setEmail] = useState("");
@@ -47,7 +64,17 @@ function AccountLoginForm() {
 
     try {
       if (mode === "confirm") {
-        await confirmSignUp(email, confirmCode);
+        try {
+          await confirmSignUp(email, confirmCode);
+        } catch (err) {
+          if (isAlreadyConfirmedError(err)) {
+            setConfirmCode("");
+            setMode("login");
+            setError(formatAuthError(err));
+            return;
+          }
+          throw err;
+        }
         setMessage("Email verified! Signing you in...");
         await finishLogin();
         return;
@@ -55,6 +82,32 @@ function AccountLoginForm() {
 
       if (mode === "login") {
         await finishLogin();
+        return;
+      }
+
+      if (mode === "forgot") {
+        try {
+          await forgotPassword(email);
+        } catch (err) {
+          if (shouldRevealForgotFailure(err)) throw err;
+        }
+        setConfirmCode("");
+        setPassword("");
+        setMode("reset");
+        setMessage(RESET_CODE_SENT);
+        return;
+      }
+
+      if (mode === "reset") {
+        if (!passwordMeetsPolicy(password)) {
+          setError(PASSWORD_POLICY_HINT);
+          return;
+        }
+        await confirmForgotPassword(email, confirmCode, password);
+        setConfirmCode("");
+        setPassword("");
+        setMode("login");
+        setMessage("Password updated. You can log in with your new password.");
         return;
       }
 
@@ -73,6 +126,10 @@ function AccountLoginForm() {
         setConfirmCode("");
         setMessage(formatAuthError(err));
         setError("");
+      } else if (mode === "confirm" && isAlreadyConfirmedError(err)) {
+        setConfirmCode("");
+        setMode("login");
+        setError(formatAuthError(err));
       } else {
         setError(formatAuthError(err));
       }
@@ -90,10 +147,25 @@ function AccountLoginForm() {
     setMessage("");
     setResending(true);
     try {
-      await resendConfirmationCode(email);
-      setMessage(`A new verification code was sent to ${email}.`);
+      if (mode === "reset") {
+        try {
+          await forgotPassword(email);
+        } catch (err) {
+          if (shouldRevealForgotFailure(err)) throw err;
+        }
+        setMessage(RESET_CODE_SENT);
+      } else {
+        await resendConfirmationCode(email);
+        setMessage(`A new verification code was sent to ${email}.`);
+      }
     } catch (err) {
-      setError(formatAuthError(err));
+      if (mode === "confirm" && isAlreadyConfirmedError(err)) {
+        setConfirmCode("");
+        setMode("login");
+        setError(formatAuthError(err));
+      } else {
+        setError(formatAuthError(err));
+      }
     } finally {
       setResending(false);
     }
@@ -103,7 +175,8 @@ function AccountLoginForm() {
     setMode(next);
     setError("");
     setMessage("");
-    if (next !== "confirm") setConfirmCode("");
+    if (next !== "confirm" && next !== "reset") setConfirmCode("");
+    if (next === "forgot" || next === "reset") setPassword("");
   };
 
   if (authLoading) {
@@ -125,7 +198,26 @@ function AccountLoginForm() {
   }
 
   const title =
-    mode === "confirm" ? "Verify Your Email" : mode === "login" ? "Login" : "Create Account";
+    mode === "confirm"
+      ? "Verify Your Email"
+      : mode === "login"
+        ? "Login"
+        : mode === "forgot"
+          ? "Reset Password"
+          : mode === "reset"
+            ? "Set New Password"
+            : "Create Account";
+
+  const submitLabel =
+    mode === "confirm"
+      ? "Verify & sign in"
+      : mode === "login"
+        ? "Login"
+        : mode === "forgot"
+          ? "Send reset code"
+          : mode === "reset"
+            ? "Update password"
+            : "Register";
 
   return (
     <div className="max-w-md mx-auto px-4 py-16">
@@ -138,7 +230,7 @@ function AccountLoginForm() {
         </p>
       )}
 
-      {mode !== "confirm" && (
+      {(mode === "login" || mode === "register") && (
         <p className="text-slate-600 text-sm mb-6">
           Secure login with encrypted password protection. Your account details are kept private and safe.
         </p>
@@ -157,6 +249,19 @@ function AccountLoginForm() {
         </p>
       )}
 
+      {mode === "forgot" && (
+        <p className="text-slate-600 text-sm mb-6">
+          Enter your email and we will send a reset code if an account exists. This does not confirm whether
+          the email is registered.
+        </p>
+      )}
+
+      {mode === "reset" && (
+        <p className="text-slate-600 text-sm mb-6">
+          Enter the reset code from your email and choose a new password. {PASSWORD_POLICY_HINT}
+        </p>
+      )}
+
       <form onSubmit={handleSubmit} className="space-y-4">
         {mode === "register" && (
           <input
@@ -168,7 +273,7 @@ function AccountLoginForm() {
           />
         )}
 
-        {mode !== "confirm" && (
+        {(mode === "login" || mode === "register") && (
           <>
             <input
               type="email"
@@ -190,6 +295,18 @@ function AccountLoginForm() {
               autoComplete={mode === "login" ? "current-password" : "new-password"}
             />
           </>
+        )}
+
+        {mode === "forgot" && (
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full border border-slate-300 rounded-lg px-3 py-2 text-base"
+            required
+            autoComplete="email"
+          />
         )}
 
         {mode === "confirm" && (
@@ -228,6 +345,42 @@ function AccountLoginForm() {
           </>
         )}
 
+        {mode === "reset" && (
+          <>
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full border border-slate-300 rounded-lg px-3 py-2 text-base"
+              required
+              autoComplete="email"
+            />
+            <input
+              type="text"
+              inputMode="numeric"
+              pattern="[0-9]*"
+              placeholder="Reset code"
+              value={confirmCode}
+              onChange={(e) => setConfirmCode(e.target.value.replace(/\D/g, ""))}
+              className="w-full border border-slate-300 rounded-lg px-3 py-2 text-center text-lg tracking-widest"
+              maxLength={6}
+              required
+              autoComplete="one-time-code"
+            />
+            <input
+              type="password"
+              placeholder="New password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full border border-slate-300 rounded-lg px-3 py-2 text-base"
+              minLength={8}
+              required
+              autoComplete="new-password"
+            />
+          </>
+        )}
+
         {error && <p className="text-red-500 text-sm">{error}</p>}
         {message && <p className="text-green-600 text-sm">{message}</p>}
 
@@ -236,13 +389,7 @@ function AccountLoginForm() {
           disabled={loading}
           className="w-full bg-nav text-white py-3 rounded-lg font-semibold hover:bg-primary transition disabled:opacity-50"
         >
-          {loading
-            ? "Please wait..."
-            : mode === "confirm"
-              ? "Verify & sign in"
-              : mode === "login"
-                ? "Login"
-                : "Register"}
+          {loading ? "Please wait..." : submitLabel}
         </button>
       </form>
 
@@ -257,7 +404,11 @@ function AccountLoginForm() {
             {resending ? "Sending..." : "Resend verification code"}
           </button>
           <p className="text-sm text-slate-500">
-            Wrong email?{" "}
+            Already verified?{" "}
+            <button type="button" onClick={() => switchMode("login")} className="text-nav underline hover:text-primary">
+              Log in
+            </button>
+            {" · "}
             <button type="button" onClick={() => switchMode("register")} className="text-nav underline hover:text-primary">
               Register again
             </button>
@@ -267,6 +418,13 @@ function AccountLoginForm() {
 
       {mode === "login" && (
         <div className="mt-4 space-y-2">
+          <button
+            type="button"
+            onClick={() => switchMode("forgot")}
+            className="block text-sm text-nav underline hover:text-primary"
+          >
+            Forgot password?
+          </button>
           <button
             type="button"
             onClick={() => switchMode("register")}
@@ -279,7 +437,7 @@ function AccountLoginForm() {
             onClick={() => switchMode("confirm")}
             className="block text-sm text-slate-600 underline"
           >
-            Have a verification code?
+            Have a signup verification code?
           </button>
         </div>
       )}
@@ -292,6 +450,28 @@ function AccountLoginForm() {
         >
           Already have an account? Login
         </button>
+      )}
+
+      {(mode === "forgot" || mode === "reset") && (
+        <div className="mt-4 space-y-2">
+          {mode === "reset" && (
+            <button
+              type="button"
+              onClick={handleResendCode}
+              disabled={resending || !email}
+              className="block text-sm text-nav underline hover:text-primary disabled:opacity-50"
+            >
+              {resending ? "Sending..." : "Resend reset code"}
+            </button>
+          )}
+          <button
+            type="button"
+            onClick={() => switchMode("login")}
+            className="block text-sm text-nav underline hover:text-primary"
+          >
+            Back to login
+          </button>
+        </div>
       )}
     </div>
   );
