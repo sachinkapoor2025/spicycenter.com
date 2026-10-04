@@ -107,8 +107,8 @@ export function ContactForm() {
       <div className="grid md:grid-cols-3 gap-6 mb-10">
         <div className="border border-slate-200 rounded-xl p-6">
           <h2 className="font-bold text-primary mb-2">Email</h2>
-          <a href={`mailto:${site.supportEmail}`} className="text-nav hover:underline">
-            {site.supportEmail}
+          <a href={`mailto:${site.contactEmail}`} className="text-nav hover:underline">
+            {site.contactEmail}
           </a>
         </div>
         <div className="border border-slate-200 rounded-xl p-6">
