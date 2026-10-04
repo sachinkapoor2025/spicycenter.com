@@ -168,11 +168,44 @@ export function isDevAuthEnabled(): boolean {
 
 export function isUnconfirmedError(err: unknown): boolean {
   if (!err || typeof err !== "object") return false;
+  if (isAlreadyConfirmedError(err)) return false;
   const e = err as { code?: string; message?: string };
   return (
     e.code === "UserNotConfirmedException" ||
     (typeof e.message === "string" && e.message.toLowerCase().includes("not confirmed"))
   );
+}
+
+/** ConfirmSignUp / resend on a user Cognito already marked CONFIRMED. */
+export function isAlreadyConfirmedError(err: unknown): boolean {
+  if (!err || typeof err !== "object") return false;
+  const e = err as { code?: string; name?: string; message?: string };
+  const message = (e.message ?? "").toLowerCase();
+  return (
+    message.includes("current status is confirmed") ||
+    message.includes("already confirmed") ||
+    ((e.code === "NotAuthorizedException" || e.name === "NotAuthorizedException") &&
+      message.includes("cannot be confirmed"))
+  );
+}
+
+export function isUserNotFoundError(err: unknown): boolean {
+  if (!err || typeof err !== "object") return false;
+  const e = err as { code?: string; name?: string };
+  return e.code === "UserNotFoundException" || e.name === "UserNotFoundException";
+}
+
+/** Rate-limit / delivery failures are safe to show; other forgot errors must not reveal account existence. */
+export function shouldRevealForgotFailure(err: unknown): boolean {
+  const code = getAuthErrorCode(err);
+  return code === "LimitExceededException" || code === "CodeDeliveryFailureException";
+}
+
+export const PASSWORD_POLICY_HINT =
+  "Password must be at least 8 characters and include uppercase, lowercase, and a number.";
+
+export function passwordMeetsPolicy(password: string): boolean {
+  return password.length >= 8 && /[A-Z]/.test(password) && /[a-z]/.test(password) && /\d/.test(password);
 }
 
 function getAuthErrorCode(err: unknown): string | undefined {
@@ -182,6 +215,9 @@ function getAuthErrorCode(err: unknown): string | undefined {
 
 export function formatAuthError(err: unknown): string {
   const code = getAuthErrorCode(err);
+  if (isAlreadyConfirmedError(err)) {
+    return "This email is already verified. Please log in with your password. If you do not remember it, use Forgot password.";
+  }
   if (isUnconfirmedError(err)) {
     return "Your email is not verified yet. Enter the code we sent you below.";
   }
@@ -195,10 +231,10 @@ export function formatAuthError(err: unknown): string {
     return "An account already exists for this email. Log in, or use resend verification code if it is not verified yet.";
   }
   if (code === "InvalidPasswordException") {
-    return "Password must be at least 8 characters and include uppercase, lowercase, and a number.";
+    return PASSWORD_POLICY_HINT;
   }
   if (code === "CodeMismatchException" || code === "ExpiredCodeException") {
-    return "That reset code is invalid or expired. Request a new code and try again.";
+    return "That code is invalid or expired. Request a new code and try again.";
   }
   if (code === "UserNotFoundException") {
     return "If an account exists for that email, a reset code has been sent.";
