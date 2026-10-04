@@ -6,7 +6,7 @@ import { ContactForm } from "./ContactForm";
 
 export const metadata: Metadata = pageMetadata({
   title: "Contact Us — retail support and wholesale sourcing",
-  description: `Contact ${site.name} for order help, or send a free wholesale / export enquiry. ${site.supportEmail}`,
+  description: `Contact ${site.name} for order help, or send a free wholesale / export enquiry. ${site.contactEmail}`,
   path: "/contact",
 });
 
