@@ -13,6 +13,7 @@ import {
   PASSWORD_POLICY_HINT,
 } from "@/lib/cognito";
 import { AccountDashboard } from "@/components/account/AccountDashboard";
+import { PasswordInput } from "@/components/PasswordInput";
 
 type AuthMode = "login" | "register" | "confirm" | "forgot" | "reset";
 
@@ -284,12 +285,10 @@ function AccountLoginForm() {
               required
               autoComplete="email"
             />
-            <input
-              type="password"
+            <PasswordInput
               placeholder="Password (min 8 chars)"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full border border-slate-300 rounded-lg px-3 py-2 text-base"
               minLength={8}
               required
               autoComplete={mode === "login" ? "current-password" : "new-password"}
@@ -332,12 +331,10 @@ function AccountLoginForm() {
               required
               autoComplete="one-time-code"
             />
-            <input
-              type="password"
+            <PasswordInput
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full border border-slate-300 rounded-lg px-3 py-2 text-base"
               minLength={8}
               required
               autoComplete="current-password"
@@ -368,12 +365,10 @@ function AccountLoginForm() {
               required
               autoComplete="one-time-code"
             />
-            <input
-              type="password"
+            <PasswordInput
               placeholder="New password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full border border-slate-300 rounded-lg px-3 py-2 text-base"
               minLength={8}
               required
               autoComplete="new-password"
