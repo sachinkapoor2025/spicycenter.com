@@ -14,6 +14,7 @@ import {
   type ForgotPasswordDelivery,
   loadStoredAuth,
   login as cognitoLogin,
+  completeNewPassword as cognitoCompleteNewPassword,
   logout as cognitoLogout,
   register as cognitoRegister,
   confirmSignUp as cognitoConfirmSignUp,
@@ -26,6 +27,7 @@ interface AuthContextValue {
   user: AuthUser | null;
   loading: boolean;
   login: (email: string, password: string) => Promise<AuthUser>;
+  completeNewPassword: (newPassword: string) => Promise<AuthUser>;
   register: (email: string, password: string, name?: string) => Promise<RegisterResult>;
   confirmSignUp: (email: string, code: string) => Promise<void>;
   resendConfirmationCode: (email: string) => Promise<void>;
@@ -54,6 +56,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const login = useCallback(async (email: string, password: string) => {
     const authUser = await cognitoLogin(email, password);
+    setUser(authUser);
+    return authUser;
+  }, []);
+
+  const completeNewPassword = useCallback(async (newPassword: string) => {
+    const authUser = await cognitoCompleteNewPassword(newPassword);
     setUser(authUser);
     return authUser;
   }, []);
@@ -92,6 +100,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         user,
         loading,
         login,
+        completeNewPassword,
         register,
         confirmSignUp,
         resendConfirmationCode,
