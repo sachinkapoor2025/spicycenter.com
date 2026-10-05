@@ -5,6 +5,7 @@ import {
   CognitoUser,
   AuthenticationDetails,
   CognitoUserAttribute,
+  type CognitoUserSession,
 } from "amazon-cognito-identity-js";
 
 const poolId = process.env.NEXT_PUBLIC_COGNITO_USER_POOL_ID;
@@ -58,6 +59,66 @@ export function storeAuth(user: AuthUser | null) {
   else localStorage.removeItem(STORAGE_KEY);
 }
 
+export class NewPasswordRequiredError extends Error {
+  readonly code = "NewPasswordRequired";
+  constructor() {
+    super("A new password is required.");
+    this.name = "NewPasswordRequired";
+  }
+}
+
+let pendingNewPasswordUser: CognitoUser | null = null;
+let pendingNewPasswordEmail = "";
+let pendingRequiredAttributes: Record<string, string> = {};
+
+function clearNewPasswordChallenge() {
+  pendingNewPasswordUser = null;
+  pendingNewPasswordEmail = "";
+  pendingRequiredAttributes = {};
+}
+
+function sessionToAuthUser(session: CognitoUserSession, email: string): AuthUser {
+  const token = session.getIdToken().getJwtToken();
+  const payload = session.getIdToken().decodePayload();
+  const groups: string[] = payload["cognito:groups"] ?? [];
+  const isSuperAdmin = groups.includes("super-admin");
+  return {
+    email,
+    name: payload.name as string | undefined,
+    token,
+    isSuperAdmin,
+    isAdmin: groups.includes("admin") || isSuperAdmin,
+    isEmailMarketer: groups.includes("email") || isSuperAdmin,
+    isVendor: groups.includes("vendor"),
+  };
+}
+
+function requiredAttributeValues(
+  userAttributes: Record<string, string> | null | undefined,
+  requiredAttributes: string[] | null | undefined
+): Record<string, string> {
+  const values: Record<string, string> = {};
+  for (const key of requiredAttributes ?? []) {
+    if (key === "email_verified" || key === "phone_number_verified" || key.startsWith("cognito:")) {
+      continue;
+    }
+    const value = userAttributes?.[key];
+    if (typeof value === "string" && value) values[key] = value;
+  }
+  return values;
+}
+
+export function isNewPasswordRequiredError(err: unknown): boolean {
+  if (err instanceof NewPasswordRequiredError) return true;
+  if (!err || typeof err !== "object") return false;
+  const e = err as { code?: string; name?: string };
+  return e.code === "NewPasswordRequired" || e.name === "NewPasswordRequired";
+}
+
+export function cancelNewPasswordChallenge() {
+  clearNewPasswordChallenge();
+}
+
 export function login(email: string, password: string): Promise<AuthUser> {
   if (!userPool && devAuth) {
     const isSuperAdmin = email.toLowerCase().includes("superadmin");
@@ -96,23 +157,42 @@ export function login(email: string, password: string): Promise<AuthUser> {
 
     user.authenticateUser(details, {
       onSuccess: (session) => {
-        const token = session.getIdToken().getJwtToken();
-        const payload = session.getIdToken().decodePayload();
-        const groups: string[] = payload["cognito:groups"] ?? [];
-        const isSuperAdmin = groups.includes("super-admin");
-        const authUser: AuthUser = {
-          email,
-          name: payload.name as string | undefined,
-          token,
-          isSuperAdmin,
-          isAdmin: groups.includes("admin") || isSuperAdmin,
-          isEmailMarketer: groups.includes("email") || isSuperAdmin,
-          isVendor: groups.includes("vendor"),
-        };
+        clearNewPasswordChallenge();
+        const authUser = sessionToAuthUser(session, email);
         storeAuth(authUser);
         resolve(authUser);
       },
       onFailure: (err) => reject(err),
+      newPasswordRequired: (userAttributes, requiredAttributes) => {
+        pendingNewPasswordUser = user;
+        pendingNewPasswordEmail = email;
+        pendingRequiredAttributes = requiredAttributeValues(userAttributes, requiredAttributes);
+        reject(new NewPasswordRequiredError());
+      },
+    });
+  });
+}
+
+/** Complete FORCE_CHANGE_PASSWORD / NEW_PASSWORD_REQUIRED using the pending CognitoUser session. */
+export function completeNewPassword(newPassword: string): Promise<AuthUser> {
+  const user = pendingNewPasswordUser;
+  const email = pendingNewPasswordEmail;
+  if (!user || !email) {
+    return Promise.reject(new Error("Your sign-in session expired. Please log in again."));
+  }
+
+  return new Promise((resolve, reject) => {
+    user.completeNewPasswordChallenge(newPassword, pendingRequiredAttributes, {
+      onSuccess: (session) => {
+        clearNewPasswordChallenge();
+        const authUser = sessionToAuthUser(session, email);
+        storeAuth(authUser);
+        resolve(authUser);
+      },
+      onFailure: (err) => reject(err),
+      newPasswordRequired: () => {
+        reject(new Error("Could not finish setting your password. Please log in again."));
+      },
     });
   });
 }
@@ -151,6 +231,7 @@ export function register(
 }
 
 export function logout() {
+  clearNewPasswordChallenge();
   if (userPool) {
     const user = userPool.getCurrentUser();
     user?.signOut();
@@ -215,6 +296,9 @@ function getAuthErrorCode(err: unknown): string | undefined {
 
 export function formatAuthError(err: unknown): string {
   const code = getAuthErrorCode(err);
+  if (isNewPasswordRequiredError(err)) {
+    return "Please choose a new password to finish signing in.";
+  }
   if (isAlreadyConfirmedError(err)) {
     return "This email is already verified. Please log in with your password. If you do not remember it, use Forgot password.";
   }

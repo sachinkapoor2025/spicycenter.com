@@ -7,15 +7,17 @@ import {
   isDevAuthEnabled,
   isUnconfirmedError,
   isAlreadyConfirmedError,
+  isNewPasswordRequiredError,
   shouldRevealForgotFailure,
   formatAuthError,
   passwordMeetsPolicy,
   PASSWORD_POLICY_HINT,
+  cancelNewPasswordChallenge,
 } from "@/lib/cognito";
 import { AccountDashboard } from "@/components/account/AccountDashboard";
 import { PasswordInput } from "@/components/PasswordInput";
 
-type AuthMode = "login" | "register" | "confirm" | "forgot" | "reset";
+type AuthMode = "login" | "register" | "confirm" | "forgot" | "reset" | "new-password";
 
 const RESET_CODE_SENT =
   "If an account exists for that email, a reset code has been sent. Check your inbox and spam folder.";
@@ -27,6 +29,7 @@ function AccountLoginForm() {
   const {
     user,
     login,
+    completeNewPassword,
     register,
     confirmSignUp,
     resendConfirmationCode,
@@ -47,14 +50,29 @@ function AccountLoginForm() {
   const [loading, setLoading] = useState(false);
   const [resending, setResending] = useState(false);
 
-  const finishLogin = async () => {
-    const authUser = await login(email, password);
+  const applyAuthenticatedUser = (authUser: Awaited<ReturnType<typeof login>>) => {
     if (redirect.startsWith("/admin") && !authUser.isAdmin) {
       setError("You don't have permission to access that area.");
       logout();
       return;
     }
     router.push(redirect.startsWith("/account") ? redirect : "/account");
+  };
+
+  const finishLogin = async () => {
+    try {
+      const authUser = await login(email, password);
+      applyAuthenticatedUser(authUser);
+    } catch (err) {
+      if (isNewPasswordRequiredError(err)) {
+        setPassword("");
+        setMode("new-password");
+        setMessage("Please choose a new password to finish signing in.");
+        setError("");
+        return;
+      }
+      throw err;
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -83,6 +101,16 @@ function AccountLoginForm() {
 
       if (mode === "login") {
         await finishLogin();
+        return;
+      }
+
+      if (mode === "new-password") {
+        if (!passwordMeetsPolicy(password)) {
+          setError(PASSWORD_POLICY_HINT);
+          return;
+        }
+        const authUser = await completeNewPassword(password);
+        applyAuthenticatedUser(authUser);
         return;
       }
 
@@ -173,11 +201,14 @@ function AccountLoginForm() {
   };
 
   const switchMode = (next: AuthMode) => {
+    if (mode === "new-password" && next !== "new-password") {
+      cancelNewPasswordChallenge();
+    }
     setMode(next);
     setError("");
     setMessage("");
     if (next !== "confirm" && next !== "reset") setConfirmCode("");
-    if (next === "forgot" || next === "reset") setPassword("");
+    if (next === "forgot" || next === "reset" || next === "new-password") setPassword("");
   };
 
   if (authLoading) {
@@ -207,7 +238,9 @@ function AccountLoginForm() {
           ? "Reset Password"
           : mode === "reset"
             ? "Set New Password"
-            : "Create Account";
+            : mode === "new-password"
+              ? "Choose New Password"
+              : "Create Account";
 
   const submitLabel =
     mode === "confirm"
@@ -218,7 +251,9 @@ function AccountLoginForm() {
           ? "Send reset code"
           : mode === "reset"
             ? "Update password"
-            : "Register";
+            : mode === "new-password"
+              ? "Save and sign in"
+              : "Register";
 
   return (
     <div className="max-w-md mx-auto px-4 py-16">
@@ -260,6 +295,12 @@ function AccountLoginForm() {
       {mode === "reset" && (
         <p className="text-slate-600 text-sm mb-6">
           Enter the reset code from your email and choose a new password. {PASSWORD_POLICY_HINT}
+        </p>
+      )}
+
+      {mode === "new-password" && (
+        <p className="text-slate-600 text-sm mb-6">
+          Your account needs a new password before you can sign in. {PASSWORD_POLICY_HINT}
         </p>
       )}
 
@@ -376,6 +417,27 @@ function AccountLoginForm() {
           </>
         )}
 
+        {mode === "new-password" && (
+          <>
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              readOnly
+              className="w-full border border-slate-300 rounded-lg px-3 py-2 text-base bg-slate-50"
+              autoComplete="email"
+            />
+            <PasswordInput
+              placeholder="New password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              minLength={8}
+              required
+              autoComplete="new-password"
+            />
+          </>
+        )}
+
         {error && <p className="text-red-500 text-sm">{error}</p>}
         {message && <p className="text-green-600 text-sm">{message}</p>}
 
@@ -447,7 +509,7 @@ function AccountLoginForm() {
         </button>
       )}
 
-      {(mode === "forgot" || mode === "reset") && (
+      {(mode === "forgot" || mode === "reset" || mode === "new-password") && (
         <div className="mt-4 space-y-2">
           {mode === "reset" && (
             <button
