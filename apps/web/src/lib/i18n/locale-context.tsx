@@ -75,7 +75,11 @@ function I18nDomSync({ locale }: { locale: StorefrontLocale }) {
       return;
     }
 
-    const originals = new WeakMap<Text, string>();
+    const textOriginals = new WeakMap<Text, string>();
+    const attrOriginals = new WeakMap<
+      HTMLElement,
+      Partial<Record<"placeholder" | "aria-label" | "title", string>>
+    >();
     let applying = false;
 
     const apply = () => {
@@ -94,8 +98,8 @@ function I18nDomSync({ locale }: { locale: StorefrontLocale }) {
           parent.getAttribute("contenteditable") !== "true"
         ) {
           const current = text.textContent ?? "";
-          const original = originals.get(text) ?? canonicalEnglish(current);
-          originals.set(text, original);
+          const original = textOriginals.get(text) ?? canonicalEnglish(current);
+          textOriginals.set(text, original);
           const next = translatePhrase(locale, original);
           if (text.textContent !== next) text.textContent = next;
         }
@@ -103,12 +107,16 @@ function I18nDomSync({ locale }: { locale: StorefrontLocale }) {
       }
 
       document.querySelectorAll<HTMLElement>("[placeholder],[aria-label],[title]").forEach((el) => {
+        let stored = attrOriginals.get(el);
+        if (!stored) {
+          stored = {};
+          attrOriginals.set(el, stored);
+        }
         for (const attr of ["placeholder", "aria-label", "title"] as const) {
           const current = el.getAttribute(attr);
           if (!current) continue;
-          const key = `data-i18n-orig-${attr}`;
-          const original = el.getAttribute(key) ?? canonicalEnglish(current);
-          if (!el.hasAttribute(key)) el.setAttribute(key, original);
+          const original = stored[attr] ?? canonicalEnglish(current);
+          stored[attr] = original;
           const next = translatePhrase(locale, original);
           if (current !== next) el.setAttribute(attr, next);
         }
