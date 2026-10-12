@@ -138,7 +138,7 @@ export default async function MiddleEastPlacePage({ params }: Props) {
         ))}
       </ul>
 
-      <h2 className="font-serif text-2xl text-primary mt-10">Free enquiry for {place.name}</h2>
+      <h2 className="font-serif text-2xl text-primary mt-10">Enquire Now for {place.name}</h2>
       <div className="mt-4">
         <WholesaleQuoteForm defaultProduct={`Indian spices ${place.name}`} defaultCountry={countryCode} />
       </div>

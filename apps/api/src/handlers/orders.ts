@@ -1,9 +1,14 @@
 import { PutCommand, GetCommand, QueryCommand } from "@aws-sdk/lib-dynamodb";
+import { persistCapturedLead } from "../lib/lead-persist";
+import { clampLeadPageLimit, listAdminLeads } from "../lib/lead-list";
 import type { APIGatewayProxyEventV2 } from "aws-lambda";
 import { v4 as uuidv4 } from "uuid";
 import {
   checkoutSchema,
   leadCaptureSchema,
+  isLeadAdminNotifyRequired,
+  isLeadCaptureBodyTooLarge,
+  prepareCatalogueEnquiryMetadata,
   updateLeadSchema,
   orderStatusUpdateSchema,
   orderKeys,
@@ -37,12 +42,11 @@ import {
 } from "@spicycorner/shared";
 import { resolveCheckoutUsdInrRate } from "../lib/exchange-rate";
 import { docClient, ORDERS_TABLE, CUSTOMERS_TABLE, now } from "../lib/db";
-import { ok, created, badRequest, unauthorized, forbidden, notFound } from "../lib/response";
+import { ok, created, badRequest, unauthorized, forbidden, notFound, json } from "../lib/response";
 import { getAuth, getSessionId, getUserOrSessionKey, requireAdmin, resolveStaffActor } from "../lib/auth";
 import { getNetworkSnapshot } from "../lib/markets-store";
 import { getCartHandler, clearCartForUser } from "./cart";
 import {
-  notifyAdminLead,
   notifyAdminOrderPaid,
   notifyAdminOrderPlaced,
   notifyAdminOrderPaymentFailed,
@@ -97,8 +101,13 @@ function normalizeEmail(email?: string): string | undefined {
 }
 
 export async function captureLead(event: APIGatewayProxyEventV2) {
-  if ((event.body?.length ?? 0) > 16 * 1024) return badRequest("Payload too large");
-  const body = JSON.parse(event.body ?? "{}");
+  if (isLeadCaptureBodyTooLarge(event.body?.length ?? 0)) return badRequest("Payload too large");
+  let body: unknown;
+  try {
+    body = JSON.parse(event.body ?? "{}");
+  } catch {
+    return badRequest("Invalid JSON");
+  }
   const parsed = leadCaptureSchema.safeParse(body);
   if (!parsed.success) return badRequest(parsed.error.message);
   if (parsed.data.metadata?.website?.trim()) {
@@ -146,23 +155,19 @@ export async function captureLead(event: APIGatewayProxyEventV2) {
     };
   }
 
-  // lead event (co-located under the session)
-  await docClient.send(
-    new PutCommand({
-      TableName: CUSTOMERS_TABLE,
-      Item: {
-        ...leadPayload,
-        ...(email ? { email } : {}),
-        leadId: uuidv4(),
-        PK: customerKeys.pk(sessionId),
-        SK: customerKeys.leadSk(timestamp),
-        GSI1PK: customerKeys.gsi1pk(),
-        GSI1SK: customerKeys.gsi1sk(timestamp),
-        createdAt: timestamp,
-        updatedAt: timestamp,
-      },
-    })
-  );
+  if (leadPayload.source === "catalogue-enquiry") {
+    const prepared = prepareCatalogueEnquiryMetadata(leadPayload.metadata);
+    if (!prepared.ok) return badRequest(prepared.error);
+    leadPayload = { ...leadPayload, metadata: prepared.metadata };
+  }
+
+  const leadId = uuidv4();
+  const { emailResult } = await persistCapturedLead({
+    leadPayload,
+    email,
+    timestamp,
+    leadId,
+  });
 
   await upsertSessionProfile(sessionId, {
     name: leadPayload.name,
@@ -170,31 +175,23 @@ export async function captureLead(event: APIGatewayProxyEventV2) {
     phone: leadPayload.phone,
   });
 
-  const emailResult = await notifyAdminLead(leadPayload);
   // Newsletter spins are phone-first — only require SMTP when an email was provided.
-  const emailRequired =
-    leadPayload.source === "contact" ||
-    leadPayload.source === "review" ||
-    leadPayload.source === "wholesale" ||
-    (leadPayload.source === "newsletter" && Boolean(email));
+  const emailRequired = isLeadAdminNotifyRequired(leadPayload.source, Boolean(email));
+  const emailSent = Boolean(emailResult.ok && !emailResult.skipped);
+  const leadRef = { leadId, sessionId, createdAt: timestamp };
 
-  if (emailRequired && emailResult.skipped) {
-    console.error("Email skipped — SMTP not configured:", leadPayload.source);
-    return badRequest(
-      "Email is not configured on the server yet. Please contact us on WhatsApp or at enquiry@spicycenter.com."
-    );
-  }
-
-  if (emailRequired && !emailResult.ok) {
-    console.error("Lead email failed:", leadPayload.source, emailResult.error);
-    return badRequest(
-      "Your enquiry was saved but email could not be sent. Please WhatsApp us or email enquiry@spicycenter.com."
-    );
+  if (emailRequired && !emailSent) {
+    const error = emailResult.skipped
+      ? "Email is not configured on the server yet. Please contact us on WhatsApp or at enquiry@spicycenter.com."
+      : "Your enquiry was saved but email could not be sent. Please WhatsApp us or email enquiry@spicycenter.com.";
+    console.error(emailResult.skipped ? "Email skipped — SMTP not configured:" : "Lead email failed:", leadPayload.source, emailResult.error);
+    return json(400, { ok: false, emailSent: false, error, ...leadRef });
   }
 
   return created({
     ok: true,
-    emailSent: emailResult.ok,
+    emailSent,
+    ...leadRef,
     ...(welcomeCoupon ? { coupon: welcomeCoupon } : {}),
   });
 }
@@ -1009,18 +1006,20 @@ export async function retryOrderPayment(event: APIGatewayProxyEventV2) {
 export async function listLeads(event: APIGatewayProxyEventV2) {
   if (!requireAdmin(event)) return forbidden();
 
-  const result = await docClient.send(
-    new QueryCommand({
-      TableName: CUSTOMERS_TABLE,
-      IndexName: "GSI1",
-      KeyConditionExpression: "GSI1PK = :pk",
-      ExpressionAttributeValues: { ":pk": customerKeys.gsi1pk() },
-      ScanIndexForward: false,
-      Limit: 200,
-    })
-  );
+  const q = event.queryStringParameters ?? {};
+  const listed = await listAdminLeads({
+    limit: clampLeadPageLimit(q.limit),
+    cursor: q.cursor,
+    scanForward: q.dir === "asc",
+    filters: {
+      source: q.source,
+      status: q.status,
+      dateFrom: q.dateFrom,
+      q: q.q,
+    },
+  });
 
-  return ok({ leads: result.Items ?? [] });
+  return ok(listed);
 }
 
 export async function updateLead(event: APIGatewayProxyEventV2) {
@@ -1052,3 +1051,5 @@ export async function updateLead(event: APIGatewayProxyEventV2) {
   await docClient.send(new PutCommand({ TableName: CUSTOMERS_TABLE, Item: updated }));
   return ok({ lead: updated });
 }
+
+export { retryLeadEmail } from "../lib/lead-retry";

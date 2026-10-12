@@ -1,11 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { ProductImageGallery } from "@/components/ProductImageGallery";
 import { api } from "@/lib/api";
 import { WishlistButton } from "@/components/WishlistButton";
-import { TrustBadges } from "@/components/TrustBadges";
 import { ApprovedReviewList } from "@/components/ApprovedReviewList";
 import { EnquireNowLink } from "@/components/EnquireNowLink";
 import { useSessionId, useDebouncedLeadCapture } from "@/lib/session";
@@ -17,7 +15,6 @@ import { looksLikeHtml, stripHtml, shortPlainDescription } from "@/lib/html-text
 import { cjStorefrontProductVideosPath, type Product } from "@spicycorner/shared";
 import {
   BRAND_NAME,
-  PACK_SIZE_RANGE,
   PRODUCT_ORIGIN,
   catalogueDescription,
   enquiryProductName,
@@ -26,6 +23,40 @@ import {
 } from "@/lib/catalogue";
 
 type Tab = "description" | "reviews" | "faq";
+
+const PRODUCT_INFO_BADGES = [
+  {
+    title: "Worldwide delivery",
+    copy: "Arranged through enquiry",
+    icon: (
+      <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75} aria-hidden>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9 9 0 100-18 9 9 0 000 18z" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3 12h18M12 3c2.5 2.8 3.8 5.8 3.8 9S14.5 18.2 12 21C9.5 18.2 8.2 15.2 8.2 12S9.5 5.8 12 3z" />
+      </svg>
+    ),
+  },
+  {
+    title: "Quick enquiry",
+    copy: "Get in touch for your needs",
+    icon: (
+      <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75} aria-hidden>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M8 10h8M8 14h5M6 4h12a2 2 0 012 2v12l-4-3H6a2 2 0 01-2-2V6a2 2 0 012-2z" />
+      </svg>
+    ),
+  },
+  {
+    title: "Wholesale & bulk supply",
+    copy: "For businesses and distributors",
+    icon: (
+      <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75} aria-hidden>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3.3 7L12 12l8.7-5M12 22V12" />
+      </svg>
+    ),
+  },
+] as const;
+
+const PRODUCT_TRUST_STRIP = ["Wide range of spices", "Origin: India"] as const;
 
 function variantLabel(variant: { key?: string; name?: string; sku?: string; vid: string }): string {
   return (variant.key || variant.name || variant.sku || variant.vid).trim();
@@ -86,7 +117,7 @@ function ShareButton({ title, url }: { title: string; url: string }) {
       onClick={() => void share()}
       aria-label="Share product"
       title={copied ? "Link copied!" : "Share"}
-      className="flex h-12 w-12 shrink-0 items-center justify-center rounded border-2 border-nav bg-white text-nav hover:bg-orange-50 transition active:scale-95"
+      className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-[#e6d5bc] bg-paper text-primary hover:border-nav hover:text-nav transition active:scale-95"
     >
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2} aria-hidden>
         <path
@@ -175,15 +206,15 @@ export function ProductDetailClient({
           />
         </div>
 
-        <div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-primary mb-1 leading-tight">{displayName}</h1>
+        <div className="min-w-0">
+          <h1 className="spice-heading text-3xl sm:text-4xl leading-tight">{displayName}</h1>
           {bilingual ? (
-            <p className="text-lg text-muted mb-3" lang="ar" dir="rtl">
+            <p className="mt-2 text-base sm:text-lg text-muted" lang="ar" dir="rtl">
               {bilingual.english} — {bilingual.arabic}
             </p>
           ) : null}
 
-          <dl className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-sm mb-4">
+          <dl className="mt-5 grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 text-sm border-y border-[#e6d5bc] py-4">
             <dt className="text-muted">Brand Name</dt>
             <dd className="font-medium text-primary">{BRAND_NAME}</dd>
             <dt className="text-muted">Product Type</dt>
@@ -192,27 +223,48 @@ export function ProductDetailClient({
             <dd className="font-medium text-primary">{PRODUCT_ORIGIN}</dd>
           </dl>
 
-          <p className="text-slate-600 text-sm sm:text-base mb-4 leading-relaxed">{summary}</p>
+          <p className="mt-4 text-sm sm:text-base text-[#4a3a30] leading-relaxed">{summary}</p>
 
-          <p className="text-sm text-slate-600 mb-4">
-            One enquiry for this product. On the form, type the quantity you need — from {PACK_SIZE_RANGE}.
-          </p>
+          <ul className="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-2" aria-label="Product information">
+            {PRODUCT_INFO_BADGES.map((badge) => (
+              <li
+                key={badge.title}
+                className="rounded-lg border border-[#e6d5bc] bg-[#fffaf3] px-3 py-3 min-w-0"
+              >
+                <span className="flex h-8 w-8 items-center justify-center rounded-md bg-[#fff6ee] text-nav">
+                  {badge.icon}
+                </span>
+                <p className="mt-2 text-sm font-semibold text-primary leading-snug">{badge.title}</p>
+                <p className="mt-0.5 text-xs text-muted leading-snug">{badge.copy}</p>
+              </li>
+            ))}
+          </ul>
 
-          <TrustBadges variant="compact" className="mb-5" />
-
-          <div className="flex items-stretch gap-2 mb-3">
-            <div className="flex-1 min-w-0">
-              <EnquireNowLink productName={displayName} className="btn-primary w-full justify-center" />
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-stretch">
+            <div className="min-w-0 flex-1">
+              <EnquireNowLink productName={displayName} className="btn-primary w-full justify-center min-h-12" />
             </div>
-            <WishlistButton product={product} variant="toolbar" />
-            {productUrl ? <ShareButton title={product.name} url={productUrl} /> : <div className="w-12 shrink-0" />}
+            <div className="flex shrink-0 items-stretch gap-2">
+              <WishlistButton product={product} variant="toolbar" />
+              {productUrl ? <ShareButton title={product.name} url={productUrl} /> : <div className="w-11 shrink-0" />}
+            </div>
           </div>
-          <p className="text-sm">
-            <Link href="/enquiry" className="font-semibold text-nav">
-              Worldwide delivery is arranged through enquiry
-            </Link>
-          </p>
 
+          <ul
+            className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-[#e6d5bc] pt-4 text-xs sm:text-sm text-muted"
+            aria-label="Catalogue notes"
+          >
+            {PRODUCT_TRUST_STRIP.map((item, index) => (
+              <li key={item} className="flex items-center gap-4">
+                {index > 0 ? (
+                  <span className="hidden text-[#dcc9a8] sm:inline" aria-hidden>
+                    •
+                  </span>
+                ) : null}
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
 
@@ -262,19 +314,6 @@ export function ProductDetailClient({
                   <p key={i}>{para}</p>
                 ))}
             </article>
-
-            {product.tags && product.tags.length > 0 && (
-              <div>
-                <p className="text-xs font-semibold text-slate-500 uppercase mb-3">Related searches</p>
-                <div className="flex flex-wrap gap-2">
-                  {product.tags.map((tag) => (
-                    <span key={tag} className="px-3 py-1.5 bg-slate-100 text-slate-600 text-xs rounded-full">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            )}
 
             <div className="max-w-md space-y-3">
               <LeadCaptureInput

@@ -314,7 +314,7 @@ export const ME_PLACES: MePlace[] = [
     marketSlug: "turkey",
     parentSlug: "turkey",
     summary: "Istanbul wholesale spice enquiries from India. Transit is quoted, not guessed.",
-    buyerNote: "Free enquiry or 100kg+ bulk form.",
+    buyerNote: "Enquire now or 100kg+ bulk form.",
   },
   {
     slug: "egypt",
@@ -407,7 +407,6 @@ export function meInternalLinks(place: MePlace): { href: string; label: string }
     { href: `/markets/${place.marketSlug}`, label: `${getMePlace(place.marketSlug)?.name ?? place.name} market hub` },
     { href: "/guides/gcc-import", label: "GCC import notes" },
     { href: "/enquiry", label: "Free sourcing enquiry" },
-    { href: "/bulk-enquiry", label: "100kg+ bulk enquiry" },
     { href: "/sourcing/turmeric", label: "Turmeric sourcing" },
     { href: "/sourcing/cumin-seeds", label: "Cumin sourcing" },
     { href: "/food", label: "Food families" },

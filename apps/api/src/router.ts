@@ -294,6 +294,7 @@ const routes: Route[] = [
   { method: "PUT", pattern: /^\/admin\/orders\/([^/]+)$/, handler: orders.updateOrderStatus, params: ["orderId"] },
   { method: "GET", pattern: /^\/admin\/leads$/, handler: orders.listLeads },
   { method: "PATCH", pattern: /^\/admin\/leads$/, handler: orders.updateLead },
+  { method: "POST", pattern: /^\/admin\/leads\/retry-email$/, handler: orders.retryLeadEmail },
   { method: "GET", pattern: /^\/admin\/analytics\/overview$/, handler: analytics.getAnalyticsOverview },
   { method: "GET", pattern: /^\/admin\/analytics\/sales$/, handler: salesReport.getSalesReport },
   { method: "GET", pattern: /^\/admin\/analytics\/products$/, handler: analytics.getTopProducts },

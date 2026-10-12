@@ -29,6 +29,7 @@ const nextConfig: NextConfig = {
     return [
       { source: "/just", destination: "/", permanent: true },
       { source: "/spice-guide/compare/:slug", destination: "/spice-guide/comparisons/:slug", permanent: true },
+      { source: "/wholesale", destination: "/enquiry", permanent: true },
     ];
   },
   env: {

@@ -102,9 +102,9 @@ export function existingUrlsForProduct(productSlug: string): { href: string; lab
     ];
   }
   return [
-    { href: "/wholesale", label: "Indian spice wholesale" },
+    { href: "/enquiry", label: "Indian spice wholesale" },
     { href: "/spices", label: "Shop spices" },
-    { href: "/bulk-enquiry", label: "100kg+ bulk enquiry" },
+      { href: "/enquiry", label: "Enquire Now" },
   ];
 }
 

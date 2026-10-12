@@ -5,7 +5,7 @@ import Link from "next/link";
 import type { Product } from "@spicycorner/shared";
 import { spiceStockImagesForProduct } from "@/lib/spice-stock-images";
 import { EnquireNowLink } from "@/components/EnquireNowLink";
-import { BRAND_NAME, PACK_SIZE_RANGE, PRODUCT_ORIGIN, enquiryProductName, featuredBilingualName, productTypeLabel } from "@/lib/catalogue";
+import { BRAND_NAME, PRODUCT_ORIGIN, enquiryProductName, featuredBilingualName, productTypeLabel } from "@/lib/catalogue";
 
 export function SpiceSkuCard({ product }: { product: Product }) {
   const src = product.images?.[0] || spiceStockImagesForProduct(product)[0];
@@ -35,7 +35,6 @@ export function SpiceSkuCard({ product }: { product: Product }) {
         <p className="text-xs text-muted mt-2">
           {BRAND_NAME} · {productTypeLabel(product.categorySlug)} · Origin: {PRODUCT_ORIGIN}
         </p>
-        <p className="text-xs text-slate-600 mt-2">Choose your quantity on the enquiry, from {PACK_SIZE_RANGE}.</p>
         <div className="mt-3">
           <EnquireNowLink productName={displayName} className="btn-primary w-full justify-center text-sm" />
         </div>

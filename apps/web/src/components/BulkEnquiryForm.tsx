@@ -619,8 +619,8 @@ export function BulkEnquiryForm() {
       </button>
       <p className="text-xs text-muted">
         Need a smaller restaurant bag? Use the{" "}
-        <Link href="/wholesale" className="text-nav">
-          10kg+ wholesale form
+        <Link href="/enquiry" className="text-nav">
+          enquiry form
         </Link>
         .
       </p>

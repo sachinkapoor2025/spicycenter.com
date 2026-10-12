@@ -7,7 +7,7 @@ import { WholesaleQuoteForm } from "@/components/WholesaleQuoteForm";
 export const metadata: Metadata = pageMetadata({
   title: "Enquire Now — Indian spice catalogue",
   description:
-    "Send a business enquiry with your name, company, email, phone, country, product, pack size and requirements. Worldwide delivery is confirmed in the reply.",
+    "Send a business enquiry with your name, company, email, phone, product and requirements. Worldwide delivery is confirmed in the reply.",
   path: "/enquiry",
 });
 
@@ -18,24 +18,19 @@ export default async function EnquiryPage({
 }) {
   const { product = "", country = "", quantity = "" } = await searchParams;
   return (
-    <div className="max-w-4xl mx-auto px-4 py-10">
-      <HubBreadcrumbs items={[{ name: "Home", path: "/" }, { name: "Free enquiry", path: "/enquiry" }]} />
-      <p className="spice-kicker">Business enquiry</p>
-      <h1 className="spice-heading text-4xl mt-2">Enquire Now</h1>
-      <p className="mt-4 text-muted leading-relaxed">
-        One form for any spice and any quantity you type yourself. Tell us who you buy for — wholesaler, retailer,
-        restaurant, foodservice or private label — and we reply with availability. This website does not publish prices.
+    <div className="max-w-3xl mx-auto px-4 py-6 sm:py-8 overflow-x-clip">
+      <HubBreadcrumbs items={[{ name: "Home", path: "/" }, { name: "Enquire Now", path: "/enquiry" }]} />
+      <p className="spice-kicker mt-4">Business enquiry</p>
+      <h1 className="spice-heading text-3xl sm:text-4xl mt-2">Let&apos;s discuss your spice requirements.</h1>
+      <p className="mt-3 text-muted leading-relaxed">
+        Tell us what you&apos;re sourcing, where you need delivery, and how we can help.
       </p>
-      <p className="mt-3 text-sm">
-        <Link href="/bulk-enquiry" className="text-nav font-semibold">
-          100kg+ bulk enquiry
-        </Link>
-        {" · "}
+      <p className="mt-2 text-sm">
         <Link href="/contact" className="text-nav font-semibold">
           General contact
         </Link>
       </p>
-      <div className="mt-8">
+      <div className="mt-6">
         <WholesaleQuoteForm defaultProduct={product} defaultCountry={country} defaultQuantity={quantity} />
       </div>
     </div>

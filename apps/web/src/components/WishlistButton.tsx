@@ -18,7 +18,7 @@ export function WishlistButton({
   const overlayClass =
     "absolute top-2 right-2 z-20 p-1 transition-transform hover:scale-110 active:scale-95";
   const toolbarClass =
-    "flex h-12 w-12 shrink-0 items-center justify-center rounded border-2 border-nav bg-white text-nav hover:bg-blue-50 transition active:scale-95";
+    "flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-[#e6d5bc] bg-paper text-primary hover:border-nav hover:text-nav transition active:scale-95";
 
   return (
     <button

@@ -9,6 +9,7 @@ import { breadcrumbJsonLd, faqJsonLd, productJsonLd, productPageMetadata } from 
 import { productPageFaqs } from "@/lib/content/product-faqs";
 import { resolveImageUrl } from "@/lib/images";
 import { loadProduct, loadRelatedProducts, getStaticProductSlugs } from "@/lib/product-loader";
+import { enquiryProductName } from "@/lib/catalogue";
 import { api } from "@/lib/api";
 import { cjStorefrontProductsPath, getInternalLinkGroups, type Product } from "@spicycorner/shared";
 
@@ -62,7 +63,7 @@ export default async function ProductPage({ params }: Props) {
     { label: "Home", href: "/" },
     { label: "Shop", href: "/products" },
     { label: categoryLabel, href: `/categories/${product.categorySlug}` },
-    { label: product.name },
+    { label: enquiryProductName(product.name) },
   ];
 
   return (

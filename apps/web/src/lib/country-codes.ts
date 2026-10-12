@@ -209,6 +209,17 @@ export function orderedCountryDialCodes(): CountryDialCode[] {
   return [...pinned, ...rest];
 }
 
+export function countryNameFromIso(code?: string): string {
+  const iso = code?.trim().toUpperCase();
+  if (!iso) return "";
+  if (iso.length !== 2) return code?.trim() ?? "";
+  return ALL.find((row) => row.iso === iso)?.name ?? iso;
+}
+
+export function overseasCountryOptions(): CountryDialCode[] {
+  return orderedCountryDialCodes().filter((row) => row.iso !== "IN");
+}
+
 export function formatE164(dial: string, localNumber: string): string {
   const digits = localNumber.replace(/\D/g, "");
   const code = dial.replace(/\D/g, "");

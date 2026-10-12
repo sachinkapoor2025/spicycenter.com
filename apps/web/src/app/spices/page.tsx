@@ -126,7 +126,7 @@ export default async function SpicesIndex({
           {
             heading: "Shop",
             links: [
-              { href: "/wholesale", label: "Indian spice wholesale" },
+              { href: "/enquiry", label: "Indian spice wholesale" },
               { href: "/wholesale/uk", label: "Wholesale UK" },
               { href: "/spice-supplier", label: "Indian spice supplier" },
               { href: "/uk", label: "Indian spices UK" },

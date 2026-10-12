@@ -22,12 +22,8 @@ export default async function BulkEnquiryConfirmPage({ params }: Props) {
       <h1 className="spice-heading text-3xl">Enquiry received</h1>
       <BulkEnquiryConfirm enquiryId={enquiryId} />
       <p className="mt-8 text-sm">
-        <Link href="/bulk-enquiry" className="text-nav">
+        <Link href="/enquiry" className="text-nav">
           New enquiry
-        </Link>
-        {" · "}
-        <Link href="/wholesale" className="text-nav">
-          Wholesale
         </Link>
       </p>
     </div>

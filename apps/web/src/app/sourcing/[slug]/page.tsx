@@ -113,7 +113,7 @@ export default async function SourcingPage({ params }: Props) {
         </li>
       </ul>
 
-      <h2 className="font-serif text-2xl text-primary mt-10">Free enquiry</h2>
+      <h2 className="font-serif text-2xl text-primary mt-10">Enquire Now</h2>
       <WholesaleQuoteForm defaultProduct={product.name} />
     </div>
   );

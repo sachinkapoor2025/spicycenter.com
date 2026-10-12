@@ -139,10 +139,12 @@ export default async function MarketPage({ params }: Props) {
                 </Link>
               ))}
               <Link
-                href={`/bulk-enquiry?spice=${spiceQueryForProduct(p.slug)}${dest ? `&destination=${dest}` : ""}`}
+                href={`/enquiry?product=${encodeURIComponent(spiceQueryForProduct(p.slug))}${
+                  dest ? `&country=${dest === "UK" ? "GB" : dest}` : ""
+                }`}
                 className="text-nav"
               >
-                Bulk quote
+                Enquire
               </Link>
             </div>
           </li>
@@ -157,7 +159,7 @@ export default async function MarketPage({ params }: Props) {
       </ul>
       <p className="mt-2 text-xs text-muted">Buyer intents in this set: {topIntents.map(([i]) => i).join(", ")}.</p>
 
-      <h2 className="font-serif text-2xl text-primary mt-10">Free enquiry</h2>
+      <h2 className="font-serif text-2xl text-primary mt-10">Enquire Now</h2>
       <p className="text-sm text-muted mt-2">
         No payment is required to submit. Say the spice, kilograms, and destination. Paid add-ons apply only if you
         select them on a UK/EU 100kg+ quote.

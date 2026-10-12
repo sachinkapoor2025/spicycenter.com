@@ -45,12 +45,12 @@ export default async function WholesaleSlugPage({ params }: Props) {
       <HubBreadcrumbs
         items={[
           { name: "Home", path: "/" },
-          { name: "Wholesale", path: "/wholesale" },
+          { name: "Enquire Now", path: "/enquiry" },
           { name, path: `/wholesale/${slug}` },
         ]}
       />
       <p className="text-sm text-muted">
-        <Link href="/wholesale">Wholesale</Link> / {name}
+        <Link href="/enquiry">Enquire Now</Link> / {name}
       </p>
       <h1 className="spice-heading text-4xl mt-2">{landing?.h1 ?? `${name} wholesale`}</h1>
       <p className="mt-3 text-muted leading-relaxed">

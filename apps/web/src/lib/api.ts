@@ -63,6 +63,18 @@ async function fetchWithRetry(
   throw lastNetworkError instanceof Error ? lastNetworkError : new Error("Fetch failed");
 }
 
+export class ApiError extends Error {
+  status: number;
+  body: unknown;
+
+  constructor(message: string, status: number, body: unknown) {
+    super(message);
+    this.name = "ApiError";
+    this.status = status;
+    this.body = body;
+  }
+}
+
 function errorMessageFromBody(body: unknown, status: number): string {
   if (body && typeof body === "object") {
     const record = body as Record<string, unknown>;
@@ -109,7 +121,7 @@ export async function api<T>(path: string, options: ApiOptions = {}): Promise<T>
 
   if (!res.ok) {
     const errBody = await res.json().catch(() => null);
-    throw new Error(errorMessageFromBody(errBody, res.status));
+    throw new ApiError(errorMessageFromBody(errBody, res.status), res.status, errBody);
   }
 
   return res.json();

@@ -12,6 +12,7 @@ import {
   ORDER_SMTP_USER,
   DEFAULT_ORDER_NOTIFY_EMAIL,
   staffOrderNotifyEmails,
+  buildCatalogueEnquiryAdminEmail,
   isAdminExtremeDiscount,
   buildOrderConfirmedEmailHtml,
   buildOrderConfirmedEmailText,
@@ -274,6 +275,20 @@ ${notifyAddress()}`,
   return { ok: true };
 }
 
+export function escapeHtml(text: string): string {
+  return text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+/** Convert a plain-text body to HTML with escaped user content and preserved line breaks. */
+export function htmlFromPlainText(text: string): string {
+  return escapeHtml(text.replace(/\r\n/g, "\n")).replace(/\n/g, "<br>");
+}
+
 export async function sendEmail(opts: {
   to: string;
   subject: string;
@@ -300,7 +315,7 @@ export async function sendEmail(opts: {
     to: opts.to,
     subject: opts.subject,
     text: opts.text,
-    html: opts.html ?? opts.text.replace(/\n/g, "<br>"),
+    html: opts.html ?? htmlFromPlainText(opts.text),
     replyTo: opts.replyTo,
     headers: {
       "X-Entity-Ref-ID": crypto.randomUUID(),
@@ -364,6 +379,8 @@ function formatLeadSource(source?: string): string {
       return "Product page";
     case "wholesale":
       return "Wholesale quote";
+    case "catalogue-enquiry":
+      return "Catalogue enquiry";
     default:
       return source ?? "Website";
   }
@@ -523,10 +540,43 @@ ${notifyAddress()}`,
   return { ok: true };
 }
 
-export async function notifyAdminLead(lead: LeadCaptureInput): Promise<EmailSendResult> {
+export async function sendCatalogueEnquiryEmails(
+  lead: LeadCaptureInput,
+  refs?: { leadId?: string; createdAt?: string }
+): Promise<EmailSendResult> {
+  if (!smtpConfigured()) {
+    return { ok: false, skipped: true, error: "SMTP not configured on server" };
+  }
+
+  const mail = buildCatalogueEnquiryAdminEmail({
+    name: lead.name,
+    email: lead.email,
+    phone: lead.phone,
+    page: lead.page,
+    leadId: refs?.leadId,
+    createdAt: refs?.createdAt,
+    metadata: lead.metadata,
+  });
+
+  return sendEmail({
+    to: adminNotifyAddresses(),
+    subject: mail.subject,
+    text: mail.text,
+    replyTo: lead.email,
+  });
+}
+
+export async function notifyAdminLead(
+  lead: LeadCaptureInput,
+  refs?: { leadId?: string; createdAt?: string }
+): Promise<EmailSendResult> {
   const message = lead.metadata?.message?.trim();
   const isContact = lead.source === "contact";
   const isReview = lead.source === "review";
+
+  if (lead.source === "catalogue-enquiry") {
+    return sendCatalogueEnquiryEmails(lead, refs);
+  }
 
   if (isContact && lead.name && lead.email && message) {
     return sendContactEmails({

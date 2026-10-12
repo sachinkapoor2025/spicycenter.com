@@ -60,6 +60,7 @@ export function catalogueDescription(text: string): string {
     .replace(/Selling price is a draft placeholder, not an Indian market reference price\.?/gi, "")
     .replace(/\bRetail pack\.?/gi, "")
     .replace(/Minimum bulk order 10kg\.?/gi, "")
+    .replace(/\s*Pack:\s*[^.]+\./gi, "")
     .replace(/\s{2,}/g, " ")
     .trim();
 }

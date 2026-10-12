@@ -14,7 +14,10 @@ export function EnquiryFloat() {
   const hidden =
     pathname.startsWith("/admin") ||
     pathname.startsWith("/ses-email") ||
-    pathname.startsWith("/checkout");
+    pathname.startsWith("/checkout") ||
+    pathname.startsWith("/products/") ||
+    pathname === "/enquiry" ||
+    pathname.startsWith("/bulk-enquiry");
 
   useEffect(() => {
     setOpen(false);
@@ -43,7 +46,7 @@ export function EnquiryFloat() {
         aria-haspopup="dialog"
         aria-expanded={open}
       >
-        Bulk enquiry
+        Enquire Now
       </button>
 
       {open ? (
@@ -59,7 +62,7 @@ export function EnquiryFloat() {
               <div>
                 <p className="spice-kicker">Always available</p>
                 <h2 id="enquiry-float-title" className="font-serif text-2xl text-primary mt-1">
-                  Bulk enquiry
+                  Enquire Now
                 </h2>
               </div>
               <button
@@ -71,9 +74,9 @@ export function EnquiryFloat() {
               </button>
             </div>
             <p className="text-sm text-muted mb-4">
-              Free to submit. 10kg+ wholesale on this form. For 100kg+ cargo use{" "}
-              <Link href="/bulk-enquiry" className="text-nav font-semibold" onClick={() => setOpen(false)}>
-                the bulk quote
+              Free to submit. Type the quantity you need. We reply with availability. You can also open the{" "}
+              <Link href="/enquiry" className="text-nav font-semibold" onClick={() => setOpen(false)}>
+                enquiry page
               </Link>
               .
             </p>

@@ -59,9 +59,8 @@ ${categories}
 
 ## B2B sourcing (no city doorway pages)
 
-- Free enquiry: ${siteUrl}/enquiry
-- Wholesale: ${siteUrl}/wholesale
-- 100kg+ bulk: ${siteUrl}/bulk-enquiry
+- Enquire Now: ${siteUrl}/enquiry
+- Wholesale hub: ${siteUrl}/wholesale (redirects to /enquiry)
 - Export markets: ${siteUrl}/markets
 - Food families: ${siteUrl}/food
 - Guides: ${siteUrl}/guides

@@ -115,8 +115,8 @@ export default async function CountryLandingPage({ params }: Props) {
 
       <div className="flex flex-wrap gap-3 mb-10">
         {isNorthAmerica ? (
-          <Link href="/bulk-enquiry" className="rounded-lg bg-nav px-4 py-2 text-sm font-semibold text-white">
-            Request 100kg+ bulk quote
+          <Link href="/enquiry" className="rounded-lg bg-nav px-4 py-2 text-sm font-semibold text-white">
+            Enquire Now
           </Link>
         ) : (
           <Link href="/products" className="rounded-lg bg-nav px-4 py-2 text-sm font-semibold text-white">

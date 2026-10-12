@@ -1,13 +1,11 @@
-import { BULK_PACK_SIZES } from "@/lib/catalogue";
-
 export const productPageFaqs = [
   {
     q: "How is delivery handled?",
     a: "Worldwide delivery is arranged through the enquiry. This page does not show a delivery date.",
   },
   {
-    q: "Which pack sizes can I request?",
-    a: `${BULK_PACK_SIZES.join(", ")}. These are pack sizes, not prices. 1 metric ton is 1,000 kg.`,
+    q: "How do I tell you the quantity?",
+    a: "Type the quantity you need on the enquiry. We confirm availability in the reply.",
   },
   {
     q: "Are prices shown here?",
