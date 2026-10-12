@@ -229,7 +229,7 @@ export default async function HomePage() {
               ) : null}
               <p className="text-sm text-muted">{s.hindiName} {s.botanicalName ? `· ${s.botanicalName}` : ""}</p>
               <p className="mt-2 text-sm">{s.shortDescription}</p>
-              <p className="mt-2 text-xs text-muted">Origin: India · Enquire for {PACK_SIZE_RANGE}</p>
+              <p className="mt-2 text-xs text-muted">Origin: India</p>
               </span>
             </Link>
             );
