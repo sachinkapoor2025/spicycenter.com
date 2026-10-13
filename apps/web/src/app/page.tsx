@@ -32,11 +32,17 @@ const SHIPPING_BENEFITS = [
   { label: "Duties & Taxes Guidance", icon: "document" },
 ] as const;
 
-function ShippingBenefitIcon({ name }: { name: (typeof SHIPPING_BENEFITS)[number]["icon"] }) {
+function ShippingBenefitIcon({
+  name,
+  className = "h-5 w-5",
+}: {
+  name: (typeof SHIPPING_BENEFITS)[number]["icon"];
+  className?: string;
+}) {
   return (
     <svg
       viewBox="0 0 24 24"
-      className="h-5 w-5 text-nav shrink-0"
+      className={`${className} text-nav shrink-0`}
       fill="none"
       stroke="currentColor"
       strokeWidth="1.6"
@@ -77,10 +83,14 @@ function ShippingBenefitIcon({ name }: { name: (typeof SHIPPING_BENEFITS)[number
 
 function ShippingBenefitList({
   className,
+  itemClassName = "",
   stacked = false,
+  circled = false,
 }: {
   className?: string;
+  itemClassName?: string;
   stacked?: boolean;
+  circled?: boolean;
 }) {
   return (
     <ul className={className}>
@@ -89,12 +99,26 @@ function ShippingBenefitList({
           key={item.label}
           className={
             stacked
-              ? "flex flex-col items-center gap-1.5 min-w-0 text-center"
-              : "flex items-start gap-2 min-w-0"
+              ? `flex flex-col items-center gap-1 md:gap-1.5 min-w-0 text-center ${itemClassName}`
+              : `flex items-start gap-2 min-w-0 ${itemClassName}`
           }
         >
-          <ShippingBenefitIcon name={item.icon} />
-          <span className="text-[11px] sm:text-xs font-semibold text-primary leading-snug">{item.label}</span>
+          {circled ? (
+            <span className="flex h-9 w-9 items-center justify-center rounded-full border border-nav/70">
+              <ShippingBenefitIcon name={item.icon} className="h-[1.15rem] w-[1.15rem]" />
+            </span>
+          ) : (
+            <ShippingBenefitIcon name={item.icon} />
+          )}
+          <span
+            className={
+              circled
+                ? "text-[11px] font-semibold text-primary leading-tight"
+                : "text-xs font-semibold text-primary leading-snug"
+            }
+          >
+            {item.label}
+          </span>
         </li>
       ))}
     </ul>
@@ -259,43 +283,54 @@ export default async function HomePage() {
           </div>
         </div>
 
-        <div className="card-spice overflow-hidden mt-4 md:mt-5">
-          <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1.2fr)_minmax(0,0.9fr)] items-stretch">
-            <div className="relative z-10 flex flex-col justify-center bg-[#fbf6ee] px-4 py-4 sm:px-5 sm:py-5 md:px-8 md:py-6 min-w-0">
-              <p className="spice-kicker tracking-[0.14em] sm:tracking-[0.16em] flex items-center gap-3">
+        <div className="card-spice relative overflow-hidden mt-4 md:mt-5">
+          <div className="pointer-events-none absolute inset-0 z-0 md:hidden" aria-hidden="true">
+            <Image
+              src="/images/global-shipping-banner.jpg"
+              alt=""
+              fill
+              className="object-cover object-[82%_center]"
+              sizes="100vw"
+            />
+            <span className="absolute inset-0 bg-gradient-to-r from-[#fbf6ee] from-[40%] via-[#fbf6ee]/88 via-[62%] to-transparent to-[78%]" />
+          </div>
+          <div className="relative z-10 grid grid-cols-1 md:grid-cols-[minmax(0,1.2fr)_minmax(0,0.9fr)] items-stretch">
+            <div className="relative z-10 flex flex-col justify-center bg-transparent md:bg-[#fbf6ee] px-4 pt-5 pb-4 sm:px-5 sm:py-5 md:px-8 md:py-6 min-w-0">
+              <p className="spice-kicker text-[11px] tracking-[0.16em] sm:tracking-[0.16em] flex items-center gap-3">
                 Shipping & Delivery
-                <span className="hidden sm:block h-px w-10 bg-nav" aria-hidden="true" />
+                <span className="block h-px w-12 md:w-10 bg-nav" aria-hidden="true" />
               </p>
-              <h2 className="font-serif text-[1.2rem] sm:text-[1.35rem] md:text-[1.5rem] text-primary mt-2 leading-snug">
+              <h2 className="font-serif text-[1.7rem] sm:text-[1.8rem] md:text-[1.5rem] text-primary mt-2 leading-[1.12] md:leading-snug max-w-[13.5rem] md:max-w-none">
                 Global Shipping Made Simple
               </h2>
-              <p className="mt-2.5 text-[0.9rem] md:text-[0.98rem] leading-[1.5] md:leading-relaxed text-primary max-w-xl">
+              <p className="mt-3 md:mt-2.5 text-[0.92rem] md:text-[0.98rem] leading-[1.55] md:leading-relaxed text-primary max-w-[13.75rem] md:max-w-xl">
                 We deliver spices, masalas and herbs to customers across India, the UK, Europe and worldwide.
               </p>
-              <p className="mt-2 text-[0.9rem] md:text-[0.98rem] leading-[1.5] md:leading-relaxed text-primary max-w-xl">
+              <p className="mt-2.5 md:mt-2 text-[0.92rem] md:text-[0.98rem] leading-[1.55] md:leading-relaxed text-primary max-w-[13.75rem] md:max-w-xl">
                 Shipping charges are calculated as per your required order quantity, destination and shipping method. Our team will confirm the best available options, rates and applicable duties or taxes with your quote.
               </p>
               <ShippingBenefitList stacked className="hidden md:grid grid-cols-4 gap-3 mt-4" />
+              <ShippingBenefitList
+                stacked
+                circled
+                itemClassName="border-r border-[#e6d5bc] last:border-r-0 px-0.5"
+                className="grid grid-cols-4 gap-0 mt-4 w-[74%] md:hidden"
+              />
             </div>
-            <div className="relative h-[9.75rem] sm:h-[11rem] md:h-auto md:min-h-[14rem] lg:min-h-[16rem] overflow-hidden bg-[#fbf6ee]">
+            <div className="relative hidden md:block md:h-auto md:min-h-[14rem] lg:min-h-[16rem] overflow-hidden bg-[#fbf6ee]">
               <Image
                 src="/images/global-shipping-banner.jpg"
                 alt=""
                 fill
-                className="object-cover object-[80%_center] md:object-[68%_center]"
-                sizes="(max-width: 768px) 100vw, 45vw"
+                className="object-cover object-[68%_center]"
+                sizes="45vw"
               />
               <span
-                className="pointer-events-none absolute inset-x-0 top-0 h-10 bg-gradient-to-b from-[#fbf6ee] via-[#fbf6ee]/70 to-transparent md:hidden"
-                aria-hidden="true"
-              />
-              <span
-                className="pointer-events-none absolute inset-y-0 left-0 hidden w-[38%] bg-gradient-to-r from-[#fbf6ee] via-[#fbf6ee]/50 to-transparent md:block"
+                className="pointer-events-none absolute inset-y-0 left-0 w-[38%] bg-gradient-to-r from-[#fbf6ee] via-[#fbf6ee]/50 to-transparent"
                 aria-hidden="true"
               />
             </div>
           </div>
-          <ShippingBenefitList className="grid grid-cols-2 gap-x-3 gap-y-3 px-4 pb-4 pt-2 sm:px-5 md:hidden" />
         </div>
 
         <div className="mt-4 md:mt-5 rounded-lg border border-[#e6d5bc] bg-beige/50 p-4 sm:p-5 md:p-6">

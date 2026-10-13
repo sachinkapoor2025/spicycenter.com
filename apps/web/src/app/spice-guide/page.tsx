@@ -36,8 +36,8 @@ export default function SpiceGuideIndex() {
     <div className="max-w-5xl mx-auto px-4 py-10">
       <h1 className="spice-heading text-4xl">Spice guide</h1>
       <p className="mt-3 text-muted max-w-2xl">
-        {spices.length} Indian spices, herbs, seeds and masalas. Learn names and kitchen use, then buy 100g or 25kg.
-        Culinary facts and traditional use are separated from scientific evidence.
+        {spices.length} Indian spices, herbs, seeds and masalas. Explore their names and culinary uses, then choose the quantity that suits your needs.
+        Culinary facts and traditional uses are distinguished from scientific evidence.
       </p>
       <div className="mt-6 space-y-3 text-sm text-muted max-w-3xl leading-relaxed">
         <p>
