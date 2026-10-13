@@ -155,7 +155,7 @@ export const journalPosts: BlogPost[] = [
       {
         heading: "India grows, we pack and ship",
         paragraphs: [
-          "SpicyCenter sells Indian spices to UK and EU kitchens. Addresses in Southampton and Ferozepur are on the site. A spice’s growing region (Kerala pepper, Guntur chilli, Erode turmeric) is a story that must match the lot — not a slogan copied onto every SKU.",
+          "SpicyCenter sells Indian spices to UK and EU kitchens. Operations are in Ferozepur, Punjab. A spice’s growing region (Kerala pepper, Guntur chilli, Erode turmeric) is a story that must match the lot — not a slogan copied onto every SKU.",
         ],
       },
       {

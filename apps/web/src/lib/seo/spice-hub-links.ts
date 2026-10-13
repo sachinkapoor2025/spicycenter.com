@@ -31,7 +31,7 @@ export function spiceHubLinks(slug: string, name: string): { heading: string; li
     {
       heading: "Trade buyers",
       links: [
-        { href: "/wholesale", label: "Request a wholesale quote" },
+        { href: "/enquiry", label: "Request a wholesale quote" },
         { href: "/wholesale/restaurants", label: "Restaurant spice supply" },
         { href: "/wholesale/food-manufacturers", label: "Food manufacturers" },
         { href: "/legal/food-information", label: "UK/EU food information" },

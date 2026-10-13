@@ -23,13 +23,6 @@ export const site = {
 
 export const STORE_LOCATIONS = [
   {
-    id: "uk",
-    flag: "🇬🇧",
-    country: "United Kingdom",
-    lines: ["5 Exeter Road", "Southampton, Hampshire", "SO18 2ED", "United Kingdom"],
-    mapUrl: "https://www.google.com/maps/search/?api=1&query=5+Exeter+Road%2C+Southampton+SO18+2ED",
-  },
-  {
     id: "in",
     flag: "🇮🇳",
     country: "India",
@@ -40,8 +33,7 @@ export const STORE_LOCATIONS = [
 
 export const navItems = [
   { label: "Catalogue", href: "/spices" },
-  { label: "Bulk & Wholesale", href: "/bulk-enquiry" },
-  { label: "Free enquiry", href: "/enquiry" },
+  { label: "Enquire Now", href: "/enquiry" },
   { label: "Spice Guide", href: "/spice-guide" },
   { label: "Indian Spices", href: "/indian-spice-regions" },
   { label: "Masalas", href: "/spices/indian-masalas" },

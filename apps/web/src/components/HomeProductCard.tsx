@@ -5,7 +5,7 @@ import type { Product } from "@spicycorner/shared";
 import { WishlistButton } from "@/components/WishlistButton";
 import { ProductImageRotator } from "@/components/ProductImageRotator";
 import { EnquireNowLink } from "@/components/EnquireNowLink";
-import { BRAND_NAME, PACK_SIZE_RANGE, PRODUCT_ORIGIN, enquiryProductName, featuredBilingualName, productTypeLabel } from "@/lib/catalogue";
+import { BRAND_NAME, PRODUCT_ORIGIN, enquiryProductName, featuredBilingualName, productTypeLabel } from "@/lib/catalogue";
 
 export function HomeProductCard({
   product,
@@ -46,7 +46,6 @@ export function HomeProductCard({
         <p className="mt-2 text-[11px] text-muted leading-snug">
           {BRAND_NAME} · {productTypeLabel(product.categorySlug)} · Origin: {PRODUCT_ORIGIN}
         </p>
-        <p className="mt-1 text-[11px] text-slate-600 line-clamp-2">Choose your quantity on the enquiry, from {PACK_SIZE_RANGE}.</p>
         <div className="mt-auto pt-3">
           <EnquireNowLink productName={displayName} className="btn-primary w-full justify-center text-sm" />
         </div>

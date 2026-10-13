@@ -96,7 +96,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <LocaleProvider>
             <TrackingProvider />
             <HeaderShell />
-            <main className="flex-1 min-w-0 overflow-x-clip pb-20 md:pb-0">{children}</main>
+            <main className="flex-1 min-w-0 overflow-x-clip pb-[4.75rem] md:pb-0">{children}</main>
             <FooterShell />
             <ClientDeferredWidgets />
             <WhatsAppFloat />

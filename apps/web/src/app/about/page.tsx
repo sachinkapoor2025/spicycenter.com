@@ -37,8 +37,8 @@ export default function AboutPage() {
           a generic “black pepper” blend, or whether Kashmiri chilli is mostly colour or heat, the spice guide sits next to the bag.
         </p>
         <p>
-          Two addresses appear on the site because they are real: Ferozepur, Punjab (sourcing and operations in India) and
-          Southampton, United Kingdom (UK presence). We do not pretend to operate a warehouse in every city we write about.
+          Our operations address is in Ferozepur, Punjab, India. We do not pretend to operate a warehouse in every city we
+          write about.
         </p>
       </div>
       <div className="mt-8 flex flex-wrap gap-4">

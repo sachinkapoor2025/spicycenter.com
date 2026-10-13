@@ -418,18 +418,12 @@ export function localBusinessJsonLd() {
     address: {
       "@type": "PostalAddress",
       streetAddress: store.lines[0],
-      addressLocality: store.id === "in" ? "Ferozepur City" : "Southampton",
-      addressRegion: store.id === "in" ? "Punjab" : "Hampshire",
-      postalCode: store.id === "in" ? "152002" : "SO18 2ED",
-      addressCountry: store.id === "in" ? "IN" : "GB",
+      addressLocality: "Ferozepur City",
+      addressRegion: "Punjab",
+      postalCode: "152002",
+      addressCountry: "IN",
     },
-    areaServed:
-      store.id === "uk"
-        ? [
-            { "@type": "Country", name: "United Kingdom" },
-            { "@type": "Place", name: "European Union" },
-          ]
-        : { "@type": "Country", name: "India" },
+    areaServed: { "@type": "Country", name: "India" },
   }));
 }
 

@@ -28,7 +28,7 @@ export default function BlogPage() {
           Indian chillies
         </Link>
         , and{" "}
-        <Link href="/wholesale" className="text-nav hover:underline">
+        <Link href="/enquiry" className="text-nav hover:underline">
           wholesale buying
         </Link>
         . Start with the{" "}

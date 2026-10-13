@@ -2,10 +2,8 @@ import Link from "next/link";
 import { site } from "@/lib/site";
 
 const recovery = [
-  { href: "/enquiry", label: "Free sourcing enquiry" },
+  { href: "/enquiry", label: "Enquire Now" },
   { href: "/markets", label: "Export markets" },
-  { href: "/wholesale", label: "Wholesale (10kg+)" },
-  { href: "/bulk-enquiry", label: "100kg+ bulk quote" },
   { href: "/spice-guide", label: "Spice guide" },
   { href: "/spices", label: "Shop spices" },
 ] as const;

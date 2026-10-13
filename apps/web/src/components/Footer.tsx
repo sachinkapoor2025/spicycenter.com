@@ -15,9 +15,7 @@ import {
 
 const shopLinks = [
   { href: "/spices", label: "Spices" },
-  { href: "/enquiry", label: "Free enquiry" },
-  { href: "/wholesale", label: "Bulk & Wholesale" },
-  { href: "/bulk-enquiry", label: "100kg+ bulk" },
+  { href: "/enquiry", label: "Enquire Now" },
   { href: "/markets", label: "Export markets" },
   { href: "/middle-east", label: "Middle East" },
   { href: "/locations", label: "Location list" },
@@ -26,7 +24,7 @@ const shopLinks = [
   { href: "/spice-guide", label: "Spice Guide" },
 ] as const;
 
-const stores = [...STORE_LOCATIONS].sort((a, b) => Number(a.id === "uk") - Number(b.id === "uk"));
+const stores = [...STORE_LOCATIONS];
 
 export function Footer() {
   return (
@@ -143,7 +141,7 @@ export function Footer() {
                       {store.flag} {store.country}
                     </p>
                     <p className="text-[13px] mt-0.5">
-                      {store.id === "in" ? "Ferozepur City, Punjab" : "Southampton, UK"}
+                      {store.id === "in" ? "Ferozepur City, Punjab" : store.country}
                     </p>
                     <a href={store.mapUrl} target="_blank" rel="noopener noreferrer" className="text-[12px] text-white/60 hover:text-white">
                       View on map

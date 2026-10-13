@@ -431,7 +431,7 @@ export function ShoppingAssistant() {
           onClick={() => (open && !minimized ? setMinimized(true) : void handleOpen())}
           aria-label={open && !minimized ? "Minimize spice assistant" : "Find your spice look"}
           aria-expanded={open && !minimized}
-          className="fixed right-4 bottom-[4.75rem] z-[80] flex h-11 w-11 sm:w-auto items-center justify-center gap-1.5 rounded-xl bg-primary px-0 sm:px-3.5 text-white shadow-[0_4px_12px_rgba(44,24,16,0.45)] ring-2 ring-white/20 hover:scale-105 active:scale-95 transition-transform"
+          className="fixed right-3 z-[80] flex h-11 w-11 md:right-4 md:w-auto items-center justify-center gap-1.5 rounded-xl bg-primary px-0 md:px-3.5 text-white shadow-[0_4px_12px_rgba(44,24,16,0.45)] ring-2 ring-white/20 hover:scale-105 active:scale-95 transition-transform bottom-[max(0.5rem,env(safe-area-inset-bottom))] md:bottom-[4.75rem]"
         >
           {open && !minimized ? (
             <svg className="h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -440,7 +440,7 @@ export function ShoppingAssistant() {
           ) : (
             <>
               <span aria-hidden className="shrink-0 text-base leading-none">🌶</span>
-              <span className="hidden sm:inline text-sm font-semibold leading-none">Ask about spices</span>
+              <span className="hidden md:inline text-sm font-semibold leading-none">Ask about spices</span>
             </>
           )}
         </button>

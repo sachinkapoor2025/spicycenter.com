@@ -75,19 +75,11 @@ export function ContactForm() {
     <div className="max-w-3xl mx-auto px-4 py-12">
       <h1 className="text-3xl font-bold text-primary mb-6">Contact Us</h1>
       <p className="text-slate-600 mb-4">
-        Retail order and delivery questions stay here. Importers and wholesalers should use a{" "}
+        Retail order and delivery questions stay here. Importers and wholesalers should use{" "}
         <Link href="/enquiry" className="text-nav hover:underline">
-          free sourcing enquiry
-        </Link>
-        ,{" "}
-        <Link href="/wholesale" className="text-nav hover:underline">
-          10kg+ wholesale
-        </Link>
-        ,{" "}
-        <Link href="/bulk-enquiry" className="text-nav hover:underline">
-          100kg+ bulk
-        </Link>
-        , or an{" "}
+          Enquire Now
+        </Link>{" "}
+        or an{" "}
         <Link href="/markets" className="text-nav hover:underline">
           export-market hub
         </Link>

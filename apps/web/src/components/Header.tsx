@@ -94,14 +94,6 @@ function WishlistLink({ className = "" }: { className?: string }) {
   );
 }
 
-function EnquireLink({ className = "" }: { className?: string }) {
-  return (
-    <Link href="/enquiry" className={`p-2 text-primary hover:text-nav text-sm font-semibold ${className}`}>
-      Enquire
-    </Link>
-  );
-}
-
 function DesktopHeaderAction({
   href,
   label,
@@ -119,13 +111,21 @@ function DesktopHeaderAction({
   );
 }
 
+function EnquireLink({ className = "" }: { className?: string }) {
+  return (
+    <Link href="/enquiry" className={`p-2 text-primary hover:text-nav text-xs font-semibold leading-tight whitespace-nowrap ${className}`}>
+      Enquire Now
+    </Link>
+  );
+}
+
 function DesktopEnquireAction() {
   return (
-    <Link href="/enquiry" className="flex flex-col items-center gap-1 px-3 text-primary hover:text-nav min-w-[4.5rem]">
+    <Link href="/enquiry" className="flex flex-col items-center gap-1 px-3 text-primary hover:text-nav min-w-[5rem]">
       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M8 10h8M8 14h5M6 4h12a2 2 0 012 2v12l-4-3H6a2 2 0 01-2-2V6a2 2 0 012-2z" />
       </svg>
-      <span className="text-xs font-medium leading-none">Enquire</span>
+      <span className="text-xs font-medium leading-tight text-center">Enquire Now</span>
     </Link>
   );
 }
@@ -195,6 +195,8 @@ export function Header() {
         <div className="flex-1 min-w-0" />
 
         <div className="flex items-center shrink-0">
+          <AccountLink className="p-1.5" />
+          <WishlistLink className="p-1.5" />
           <EnquireLink className="p-1.5" />
         </div>
       </div>

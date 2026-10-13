@@ -1,11 +1,11 @@
 import Link from "next/link";
 import type { Product } from "@spicycorner/shared";
 import { getSpiceBySlug } from "@/lib/spice-data";
-import { packUniqueBlurb, parseProductSpiceTag } from "@/lib/content/spice-display";
+import { parseProductSpiceTag } from "@/lib/content/spice-display";
 import { recipesForSpice } from "@/lib/recipes";
 
 export function ProductSpiceStory({ product }: { product: Product }) {
-  const { spiceId, form, pack } = parseProductSpiceTag(product.tags);
+  const { spiceId, form } = parseProductSpiceTag(product.tags);
   const spice = spiceId ? getSpiceBySlug(spiceId) : undefined;
   if (!spice) return null;
   const recipes = recipesForSpice(spice.id).slice(0, 5);
@@ -19,15 +19,16 @@ export function ProductSpiceStory({ product }: { product: Product }) {
     <section className="max-w-6xl mx-auto px-4 pb-8">
       <div className="border border-[#eadfce] rounded-xl p-6 bg-[#fffaf3] space-y-6">
         <div>
-          <h2 className="font-serif text-2xl text-primary">How to use this pack</h2>
-          <p className="mt-2 text-sm leading-relaxed text-slate-700">{packUniqueBlurb(product.name, pack, form)}</p>
-          <p className="mt-2 text-sm text-slate-600">
-            Shared facts for {spice.canonicalName} live on the{" "}
+          <h2 className="font-serif text-2xl text-primary">How to use this spice</h2>
+          <p className="mt-2 text-sm leading-relaxed text-slate-700">
+            {form
+              ? `This listing is ${spice.canonicalName} (${form.replace(/-/g, " ")}).`
+              : `This listing is ${spice.canonicalName}.`}{" "}
+            Shared facts live on the{" "}
             <Link className="text-nav font-semibold" href={`/spice-guide/${spice.slug}`}>
               {spice.canonicalName} guide
             </Link>
-            . This product page is for the {pack ?? "listed"} {form ?? "form"} SKU so pack-size URLs are not duplicate
-            copies of each other.
+            .
           </p>
         </div>
         <div>

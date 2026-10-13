@@ -1,7 +1,7 @@
 /** Mapped from the 5,000-keyword master list. One cluster = one canonical URL. Not search-volume data. */
 export const KEYWORD_CLUSTERS = [
   {
-    "url": "/wholesale",
+    "url": "/enquiry",
     "keywordCount": 1634,
     "priority": "P1",
     "intent": "B2B / wholesale",

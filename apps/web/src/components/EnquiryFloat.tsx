@@ -14,7 +14,10 @@ export function EnquiryFloat() {
   const hidden =
     pathname.startsWith("/admin") ||
     pathname.startsWith("/ses-email") ||
-    pathname.startsWith("/checkout");
+    pathname.startsWith("/checkout") ||
+    pathname.startsWith("/products/") ||
+    pathname === "/enquiry" ||
+    pathname.startsWith("/bulk-enquiry");
 
   useEffect(() => {
     setOpen(false);
@@ -38,12 +41,12 @@ export function EnquiryFloat() {
         type="button"
         onClick={() => setOpen(true)}
         className="fixed z-[60] bg-nav text-white font-semibold shadow-[0_6px_20px_rgba(196,92,38,0.35)] hover:bg-nav/90 active:scale-[0.99] transition
-          inset-x-3 bottom-3 rounded-2xl px-4 py-3 text-sm
-          md:inset-auto md:bottom-6 md:right-6 md:rounded-full md:px-5 md:py-3.5"
+          inset-x-[3.65rem] bottom-[max(0.5rem,env(safe-area-inset-bottom))] h-11 rounded-xl px-3 text-sm leading-none
+          md:inset-auto md:bottom-6 md:right-6 md:h-auto md:rounded-full md:px-5 md:py-3.5 md:leading-normal"
         aria-haspopup="dialog"
         aria-expanded={open}
       >
-        Bulk enquiry
+        Enquire Now
       </button>
 
       {open ? (
@@ -59,7 +62,7 @@ export function EnquiryFloat() {
               <div>
                 <p className="spice-kicker">Always available</p>
                 <h2 id="enquiry-float-title" className="font-serif text-2xl text-primary mt-1">
-                  Bulk enquiry
+                  Enquire Now
                 </h2>
               </div>
               <button
@@ -71,9 +74,9 @@ export function EnquiryFloat() {
               </button>
             </div>
             <p className="text-sm text-muted mb-4">
-              Free to submit. 10kg+ wholesale on this form. For 100kg+ cargo use{" "}
-              <Link href="/bulk-enquiry" className="text-nav font-semibold" onClick={() => setOpen(false)}>
-                the bulk quote
+              Free to submit. Type the quantity you need. We reply with availability. You can also open the{" "}
+              <Link href="/enquiry" className="text-nav font-semibold" onClick={() => setOpen(false)}>
+                enquiry page
               </Link>
               .
             </p>

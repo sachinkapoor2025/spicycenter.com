@@ -47,9 +47,8 @@ ${cats}
 
 - Home: ${siteUrl}/
 - Shop: ${siteUrl}/spices
-- Free enquiry: ${siteUrl}/enquiry
-- Wholesale: ${siteUrl}/wholesale
-- 100kg+ bulk: ${siteUrl}/bulk-enquiry
+- Enquire Now: ${siteUrl}/enquiry
+- Wholesale hub: ${siteUrl}/wholesale (redirects to /enquiry)
 - Export markets: ${siteUrl}/markets
 - Middle East (UAE emirates + GCC cities): ${siteUrl}/middle-east
 - Location inventory: ${siteUrl}/locations

@@ -7,7 +7,7 @@ const SPICE_LINKS: readonly InlineLink[] = [
   { phrase: "ground spices", href: "/spices/ground-spices" },
   { phrase: "Indian chillies", href: "/spices/indian-chillies" },
   { phrase: "masalas", href: "/spices/indian-masalas" },
-  { phrase: "wholesale", href: "/wholesale" },
+  { phrase: "wholesale", href: "/enquiry" },
   { phrase: "spice guide", href: "/spice-guide" },
 ];
 

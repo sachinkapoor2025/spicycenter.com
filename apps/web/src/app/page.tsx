@@ -25,6 +25,106 @@ export const metadata: Metadata = pageMetadata({
 
 export const dynamic = "force-dynamic";
 
+const SHIPPING_BENEFITS = [
+  { label: "Worldwide Delivery", icon: "globe" },
+  { label: "Safe & Secure Packaging", icon: "package" },
+  { label: "Multiple Shipping Options", icon: "truck" },
+  { label: "Duties & Taxes Guidance", icon: "document" },
+] as const;
+
+function ShippingBenefitIcon({
+  name,
+  className = "h-5 w-5",
+}: {
+  name: (typeof SHIPPING_BENEFITS)[number]["icon"];
+  className?: string;
+}) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      className={`${className} text-nav shrink-0`}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      aria-hidden="true"
+    >
+      {name === "globe" ? (
+        <>
+          <circle cx="12" cy="12" r="9" />
+          <path strokeLinecap="round" d="M3 12h18" />
+          <ellipse cx="12" cy="12" rx="4" ry="9" />
+        </>
+      ) : null}
+      {name === "package" ? (
+        <>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.5 12 3.5 3 8.5l9 5 9-5z" />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M3 8.5v7l9 5 9-5v-7" />
+          <path strokeLinecap="round" d="M12 13.5v7" />
+        </>
+      ) : null}
+      {name === "truck" ? (
+        <>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M3 7h11v10H3z" />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M14 10h3.5L21 13.5V17h-7" />
+          <circle cx="7" cy="18" r="1.4" />
+          <circle cx="17" cy="18" r="1.4" />
+        </>
+      ) : null}
+      {name === "document" ? (
+        <>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M7 3h7l5 5v13H7V3z" />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M14 3v5h5" />
+          <path strokeLinecap="round" d="M9 13h6M9 17h4" />
+        </>
+      ) : null}
+    </svg>
+  );
+}
+
+function ShippingBenefitList({
+  className,
+  itemClassName = "",
+  stacked = false,
+  circled = false,
+}: {
+  className?: string;
+  itemClassName?: string;
+  stacked?: boolean;
+  circled?: boolean;
+}) {
+  return (
+    <ul className={className}>
+      {SHIPPING_BENEFITS.map((item) => (
+        <li
+          key={item.label}
+          className={
+            stacked
+              ? `flex flex-col items-center gap-1 md:gap-1.5 min-w-0 text-center ${itemClassName}`
+              : `flex items-start gap-2 min-w-0 ${itemClassName}`
+          }
+        >
+          {circled ? (
+            <span className="flex h-9 w-9 items-center justify-center rounded-full border border-nav/70">
+              <ShippingBenefitIcon name={item.icon} className="h-[1.15rem] w-[1.15rem]" />
+            </span>
+          ) : (
+            <ShippingBenefitIcon name={item.icon} />
+          )}
+          <span
+            className={
+              circled
+                ? "text-[11px] font-semibold text-primary leading-tight"
+                : "text-xs font-semibold text-primary leading-snug"
+            }
+          >
+            {item.label}
+          </span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 export default async function HomePage() {
   const spices = loadSpiceEntities();
   const featured = spices.filter((s) => s.featured || s.featuredKnowledge).slice(0, 10);
@@ -37,20 +137,20 @@ export default async function HomePage() {
       <HomeBannerSlider banners={homeBanners} />
 
       <section className="max-w-7xl mx-auto px-4 pt-8 pb-2 text-center">
-        <p className="spice-kicker">{site.tagline}</p>
-        <h1 className="spice-heading text-3xl sm:text-4xl lg:text-5xl mt-2 leading-tight max-w-5xl mx-auto">
+        <p className="spice-kicker tracking-[0.14em] sm:tracking-[0.16em]">{site.tagline}</p>
+        <h1 className="spice-heading text-[1.55rem] sm:text-[1.7rem] md:text-[2.05rem] lg:text-[2.15rem] mt-2 leading-[1.2] max-w-4xl mx-auto">
           {HOME_H1}
         </h1>
-        <h2 className="mt-4 text-base sm:text-lg font-sans font-normal leading-relaxed text-primary max-w-3xl mx-auto">
+        <h2 className="mt-3 text-[0.9rem] sm:text-[0.95rem] md:text-[1.05rem] font-sans font-normal leading-relaxed text-primary max-w-3xl mx-auto">
           {HOME_INTRO}
         </h2>
-        <p className="mt-3 text-lg sm:text-xl text-primary">{site.homepageSubline}</p>
-        <p className="mt-2 font-serif italic text-xl text-nav">{site.promise}</p>
+        <p className="mt-3 text-[0.95rem] sm:text-base text-primary">{site.homepageSubline}</p>
+        <p className="mt-2 font-serif italic text-base sm:text-lg text-nav">{site.promise}</p>
       </section>
 
       <section className="border-b border-[#e6d5bc] bg-beige/70">
         <div className="max-w-7xl mx-auto px-4 py-6">
-          <h2 className="font-serif text-xl sm:text-2xl text-primary text-center mb-4">
+          <h2 className="font-serif text-[1.35rem] sm:text-[1.5rem] md:text-[1.7rem] text-primary text-center mb-4 leading-snug">
             Pure spices, bulk packs and worldwide supply
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 text-center text-sm text-primary">
@@ -72,7 +172,7 @@ export default async function HomePage() {
       <section className="max-w-7xl mx-auto px-4 py-10 md:py-14">
         <div className="text-center mb-8">
           <p className="spice-kicker">Spice-market collection</p>
-          <h2 className="font-serif text-2xl sm:text-3xl text-primary mt-2">Shop by spice type</h2>
+          <h2 className="font-serif text-[1.35rem] sm:text-[1.5rem] md:text-[1.7rem] text-primary mt-2 leading-snug">Shop by spice type</h2>
         </div>
         <div className="grid grid-cols-4 md:grid-cols-8 gap-2 sm:gap-4">
           {exploreCategories.map((c) => (
@@ -88,7 +188,7 @@ export default async function HomePage() {
 
       <section className="bg-beige/50 border-y border-[#e6d5bc]">
         <div className="max-w-7xl mx-auto px-4 py-14">
-        <h2 className="font-serif text-2xl sm:text-3xl text-primary text-center mb-8">
+        <h2 className="font-serif text-[1.35rem] sm:text-[1.5rem] md:text-[1.7rem] text-primary text-center mb-8 leading-snug">
           Indian masalas, bulk packs and recipes
         </h2>
         <div className="grid md:grid-cols-3 gap-5">
@@ -113,61 +213,145 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="bg-paper border-b border-[#e6d5bc]">
-        <div className="max-w-7xl mx-auto px-4 py-12">
-          <h2 className="spice-heading text-3xl mb-3">Choose your own quantity</h2>
-          <p className="text-muted max-w-2xl">
-            Each spice has one Enquire Now button. On the form, type the quantity you need — {PACK_SIZE_RANGE}. We confirm availability in the reply. Prices are not published on this website.
-          </p>
-          <Link href="/enquiry" className="btn-primary mt-5">Enquire Now</Link>
-        </div>
-      </section>
-
-      <section className="max-w-7xl mx-auto px-4 py-14 grid md:grid-cols-2 gap-8">
-        <div className="card-spice p-8 spice-panel">
-          <p className="spice-kicker">Wholesale</p>
-          <h2 className="font-serif text-3xl mt-2">Browse the catalogue, then enquire</h2>
-          <p className="mt-3 text-muted">
-            Pack sizes run from {PACK_SIZE_RANGE} for importers, distributors, restaurants and other food businesses. Tell us the spice and the pack size. We reply with availability. This site does not take payment or show a delivery date.
-          </p>
-          <div className="mt-6 flex flex-wrap gap-3">
-            <Link href="/enquiry" className="btn-primary">Enquire Now</Link>
-            <Link href="/markets" className="text-nav font-semibold inline-flex items-center">
-              Export markets →
-            </Link>
+      <section className="max-w-7xl mx-auto px-4 py-6 md:py-8 pb-[calc(5.25rem+env(safe-area-inset-bottom))] md:pb-10">
+        <div className="card-spice overflow-hidden">
+          <div className="grid grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)] md:grid-cols-2 items-stretch">
+            <div className="relative z-10 flex flex-col items-start justify-center bg-[#fbf6ee] px-4 py-4 sm:px-5 sm:py-5 md:px-8 md:py-6 min-w-0">
+              <h2 className="spice-heading text-[1.2rem] sm:text-[1.35rem] md:text-[1.5rem] leading-snug">Tell Us What You Need</h2>
+              <p className="mt-2.5 max-w-xl text-[0.9rem] md:text-[0.98rem] leading-[1.5] md:leading-relaxed text-primary">
+                Looking for spices, masalas, herbs or food ingredients? Fill out our enquiry form with your requirements, and our team will get back to you with availability and details.
+              </p>
+              <Link href="/enquiry" className="btn-primary mt-3 md:mt-4 !w-auto px-4 py-2 md:px-5 md:py-2.5 text-sm font-semibold">Enquire Now</Link>
+            </div>
+            <div className="relative min-h-[11rem] md:min-h-[13.5rem] lg:min-h-[15rem] overflow-hidden bg-[#fbf6ee]">
+              <Image
+                src="/images/tell-us-what-you-need-spices.png"
+                alt=""
+                fill
+                className="object-cover object-[80%_center] md:object-[82%_center]"
+                sizes="(max-width: 768px) 45vw, 50vw"
+              />
+              <span
+                className="pointer-events-none absolute inset-y-0 left-0 w-[52%] bg-gradient-to-r from-[#fbf6ee] via-[#fbf6ee]/70 to-transparent md:hidden"
+                aria-hidden="true"
+              />
+              <span
+                className="pointer-events-none absolute inset-y-0 left-0 hidden w-[42%] bg-gradient-to-r from-[#fbf6ee] via-[#fbf6ee]/55 to-transparent md:block"
+                aria-hidden="true"
+              />
+            </div>
           </div>
         </div>
-        <div className="card-spice p-8 spice-panel">
-          <p className="spice-kicker">Worldwide</p>
-          <h2 className="font-serif text-3xl mt-2">Global delivery</h2>
-          <p className="mt-3 text-muted">
-            SpicyCenter supplies worldwide. Choose your country in the header for local context, then send an enquiry.
-            Delivery timing is handled in that conversation, not as a date on the product page.
-          </p>
-          <Link href="/legal/shipping" className="text-nav font-semibold mt-4 inline-block">Shipping details →</Link>
-        </div>
-      </section>
 
-      <section className="max-w-7xl mx-auto px-4 pb-14">
-        <div className="card-spice p-8">
-          <p className="spice-kicker">UAE and Middle East</p>
-          <h2 className="font-serif text-3xl mt-2">Indian spices for Dubai, Abu Dhabi and the GCC</h2>
-          <p className="mt-3 text-muted max-w-3xl">
+        <div className="card-spice overflow-hidden mt-4 md:mt-5">
+          <div className="grid grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)] md:grid-cols-2 items-stretch">
+            <div className="relative z-10 flex flex-col justify-center bg-[#fbf6ee] px-4 py-4 sm:px-5 sm:py-5 md:px-8 md:py-6 min-w-0">
+              <p className="spice-kicker tracking-[0.14em] sm:tracking-[0.16em] flex items-center gap-3">
+                Wholesale Enquiries
+                <span className="hidden sm:block h-px w-10 bg-nav" aria-hidden="true" />
+              </p>
+              <h2 className="font-serif text-[1.2rem] sm:text-[1.35rem] md:text-[1.5rem] text-primary mt-2 leading-snug">
+                Request a Wholesale Quote
+              </h2>
+              <p className="mt-2.5 text-[0.9rem] md:text-[0.98rem] leading-[1.5] md:leading-relaxed text-primary max-w-md">
+                Looking for spices, masalas or herbs for your business? Fill out our enquiry form with your requirements, and our team will get back to you with availability and details.
+              </p>
+              <Link href="/enquiry" className="btn-primary mt-3 md:mt-4 self-start !w-auto rounded-xl px-4 py-2 md:px-5 md:py-2.5 text-sm font-semibold">
+                Enquire Now →
+              </Link>
+              <Link href="/markets" className="text-nav font-semibold mt-2.5 self-start inline-flex items-center text-sm leading-snug">
+                Explore Export Markets →
+              </Link>
+            </div>
+            <div className="relative min-h-[11rem] md:min-h-[13.5rem] lg:min-h-[15rem] overflow-hidden bg-[#fbf6ee]">
+              <Image
+                src="/images/wholesale-enquiries-card.png"
+                alt=""
+                fill
+                className="object-cover object-[72%_center] md:object-[center_52%]"
+                sizes="(max-width: 768px) 45vw, 50vw"
+              />
+              <span
+                className="pointer-events-none absolute inset-y-0 left-0 w-[48%] bg-gradient-to-r from-[#fbf6ee] via-[#fbf6ee]/65 to-transparent md:hidden"
+                aria-hidden="true"
+              />
+              <span
+                className="pointer-events-none absolute inset-y-0 left-0 hidden w-[38%] bg-gradient-to-r from-[#fbf6ee] via-[#fbf6ee]/50 to-transparent md:block"
+                aria-hidden="true"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="card-spice relative overflow-hidden mt-4 md:mt-5">
+          <div className="pointer-events-none absolute inset-0 z-0 md:hidden" aria-hidden="true">
+            <Image
+              src="/images/global-shipping-banner.jpg"
+              alt=""
+              fill
+              className="object-cover object-[82%_center]"
+              sizes="100vw"
+            />
+            <span className="absolute inset-0 bg-gradient-to-r from-[#fbf6ee] from-[40%] via-[#fbf6ee]/88 via-[62%] to-transparent to-[78%]" />
+          </div>
+          <div className="relative z-10 grid grid-cols-1 md:grid-cols-[minmax(0,1.2fr)_minmax(0,0.9fr)] items-stretch">
+            <div className="relative z-10 flex flex-col justify-center bg-transparent md:bg-[#fbf6ee] px-4 pt-5 pb-4 sm:px-5 sm:py-5 md:px-8 md:py-6 min-w-0">
+              <p className="spice-kicker text-[11px] tracking-[0.16em] sm:tracking-[0.16em] flex items-center gap-3">
+                Shipping & Delivery
+                <span className="block h-px w-12 md:w-10 bg-nav" aria-hidden="true" />
+              </p>
+              <h2 className="font-serif text-[1.7rem] sm:text-[1.8rem] md:text-[1.5rem] text-primary mt-2 leading-[1.12] md:leading-snug max-w-[13.5rem] md:max-w-none">
+                Global Shipping Made Simple
+              </h2>
+              <p className="mt-3 md:mt-2.5 text-[0.92rem] md:text-[0.98rem] leading-[1.55] md:leading-relaxed text-primary max-w-[13.75rem] md:max-w-xl">
+                We deliver spices, masalas and herbs to customers across India, the UK, Europe and worldwide.
+              </p>
+              <p className="mt-2.5 md:mt-2 text-[0.92rem] md:text-[0.98rem] leading-[1.55] md:leading-relaxed text-primary max-w-[13.75rem] md:max-w-xl">
+                Shipping charges are calculated as per your required order quantity, destination and shipping method. Our team will confirm the best available options, rates and applicable duties or taxes with your quote.
+              </p>
+              <ShippingBenefitList stacked className="hidden md:grid grid-cols-4 gap-3 mt-4" />
+              <ShippingBenefitList
+                stacked
+                circled
+                itemClassName="border-r border-[#e6d5bc] last:border-r-0 px-0.5"
+                className="grid grid-cols-4 gap-0 mt-4 w-[74%] md:hidden"
+              />
+            </div>
+            <div className="relative hidden md:block md:h-auto md:min-h-[14rem] lg:min-h-[16rem] overflow-hidden bg-[#fbf6ee]">
+              <Image
+                src="/images/global-shipping-banner.jpg"
+                alt=""
+                fill
+                className="object-cover object-[68%_center]"
+                sizes="45vw"
+              />
+              <span
+                className="pointer-events-none absolute inset-y-0 left-0 w-[38%] bg-gradient-to-r from-[#fbf6ee] via-[#fbf6ee]/50 to-transparent"
+                aria-hidden="true"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-4 md:mt-5 rounded-lg border border-[#e6d5bc] bg-beige/50 p-4 sm:p-5 md:p-6">
+          <p className="spice-kicker tracking-[0.14em] sm:tracking-[0.16em]">UAE and Middle East</p>
+          <h2 className="font-serif text-[1.2rem] sm:text-[1.35rem] md:text-[1.5rem] mt-2 text-primary leading-snug">Indian spices for Dubai, Abu Dhabi and the GCC</h2>
+          <p className="mt-2.5 text-[0.9rem] md:text-[0.98rem] leading-relaxed text-muted max-w-3xl">
             Importers and hotels in the UAE, Saudi Arabia, Qatar and nearby markets send a free bulk enquiry. We map
             the keyword workbook to country and city hubs — we do not invent a warehouse in every emirate.
           </p>
-          <div className="mt-5 flex flex-wrap gap-3">
-            <Link href="/middle-east" className="btn-primary">Middle East hubs</Link>
-            <Link href="/middle-east/dubai" className="text-nav font-semibold">Dubai</Link>
-            <Link href="/middle-east/abu-dhabi" className="text-nav font-semibold">Abu Dhabi</Link>
-            <Link href="/markets/uae" className="text-nav font-semibold">UAE keyword hub</Link>
+          <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2">
+            <Link href="/middle-east" className="btn-primary shrink-0 !w-auto px-5 py-2.5 text-sm font-semibold">Middle East hubs</Link>
+            <Link href="/middle-east/dubai" className="text-nav font-semibold whitespace-nowrap text-sm leading-none">Dubai</Link>
+            <Link href="/middle-east/abu-dhabi" className="text-nav font-semibold whitespace-nowrap text-sm leading-none">Abu Dhabi</Link>
+            <Link href="/markets/uae" className="text-nav font-semibold whitespace-nowrap text-sm leading-none">UAE keyword hub</Link>
           </div>
         </div>
       </section>
 
       <section className="max-w-7xl mx-auto px-4 py-14">
         <p className="spice-kicker">Why enquire with SpicyCenter</p>
-        <h2 className="spice-heading text-3xl mt-2 mb-3">A catalogue built for a conversation, not a checkout</h2>
+        <h2 className="spice-heading text-[1.35rem] sm:text-[1.5rem] md:text-[1.7rem] mt-2 mb-3 leading-snug">A catalogue built for a conversation, not a checkout</h2>
         <p className="text-muted max-w-3xl mb-6">
           Other spice sites publish a price for one pack size and leave the rest as a guess. SpicyCenter lists the spice once. You tell us the quantity, the destination and how you buy, and the reply is for that enquiry.
         </p>
@@ -193,7 +377,7 @@ export default async function HomePage() {
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 mb-3">
           <div>
             <p className="spice-kicker">From the spice kitchen</p>
-            <h2 className="spice-heading text-2xl sm:text-3xl mt-2">
+            <h2 className="spice-heading text-[1.35rem] sm:text-[1.5rem] md:text-[1.7rem] mt-2 leading-snug">
               {products.length > 0
                 ? `Explore ${products.length} Indian spice products`
                 : "Explore Indian spices"}
@@ -229,7 +413,7 @@ export default async function HomePage() {
               ) : null}
               <p className="text-sm text-muted">{s.hindiName} {s.botanicalName ? `· ${s.botanicalName}` : ""}</p>
               <p className="mt-2 text-sm">{s.shortDescription}</p>
-              <p className="mt-2 text-xs text-muted">Origin: India · Enquire for {PACK_SIZE_RANGE}</p>
+              <p className="mt-2 text-xs text-muted">Origin: India</p>
               </span>
             </Link>
             );

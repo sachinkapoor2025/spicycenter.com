@@ -32,8 +32,8 @@ export default function SpiceSupplierPage() {
         <Link className="text-nav font-semibold" href="/spices">
           Shop the catalogue →
         </Link>
-        <Link className="text-nav font-semibold" href="/wholesale">
-          Wholesale quotes →
+        <Link className="text-nav font-semibold" href="/enquiry">
+          Enquire Now →
         </Link>
         <Link className="text-nav font-semibold" href="/uk">
           UK delivery →
