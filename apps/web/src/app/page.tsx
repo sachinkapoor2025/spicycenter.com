@@ -25,6 +25,82 @@ export const metadata: Metadata = pageMetadata({
 
 export const dynamic = "force-dynamic";
 
+const SHIPPING_BENEFITS = [
+  { label: "Worldwide Delivery", icon: "globe" },
+  { label: "Safe & Secure Packaging", icon: "package" },
+  { label: "Multiple Shipping Options", icon: "truck" },
+  { label: "Duties & Taxes Guidance", icon: "document" },
+] as const;
+
+function ShippingBenefitIcon({ name }: { name: (typeof SHIPPING_BENEFITS)[number]["icon"] }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      className="h-5 w-5 text-nav shrink-0"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      aria-hidden="true"
+    >
+      {name === "globe" ? (
+        <>
+          <circle cx="12" cy="12" r="9" />
+          <path strokeLinecap="round" d="M3 12h18" />
+          <ellipse cx="12" cy="12" rx="4" ry="9" />
+        </>
+      ) : null}
+      {name === "package" ? (
+        <>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.5 12 3.5 3 8.5l9 5 9-5z" />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M3 8.5v7l9 5 9-5v-7" />
+          <path strokeLinecap="round" d="M12 13.5v7" />
+        </>
+      ) : null}
+      {name === "truck" ? (
+        <>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M3 7h11v10H3z" />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M14 10h3.5L21 13.5V17h-7" />
+          <circle cx="7" cy="18" r="1.4" />
+          <circle cx="17" cy="18" r="1.4" />
+        </>
+      ) : null}
+      {name === "document" ? (
+        <>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M7 3h7l5 5v13H7V3z" />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M14 3v5h5" />
+          <path strokeLinecap="round" d="M9 13h6M9 17h4" />
+        </>
+      ) : null}
+    </svg>
+  );
+}
+
+function ShippingBenefitList({
+  className,
+  stacked = false,
+}: {
+  className?: string;
+  stacked?: boolean;
+}) {
+  return (
+    <ul className={className}>
+      {SHIPPING_BENEFITS.map((item) => (
+        <li
+          key={item.label}
+          className={
+            stacked
+              ? "flex flex-col items-center gap-1.5 min-w-0 text-center"
+              : "flex items-start gap-2 min-w-0"
+          }
+        >
+          <ShippingBenefitIcon name={item.icon} />
+          <span className="text-[11px] sm:text-xs font-semibold text-primary leading-snug">{item.label}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 export default async function HomePage() {
   const spices = loadSpiceEntities();
   const featured = spices.filter((s) => s.featured || s.featuredKnowledge).slice(0, 10);
@@ -183,31 +259,43 @@ export default async function HomePage() {
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-4 md:gap-5 mt-4 md:mt-5">
-          <div className="card-spice p-4 sm:p-5 md:p-6 spice-panel flex flex-col">
-            <p className="spice-kicker tracking-[0.14em] sm:tracking-[0.16em]">Wholesale</p>
-            <h2 className="font-serif text-[1.2rem] sm:text-[1.35rem] md:text-[1.5rem] mt-2 text-primary leading-snug">Browse the catalogue, then enquire</h2>
-            <p className="mt-2.5 text-[0.9rem] md:text-[0.98rem] leading-relaxed text-muted">
-              Browse our catalogue to discover spices, masalas and food ingredients for your business. Tell us what you need, and our team will respond with availability and relevant details. This website does not take payment or confirm delivery dates.
-            </p>
-            <div className="mt-auto pt-4 flex flex-wrap items-center gap-x-4 gap-y-2">
-              <Link href="/enquiry" className="btn-primary shrink-0 !w-auto px-5 py-2.5 text-sm font-semibold">Enquire Now</Link>
-              <Link href="/markets" className="text-nav font-semibold inline-flex items-center whitespace-nowrap text-sm leading-none">
-                Export markets →
-              </Link>
+        <div className="card-spice overflow-hidden mt-4 md:mt-5">
+          <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1.2fr)_minmax(0,0.9fr)] items-stretch">
+            <div className="relative z-10 flex flex-col justify-center bg-[#fbf6ee] px-4 py-4 sm:px-5 sm:py-5 md:px-8 md:py-6 min-w-0">
+              <p className="spice-kicker tracking-[0.14em] sm:tracking-[0.16em] flex items-center gap-3">
+                Shipping & Delivery
+                <span className="hidden sm:block h-px w-10 bg-nav" aria-hidden="true" />
+              </p>
+              <h2 className="font-serif text-[1.2rem] sm:text-[1.35rem] md:text-[1.5rem] text-primary mt-2 leading-snug">
+                Global Shipping Made Simple
+              </h2>
+              <p className="mt-2.5 text-[0.9rem] md:text-[0.98rem] leading-[1.5] md:leading-relaxed text-primary max-w-xl">
+                We deliver spices, masalas and herbs to customers across India, the UK, Europe and worldwide.
+              </p>
+              <p className="mt-2 text-[0.9rem] md:text-[0.98rem] leading-[1.5] md:leading-relaxed text-primary max-w-xl">
+                Shipping charges are calculated as per your required order quantity, destination and shipping method. Our team will confirm the best available options, rates and applicable duties or taxes with your quote.
+              </p>
+              <ShippingBenefitList stacked className="hidden md:grid grid-cols-4 gap-3 mt-4" />
+            </div>
+            <div className="relative h-[9.75rem] sm:h-[11rem] md:h-auto md:min-h-[14rem] lg:min-h-[16rem] overflow-hidden bg-[#fbf6ee]">
+              <Image
+                src="/images/global-shipping-banner.jpg"
+                alt=""
+                fill
+                className="object-cover object-[80%_center] md:object-[68%_center]"
+                sizes="(max-width: 768px) 100vw, 45vw"
+              />
+              <span
+                className="pointer-events-none absolute inset-x-0 top-0 h-10 bg-gradient-to-b from-[#fbf6ee] via-[#fbf6ee]/70 to-transparent md:hidden"
+                aria-hidden="true"
+              />
+              <span
+                className="pointer-events-none absolute inset-y-0 left-0 hidden w-[38%] bg-gradient-to-r from-[#fbf6ee] via-[#fbf6ee]/50 to-transparent md:block"
+                aria-hidden="true"
+              />
             </div>
           </div>
-          <div className="card-spice p-4 sm:p-5 md:p-6 spice-panel flex flex-col">
-            <p className="spice-kicker tracking-[0.14em] sm:tracking-[0.16em]">Worldwide</p>
-            <h2 className="font-serif text-[1.2rem] sm:text-[1.35rem] md:text-[1.5rem] mt-2 text-primary leading-snug">Global delivery</h2>
-            <p className="mt-2.5 text-[0.9rem] md:text-[0.98rem] leading-relaxed text-muted">
-              SpicyCenter supplies worldwide. Choose your country in the header for local context, then send an enquiry.
-              Delivery timing is handled in that conversation, not as a date on the product page.
-            </p>
-            <Link href="/legal/shipping" className="text-nav font-semibold mt-auto pt-4 inline-flex items-center whitespace-nowrap text-sm leading-none">
-              Shipping details →
-            </Link>
-          </div>
+          <ShippingBenefitList className="grid grid-cols-2 gap-x-3 gap-y-3 px-4 pb-4 pt-2 sm:px-5 md:hidden" />
         </div>
 
         <div className="mt-4 md:mt-5 rounded-lg border border-[#e6d5bc] bg-beige/50 p-4 sm:p-5 md:p-6">
