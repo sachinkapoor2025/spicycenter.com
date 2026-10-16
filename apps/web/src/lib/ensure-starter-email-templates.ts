@@ -1,5 +1,5 @@
 import type { SesTemplate } from "@spicycorner/shared";
-import { PREMIUM_MARKETING_EMAIL_LAYOUT } from "@spicycorner/shared";
+import { PREMIUM_MARKETING_EMAIL_LAYOUT, VISIT_WEBSITE_EMAIL_LAYOUT } from "@spicycorner/shared";
 import {
   STARTER_EMAIL_TEMPLATES,
   resolveStarterHtmlBody,
@@ -40,7 +40,10 @@ export async function ensureStarterEmailTemplates(api: ApiClient): Promise<{
   for (const starter of STARTER_EMAIL_TEMPLATES) {
     const htmlBody = await loadStarterHtml(starter);
     const existing = byId.get(starter.templateId);
-    const isStructured = Boolean(starter.contentFields && starter.layout === PREMIUM_MARKETING_EMAIL_LAYOUT);
+    const isStructured = Boolean(
+      starter.contentFields &&
+        (starter.layout === PREMIUM_MARKETING_EMAIL_LAYOUT || starter.layout === VISIT_WEBSITE_EMAIL_LAYOUT)
+    );
 
     if (!existing) {
       const created = await api<{ template: SesTemplate; existed?: boolean }>("/ses-email/templates", {
@@ -61,7 +64,7 @@ export async function ensureStarterEmailTemplates(api: ApiClient): Promise<{
 
     // Structured templates: only migrate layout/contentFields if missing; never clobber edits.
     if (isStructured && starter.preserveAdminEdits !== false) {
-      if (!existing.contentFields || existing.layout !== PREMIUM_MARKETING_EMAIL_LAYOUT) {
+      if (!existing.contentFields || existing.layout !== starter.layout) {
         const res = await api<{ template: SesTemplate }>(`/ses-email/templates/${starter.templateId}`, {
           method: "PUT",
           body: JSON.stringify({

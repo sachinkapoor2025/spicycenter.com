@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 import { useApiClient } from "@/lib/auth-context";
@@ -15,6 +15,8 @@ function ComposeInner() {
   const router = useRouter();
   const search = useSearchParams();
   const editId = search.get("id");
+  const presetTemplate = search.get("template");
+  const presetApplied = useRef(false);
 
   const [name, setName] = useState("");
   const [subject, setSubject] = useState("");
@@ -93,6 +95,15 @@ function ComposeInner() {
       setError(err instanceof Error ? err.message : "Failed to load template");
     }
   };
+
+  useEffect(() => {
+    if (presetApplied.current || editId || !presetTemplate || templates.length === 0) return;
+    if (!templates.some((t) => t.templateId === presetTemplate)) return;
+    presetApplied.current = true;
+    void applyTemplate(presetTemplate);
+    // Load the template chosen from the Templates page once the list is ready.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [editId, presetTemplate, templates]);
 
   const buildPayload = (): Record<string, unknown> => {
     const payload: Record<string, unknown> = {
@@ -241,6 +252,19 @@ function ComposeInner() {
             onChange={(e) => setHtmlBody(e.target.value)}
           />
         </label>
+
+        <div className="rounded-xl border overflow-hidden bg-slate-100">
+          <p className="px-3 py-2 text-xs font-medium text-slate-600 border-b bg-white">
+            Preview — the button uses the link saved in this email
+          </p>
+          <iframe
+            title="Campaign email preview"
+            srcDoc={htmlBody}
+            className="w-full bg-white"
+            style={{ height: 640, border: 0 }}
+            sandbox="allow-popups allow-popups-to-escape-sandbox"
+          />
+        </div>
 
         <div className="flex flex-wrap gap-4 text-sm">
           <label className="flex items-center gap-2">

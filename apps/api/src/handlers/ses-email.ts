@@ -20,7 +20,7 @@ import {
   sendTestEmailSchema,
   renderSesTemplate,
   resolveSesTemplateHtml,
-  PREMIUM_MARKETING_EMAIL_LAYOUT,
+  readSesTemplateLayout,
   DEFAULT_SENDER_MESSAGE_FOOTER,
   sesEmailKeys,
   orderKeys,
@@ -29,7 +29,6 @@ import {
   type SesRecipient,
   type SesTemplate,
   type SesRecipientActivity,
-  type MarketingEmailContentInput,
 } from "@spicycorner/shared";
 import { docClient, now, dayBucket } from "../lib/db";
 import { ok, created, badRequest, notFound, forbidden, unauthorized, serverError, badGateway } from "../lib/response";
@@ -713,11 +712,10 @@ async function resolveCampaignEmailContent(campaign: SesCampaign): Promise<{
 }
 
 function toTemplateResponse(item: Record<string, unknown>): SesTemplate {
-  const layout =
-    item.layout === PREMIUM_MARKETING_EMAIL_LAYOUT ? PREMIUM_MARKETING_EMAIL_LAYOUT : undefined;
+  const layout = readSesTemplateLayout(item.layout);
   const contentFields =
     item.contentFields && typeof item.contentFields === "object"
-      ? (item.contentFields as MarketingEmailContentInput)
+      ? (item.contentFields as SesTemplate["contentFields"])
       : undefined;
   const htmlBody = resolveSesTemplateHtml({
     htmlBody: String(item.htmlBody ?? ""),
