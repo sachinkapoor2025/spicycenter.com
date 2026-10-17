@@ -46,6 +46,23 @@ export default async function SpiceCategoryPage({ params }: Props) {
     <div className="max-w-7xl mx-auto px-4 py-10">
       <p className="text-sm text-muted"><Link href="/spices">Shop</Link> / {title}</p>
       <h1 className="spice-heading text-4xl mt-2">{title}</h1>
+      {!spice && (
+        <p className="mt-4 max-w-3xl text-muted">
+          Browse this collection in the{" "}
+          <Link href="/spices" className="text-nav font-semibold hover:underline">
+            Indian spice catalogue
+          </Link>
+          , read the{" "}
+          <Link href="/spice-guide" className="text-nav font-semibold hover:underline">
+            spice guide
+          </Link>
+          , or request{" "}
+          <Link href="/wholesale" className="text-nav font-semibold hover:underline">
+            wholesale Indian spices
+          </Link>
+          .
+        </p>
+      )}
       {spice && (
         <div className="mt-4 max-w-3xl text-muted">
           <p>{spice.description}</p>
@@ -53,9 +70,21 @@ export default async function SpiceCategoryPage({ params }: Props) {
             {spice.hindiName ? `${spice.hindiName} · ` : ""}
             {spice.botanicalName}
           </p>
-          <Link href={`/spice-guide/${spice.slug}`} className="text-nav font-semibold mt-3 inline-block">
-            Read the {spice.canonicalName} guide →
-          </Link>
+          <p className="mt-3 text-sm">
+            Read the{" "}
+            <Link href={`/spice-guide/${spice.slug}`} className="text-nav font-semibold hover:underline">
+              {spice.canonicalName} spice guide
+            </Link>
+            , request{" "}
+            <Link href={`/wholesale/${spice.slug}`} className="text-nav font-semibold hover:underline">
+              {spice.canonicalName} wholesale
+            </Link>
+            , or browse the{" "}
+            <Link href="/spices" className="text-nav font-semibold hover:underline">
+              Indian spice catalogue
+            </Link>
+            .
+          </p>
         </div>
       )}
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">

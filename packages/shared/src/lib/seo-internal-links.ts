@@ -1,4 +1,3 @@
-import { isProductAvailableForCountry } from "./shipping-availability";
 
 export type SeoLink = {
   href: string;
@@ -82,7 +81,8 @@ const RELATED_CATEGORIES: Record<string, readonly string[]> = {
   seeds: ["whole-spices", "dried-herbs"],
 };
 
-const MAX_PER_GROUP = 8;
+/** In-content / related-page SEO links per URL (nav, breadcrumbs and listing grids excluded). */
+export const PAGE_MAX_INTERNAL_LINKS = 3;
 
 function pathFor(page: InternalLinkPage): string {
   switch (page.type) {
@@ -130,26 +130,28 @@ export function pickStable<T>(items: readonly T[], seed: string, count: number):
   return out;
 }
 
-function withoutPath(links: readonly SeoLink[], currentPath: string): SeoLink[] {
-  return links.filter((l) => l.href !== currentPath);
-}
-
-function cap(links: readonly SeoLink[], n = MAX_PER_GROUP): SeoLink[] {
-  const seen = new Set<string>();
+/** Unique href + unique anchor text, capped at PAGE_MAX_INTERNAL_LINKS. */
+export function flattenInternalLinks(groups: readonly SeoLinkGroup[], currentPath = ""): SeoLink[] {
+  const seenHref = new Set<string>();
+  const seenLabel = new Set<string>();
   const out: SeoLink[] = [];
-  for (const link of links) {
-    if (seen.has(link.href)) continue;
-    seen.add(link.href);
-    out.push(link);
-    if (out.length >= n) break;
+  for (const g of groups) {
+    for (const link of g.links) {
+      if (!link.href || link.href === currentPath) continue;
+      const labelKey = link.label.trim().toLowerCase();
+      if (!labelKey || seenHref.has(link.href) || seenLabel.has(labelKey)) continue;
+      seenHref.add(link.href);
+      seenLabel.add(labelKey);
+      out.push({ href: link.href, label: link.label.trim() });
+      if (out.length >= PAGE_MAX_INTERNAL_LINKS) return out;
+    }
   }
   return out;
 }
 
-function group(heading: string, links: readonly SeoLink[], currentPath: string, n = MAX_PER_GROUP): SeoLinkGroup | null {
-  const next = cap(withoutPath(links, currentPath), n);
-  if (next.length === 0) return null;
-  return { heading, links: next };
+function relatedOnly(links: readonly SeoLink[], currentPath: string): SeoLinkGroup[] {
+  const next = flattenInternalLinks([{ heading: "Related pages", links: [...links] }], currentPath);
+  return next.length ? [{ heading: "Related pages", links: next }] : [];
 }
 
 function relatedCategoryLinks(categorySlug: string): SeoLink[] {
@@ -160,87 +162,84 @@ function relatedCategoryLinks(categorySlug: string): SeoLink[] {
     .filter((l): l is SeoLink => Boolean(l));
 }
 
-function countryLinksForProduct(availableCountryCodes?: string[] | null): SeoLink[] {
-  return VERIFIED_COUNTRY_LINKS.filter((c) => {
-    const status = isProductAvailableForCountry({ availableCountryCodes }, c.code);
-    return status === "available" || status === "quoteable";
-  }).map(({ href, label }) => ({ href, label }));
-}
-
 /**
- * Contextual internal links. Caps each group so pages do not become doorway blocks.
+ * Contextual internal links. At most PAGE_MAX_INTERNAL_LINKS unique anchors per page.
  * Location links never imply delivery unless the destination is quoteable.
  */
 export function getInternalLinkGroups(page: InternalLinkPage): SeoLinkGroup[] {
   const current = pathFor(page);
-  const groups: SeoLinkGroup[] = [];
-  const push = (g: SeoLinkGroup | null) => {
-    if (g) groups.push(g);
-  };
-
-  const shop = group("Shop spices", SEO_CATEGORY_LINKS, current, 6);
-  const markets = group("Shop by country", VERIFIED_COUNTRY_LINKS, current, 5);
-  const cities = group("Shop by city", PRIORITY_CITY_LINKS, current, 6);
-  const planning = group("Guides", PLANNING_LINKS, current, 4);
-  const articles = group("Popular articles", FEATURED_BLOG_LINKS, current, 4);
+  const cat = page.type === "category" || page.type === "product"
+    ? SEO_CATEGORY_LINKS.find(
+        (l) =>
+          l.href === `/spices/${page.categorySlug}` || l.href === `/${page.categorySlug}`
+      )
+    : undefined;
 
   switch (page.type) {
     case "home":
     case "listing":
-      push(shop);
-      push(markets);
-      push(cities);
-      push(planning);
-      break;
-    case "category": {
-      push(group("Related categories", relatedCategoryLinks(page.categorySlug), current, 4));
-      push(markets);
-      push(group("spice near you", pickStable(PRIORITY_CITY_LINKS, page.categorySlug, 4), current, 4));
-      push(planning);
-      push(articles);
-      break;
-    }
-    case "product": {
-      const cat = SEO_CATEGORY_LINKS.find(
-        (l) => l.href === `/spices/${page.categorySlug}` || l.href === `/${page.categorySlug}`
+      return relatedOnly(
+        [
+          { href: "/spices", label: "Indian spice catalogue" },
+          { href: "/spice-guide", label: "Indian spice guide" },
+          { href: "/wholesale", label: "wholesale Indian spices" },
+        ],
+        current
       );
-      push(
-        group(
-          "This collection",
-          [cat, ...relatedCategoryLinks(page.categorySlug)].filter((l): l is SeoLink => Boolean(l)),
-          current,
-          4
-        )
+    case "category":
+      return relatedOnly(
+        [
+          ...relatedCategoryLinks(page.categorySlug),
+          { href: "/spice-guide", label: "Indian spice guide" },
+          { href: "/uk", label: "Indian spices UK" },
+        ],
+        current
       );
-      push(group("Delivery destinations", countryLinksForProduct(page.availableCountryCodes), current, 4));
-      push(group("UK & Europe hubs", pickStable(PRIORITY_CITY_LINKS, page.productSlug, 4), current, 4));
-      push(planning);
-      break;
-    }
-    case "country": {
-      push(shop);
-      push(group("Other countries", VERIFIED_COUNTRY_LINKS, current, 4));
-      push(planning);
-      push(articles);
-      break;
-    }
-    case "city": {
-      push(group("UK & Europe", VERIFIED_COUNTRY_LINKS, current, 4));
-      push(shop);
-      push(planning);
-      break;
-    }
+    case "product":
+      return relatedOnly(
+        [
+          cat ?? { href: "/spices", label: "Indian spice catalogue" },
+          { href: "/spice-guide", label: "Indian spice guide" },
+          { href: "/enquiry", label: "free spice enquiry" },
+        ],
+        current
+      );
+    case "country":
+      return relatedOnly(
+        [
+          { href: "/spices", label: "Indian spice catalogue" },
+          { href: "/wholesale", label: "wholesale Indian spices" },
+          { href: "/spice-guide", label: "Indian spice guide" },
+        ],
+        current
+      );
+    case "city":
+      return relatedOnly(
+        [
+          { href: "/uk", label: "Indian spices UK" },
+          { href: "/spices", label: "Indian spice catalogue" },
+          { href: "/spice-guide", label: "Indian spice guide" },
+        ],
+        current
+      );
     case "guide":
-      push(shop);
-      push(markets);
-      push(articles);
-      push(group("More", [{ href: "/recipes", label: "Spice recipes" }, { href: "/wholesale", label: "Wholesale" }], current, 2));
-      break;
+      return relatedOnly(
+        [
+          { href: "/spices", label: "Indian spice catalogue" },
+          { href: "/recipes", label: "Indian spice recipes" },
+          { href: "/wholesale", label: "wholesale Indian spices" },
+        ],
+        current
+      );
     case "events":
-      push(shop);
-      push(cities);
-      push(group("Guides", [{ href: "/spice-guide", label: "spice planning guide" }, ...FEATURED_BLOG_LINKS], current, 5));
-      break;
+      return relatedOnly(
+        [
+          { href: "/spice-guide", label: "Indian spice guide" },
+          { href: "/spices", label: "Indian spice catalogue" },
+          { href: "/uk", label: "Indian spices UK" },
+        ],
+        current
+      );
     case "blog": {
       const related = page.relatedCategory
         ? SEO_CATEGORY_LINKS.filter(
@@ -248,18 +247,24 @@ export function getInternalLinkGroups(page: InternalLinkPage): SeoLinkGroup[] {
               l.href === `/spices/${page.relatedCategory}` || l.href === `/${page.relatedCategory}`
           )
         : [];
-      push(group("Shop this topic", related, current, 2));
-      push(shop);
-      push(planning);
-      push(articles);
-      break;
+      return relatedOnly(
+        [
+          ...related,
+          { href: "/spice-guide", label: "Indian spice guide" },
+          { href: "/recipes", label: "Indian spice recipes" },
+          { href: "/spices", label: "Indian spice catalogue" },
+        ],
+        current
+      );
     }
     case "shipping":
-      push(markets);
-      push(shop);
-      push(planning);
-      break;
+      return relatedOnly(
+        [
+          { href: "/uk", label: "Indian spices UK" },
+          { href: "/spices", label: "Indian spice catalogue" },
+          { href: "/enquiry", label: "free spice enquiry" },
+        ],
+        current
+      );
   }
-
-  return groups;
 }

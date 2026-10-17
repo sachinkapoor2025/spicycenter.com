@@ -50,7 +50,19 @@ export default async function ReviewsPage({ searchParams }: ReviewsPageProps) {
         <h1 className="text-3xl font-bold text-primary mb-3">Customer Reviews</h1>
         <p className="text-slate-600 leading-relaxed mb-2">
           We publish reviews from delivered UK and EU orders after moderation. We do not buy fake ratings or invent
-          star scores. A Trustpilot or Judge.me widget can be added later if the business chooses a platform.
+          star scores. Browse the{" "}
+          <Link href="/spices" className="text-nav font-semibold hover:underline">
+            Indian spice catalogue
+          </Link>
+          , read the{" "}
+          <Link href="/spice-guide" className="text-nav font-semibold hover:underline">
+            spice guide
+          </Link>
+          , or send a{" "}
+          <Link href="/enquiry" className="text-nav font-semibold hover:underline">
+            free spice enquiry
+          </Link>
+          . A Trustpilot or Judge.me widget can be added later if the business chooses a platform.
         </p>
         <p className="text-sm text-slate-500">
           Received your spice?{" "}

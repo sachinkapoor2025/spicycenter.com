@@ -3,8 +3,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { listAllBlogPosts } from "@/lib/content/seo-blog";
 import { pageMetadata } from "@/lib/seo";
-import { InternalLinksSection } from "@/components/InternalLinksSection";
-import { getInternalLinkGroups } from "@spicycorner/shared";
 
 export const metadata: Metadata = pageMetadata({
   title: "Spice blog — Indian spices, bulk buying, curry notes",
@@ -24,14 +22,10 @@ export default function BlogPage() {
           whole spices
         </Link>
         ,{" "}
-        <Link href="/spices/indian-chillies" className="text-nav hover:underline">
-          Indian chillies
-        </Link>
-        , and{" "}
         <Link href="/wholesale" className="text-nav hover:underline">
-          wholesale buying
+          wholesale Indian spices
         </Link>
-        . Start with the{" "}
+        , and the{" "}
         <Link href="/spice-guide" className="text-nav hover:underline">
           spice guide
         </Link>
@@ -73,11 +67,6 @@ export default function BlogPage() {
           </article>
         ))}
       </div>
-      <InternalLinksSection
-        groups={getInternalLinkGroups({ type: "guide" })}
-        title="Shop and plan spice"
-        intro="From the blog hub, continue to categories, destinations, and the main spice guide."
-      />
     </div>
   );
 }

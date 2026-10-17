@@ -36,6 +36,21 @@ export default async function HomePage() {
 
       <section className="max-w-7xl mx-auto px-4 pt-8 pb-2 text-center md:text-left">
         <h1 className="spice-heading text-3xl sm:text-4xl">Authentic Indian spices — UK &amp; Europe, retail and 10kg+ bulk</h1>
+        <p className="mt-3 text-muted max-w-3xl leading-relaxed">
+          Read the{" "}
+          <Link href="/spice-guide" className="text-nav font-semibold hover:underline">
+            spice guide
+          </Link>
+          , browse{" "}
+          <Link href="/recipes" className="text-nav font-semibold hover:underline">
+            Indian spice recipes
+          </Link>
+          , or request{" "}
+          <Link href="/wholesale" className="text-nav font-semibold hover:underline">
+            wholesale Indian spices
+          </Link>{" "}
+          from 10kg.
+        </p>
       </section>
 
       <section className="border-b border-[#e6d5bc] bg-beige/70">

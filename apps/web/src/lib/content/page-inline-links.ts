@@ -3,12 +3,9 @@
 export type InlineLink = { phrase: string; href: string };
 
 const SPICE_LINKS: readonly InlineLink[] = [
-  { phrase: "whole spices", href: "/spices/whole-spices" },
-  { phrase: "ground spices", href: "/spices/ground-spices" },
-  { phrase: "Indian chillies", href: "/spices/indian-chillies" },
-  { phrase: "masalas", href: "/spices/indian-masalas" },
-  { phrase: "wholesale", href: "/wholesale" },
   { phrase: "spice guide", href: "/spice-guide" },
+  { phrase: "wholesale", href: "/wholesale" },
+  { phrase: "whole spices", href: "/spices/whole-spices" },
 ];
 
 export const homepageInlineLinks: readonly InlineLink[] = SPICE_LINKS;

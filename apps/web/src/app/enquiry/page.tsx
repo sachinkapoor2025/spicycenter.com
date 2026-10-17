@@ -23,17 +23,19 @@ export default async function EnquiryPage({
       <p className="spice-kicker">B2B enquiry</p>
       <h1 className="spice-heading text-4xl mt-2">Free sourcing enquiry</h1>
       <p className="mt-4 text-muted leading-relaxed">
-        Standard enquiry is free. Use this form for 10kg+ wholesale or other vegetarian families that are not yet retail
-        SKUs. For 100kg+ cargo with optional paid add-ons, use the bulk form.
-      </p>
-      <p className="mt-3 text-sm">
-        <Link href="/bulk-enquiry" className="text-nav font-semibold">
-          100kg+ bulk enquiry
+        Standard enquiry is free. Use this form for 10kg+{" "}
+        <Link href="/wholesale" className="text-nav font-semibold hover:underline">
+          wholesale Indian spices
+        </Link>{" "}
+        or other vegetarian families that are not yet retail SKUs. For 100kg+ cargo use the{" "}
+        <Link href="/bulk-enquiry" className="text-nav font-semibold hover:underline">
+          bulk spice enquiry
         </Link>
-        {" · "}
-        <Link href="/contact" className="text-nav font-semibold">
-          General contact
+        . Retail questions can go through{" "}
+        <Link href="/contact" className="text-nav font-semibold hover:underline">
+          contact us
         </Link>
+        .
       </p>
       <div className="mt-8">
         <WholesaleQuoteForm defaultProduct={product} defaultCountry={country} />

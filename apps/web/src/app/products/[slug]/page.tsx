@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
-import { InternalLinksSection } from "@/components/InternalLinksSection";
 import { ProductSpiceStory } from "@/components/ProductSpiceStory";
 import { ProductDetailClient } from "./ProductDetailClient";
 import { breadcrumbJsonLd, faqJsonLd, productJsonLd, productPageMetadata } from "@/lib/seo";
@@ -10,7 +9,7 @@ import { productPageFaqs } from "@/lib/content/product-faqs";
 import { resolveImageUrl } from "@/lib/images";
 import { loadProduct, loadRelatedProducts, getStaticProductSlugs } from "@/lib/product-loader";
 import { api } from "@/lib/api";
-import { cjStorefrontProductsPath, getInternalLinkGroups, type Product } from "@spicycorner/shared";
+import { cjStorefrontProductsPath, type Product } from "@spicycorner/shared";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -77,18 +76,6 @@ export default async function ProductPage({ params }: Props) {
       </div>
       <ProductDetailClient product={product} relatedProducts={relatedProducts} />
       <ProductSpiceStory product={product} />
-      <div className="max-w-6xl mx-auto px-4 pb-12">
-        <InternalLinksSection
-          groups={getInternalLinkGroups({
-            type: "product",
-            categorySlug: product.categorySlug,
-            productSlug: product.slug,
-            availableCountryCodes: product.availableCountryCodes,
-          })}
-          title="Keep exploring"
-          intro="Related collections, destination pages, and spice guides — without repeating this product URL."
-        />
-      </div>
     </>
   );
 }

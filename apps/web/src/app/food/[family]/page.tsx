@@ -45,7 +45,21 @@ export default async function FoodFamilyPage({ params }: Props) {
         </Link>
       </p>
       <h1 className="spice-heading text-4xl mt-2">{item.name} sourcing</h1>
-      <p className="mt-4 text-muted leading-relaxed">{item.summary}</p>
+      <p className="mt-4 text-muted leading-relaxed">
+        {item.summary} See the{" "}
+        <Link href="/spice-guide" className="text-nav font-semibold hover:underline">
+          spice guide
+        </Link>
+        , request{" "}
+        <Link href="/wholesale" className="text-nav font-semibold hover:underline">
+          wholesale Indian spices
+        </Link>
+        , or send a{" "}
+        <Link href="/enquiry" className="text-nav font-semibold hover:underline">
+          free spice enquiry
+        </Link>
+        .
+      </p>
       <p className="mt-3 text-sm text-muted">
         {item.inCatalog
           ? "Some seed spices in this family are already in the shop. Use the links in the header or send a wholesale note."

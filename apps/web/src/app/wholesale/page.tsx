@@ -31,37 +31,21 @@ export default async function WholesalePage({
           (for example Kerala pepper or Unjha cumin). We will not print a region we cannot stand behind on that shipment.
         </p>
         <p>
-          UK and European buyers can request retail and 10kg+ wholesale quotes here. United States, Canada, Gulf and other
-          countries use a{" "}
-          <Link className="text-nav font-semibold" href="/markets">
+          UK and European buyers can request retail and 10kg+ quotes here. Other destinations use a{" "}
+          <Link className="text-nav font-semibold hover:underline" href="/markets">
             free export-market enquiry
+          </Link>
+          . See also our{" "}
+          <Link className="text-nav font-semibold hover:underline" href="/spice-supplier">
+            Indian spice supplier
           </Link>{" "}
-          or the 100kg+ bulk form — the enquiry itself is not paid.
+          page, or the{" "}
+          <Link className="text-nav font-semibold hover:underline" href="/bulk-enquiry">
+            bulk spice enquiry
+          </Link>{" "}
+          for 100kg+ cargo.
         </p>
       </div>
-      <ul className="mt-6 grid sm:grid-cols-2 gap-2 text-sm">
-        <li><Link className="text-nav" href="/wholesale/indian-spices">Indian spices wholesale</Link></li>
-        <li><Link className="text-nav" href="/wholesale/cumin">Cumin wholesale</Link></li>
-        <li><Link className="text-nav" href="/wholesale/turmeric">Turmeric wholesale</Link></li>
-        <li><Link className="text-nav" href="/wholesale/black-pepper">Black pepper wholesale</Link></li>
-        <li><Link className="text-nav" href="/wholesale/restaurants">Restaurants</Link></li>
-        <li><Link className="text-nav" href="/wholesale/hotels">Hotels</Link></li>
-        <li><Link className="text-nav" href="/wholesale/caterers">Caterers</Link></li>
-        <li><Link className="text-nav" href="/wholesale/food-manufacturers">Food manufacturers</Link></li>
-        <li><Link className="text-nav" href="/wholesale/grocery-retailers">Grocery retailers</Link></li>
-        <li><Link className="text-nav" href="/wholesale/importers">Importers</Link></li>
-        <li><Link className="text-nav" href="/wholesale/distributors">Distributors</Link></li>
-        <li><Link className="text-nav" href="/spice-supplier">Indian spice supplier</Link></li>
-        <li><Link className="text-nav" href="/bulk-spices">Bulk catalogue</Link></li>
-      </ul>
-      <h2 className="font-serif text-2xl mt-10 mb-4">Export-style bulk (100kg+)</h2>
-      <p className="text-sm text-muted mb-4">
-        For 100kg and above with an indicative UK/EU cost breakdown, use the{" "}
-        <Link className="text-nav font-semibold" href="/bulk-enquiry">
-          bulk enquiry calculator
-        </Link>
-        . The form below is still the general wholesale request (from 10kg).
-      </p>
       <h2 className="font-serif text-2xl mt-10 mb-4">Request wholesale quote</h2>
       <WholesaleQuoteForm defaultProduct={product} />
     </div>

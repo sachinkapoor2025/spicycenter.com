@@ -7,7 +7,6 @@ import { FreeEnquiryCtas } from "@/components/FreeEnquiryCtas";
 import { WholesaleQuoteForm } from "@/components/WholesaleQuoteForm";
 import {
   bulkDestinationQuery,
-  existingCountryHub,
   existingUrlsForProduct,
   getKeywordMarket,
   loadKeywordMarkets,
@@ -66,7 +65,6 @@ export default async function MarketPage({ params }: Props) {
   if (!market) notFound();
   const products = loadKeywordProducts();
   const dest = bulkDestinationQuery(slug);
-  const hub = existingCountryHub(slug);
   const topIntents = Object.entries(market.intentCounts)
     .sort((a, b) => b[1] - a[1])
     .slice(0, 8);
@@ -87,17 +85,23 @@ export default async function MarketPage({ params }: Props) {
         · {market.marketCode}
       </p>
       <h1 className="spice-heading text-4xl mt-2">Indian spices for {market.name}</h1>
-      <p className="mt-4 text-muted leading-relaxed">{fulfilmentCopy(slug, market.name)}</p>
+      <p className="mt-4 text-muted leading-relaxed">
+        {fulfilmentCopy(slug, market.name)} Use the{" "}
+        <Link href="/spice-guide" className="text-nav font-semibold hover:underline">
+          spice guide
+        </Link>
+        , request{" "}
+        <Link href="/wholesale" className="text-nav font-semibold hover:underline">
+          wholesale Indian spices
+        </Link>
+        , or send a{" "}
+        <Link href="/enquiry" className="text-nav font-semibold hover:underline">
+          free spice enquiry
+        </Link>
+        .
+      </p>
       <p className="mt-3 text-sm text-muted">{market.recommendedContent}</p>
       <FreeEnquiryCtas productName="Indian spices" spiceQuery="cumin" destination={dest} />
-      {hub && (
-        <p className="mt-4 text-sm">
-          Existing storefront page:{" "}
-          <Link href={hub.href} className="text-nav font-semibold">
-            {hub.label}
-          </Link>
-        </p>
-      )}
 
       <h2 className="font-serif text-2xl text-primary mt-10">Product clusters on this hub</h2>
       <p className="text-sm text-muted mt-2">

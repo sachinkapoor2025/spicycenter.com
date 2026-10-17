@@ -16,8 +16,19 @@ export default function AboutPage() {
       <h1 className="font-serif text-4xl mb-6 mt-2">About {site.name}</h1>
       <div className="space-y-4 text-slate-700 leading-relaxed">
         <p>
-          {site.name} ({site.domain}) is an Indian spice marketplace and knowledge site: retail packs, 10kg+ wholesale,
-          spice guides, recipes, and indicative Indian market prices. Primary market is the UK, then Europe. India is the sourcing story.
+          {site.name} ({site.domain}) is an Indian spice marketplace and knowledge site: retail packs,{" "}
+          <Link href="/wholesale" className="text-nav font-semibold hover:underline">
+            wholesale Indian spices
+          </Link>
+          , a{" "}
+          <Link href="/spice-guide" className="text-nav font-semibold hover:underline">
+            spice guide
+          </Link>
+          ,{" "}
+          <Link href="/recipes" className="text-nav font-semibold hover:underline">
+            Indian spice recipes
+          </Link>
+          , and indicative Indian market prices. Primary market is the UK, then Europe. India is the sourcing story.
         </p>
         <p>
           We exist so a cook in Southampton and a restaurateur in Amsterdam can buy the same cumin, chilli or garam masala
@@ -42,12 +53,6 @@ export default function AboutPage() {
           Two addresses appear on the site because they are real: Ferozepur, Punjab (sourcing and operations in India) and
           Southampton, United Kingdom (UK presence). We do not pretend to operate a warehouse in every city we write about.
         </p>
-      </div>
-      <div className="mt-8 flex flex-wrap gap-4">
-        <Link href="/contact" className="text-nav font-semibold">Contact</Link>
-        <Link href="/uk" className="text-nav font-semibold">UK shoppers</Link>
-        <Link href="/eu" className="text-nav font-semibold">Europe</Link>
-        <Link href="/spice-guide" className="text-nav font-semibold">Spice guide</Link>
       </div>
     </div>
   );

@@ -75,34 +75,19 @@ export function ContactForm() {
     <div className="max-w-3xl mx-auto px-4 py-12">
       <h1 className="text-3xl font-bold text-primary mb-6">Contact Us</h1>
       <p className="text-slate-600 mb-4">
-        Retail order and delivery questions stay here. Importers and wholesalers should use a{" "}
-        <Link href="/enquiry" className="text-nav hover:underline">
-          free sourcing enquiry
+        Retail questions stay here. Trade buyers can send a{" "}
+        <Link href="/enquiry" className="text-nav font-semibold hover:underline">
+          free spice enquiry
         </Link>
-        ,{" "}
-        <Link href="/wholesale" className="text-nav hover:underline">
-          10kg+ wholesale
+        , request{" "}
+        <Link href="/wholesale" className="text-nav font-semibold hover:underline">
+          wholesale Indian spices
         </Link>
-        ,{" "}
-        <Link href="/bulk-enquiry" className="text-nav hover:underline">
-          100kg+ bulk
-        </Link>
-        , or an{" "}
-        <Link href="/markets" className="text-nav hover:underline">
-          export-market hub
-        </Link>
-        .
-      </p>
-      <p className="text-slate-600 mb-8">
-        For cutoffs and transit times, see{" "}
-        <Link href="/shipping" className="text-nav hover:underline">
-          shipping and delivery
-        </Link>
-        . Common answers also live on our{" "}
-        <Link href="/faq" className="text-nav hover:underline">
-          FAQ page
-        </Link>
-        .
+        , or use the{" "}
+        <Link href="/bulk-enquiry" className="text-nav font-semibold hover:underline">
+          bulk spice enquiry
+        </Link>{" "}
+        for 100kg+ cargo.
       </p>
       <div className="grid md:grid-cols-3 gap-6 mb-10">
         <div className="border border-slate-200 rounded-xl p-6">

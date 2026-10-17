@@ -23,8 +23,16 @@ export function ProductSpiceStory({ product }: { product: Product }) {
           <p className="mt-2 text-sm leading-relaxed text-slate-700">{packUniqueBlurb(product.name, pack, form)}</p>
           <p className="mt-2 text-sm text-slate-600">
             Shared facts for {spice.canonicalName} live on the{" "}
-            <Link className="text-nav font-semibold" href={`/spice-guide/${spice.slug}`}>
-              {spice.canonicalName} guide
+            <Link className="text-nav font-semibold hover:underline" href={`/spice-guide/${spice.slug}`}>
+              {spice.canonicalName} spice guide
+            </Link>
+            . Request{" "}
+            <Link className="text-nav font-semibold hover:underline" href={`/wholesale/${spice.slug}`}>
+              {spice.canonicalName} wholesale
+            </Link>{" "}
+            or browse the{" "}
+            <Link className="text-nav font-semibold hover:underline" href="/spices" >
+              Indian spice catalogue
             </Link>
             . This product page is for the {pack ?? "listed"} {form ?? "form"} SKU so pack-size URLs are not duplicate
             copies of each other.
@@ -68,9 +76,9 @@ export function ProductSpiceStory({ product }: { product: Product }) {
             <h3 className="font-semibold text-primary">Pairs well with</h3>
             <div className="mt-2 flex flex-wrap gap-2">
               {pairings.map((s) => (
-                <Link key={s!.id} href={`/spice-guide/${s!.slug}`} className="rounded-full border px-3 py-1 text-sm">
+                <span key={s!.id} className="rounded-full border px-3 py-1 text-sm">
                   {s!.canonicalName}
-                </Link>
+                </span>
               ))}
             </div>
           </div>
@@ -80,11 +88,7 @@ export function ProductSpiceStory({ product }: { product: Product }) {
             <h3 className="font-semibold text-primary">Cook it in</h3>
             <ul className="mt-2 text-sm space-y-1">
               {recipes.map((r) => (
-                <li key={r.slug}>
-                  <Link className="text-nav" href={`/recipes/${r.slug}`}>
-                    {r.title}
-                  </Link>
-                </li>
+                <li key={r.slug}>{r.title}</li>
               ))}
             </ul>
           </div>

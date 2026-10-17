@@ -6,7 +6,6 @@ import { pageMetadata } from "@/lib/seo";
 import { FreeEnquiryCtas } from "@/components/FreeEnquiryCtas";
 import { WholesaleQuoteForm } from "@/components/WholesaleQuoteForm";
 import {
-  existingUrlsForProduct,
   getKeywordProduct,
   loadKeywordMarkets,
   loadKeywordProducts,
@@ -39,7 +38,6 @@ export default async function SourcingPage({ params }: Props) {
   const markets = loadKeywordMarkets()
     .filter((m) => (product.countryCounts[m.slug] ?? 0) > 0)
     .sort((a, b) => (product.countryCounts[b.slug] ?? 0) - (product.countryCounts[a.slug] ?? 0));
-  const links = existingUrlsForProduct(slug);
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
@@ -59,17 +57,20 @@ export default async function SourcingPage({ params }: Props) {
       <h1 className="spice-heading text-4xl mt-2">{product.name} — bulk sourcing</h1>
       <p className="mt-4 text-muted leading-relaxed">
         This profile maps {product.keywordCount.toLocaleString("en-GB")} generated keyword seeds to existing spice pages
-        and a free enquiry. Origin, grade, packaging and MOQ are confirmed on the quote — not invented in this copy.
+        and a free enquiry. See the{" "}
+        <Link href="/spice-guide" className="text-nav font-semibold hover:underline">
+          spice guide
+        </Link>
+        , request{" "}
+        <Link href="/wholesale" className="text-nav font-semibold hover:underline">
+          wholesale Indian spices
+        </Link>
+        , or send a{" "}
+        <Link href="/enquiry" className="text-nav font-semibold hover:underline">
+          free spice enquiry
+        </Link>
+        . Origin, grade, packaging and MOQ are confirmed on the quote — not invented in this copy.
       </p>
-      <ul className="mt-4 flex flex-wrap gap-3 text-sm">
-        {links.map((l) => (
-          <li key={l.href}>
-            <Link href={l.href} className="text-nav font-semibold">
-              {l.label}
-            </Link>
-          </li>
-        ))}
-      </ul>
       <FreeEnquiryCtas productName={product.name} spiceQuery={spiceQueryForProduct(slug)} />
 
       <h2 className="font-serif text-2xl text-primary mt-10">What buyers ask for</h2>

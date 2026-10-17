@@ -2,10 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { pageMetadata } from "@/lib/seo";
 import { getCatalogProducts } from "@/lib/catalog-fallback";
-import { loadSpiceEntities, searchSpices } from "@/lib/spice-data";
+import { searchSpices } from "@/lib/spice-data";
 import { parseBulkHint } from "@spicycorner/shared";
 import { exploreCategories } from "@/lib/site";
-import { InternalLinksSection } from "@/components/InternalLinksSection";
 import { SpiceSkuCard } from "@/components/SpiceSkuCard";
 
 export async function generateMetadata({
@@ -73,7 +72,6 @@ export default async function SpicesIndex({
   if (category) products = products.filter((p) => p.categorySlug === category || p.additionalCategorySlugs?.includes(category));
   if (channel) products = products.filter((p) => p.tags?.includes(`channel:${channel}`));
 
-  const spices = loadSpiceEntities();
   const shown = products.slice(0, 48);
 
   return (
@@ -82,7 +80,19 @@ export default async function SpicesIndex({
       <h1 className="spice-heading text-3xl sm:text-4xl mt-2">Indian spices</h1>
       <p className="mt-3 text-muted max-w-2xl">
         Filters cover type, origin, pack and retail vs bulk. {products.length} matching SKUs.
-        {q ? ` Search: “${q}”.` : ""} Whole spices for tadka, powders for everyday cooking, masalas for ready blends, and bulk bags from 10kg. Names include jeera, haldi, mirch and botanical names.
+        {q ? ` Search: “${q}”.` : ""}{" "}
+        <Link href="/spice-guide" className="text-nav font-semibold hover:underline">
+          Spice guide
+        </Link>
+        {" "}notes,{" "}
+        <Link href="/wholesale" className="text-nav font-semibold hover:underline">
+          wholesale Indian spices
+        </Link>
+        {" "}from 10kg, and{" "}
+        <Link href="/uk" className="text-nav font-semibold hover:underline">
+          Indian spices UK
+        </Link>{" "}
+        delivery. Names include jeera, haldi, mirch and botanical names.
       </p>
       <div className="flex flex-wrap gap-2 mt-6">
         {exploreCategories.map((c) => (
@@ -99,50 +109,13 @@ export default async function SpicesIndex({
         ))}
         {products.length === 0 && (
           <p className="text-muted col-span-full">
-            No SKUs matched these filters. Browse a spice type above, or open the{" "}
-            <Link href="/spice-guide" className="text-nav">
-              spice guide
-            </Link>
-            .
+            No SKUs matched these filters. Browse a spice type above.
           </p>
         )}
       </div>
       {products.length > shown.length && (
         <p className="mt-6 text-sm text-muted">Showing 48 of {products.length}. Refine search or filters — listing pages are paginated so we do not load 500 images at once.</p>
       )}
-      <div className="mt-12">
-        <h2 className="font-serif text-2xl mb-4">Spice guides</h2>
-        <div className="flex flex-wrap gap-3">
-          {spices.filter((s) => s.featuredKnowledge).map((s) => (
-            <Link key={s.id} href={`/spice-guide/${s.slug}`} className="text-nav text-sm underline">
-              {s.canonicalName}
-            </Link>
-          ))}
-        </div>
-      </div>
-      <InternalLinksSection
-        title="UK, wholesale and spice guides"
-        groups={[
-          {
-            heading: "Shop",
-            links: [
-              { href: "/wholesale", label: "Indian spice wholesale" },
-              { href: "/wholesale/uk", label: "Wholesale UK" },
-              { href: "/spice-supplier", label: "Indian spice supplier" },
-              { href: "/uk", label: "Indian spices UK" },
-            ],
-          },
-          {
-            heading: "Popular spices",
-            links: [
-              { href: "/spices/cumin", label: "Cumin (jeera)" },
-              { href: "/spices/turmeric", label: "Turmeric" },
-              { href: "/spices/black-pepper", label: "Black pepper" },
-              { href: "/spice-guide/cumin", label: "Cumin guide" },
-            ],
-          },
-        ]}
-      />
     </div>
   );
 }

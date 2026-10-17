@@ -13,8 +13,6 @@ import {
 } from "@/lib/spice-data";
 import { getCatalogProducts } from "@/lib/catalog-fallback";
 import { FreeEnquiryCtas } from "@/components/FreeEnquiryCtas";
-import { InternalLinksSection } from "@/components/InternalLinksSection";
-import { spiceHubLinks } from "@/lib/seo/spice-hub-links";
 import { recipesForSpice } from "@/lib/recipes";
 import { nutritionDisclaimer, wholeVsGroundCopy } from "@/lib/content/spice-display";
 
@@ -128,11 +126,6 @@ export default async function SpiceGuidePage({ params }: Props) {
       </Block>
       <Block title="Whole vs ground">
         <p>{wholeVsGroundCopy(spice)}</p>
-        <p className="mt-2 text-sm">
-          <Link className="text-nav" href="/spice-guide/comparisons/whole-spices-vs-ground-spices">
-            Whole spices vs ground spices →
-          </Link>
-        </p>
       </Block>
       <Block title="Culinary uses">
         <ul>{spice.culinaryUses.map((u) => <li key={u}>{u}</li>)}</ul>
@@ -148,7 +141,21 @@ export default async function SpiceGuidePage({ params }: Props) {
         <p>{nutritionDisclaimer(spice)}</p>
       </Block>
       <Block title="Buying guide">
-        <p>Retail packs typically run from 100g to 5kg. Bulk starts at 10kg. Selling prices are checkout prices. Indian market figures, when present, are indicative only.</p>
+        <p>
+          Retail packs typically run from 100g to 5kg. See {spice.canonicalName} in the{" "}
+          <Link className="text-nav font-semibold hover:underline" href={`/spices/${spice.slug}`}>
+            Indian spice catalogue
+          </Link>
+          , request{" "}
+          <Link className="text-nav font-semibold hover:underline" href={`/wholesale/${spice.slug}`}>
+            {spice.canonicalName} wholesale
+          </Link>
+          , or read notes on{" "}
+          <Link className="text-nav font-semibold hover:underline" href="/uk">
+            Indian spices UK
+          </Link>
+          . Bulk starts at 10kg. Indian market figures, when present, are indicative only.
+        </p>
         <FreeEnquiryCtas productName={spice.canonicalName} spiceQuery={spice.slug} />
       </Block>
       {price && (
@@ -159,7 +166,6 @@ export default async function SpiceGuidePage({ params }: Props) {
               : `Indicative Indian mandi ${price.currency === "INR" ? "₹" : ""}${price.averagePrice}/${price.unit} (${price.market}, ${price.grade}, ${price.priceDate}) — not the SpicyCenter checkout price.`}
           </p>
           <p className="text-sm text-muted">{price.notes}</p>
-          <Link href="/spice-market-prices" className="text-nav text-sm">Market prices →</Link>
         </Block>
       )}
       {spice.faqs?.length ? (
@@ -176,9 +182,9 @@ export default async function SpiceGuidePage({ params }: Props) {
       {recipes.length > 0 ? (
         <Block title="Recipes using this spice">
           <ul>
-            {recipes.map((r) => (
+            {recipes.slice(0, 3).map((r) => (
               <li key={r.slug}>
-                <Link className="text-nav" href={`/recipes/${r.slug}`}>{r.title}</Link>
+                {r.title}
                 <span className="text-sm text-muted"> — {r.summary}</span>
               </li>
             ))}
@@ -188,23 +194,21 @@ export default async function SpiceGuidePage({ params }: Props) {
 
       <Block title="Related spices">
         <div className="flex flex-wrap gap-2">
-          {related.map((r) => (
-            <Link key={r.id} href={`/spice-guide/${r.slug}`} className="rounded-full border px-3 py-1 text-sm">{r.canonicalName}</Link>
+          {related.slice(0, 3).map((r) => (
+            <span key={r.id} className="rounded-full border px-3 py-1 text-sm">{r.canonicalName}</span>
           ))}
         </div>
       </Block>
 
       <Block title="Retail and bulk">
         <div className="grid gap-2">
-          {products.map((p) => (
-            <Link key={p.slug} href={`/products/${p.slug}`} className="text-nav text-sm">
-              {p.name} — enquire now
-            </Link>
+          {products.slice(0, 3).map((p) => (
+            <p key={p.slug} className="text-sm">
+              {p.name}
+            </p>
           ))}
         </div>
-        <Link href={`/bulk-spices/${spice.slug}`} className="inline-block mt-3 font-semibold text-nav">Bulk {spice.canonicalName} →</Link>
       </Block>
-      <InternalLinksSection groups={spiceHubLinks(spice.slug, spice.canonicalName)} title={`${spice.canonicalName} — shop, wholesale and UK`} />
     </article>
   );
 }

@@ -44,7 +44,21 @@ export default async function GuidePage({ params }: Props) {
         </Link>
       </p>
       <h1 className="spice-heading text-4xl mt-2">{guide.title}</h1>
-      <p className="mt-4 text-muted">{guide.description}</p>
+      <p className="mt-4 text-muted">
+        {guide.description} Continue with the{" "}
+        <Link href="/spice-guide" className="text-nav font-semibold hover:underline">
+          spice guide
+        </Link>
+        ,{" "}
+        <Link href="/wholesale" className="text-nav font-semibold hover:underline">
+          wholesale Indian spices
+        </Link>
+        , or a{" "}
+        <Link href="/enquiry" className="text-nav font-semibold hover:underline">
+          free spice enquiry
+        </Link>
+        .
+      </p>
       {guide.sections.map((s) => (
         <section key={s.heading} className="mt-8">
           <h2 className="font-serif text-2xl text-primary">{s.heading}</h2>

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { pageMetadata } from "@/lib/seo";
 import { notFound } from "next/navigation";
 
@@ -48,6 +49,21 @@ export default async function LegalPage({ params }: { params: Promise<{ slug: st
     <article className="max-w-3xl mx-auto px-4 py-10">
       <h1 className="font-serif text-4xl">{page.title}</h1>
       <p className="mt-4 leading-relaxed">{page.body}</p>
+      <p className="mt-6 text-sm text-muted">
+        See the{" "}
+        <Link href="/spice-guide" className="text-nav font-semibold hover:underline">
+          spice guide
+        </Link>
+        ,{" "}
+        <Link href="/enquiry" className="text-nav font-semibold hover:underline">
+          free spice enquiry
+        </Link>
+        , and{" "}
+        <Link href="/contact" className="text-nav font-semibold hover:underline">
+          contact
+        </Link>{" "}
+        pages.
+      </p>
     </article>
   );
 }

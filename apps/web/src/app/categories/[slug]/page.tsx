@@ -8,7 +8,6 @@ import { ProductGrid } from "@/components/ProductGrid";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { CategoryContentSection } from "@/components/CategoryContentSection";
 import { CategoryProductLinks } from "@/components/CategoryProductLinks";
-import { InternalLinksSection } from "@/components/InternalLinksSection";
 import { JsonLd } from "@/components/JsonLd";
 import { getCategoryContent } from "@/lib/content/category-content";
 import { storefrontCountrySeoPages } from "@/lib/content/country-pages";
@@ -20,12 +19,7 @@ import { resolveImageUrl } from "@/lib/images";
 import { loadStorefrontListing } from "@/lib/product-loader";
 import { categoryOrder } from "@/lib/site";
 import { breadcrumbJsonLd, collectionPageJsonLd, faqJsonLd, itemListJsonLd, pageMetadata } from "@/lib/seo";
-import {
-  parseStorefrontListingSort,
-  getInternalLinkGroups,
-  type Product,
-  type Category,
-} from "@spicycorner/shared";
+import { parseStorefrontListingSort, type Product, type Category } from "@spicycorner/shared";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -281,11 +275,6 @@ export default async function CategoryPage({ params, searchParams }: Props) {
         </>
       )}
 
-      <InternalLinksSection
-        groups={getInternalLinkGroups({ type: "category", categorySlug: slug })}
-        title="Related spice pages"
-        intro="Continue to related categories, destination pages, and planning guides."
-      />
     </div>
   );
 }

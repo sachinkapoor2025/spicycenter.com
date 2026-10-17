@@ -21,18 +21,18 @@ export default function RecipesPage() {
         at the end. They are cooking notes for UK and EU home kitchens, not diet advice. Quantities assume whole or
         freshly ground spices.
       </p>
-      <p className="mt-3 text-sm">
-        Also see the{" "}
-        <Link href="/spice-guide" className="text-nav">
+      <p className="mt-3 text-sm text-muted">
+        Pair each dish with the{" "}
+        <Link href="/spice-guide" className="text-nav font-semibold hover:underline">
           spice guide
         </Link>
         ,{" "}
-        <Link href="/spice-guide/comparisons" className="text-nav">
-          comparisons
+        <Link href="/spice-guide/comparisons" className="text-nav font-semibold hover:underline">
+          spice comparisons
         </Link>
-        , and{" "}
-        <Link href="/journal" className="text-nav">
-          journal
+        , and the{" "}
+        <Link href="/spices" className="text-nav font-semibold hover:underline">
+          Indian spice catalogue
         </Link>
         .
       </p>

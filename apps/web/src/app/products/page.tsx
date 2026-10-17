@@ -6,17 +6,12 @@ import { ProductGrid } from "@/components/ProductGrid";
 import { SearchTracker } from "@/components/SearchTracker";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { pageMetadata } from "@/lib/seo";
-import { InternalLinksSection } from "@/components/InternalLinksSection";
 import type { Product, Category } from "@spicycorner/shared";
 import { homeCategoryOrder, orderCategories } from "@/lib/site";
 import { getCatalogCategories } from "@/lib/catalog-fallback";
 import { HomepageCategorySections } from "@/components/HomepageCategorySections";
 import { loadStorefrontListing } from "@/lib/product-loader";
-import {
-  parseStorefrontListingSort,
-  getInternalLinkGroups,
-  HOMEPAGE_CATEGORY_PREVIEW_LIMIT,
-} from "@spicycorner/shared";
+import { parseStorefrontListingSort, HOMEPAGE_CATEGORY_PREVIEW_LIMIT } from "@spicycorner/shared";
 
 export const dynamic = "force-dynamic";
 
@@ -152,8 +147,19 @@ export default async function ProductsPage({ searchParams }: Props) {
       </div>
       {!search && !category && (
         <p className="text-slate-600 mb-8 max-w-2xl">
-          Browse Indian spices — whole, ground, chillies, masalas, and bulk packs.
-          Open a product page for a shipping quote to your destination.
+          Browse Indian spices —{" "}
+          <Link href="/spices/whole-spices" className="text-nav font-semibold hover:underline">
+            whole spices
+          </Link>
+          , the{" "}
+          <Link href="/spice-guide" className="text-nav font-semibold hover:underline">
+            spice guide
+          </Link>
+          , and{" "}
+          <Link href="/wholesale" className="text-nav font-semibold hover:underline">
+            wholesale Indian spices
+          </Link>
+          . Open a product page to enquire for your destination.
         </p>
       )}
 
@@ -201,11 +207,6 @@ export default async function ProductsPage({ searchParams }: Props) {
         </Suspense>
       )}
 
-      <InternalLinksSection
-        groups={getInternalLinkGroups({ type: "listing" })}
-        title="Explore spice"
-        intro="Shop by category, destination, or planning guide."
-      />
     </div>
   );
 }

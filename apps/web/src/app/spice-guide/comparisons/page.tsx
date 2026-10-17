@@ -20,7 +20,19 @@ export default function ComparisonsIndex() {
       <h1 className="spice-heading text-4xl mt-2">Spice comparisons</h1>
       <p className="mt-3 text-muted leading-relaxed">
         High-intent questions UK shoppers actually type: which chilli for colour, which cardamom for chai, whether curry
-        powder replaces garam masala. These pages are culinary, not medical, and they link to named products and recipes.
+        powder replaces garam masala. Pair these notes with{" "}
+        <Link href="/recipes" className="text-nav font-semibold hover:underline">
+          Indian spice recipes
+        </Link>
+        , the{" "}
+        <Link href="/spices" className="text-nav font-semibold hover:underline">
+          Indian spice catalogue
+        </Link>
+        , and{" "}
+        <Link href="/wholesale" className="text-nav font-semibold hover:underline">
+          wholesale Indian spices
+        </Link>
+        . These pages are culinary, not medical.
       </p>
       <ul className="mt-8 space-y-4">
         {items.map((c) => (

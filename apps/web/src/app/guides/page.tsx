@@ -15,6 +15,21 @@ export default function GuidesPage() {
     <div className="max-w-3xl mx-auto px-4 py-10">
       <HubBreadcrumbs items={[{ name: "Home", path: "/" }, { name: "Guides", path: "/guides" }]} />
       <h1 className="spice-heading text-4xl">Sourcing guides</h1>
+      <p className="mt-4 text-muted leading-relaxed">
+        Practical notes for bulk buyers. Pair them with the{" "}
+        <Link href="/spice-guide" className="text-nav font-semibold hover:underline">
+          spice guide
+        </Link>
+        ,{" "}
+        <Link href="/wholesale" className="text-nav font-semibold hover:underline">
+          wholesale Indian spices
+        </Link>
+        , and a{" "}
+        <Link href="/enquiry" className="text-nav font-semibold hover:underline">
+          free spice enquiry
+        </Link>
+        .
+      </p>
       <ul className="mt-6 space-y-3">
         {SOURCING_GUIDES.map((g) => (
           <li key={g.slug}>

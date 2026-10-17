@@ -28,11 +28,20 @@ export default function EuPage() {
           spices for biryani. Pack sizes stay metric. Wholesale remains 10kg minimum.
         </p>
       </div>
-      <p className="mt-6"><Link href="/europe/indian-spices" className="text-nav">Europe spices overview →</Link></p>
-      <p className="mt-2"><Link href="/countries/de" className="text-nav">Germany</Link>
-        {" · "}<Link href="/countries/fr" className="text-nav">France</Link>
-        {" · "}<Link href="/countries/ie" className="text-nav">Ireland</Link>
-        {" · "}<Link href="/countries/nl" className="text-nav">Netherlands</Link>
+      <p className="mt-8 text-muted leading-relaxed">
+        Start from the{" "}
+        <Link href="/spices" className="text-nav font-semibold hover:underline">
+          Indian spice catalogue
+        </Link>
+        , compare with{" "}
+        <Link href="/uk" className="text-nav font-semibold hover:underline">
+          Indian spices UK
+        </Link>
+        , or request{" "}
+        <Link href="/wholesale" className="text-nav font-semibold hover:underline">
+          wholesale Indian spices
+        </Link>
+        .
       </p>
     </div>
   );

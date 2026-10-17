@@ -47,10 +47,18 @@ export default function SpiceGuideIndex() {
         </p>
         <p>
           Confused in a UK supermarket aisle? Start with{" "}
-          <Link href="/spice-guide/comparisons" className="text-nav">
+          <Link href="/spice-guide/comparisons" className="text-nav font-semibold hover:underline">
             spice comparisons
-          </Link>{" "}
-          (cumin vs caraway, Kashmiri vs regular chilli, garam masala vs curry powder).
+          </Link>
+          , cook from{" "}
+          <Link href="/recipes" className="text-nav font-semibold hover:underline">
+            Indian spice recipes
+          </Link>
+          , then buy from the{" "}
+          <Link href="/spices" className="text-nav font-semibold hover:underline">
+            Indian spice catalogue
+          </Link>
+          .
         </p>
       </div>
       {groups.map((group) => (
@@ -69,19 +77,6 @@ export default function SpiceGuideIndex() {
           </div>
         </section>
       ))}
-      <p className="mt-10">
-        <Link href="/spice-guide/comparisons" className="text-nav">
-          Comparison pages →
-        </Link>
-        {" · "}
-        <Link href="/recipes" className="text-nav">
-          Recipes →
-        </Link>
-        {" · "}
-        <Link href="/journal" className="text-nav">
-          Journal →
-        </Link>
-      </p>
     </div>
   );
 }

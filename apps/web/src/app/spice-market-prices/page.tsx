@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { pageMetadata } from "@/lib/seo";
 import { api } from "@/lib/api";
 import { AGMARKNET_SOURCE_DISCLAIMER } from "@spicycorner/shared";
@@ -43,7 +44,19 @@ export default async function MarketPricesPage() {
         <p className="text-sm text-muted mt-2 leading-relaxed">
           Figures come from India&apos;s official Agmarknet (data.gov.in) feed, pulled by our daily Lambda. A spice can
           move with arrivals, quality, grade and local demand — so yesterday&apos;s print is not today&apos;s. They are a
-          wholesale market reference, not SpicyCenter&apos;s retail checkout price or a confirmed bulk quote.
+          wholesale market reference, not a confirmed{" "}
+          <Link href="/wholesale" className="text-nav font-semibold hover:underline">
+            wholesale Indian spices
+          </Link>{" "}
+          quote. See the{" "}
+          <Link href="/spice-guide" className="text-nav font-semibold hover:underline">
+            spice guide
+          </Link>{" "}
+          or send a{" "}
+          <Link href="/enquiry" className="text-nav font-semibold hover:underline">
+            free spice enquiry
+          </Link>
+          .
         </p>
         <p className="text-xs text-muted mt-3">
           {prices.length} spices on the board · {liveCount} with a live Agmarknet print

@@ -24,8 +24,20 @@ export default function PressPage() {
         <section>
           <h2 className="text-xl font-bold text-primary mb-3">About {site.name}</h2>
           <p>
-            {site.name} ({siteUrl}) is a dedicated online spice shop operated by Divit Global Ventures, selling
-            Indian spices, spices, and spice packs. Delivering in 5–7 days.
+            {site.name} ({siteUrl}) is a dedicated online spice shop operated by Divit Global Ventures. Journalists can
+            also read the{" "}
+            <Link href="/about" className="text-nav font-semibold hover:underline">
+              about SpicyCenter
+            </Link>{" "}
+            page, the{" "}
+            <Link href="/spice-guide" className="text-nav font-semibold hover:underline">
+              spice guide
+            </Link>
+            , and the{" "}
+            <Link href="/contact" className="text-nav font-semibold hover:underline">
+              contact
+            </Link>{" "}
+            desk. Delivering in 5–7 days.
           </p>
         </section>
 
@@ -70,24 +82,8 @@ export default function PressPage() {
 
         <section>
           <h2 className="text-xl font-bold text-primary mb-3">AI &amp; machine-readable resources</h2>
-          <p className="text-sm">
-            <Link href="/llms.txt" className="text-nav underline">
-              llms.txt
-            </Link>
-            {" · "}
-            <Link href="/llms-full.txt" className="text-nav underline">
-              llms-full.txt
-            </Link>
-            {" · "}
-            <Link href="/humans.txt" className="text-nav underline">
-              humans.txt
-            </Link>
-          </p>
+          <p className="text-sm text-slate-600">llms.txt, llms-full.txt and humans.txt are published at the site root.</p>
         </section>
-
-        <Link href="/about" className="text-nav font-semibold hover:underline">
-          Read full About Us →
-        </Link>
       </div>
     </div>
   );
