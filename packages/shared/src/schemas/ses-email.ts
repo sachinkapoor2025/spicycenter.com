@@ -5,6 +5,13 @@ import {
   PREMIUM_MARKETING_EMAIL_LAYOUT,
   type MarketingEmailContent,
 } from "../lib/marketing-email-html";
+import {
+  buildVisitWebsiteEmailHtml,
+  VISIT_WEBSITE_EMAIL_LAYOUT,
+  isVisitWebsiteEmailContent,
+  visitWebsiteEmailContentSchema,
+  type VisitWebsiteEmailContent,
+} from "../lib/visit-website-email";
 
 export const SES_CAMPAIGN_STATUSES = [
   "draft",
@@ -123,6 +130,21 @@ export const marketingEmailContentSchema = z.object({
 
 export type MarketingEmailContentInput = z.infer<typeof marketingEmailContentSchema>;
 
+export type SesEmailTemplateLayout =
+  | typeof PREMIUM_MARKETING_EMAIL_LAYOUT
+  | typeof VISIT_WEBSITE_EMAIL_LAYOUT;
+
+export function readSesTemplateLayout(value: unknown): SesEmailTemplateLayout | undefined {
+  if (value === PREMIUM_MARKETING_EMAIL_LAYOUT || value === VISIT_WEBSITE_EMAIL_LAYOUT) return value;
+  return undefined;
+}
+
+function isPremiumMarketingContent(value: unknown): value is MarketingEmailContent {
+  if (!value || typeof value !== "object") return false;
+  const record = value as MarketingEmailContent;
+  return typeof record.heading === "string" && Array.isArray(record.categories) && Array.isArray(record.promises);
+}
+
 const sesTemplateFieldsSchema = z.object({
   name: z.string().min(1).max(120),
   subject: z.string().min(1).max(200),
@@ -136,8 +158,8 @@ const sesTemplateFieldsSchema = z.object({
     .regex(/^[a-z0-9-]+$/, "templateId must be lowercase letters, numbers, or hyphens")
     .optional(),
   /** Structured layout — enables Admin visual editor without editing HTML. */
-  layout: z.literal(PREMIUM_MARKETING_EMAIL_LAYOUT).optional(),
-  contentFields: marketingEmailContentSchema.optional(),
+  layout: z.union([z.literal(PREMIUM_MARKETING_EMAIL_LAYOUT), z.literal(VISIT_WEBSITE_EMAIL_LAYOUT)]).optional(),
+  contentFields: z.union([visitWebsiteEmailContentSchema, marketingEmailContentSchema]).optional(),
 });
 
 export const createSesTemplateSchema = sesTemplateFieldsSchema.superRefine((val, ctx) => {
@@ -148,6 +170,20 @@ export const createSesTemplateSchema = sesTemplateFieldsSchema.superRefine((val,
       path: ["htmlBody"],
     });
   }
+  if (val.layout === VISIT_WEBSITE_EMAIL_LAYOUT && !isVisitWebsiteEmailContent(val.contentFields)) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Add a headline, message, product images, button text, and https destination URL.",
+      path: ["contentFields"],
+    });
+  }
+  if (val.layout === PREMIUM_MARKETING_EMAIL_LAYOUT && val.contentFields && !isPremiumMarketingContent(val.contentFields)) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Premium template fields are incomplete.",
+      path: ["contentFields"],
+    });
+  }
 });
 
 export const updateSesTemplateSchema = sesTemplateFieldsSchema.partial();
@@ -156,13 +192,20 @@ export const updateSesTemplateSchema = sesTemplateFieldsSchema.partial();
 export function resolveSesTemplateHtml(input: {
   htmlBody?: string;
   layout?: string;
-  contentFields?: MarketingEmailContent | MarketingEmailContentInput | null;
+  contentFields?: MarketingEmailContent | MarketingEmailContentInput | VisitWebsiteEmailContent | null;
 }): string {
-  if (input.contentFields && input.layout === PREMIUM_MARKETING_EMAIL_LAYOUT) {
-    return buildPremiumMarketingEmailHtml(input.contentFields as MarketingEmailContent);
+  const fields = input.contentFields;
+  if (input.layout === VISIT_WEBSITE_EMAIL_LAYOUT && isVisitWebsiteEmailContent(fields)) {
+    return buildVisitWebsiteEmailHtml(fields);
   }
-  if (input.contentFields && !input.htmlBody?.trim()) {
-    return buildPremiumMarketingEmailHtml(input.contentFields as MarketingEmailContent);
+  if (isVisitWebsiteEmailContent(fields) && input.layout !== PREMIUM_MARKETING_EMAIL_LAYOUT) {
+    return buildVisitWebsiteEmailHtml(fields);
+  }
+  if (
+    isPremiumMarketingContent(fields) &&
+    (input.layout === PREMIUM_MARKETING_EMAIL_LAYOUT || !input.htmlBody?.trim())
+  ) {
+    return buildPremiumMarketingEmailHtml(fields);
   }
   return input.htmlBody?.trim() || buildPremiumMarketingEmailHtml(DEFAULT_PREMIUM_MARKETING_EMAIL_CONTENT);
 }
@@ -251,8 +294,8 @@ export type SesTemplate = {
   name: string;
   subject: string;
   htmlBody: string;
-  layout?: typeof PREMIUM_MARKETING_EMAIL_LAYOUT;
-  contentFields?: MarketingEmailContentInput;
+  layout?: SesEmailTemplateLayout;
+  contentFields?: MarketingEmailContentInput | VisitWebsiteEmailContent;
   createdAt: string;
   updatedAt: string;
 };

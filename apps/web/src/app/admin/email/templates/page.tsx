@@ -1,23 +1,48 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
+import Link from "next/link";
 import { useApiClient } from "@/lib/auth-context";
 import { PremiumMarketingEmailEditor } from "@/components/admin/PremiumMarketingEmailEditor";
+import { VisitWebsiteEmailEditor } from "@/components/admin/VisitWebsiteEmailEditor";
 import { ensureStarterEmailTemplates } from "@/lib/ensure-starter-email-templates";
 import {
   FREE_SHIPPING_TEMPLATE_ID,
   SPICE_PREMIUM_TEMPLATE_ID,
   STARTING_PRICE_TEMPLATE_ID,
+  VISIT_WEBSITE_TEMPLATE_ID,
 } from "@/lib/starter-email-templates";
 import {
   DEFAULT_PREMIUM_MARKETING_EMAIL_CONTENT,
+  DEFAULT_VISIT_WEBSITE_EMAIL_CONTENT,
   PREMIUM_MARKETING_EMAIL_LAYOUT,
+  VISIT_WEBSITE_EMAIL_LAYOUT,
+  VISIT_WEBSITE_EMAIL_NAME,
+  VISIT_WEBSITE_EMAIL_SUBJECT,
   buildPremiumMarketingEmailHtml,
+  buildVisitWebsiteEmailHtml,
   type MarketingEmailContentInput,
+  type SesEmailTemplateLayout,
   type SesTemplate,
+  type VisitWebsiteEmailContent,
 } from "@spicycorner/shared";
 
 const EMPTY_HTML = "<p>Hello {{name}}</p>";
+
+type TemplateFields = MarketingEmailContentInput | VisitWebsiteEmailContent;
+
+function isPremiumFields(value: TemplateFields | null): value is MarketingEmailContentInput {
+  return Boolean(value && "categories" in value && "heading" in value);
+}
+
+function isVisitFields(value: TemplateFields | null): value is VisitWebsiteEmailContent {
+  return Boolean(value && "headline" in value && "ctaUrl" in value && Array.isArray(value.products));
+}
+
+function layoutOf(value: string | undefined): SesEmailTemplateLayout | undefined {
+  if (value === PREMIUM_MARKETING_EMAIL_LAYOUT || value === VISIT_WEBSITE_EMAIL_LAYOUT) return value;
+  return undefined;
+}
 
 export default function TemplatesPage() {
   const api = useApiClient();
@@ -26,8 +51,8 @@ export default function TemplatesPage() {
   const [name, setName] = useState("");
   const [subject, setSubject] = useState("");
   const [htmlBody, setHtmlBody] = useState(EMPTY_HTML);
-  const [layout, setLayout] = useState<typeof PREMIUM_MARKETING_EMAIL_LAYOUT | undefined>();
-  const [contentFields, setContentFields] = useState<MarketingEmailContentInput | null>(null);
+  const [layout, setLayout] = useState<SesEmailTemplateLayout | undefined>();
+  const [contentFields, setContentFields] = useState<TemplateFields | null>(null);
   const [showHtml, setShowHtml] = useState(false);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
@@ -37,19 +62,26 @@ export default function TemplatesPage() {
   const [booting, setBooting] = useState(true);
 
   const isEditing = Boolean(selectedId);
-  const isStructured = layout === PREMIUM_MARKETING_EMAIL_LAYOUT && Boolean(contentFields);
+  const isPremium = layout === PREMIUM_MARKETING_EMAIL_LAYOUT && isPremiumFields(contentFields);
+  const isVisit = layout === VISIT_WEBSITE_EMAIL_LAYOUT && isVisitFields(contentFields);
+  const isStructured = isPremium || isVisit;
 
   const previewHtml = useMemo(() => {
-    if (isStructured && contentFields) {
+    if (isVisit && isVisitFields(contentFields)) {
+      return buildVisitWebsiteEmailHtml(contentFields);
+    }
+    if (isPremium && isPremiumFields(contentFields)) {
       return buildPremiumMarketingEmailHtml(contentFields);
     }
     return htmlBody;
-  }, [isStructured, contentFields, htmlBody]);
+  }, [isVisit, isPremium, contentFields, htmlBody]);
 
   const load = useCallback(async () => {
     const { templates: list, installed, updated } = await ensureStarterEmailTemplates(api);
     setTemplates(list);
-    if (
+    if (installed.includes(VISIT_WEBSITE_TEMPLATE_ID)) {
+      setMessage("Website visit template installed. Edit the headline, message, photos, and button, then save.");
+    } else if (
       installed.includes(FREE_SHIPPING_TEMPLATE_ID) ||
       installed.includes(STARTING_PRICE_TEMPLATE_ID)
     ) {
@@ -85,6 +117,18 @@ export default function TemplatesPage() {
     setError("");
   };
 
+  const startVisitTemplate = () => {
+    setSelectedId(null);
+    setName(VISIT_WEBSITE_EMAIL_NAME);
+    setSubject(VISIT_WEBSITE_EMAIL_SUBJECT);
+    setLayout(VISIT_WEBSITE_EMAIL_LAYOUT);
+    setContentFields(structuredClone(DEFAULT_VISIT_WEBSITE_EMAIL_CONTENT));
+    setHtmlBody(buildVisitWebsiteEmailHtml(DEFAULT_VISIT_WEBSITE_EMAIL_CONTENT));
+    setShowHtml(false);
+    setMessage("Edit the short website email, save it, then send a test from Compose.");
+    setError("");
+  };
+
   const startPremiumTemplate = () => {
     setSelectedId(null);
     setName("Premium spices (Editable)");
@@ -108,7 +152,7 @@ export default function TemplatesPage() {
       setName(t.name);
       setSubject(t.subject);
       setHtmlBody(t.htmlBody);
-      setLayout(t.layout === PREMIUM_MARKETING_EMAIL_LAYOUT ? PREMIUM_MARKETING_EMAIL_LAYOUT : undefined);
+      setLayout(layoutOf(t.layout));
       setContentFields(t.contentFields ? structuredClone(t.contentFields) : null);
       setShowHtml(false);
     } catch (err) {
@@ -131,15 +175,24 @@ export default function TemplatesPage() {
     setMessage("");
     setError("");
     try {
-      const payload = isStructured
-        ? {
-            name: name.trim(),
-            subject: subject.trim(),
-            layout: PREMIUM_MARKETING_EMAIL_LAYOUT,
-            contentFields,
-            htmlBody: buildPremiumMarketingEmailHtml(contentFields!),
-          }
-        : { name: name.trim(), subject: subject.trim(), htmlBody };
+      const payload =
+        isVisit && isVisitFields(contentFields)
+          ? {
+              name: name.trim(),
+              subject: subject.trim(),
+              layout: VISIT_WEBSITE_EMAIL_LAYOUT,
+              contentFields,
+              htmlBody: buildVisitWebsiteEmailHtml(contentFields),
+            }
+          : isPremium && isPremiumFields(contentFields)
+            ? {
+                name: name.trim(),
+                subject: subject.trim(),
+                layout: PREMIUM_MARKETING_EMAIL_LAYOUT,
+                contentFields,
+                htmlBody: buildPremiumMarketingEmailHtml(contentFields),
+              }
+            : { name: name.trim(), subject: subject.trim(), htmlBody };
 
       if (selectedId) {
         const res = await api<{ template: SesTemplate }>(`/ses-email/templates/${selectedId}`, {
@@ -150,11 +203,7 @@ export default function TemplatesPage() {
         setName(res.template.name);
         setSubject(res.template.subject);
         setHtmlBody(res.template.htmlBody);
-        setLayout(
-          res.template.layout === PREMIUM_MARKETING_EMAIL_LAYOUT
-            ? PREMIUM_MARKETING_EMAIL_LAYOUT
-            : undefined
-        );
+        setLayout(layoutOf(res.template.layout));
         setContentFields(res.template.contentFields ? structuredClone(res.template.contentFields) : null);
         setMessage("Template updated.");
       } else {
@@ -166,11 +215,7 @@ export default function TemplatesPage() {
         setName(res.template.name);
         setSubject(res.template.subject);
         setHtmlBody(res.template.htmlBody);
-        setLayout(
-          res.template.layout === PREMIUM_MARKETING_EMAIL_LAYOUT
-            ? PREMIUM_MARKETING_EMAIL_LAYOUT
-            : undefined
-        );
+        setLayout(layoutOf(res.template.layout));
         setContentFields(res.template.contentFields ? structuredClone(res.template.contentFields) : null);
         setMessage("Template created.");
       }
@@ -207,8 +252,15 @@ export default function TemplatesPage() {
         <div className="flex flex-wrap gap-2">
           <button
             type="button"
-            onClick={startPremiumTemplate}
+            onClick={startVisitTemplate}
             className="rounded-lg bg-nav text-white px-3 py-1.5 text-sm hover:opacity-90"
+          >
+            New website template
+          </button>
+          <button
+            type="button"
+            onClick={startPremiumTemplate}
+            className="rounded-lg border px-3 py-1.5 text-sm hover:bg-slate-50"
           >
             New premium template
           </button>
@@ -226,13 +278,15 @@ export default function TemplatesPage() {
 
       <div className="rounded-xl border bg-white p-5 space-y-3">
         <p className="text-xs text-slate-500">
-          {isEditing
-            ? isStructured
-              ? "Editing premium template (visual fields)"
-              : "Editing saved HTML template"
-            : isStructured
-              ? "Create a premium editable template"
-              : "Create a new HTML template"}
+          {isVisit
+            ? "Editing the short website visit email"
+            : isPremium
+              ? isEditing
+                ? "Editing premium template (visual fields)"
+                : "Create a premium editable template"
+              : isEditing
+                ? "Editing saved HTML template"
+                : "Create a new HTML template"}
         </p>
         <input
           className="w-full border rounded-lg px-3 py-2 text-sm"
@@ -249,7 +303,11 @@ export default function TemplatesPage() {
 
         {isStructured && contentFields ? (
           <>
-            <PremiumMarketingEmailEditor value={contentFields} onChange={setContentFields} />
+            {isVisit && isVisitFields(contentFields) ? (
+              <VisitWebsiteEmailEditor value={contentFields} onChange={setContentFields} />
+            ) : isPremium && isPremiumFields(contentFields) ? (
+              <PremiumMarketingEmailEditor value={contentFields} onChange={setContentFields} />
+            ) : null}
             <div className="flex flex-wrap items-center gap-2 pt-1">
               <button
                 type="button"
@@ -273,8 +331,8 @@ export default function TemplatesPage() {
                 title="Email preview"
                 srcDoc={previewHtml}
                 className="w-full bg-white"
-                style={{ height: 720, border: 0 }}
-                sandbox=""
+                style={{ height: isVisit ? 780 : 720, border: 0 }}
+                sandbox="allow-popups allow-popups-to-escape-sandbox"
               />
             </div>
           </>
@@ -296,6 +354,14 @@ export default function TemplatesPage() {
             {saving ? "Saving…" : isEditing ? "Update template" : "Save template"}
           </button>
           {isEditing && (
+            <Link
+              href={`/admin/email/compose?template=${selectedId}`}
+              className="rounded-lg border border-nav text-nav px-4 py-2 text-sm hover:bg-orange-50"
+            >
+              Send a test
+            </Link>
+          )}
+          {isEditing && (
             <button
               type="button"
               onClick={() => void remove()}
@@ -308,14 +374,19 @@ export default function TemplatesPage() {
         </div>
         {message && <p className="text-green-600 text-sm">{message}</p>}
         {error && <p className="text-red-600 text-sm">{error}</p>}
+        {isEditing && (
+          <p className="text-xs text-slate-500">
+            Save first, then Send a test. Compose loads this template and can deliver one test email before a campaign.
+          </p>
+        )}
       </div>
 
       <div className="rounded-xl border bg-white overflow-hidden">
         <div className="px-4 py-3 border-b">
           <h2 className="text-sm font-semibold text-slate-700">Saved templates</h2>
           <p className="text-xs text-slate-500 mt-0.5">
-            Open <strong>Premium spices (Editable)</strong> to change logo, banner, categories, promises,
-            and footer without editing HTML. Use Compose → Load template for campaigns.
+            Open <strong>Visit the website (Editable)</strong> for the short catalogue email. Save, then use
+            Send a test. Subject, headline, message, photos, button text, and destination URL are editable.
           </p>
         </div>
         {booting ? (
@@ -327,7 +398,8 @@ export default function TemplatesPage() {
             {templates.map((t) => {
               const active = selectedId === t.templateId;
               const busy = loadingId === t.templateId;
-              const structured = t.layout === PREMIUM_MARKETING_EMAIL_LAYOUT;
+              const structured =
+                t.layout === PREMIUM_MARKETING_EMAIL_LAYOUT || t.layout === VISIT_WEBSITE_EMAIL_LAYOUT;
               return (
                 <li key={t.templateId}>
                   <button
