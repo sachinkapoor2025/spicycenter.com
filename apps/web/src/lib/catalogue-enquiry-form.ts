@@ -126,11 +126,10 @@ export function enquiryLocationFromCountryQuery(country?: string): {
 
 export function validateEnquiryContact(values: Pick<EnquiryFormValues, "firstName" | "email" | "phone" | "company" | "buyerType">): CatalogueEnquiryIssue[] {
   const issues: CatalogueEnquiryIssue[] = [];
-  if (!values.firstName.trim()) issues.push({ field: "firstName", message: "Enter your first name." });
+  if (!values.firstName.trim()) issues.push({ field: "firstName", message: "Enter your name." });
   if (!values.email.trim()) issues.push({ field: "email", message: "Enter your email." });
   if (!values.phone.trim()) issues.push({ field: "phone", message: "Enter your phone number." });
   if (!values.company.trim()) issues.push({ field: "company", message: "Enter your company name." });
-  if (!values.buyerType.trim()) issues.push({ field: "buyerType", message: "Select what best describes you." });
   return issues;
 }
 
@@ -257,7 +256,7 @@ export function interpretCatalogueEnquiryFailure(err: unknown): EnquirySubmitOut
 
 export function enquirySubmitButtonLabel(loading: boolean, locked = false): string {
   if (locked) return "Enquiry saved";
-  return loading ? "Sending..." : "Send Enquiry";
+  return loading ? "Submitting..." : "Submit Enquiry";
 }
 
 export function enquiryIssueMessage(issues: CatalogueEnquiryIssue[], field: string): string {
@@ -277,7 +276,7 @@ export const WHATSAPP_HANDOFF_RECORDED_MESSAGE =
   "Your enquiry is recorded. Continue in WhatsApp to send the message. The website cannot send WhatsApp for you.";
 
 export const WHATSAPP_UNCERTAIN_MESSAGE =
-  "We could not confirm that the enquiry was saved. Do not tap WhatsApp again. If you did not already submit, use Send Enquiry or contact us.";
+  "We could not confirm that the enquiry was saved. Do not tap WhatsApp again. If you did not already submit, use Submit Enquiry or contact us.";
 
 export function enquiryLeadWasPersisted(outcome: EnquirySubmitOutcome): boolean {
   if (outcome.status === "saved_unnotified") {

@@ -63,17 +63,17 @@ describe("enquiry labels", () => {
 });
 
 describe("location fields", () => {
-  it("collects state and city in India, country and city overseas, and never a full address", () => {
+  it("collects state in India and country overseas, and does not ask for a city or full address", () => {
     assert.deepEqual(catalogueEnquiryLocationFields(ENQUIRY_MARKETS.INDIA), {
       state: true,
       country: false,
-      city: true,
+      city: false,
       address: false,
     });
     assert.deepEqual(catalogueEnquiryLocationFields(ENQUIRY_MARKETS.OVERSEAS), {
       state: false,
       country: true,
-      city: true,
+      city: false,
       address: false,
     });
   });
@@ -205,14 +205,14 @@ describe("validateCatalogueEnquiry", () => {
     assert.equal(issues.some((issue) => issue.field === "products.1.unit"), true);
   });
 
-  it("requires India state and city, overseas country and city, and ignores a missing full address", () => {
+  it("requires the India state and overseas country, and does not require a city", () => {
     const india = validateCatalogueEnquiry({
       market: ENQUIRY_MARKETS.INDIA,
       kind: ENQUIRY_KINDS.SIMPLE_PRODUCT_ENQUIRY,
       products: [{ name: "Cumin whole" }],
     });
     assert.equal(india.some((issue) => issue.field === "state"), true);
-    assert.equal(india.some((issue) => issue.field === "city"), true);
+    assert.equal(india.some((issue) => issue.field === "city"), false);
     assert.equal(india.some((issue) => issue.field === "country"), false);
 
     const overseas = validateCatalogueEnquiry({
@@ -221,10 +221,10 @@ describe("validateCatalogueEnquiry", () => {
       products: [{ name: "Cumin whole" }],
     });
     assert.equal(overseas.some((issue) => issue.field === "country"), true);
-    assert.equal(overseas.some((issue) => issue.field === "city"), true);
+    assert.equal(overseas.some((issue) => issue.field === "city"), false);
     assert.equal(overseas.some((issue) => issue.field === "state"), false);
 
-    assert.equal(catalogueEnquiryIsValid(indiaCommercial({ address: undefined })), true);
+    assert.equal(catalogueEnquiryIsValid(indiaCommercial({ address: undefined, city: "" })), true);
   });
 
   it("drops blank product rows and still requires one named product", () => {

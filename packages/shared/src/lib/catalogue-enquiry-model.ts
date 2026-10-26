@@ -115,7 +115,7 @@ export function catalogueEnquiryLocationFields(market?: string): {
   return {
     state: market === ENQUIRY_MARKETS.INDIA,
     country: market === ENQUIRY_MARKETS.OVERSEAS,
-    city: market === ENQUIRY_MARKETS.INDIA || market === ENQUIRY_MARKETS.OVERSEAS,
+    city: false,
     address: false,
   };
 }
