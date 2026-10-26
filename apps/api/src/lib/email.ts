@@ -11,6 +11,7 @@ import {
   ABANDONED_CART_DISCOUNT_PERCENT,
   ORDER_SMTP_USER,
   DEFAULT_ORDER_NOTIFY_EMAIL,
+  enquiryCcEmails,
   staffOrderNotifyEmails,
   buildCatalogueEnquiryAdminEmail,
   isAdminExtremeDiscount,
@@ -150,9 +151,23 @@ function transportConfigs(
   return configs;
 }
 
-function createTransporter(config: SMTPTransport.Options) {
+type OutboundTransport = {
+  sendMail: (mail: unknown) => Promise<unknown>;
+};
+
+/** Test hook. Unset in production so nodemailer is used. */
+let outboundTransportForTests: ((config: SMTPTransport.Options) => OutboundTransport) | undefined;
+
+export function setOutboundTransportForTests(
+  factory: ((config: SMTPTransport.Options) => OutboundTransport) | undefined
+): void {
+  outboundTransportForTests = factory;
+}
+
+function createTransporter(config: SMTPTransport.Options): OutboundTransport {
+  if (outboundTransportForTests) return outboundTransportForTests(config);
   const host = String(config.host ?? "");
-  return nodemailer.createTransport({
+  const transporter = nodemailer.createTransport({
     ...config,
     connectionTimeout: 8000,
     greetingTimeout: 8000,
@@ -163,6 +178,9 @@ function createTransporter(config: SMTPTransport.Options) {
       servername: isIpv4(host) ? CANONICAL_SMTP_HOST : host,
     },
   });
+  return {
+    sendMail: (mail) => transporter.sendMail(mail as SMTPTransport.MailOptions),
+  };
 }
 
 /** Public support address shown to customers (single inbox). */
@@ -291,6 +309,8 @@ export function htmlFromPlainText(text: string): string {
 
 export async function sendEmail(opts: {
   to: string;
+  /** Catalogue enquiry staff copies only. Omitted from the SMTP payload when empty. */
+  cc?: string[];
   subject: string;
   text: string;
   html?: string;
@@ -310,9 +330,11 @@ export async function sendEmail(opts: {
 
   const mailbox = opts.mailbox ?? "order";
   const from = fromAddressFor(mailbox);
+  const cc = (opts.cc ?? []).map((address) => address.trim()).filter(Boolean);
   const mail = {
     from: `"${SITE_NAME}" <${from}>`,
     to: opts.to,
+    ...(cc.length > 0 ? { cc } : {}),
     subject: opts.subject,
     text: opts.text,
     html: opts.html ?? htmlFromPlainText(opts.text),
@@ -558,8 +580,12 @@ export async function sendCatalogueEnquiryEmails(
     metadata: lead.metadata,
   });
 
+  const to = adminNotifyAddresses();
+  const cc = enquiryCcEmails(process.env.ENQUIRY_CC_EMAILS, to.split(","));
+
   return sendEmail({
-    to: adminNotifyAddresses(),
+    to,
+    ...(cc.length > 0 ? { cc } : {}),
     subject: mail.subject,
     text: mail.text,
     replyTo: lead.email,
