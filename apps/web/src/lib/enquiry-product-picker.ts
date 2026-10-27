@@ -1,5 +1,5 @@
 import { cjStorefrontProductsPath, enquiryRequiresCommercialQuantity } from "@spicycorner/shared";
-import { collapseToOneEnquiryProduct, enquiryProductKey, enquiryProductName } from "./catalogue";
+import { enquiryProductName } from "./catalogue";
 
 /** Storefront search cap for the enquiry picker. The client never loads the full catalogue. */
 export const ENQUIRY_PRODUCT_SEARCH_LIMIT = 8;
@@ -31,23 +31,110 @@ export type EnquiryPickerSelection = {
 /** Storefront page cap used only to browse distinct names. The picker still shows at most eight. */
 const ENQUIRY_PRODUCT_BROWSE_LIMIT = 48;
 
-export function enquiryProductBrowsePath(): string {
+/** Upstream catalogue request. The browser calls the enquiry route instead of this path. */
+export function enquiryUpstreamBrowsePath(): string {
   return cjStorefrontProductsPath({ limit: ENQUIRY_PRODUCT_BROWSE_LIMIT });
 }
 
+export function enquiryUpstreamSearchPath(query: string): string {
+  return cjStorefrontProductsPath({
+    search: query.trim(),
+    limit: ENQUIRY_PRODUCT_SEARCH_LIMIT,
+  });
+}
+
+export function enquiryProductBrowsePath(): string {
+  return "/api/enquiry-products";
+}
+
 export function normalizePickerName(name: string): string {
-  return enquiryProductName(name).trim().toLowerCase();
+  return enquirySpiceLabel({ name }).toLowerCase();
+}
+
+const SPICE_FORM_TOKENS = ["whole", "powder", "roasted", "crushed", "flakes", "flake", "blend", "seeds", "seed", "leaves", "leaf"];
+
+function spiceIdFromTags(tags?: string[]): string {
+  return tags?.find((tag) => tag.startsWith("spice:"))?.slice(6) ?? "";
+}
+
+/** Catalogue label with pack size and form removed. The spice tag keeps distinct spices apart. */
+export function enquirySpiceLabel(product: { name: string; tags?: string[] }): string {
+  const spiceId = spiceIdFromTags(product.tags);
+  let label = enquiryProductName(product.name);
+  const keep = new Set<string>();
+  if (spiceId.endsWith("powder")) keep.add("powder");
+  if (spiceId.includes("leaf") || spiceId.endsWith("leaves")) {
+    keep.add("leaf");
+    keep.add("leaves");
+  }
+  let changed = true;
+  while (changed) {
+    changed = false;
+    for (const token of SPICE_FORM_TOKENS) {
+      if (keep.has(token)) continue;
+      const next = label.replace(new RegExp(`\\s+${token}$`, "i"), "").replace(/\s{2,}/g, " ").trim();
+      if (next && next !== label) {
+        label = next;
+        changed = true;
+      }
+    }
+  }
+  return label;
+}
+
+export function enquirySpiceKey(product: EnquiryPickerCatalogueProduct): string {
+  const spiceId = spiceIdFromTags(product.tags);
+  if (spiceId) return `spice:${spiceId}`;
+  return `name:${enquirySpiceLabel(product).toLowerCase()}`;
+}
+
+function canonicalSpiceLabel(labels: string[]): string {
+  const unique = [...new Set(labels.map((label) => label.trim()).filter(Boolean))];
+  if (unique.length === 0) return "";
+  if (unique.length === 1) return unique[0];
+  const folded = unique.map((label) => label.replace(/\bleaves\b/gi, "leaf").toLowerCase());
+  if (new Set(folded).size === 1) {
+    return unique.find((label) => /\bleaf\b/i.test(label) && !/leaves/i.test(label)) ?? unique[0];
+  }
+  return unique.slice().sort((a, b) => a.length - b.length || a.localeCompare(b))[0];
+}
+
+/** One suggestion per base spice. Pack sizes and whole/powder forms collapse. */
+export function uniqueEnquirySpiceSuggestions(
+  products: EnquiryPickerCatalogueProduct[]
+): EnquiryPickerSuggestion[] {
+  const groups = new Map<string, string[]>();
+  const order: string[] = [];
+  for (const product of products) {
+    const key = enquirySpiceKey(product);
+    const labels = groups.get(key);
+    if (!labels) {
+      groups.set(key, [enquirySpiceLabel(product)]);
+      order.push(key);
+    } else {
+      labels.push(enquirySpiceLabel(product));
+    }
+  }
+  return order.map((key) => ({ key, name: canonicalSpiceLabel(groups.get(key) ?? []) }));
 }
 
 export function suggestionsFromCatalogueProducts(
   products: EnquiryPickerCatalogueProduct[]
 ): EnquiryPickerSuggestion[] {
-  return collapseToOneEnquiryProduct(products)
-    .map((product) => ({
-      key: enquiryProductKey(product),
-      name: product.name,
-    }))
-    .slice(0, ENQUIRY_PRODUCT_SEARCH_LIMIT);
+  return uniqueEnquirySpiceSuggestions(products).slice(0, ENQUIRY_PRODUCT_SEARCH_LIMIT);
+}
+
+function productMatchesEnquirySearch(product: EnquiryPickerCatalogueProduct, needle: string): boolean {
+  const label = enquirySpiceLabel(product).toLowerCase();
+  const stem = enquiryProductName(product.name).toLowerCase();
+  const spiceId = spiceIdFromTags(product.tags).replace(/-/g, " ");
+  return (
+    label.includes(needle) ||
+    stem.includes(needle) ||
+    product.name.toLowerCase().includes(needle) ||
+    spiceId.includes(needle) ||
+    (product.tags?.some((tag) => tag.toLowerCase().includes(needle)) ?? false)
+  );
 }
 
 /** One collapsed catalogue row whose display name equals the query. Fragments stay unselected. */
@@ -127,10 +214,19 @@ export function toEnquiryFormProducts(
 }
 
 export function enquiryProductSearchPath(query: string): string {
-  return cjStorefrontProductsPath({
-    search: query.trim(),
-    limit: ENQUIRY_PRODUCT_SEARCH_LIMIT,
-  });
+  return `/api/enquiry-products?${new URLSearchParams({ search: query.trim() }).toString()}`;
+}
+
+/** Use the bundled catalogue when it is loaded. An empty catalogue falls back to live API rows. */
+export function resolveEnquiryProductSuggestions(
+  apiProducts: EnquiryPickerCatalogueProduct[],
+  catalogProducts: EnquiryPickerCatalogueProduct[],
+  search: string
+): EnquiryPickerSuggestion[] {
+  const pool = catalogProducts.length > 0 ? catalogProducts : apiProducts;
+  const needle = search.trim().toLowerCase();
+  const filtered = needle ? pool.filter((product) => productMatchesEnquirySearch(product, needle)) : pool;
+  return suggestionsFromCatalogueProducts(filtered);
 }
 
 export const OTHER_PRODUCT_LABEL = "Other";

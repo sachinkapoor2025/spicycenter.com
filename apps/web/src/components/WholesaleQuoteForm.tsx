@@ -714,7 +714,11 @@ function CatalogueProductPicker({
     setStatus("loading");
     const timer = window.setTimeout(() => {
       const path = browsing ? enquiryProductBrowsePath() : enquiryProductSearchPath(search);
-      void api<{ products?: Array<{ slug: string; name: string; tags?: string[] }> }>(path)
+      void fetch(path, { cache: "no-store" })
+        .then(async (response) => {
+          if (!response.ok) throw new Error("Catalogue search is unavailable");
+          return response.json() as Promise<{ products?: Array<{ slug: string; name: string; tags?: string[] }> }>;
+        })
         .then((data) => {
           if (cancelled || request !== requestId.current) return;
           setSuggestions(suggestionsFromCatalogueProducts(data.products ?? []));
