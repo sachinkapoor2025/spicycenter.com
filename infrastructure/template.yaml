@@ -139,6 +139,7 @@ Parameters:
 Conditions:
   VendorApiEnabled: !Equals [!Ref EnableVendorApi, "true"]
   IsProd: !Equals [!Ref Environment, "prod"]
+  IsDev: !Equals [!Ref Environment, "dev"]
 
 Globals:
   Function:
@@ -175,6 +176,11 @@ Globals:
         SMTP_USER: enquiry@spicycenter.com
         SMTP_FROM: enquiry@spicycenter.com
         NOTIFY_EMAIL: enquiry@spicycenter.com
+        # Catalogue enquiry notifications only. Production and staging stay empty.
+        ENQUIRY_CC_EMAILS: !If
+          - IsDev
+          - "dgv@mydgv.com,meenu.talwar@mydgv.com,priya.yadav@mydgv.com,naman.talwar@spicycenter.com"
+          - ""
         SMTP_PASS: !Ref SmtpPassword
         SITE_URL: https://www.spicycenter.com
         SES_AWS_REGION: !Ref AWS::Region

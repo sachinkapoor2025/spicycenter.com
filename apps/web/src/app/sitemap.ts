@@ -1,9 +1,9 @@
 import type { MetadataRoute } from "next";
 import { loadStorefrontProducts } from "@/lib/product-loader";
 import { siteUrl } from "@/lib/env";
-import { categoryOrder } from "@/lib/site";
+import { categoryOrder, regionLinks } from "@/lib/site";
 import { blogPosts } from "@/lib/content/blog-posts";
-import { seoBlogEntries, seoEventsHub } from "@/lib/content/seo-data";
+import { seoBlogEntries } from "@/lib/content/seo-data";
 import { allCountrySeoSlugs } from "@/lib/content/country-pages";
 import { loadPublishedSpiceEntities } from "@/lib/spice-data";
 import { FOOD_FAMILIES } from "@/lib/food-families";
@@ -70,6 +70,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteUrl}/guides`, lastModified: now, changeFrequency: "weekly", priority: 0.75 },
     { url: `${siteUrl}/legal/food-information`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${siteUrl}/legal/allergens`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${siteUrl}/legal/shipping`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${siteUrl}/spice-guide`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
     { url: `${siteUrl}/spice-finder`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     { url: `${siteUrl}/recipes`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
@@ -78,16 +79,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteUrl}/indian-spice-regions`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     { url: `${siteUrl}/uk`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     { url: `${siteUrl}/eu`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${siteUrl}/europe/indian-spices`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${siteUrl}/reviews`, lastModified: now, changeFrequency: "weekly", priority: 0.5 },
     { url: `${siteUrl}/about`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${siteUrl}/shipping`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${siteUrl}/faq`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
-    {
-      url: `${siteUrl}${seoEventsHub.hubPath}`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
     { url: `${siteUrl}/blog`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
     { url: `${siteUrl}/contact`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: `${siteUrl}/terms`, lastModified: now, changeFrequency: "yearly", priority: 0.4 },
@@ -155,6 +151,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
+  const regionRoutes = regionLinks.map((region) => ({
+    url: `${siteUrl}/indian-spice-regions/${region.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.75,
+  }));
+
   const blogRoutes = mergedBlogRoutes();
 
   const spiceGuideRoutes = loadPublishedSpiceEntities().map((s) => ({
@@ -207,6 +210,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...sourcingRoutes,
     ...foodRoutes,
     ...guideRoutes,
+    ...regionRoutes,
     ...spiceGuideRoutes,
     ...spiceShopRoutes,
     ...recipeRoutes,

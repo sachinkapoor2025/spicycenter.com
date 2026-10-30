@@ -25,6 +25,32 @@ export const metadata: Metadata = pageMetadata({
 
 export const dynamic = "force-dynamic";
 
+/**
+ * Subject center (0–1) of each 240×240 category photo, measured from non-background pixels.
+ * The circle is the same aspect as the file, so object-position cannot move the subject.
+ * These frames shift that subject to the circle center and scale just enough to stay covered.
+ * cat-6 (premium) is already centered and keeps the default cover crop.
+ */
+const CATEGORY_IMAGE_FRAMES: Record<string, { x: number; y: number; scale: number }> = {
+  "whole-spices": { x: 0.651, y: 0.48, scale: 1.55 },
+  "ground-spices": { x: 0.606, y: 0.469, scale: 1.38 },
+  "indian-masalas": { x: 0.596, y: 0.47, scale: 1.34 },
+  herbs: { x: 0.586, y: 0.463, scale: 1.32 },
+  seeds: { x: 0.586, y: 0.472, scale: 1.32 },
+  "indian-chillies": { x: 0.546, y: 0.521, scale: 1.2 },
+  "bulk-spices": { x: 0.389, y: 0.507, scale: 1.4 },
+};
+
+function categoryImageLayout(slug: string): { left: string; top: string; size: string } | null {
+  const frame = CATEGORY_IMAGE_FRAMES[slug];
+  if (!frame) return null;
+  return {
+    size: `${frame.scale * 100}%`,
+    left: `${(0.5 - frame.x * frame.scale) * 100}%`,
+    top: `${(0.5 - frame.y * frame.scale) * 100}%`,
+  };
+}
+
 const SHIPPING_BENEFITS = [
   { label: "Worldwide Delivery", icon: "globe" },
   { label: "Safe & Secure Packaging", icon: "package" },
@@ -175,14 +201,29 @@ export default async function HomePage() {
           <h2 className="font-serif text-[1.35rem] sm:text-[1.5rem] md:text-[1.7rem] text-primary mt-2 leading-snug">Shop by spice type</h2>
         </div>
         <div className="grid grid-cols-4 md:grid-cols-8 gap-2 sm:gap-4">
-          {exploreCategories.map((c) => (
+          {exploreCategories.map((c) => {
+            const frame = categoryImageLayout(c.slug);
+            return (
             <Link key={c.slug} href={c.href} className="flex flex-col items-center text-center group min-w-0">
               <span className="relative h-14 w-14 sm:h-[4.25rem] sm:w-[4.25rem] md:h-24 md:w-24 rounded-full overflow-hidden border-[3px] border-paper shadow-card ring-1 ring-[#e6d5bc] group-hover:ring-nav">
-                <Image src={c.image} alt="" fill className="object-cover" sizes="96px" />
+                {frame ? (
+                  <Image
+                    src={c.image}
+                    alt=""
+                    width={240}
+                    height={240}
+                    sizes="96px"
+                    className="absolute max-w-none"
+                    style={{ width: frame.size, height: frame.size, left: frame.left, top: frame.top }}
+                  />
+                ) : (
+                  <Image src={c.image} alt="" fill className="object-cover" sizes="96px" />
+                )}
               </span>
               <span className="mt-2 text-[10px] md:text-xs font-semibold text-primary leading-tight">{c.name}</span>
             </Link>
-          ))}
+            );
+          })}
         </div>
       </section>
 

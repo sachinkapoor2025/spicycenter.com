@@ -85,6 +85,7 @@ describe("validateEnquiryForm", () => {
     assert.equal(issues.some((issue) => issue.field === "market"), true);
     assert.equal(issues.some((issue) => issue.field === "kind"), true);
     assert.equal(issues.some((issue) => issue.field === "firstName"), true);
+    assert.equal(issues.some((issue) => issue.field === "buyerType"), false);
   });
 
   it("requires quantity and unit only on commercial product lines", () => {
@@ -126,17 +127,31 @@ describe("validateEnquiryForm", () => {
     assert.equal(indiaCommercial.length, 0);
   });
 
+  it("does not require a buyer type on the compact enquiry", () => {
+    const issues = validateEnquiryForm({
+      market: ENQUIRY_MARKETS.INDIA,
+      kind: ENQUIRY_KINDS.SIMPLE_PRODUCT_ENQUIRY,
+      state: "Kerala",
+      city: "Kochi",
+      country: "",
+      products: [{ name: "Cumin whole", quantity: "", unit: "" }],
+      ...contact,
+      buyerType: "",
+    });
+    assert.equal(issues.length, 0);
+  });
+
   it("shows market-specific location fields and disclaimers", () => {
     assert.deepEqual(catalogueEnquiryLocationFields(ENQUIRY_MARKETS.INDIA), {
       state: true,
       country: false,
-      city: true,
+      city: false,
       address: false,
     });
     assert.deepEqual(catalogueEnquiryLocationFields(ENQUIRY_MARKETS.OVERSEAS), {
       state: false,
       country: true,
-      city: true,
+      city: false,
       address: false,
     });
     const indiaMissingState = validateEnquiryForm({
@@ -307,9 +322,9 @@ describe("enquiry submit outcomes", () => {
     assert.equal(interpretCatalogueEnquirySuccess({ ok: false }).status, "error");
   });
 
-  it("uses Send Enquiry as the idle submit label", () => {
-    assert.equal(enquirySubmitButtonLabel(false), "Send Enquiry");
-    assert.equal(enquirySubmitButtonLabel(true), "Sending...");
+  it("uses Submit Enquiry as the idle submit label", () => {
+    assert.equal(enquirySubmitButtonLabel(false), "Submit Enquiry");
+    assert.equal(enquirySubmitButtonLabel(true), "Submitting...");
     assert.equal(enquiryWhatsAppButtonLabel(false), "WhatsApp this enquiry");
     assert.equal(enquiryWhatsAppButtonLabel(true), "Saving...");
   });

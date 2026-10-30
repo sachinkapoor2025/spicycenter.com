@@ -14,24 +14,25 @@ export const metadata: Metadata = pageMetadata({
 export default async function EnquiryPage({
   searchParams,
 }: {
-  searchParams: Promise<{ product?: string; country?: string; quantity?: string }>;
+  searchParams: Promise<{ product?: string; country?: string; destination?: string; quantity?: string }>;
 }) {
-  const { product = "", country = "", quantity = "" } = await searchParams;
+  const { product = "", country = "", destination = "", quantity = "" } = await searchParams;
   return (
-    <div className="max-w-3xl mx-auto px-4 py-6 sm:py-8 overflow-x-clip">
+    <div className="max-w-3xl mx-auto px-4 py-4 sm:py-6 overflow-x-clip">
       <HubBreadcrumbs items={[{ name: "Home", path: "/" }, { name: "Enquire Now", path: "/enquiry" }]} />
-      <p className="spice-kicker mt-4">Business enquiry</p>
-      <h1 className="spice-heading text-3xl sm:text-4xl mt-2">Let&apos;s discuss your spice requirements.</h1>
-      <p className="mt-3 text-muted leading-relaxed">
-        Tell us what you&apos;re sourcing, where you need delivery, and how we can help.
-      </p>
-      <p className="mt-2 text-sm">
+      <h1 className="spice-heading text-2xl sm:text-3xl mt-3">Enquire about Indian spices</h1>
+      <p className="mt-2 text-sm text-muted leading-relaxed">
+        Tell us the destination, the spices, and how we can help.{" "}
         <Link href="/contact" className="text-nav font-semibold">
           General contact
         </Link>
       </p>
-      <div className="mt-6">
-        <WholesaleQuoteForm defaultProduct={product} defaultCountry={country} defaultQuantity={quantity} />
+      <div className="mt-4">
+        <WholesaleQuoteForm
+          defaultProduct={product}
+          defaultCountry={country || destination}
+          defaultQuantity={quantity}
+        />
       </div>
     </div>
   );
