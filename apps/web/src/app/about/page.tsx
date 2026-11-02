@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { site } from "@/lib/site";
 import { pageMetadata } from "@/lib/seo";
@@ -19,6 +20,15 @@ export default function AboutPage() {
           {site.name} ({site.domain}) is an Indian spice catalogue and knowledge site for worldwide business enquiries:
           spice guides and recipes. Buyers enquire from anywhere. India is the origin. Prices are not published on this website.
         </p>
+        <aside className="my-6 rounded-lg border border-[#e6d5bc] bg-beige/70 px-4 py-4">
+          <p className="font-semibold text-primary">Looking for proof of our business registration?</p>
+          <p className="mt-2 text-slate-700 leading-relaxed">
+            SpicyCenter is operated by Divit Global Ventures, a registered Indian business.
+          </p>
+          <Link href="#gst-certificate" className="mt-3 inline-block font-semibold text-nav hover:underline">
+            Verify our GST registration certificate →
+          </Link>
+        </aside>
         <p>
           Importers, distributors and restaurant buyers can enquire for the same cumin, chilli or garam masala
           with honest names: English, Hindi, Arabic on featured spices, and pack sizes from 100 gm to 1 metric ton.
@@ -41,6 +51,28 @@ export default function AboutPage() {
           write about.
         </p>
       </div>
+      <section id="gst-certificate" className="mt-10 scroll-mt-52">
+        <h2 className="font-serif text-2xl mb-3">GST Registration Certificate</h2>
+        <p className="text-slate-700 leading-relaxed">
+          This certificate is provided so customers can verify the business registration.
+        </p>
+        <a
+          href="/images/gst-registration-certificate.png"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-4 inline-block text-nav font-semibold"
+        >
+          Open full size
+        </a>
+        <Image
+          src="/images/gst-registration-certificate.png"
+          alt="GST registration certificate"
+          width={1055}
+          height={1491}
+          unoptimized
+          className="mt-4 h-auto w-full"
+        />
+      </section>
       <div className="mt-8 flex flex-wrap gap-4">
         <Link href="/contact" className="text-nav font-semibold">Contact</Link>
         <Link href="/uk" className="text-nav font-semibold">UK shoppers</Link>
