@@ -1,15 +1,21 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { HubBreadcrumbs } from "@/components/HubBreadcrumbs";
-import { pageMetadata } from "@/lib/seo";
+import { pageMetadata, withAbsoluteSocialTitle } from "@/lib/seo";
 import { WholesaleQuoteForm } from "@/components/WholesaleQuoteForm";
 
-export const metadata: Metadata = pageMetadata({
-  title: "Enquire Now — Indian spice catalogue",
-  description:
-    "Send a business enquiry with your name, company, email, phone, product and requirements. Worldwide delivery is confirmed in the reply.",
-  path: "/enquiry",
-});
+const ENQUIRY_META_TITLE = "Bulk Spice Enquiry: Request a Wholesale Quote | SpicyCenter";
+
+export const metadata: Metadata = withAbsoluteSocialTitle(
+  pageMetadata({
+    title: ENQUIRY_META_TITLE,
+    description:
+      "Request a wholesale quote for Indian spices, from 100 gm to 1 metric ton. Tell us your quantity and destination for the UK, Europe or worldwide and we will reply.",
+    path: "/enquiry",
+    absoluteTitle: true,
+  }),
+  ENQUIRY_META_TITLE,
+);
 
 export default async function EnquiryPage({
   searchParams,

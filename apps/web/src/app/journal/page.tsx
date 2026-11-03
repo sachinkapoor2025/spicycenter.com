@@ -1,15 +1,21 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { pageMetadata } from "@/lib/seo";
+import { pageMetadata, withAbsoluteSocialTitle } from "@/lib/seo";
 import { listJournalPosts } from "@/lib/content/journal-posts";
 import { listAllBlogPosts } from "@/lib/content/seo-blog";
 
-export const metadata: Metadata = pageMetadata({
-  title: "Spice journal — harvest, storage, UK cooking",
-  description:
-    "SpicyCenter journal: how to store spices, UK portion guides, substitutions, Indian harvest seasons, sourcing, and UK/EU duty FAQs.",
-  path: "/journal",
-});
+const JOURNAL_META_TITLE = "Spice Journal: Guides, Storage & Cooking Notes | SpicyCenter";
+
+export const metadata: Metadata = withAbsoluteSocialTitle(
+  pageMetadata({
+    title: JOURNAL_META_TITLE,
+    description:
+      "Spice guides and storage advice from SpicyCenter for UK and European kitchens. Learn how to store Indian spices and choose between whole and ground.",
+    path: "/journal",
+    absoluteTitle: true,
+  }),
+  JOURNAL_META_TITLE,
+);
 
 export default function JournalPage() {
   const journal = listJournalPosts();

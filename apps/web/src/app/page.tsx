@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { pageMetadata } from "@/lib/seo";
+import { pageMetadata, withAbsoluteSocialTitle } from "@/lib/seo";
 import { JsonLd } from "@/components/JsonLd";
 import { faqs, exploreCategories, regionLinks, site, homeBanners } from "@/lib/site";
 import { HomeBannerSlider } from "@/components/HomeBannerSlider";
@@ -17,11 +17,19 @@ const HOME_H1 = "Indian Spices, Rice & Food Ingredients — Sourced from India t
 const HOME_INTRO =
   "We supply Indian spices, rice and food ingredients to businesses worldwide. Explore our product range and send us your requirements for bulk quantities, wholesale supply and international enquiries.";
 
-export const metadata: Metadata = pageMetadata({
-  title: HOME_H1,
-  description: HOME_INTRO,
-  path: "/",
-});
+const HOME_META_TITLE = "Indian Spices Wholesale for UK & Europe | SpicyCenter";
+const HOME_META_DESCRIPTION =
+  "Authentic Indian spices, masalas and rice for wholesale enquiry to the UK, Europe and worldwide. Send your quantity and destination and we will reply.";
+
+export const metadata: Metadata = withAbsoluteSocialTitle(
+  pageMetadata({
+    title: HOME_META_TITLE,
+    description: HOME_META_DESCRIPTION,
+    path: "/",
+    absoluteTitle: true,
+  }),
+  HOME_META_TITLE,
+);
 
 export const dynamic = "force-dynamic";
 

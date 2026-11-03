@@ -5,8 +5,9 @@ import { site } from "@/lib/site";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: `About ${site.name}`,
-  description: site.description,
+  title: "About SpicyCenter: Indian Spice Supplier from India",
+  description:
+    "SpicyCenter is an Indian spice supplier. Enquire for spices, masalas and food ingredients from India for the UK, Europe and worldwide.",
   path: "/about",
 });
 

@@ -2,15 +2,21 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { HubBreadcrumbs } from "@/components/HubBreadcrumbs";
-import { pageMetadata } from "@/lib/seo";
+import { pageMetadata, withAbsoluteSocialTitle } from "@/lib/seo";
 import { SOURCING_GUIDES } from "@/lib/sourcing-guides";
 
-export const metadata: Metadata = pageMetadata({
-  title: "Spice Import & Sourcing Guides",
-  description:
-    "Helpful information for importers, distributors and businesses sourcing spices, masalas and food ingredients from India.",
-  path: "/guides",
-});
+const GUIDES_META_TITLE = "Spice Sourcing Guides for Importers | SpicyCenter";
+
+export const metadata: Metadata = withAbsoluteSocialTitle(
+  pageMetadata({
+    title: GUIDES_META_TITLE,
+    description:
+      "Practical guides on sourcing bulk Indian spices and pack sizes for restaurants, importers and distributors in the UK, Europe and worldwide.",
+    path: "/guides",
+    absoluteTitle: true,
+  }),
+  GUIDES_META_TITLE,
+);
 
 const GUIDE_ICONS = {
   "bulk-sourcing": "globe",

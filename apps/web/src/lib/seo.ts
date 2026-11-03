@@ -58,6 +58,19 @@ export function pageMetadata(opts: {
   };
 }
 
+/**
+ * Open Graph and Twitter titles are plain strings in `pageMetadata`, so the root
+ * title template would append another " | SpicyCenter". Use this when `absoluteTitle`
+ * already includes that suffix.
+ */
+export function withAbsoluteSocialTitle(meta: Metadata, title: string): Metadata {
+  return {
+    ...meta,
+    openGraph: meta.openGraph ? { ...meta.openGraph, title: { absolute: title } } : undefined,
+    twitter: meta.twitter ? { ...meta.twitter, title: { absolute: title } } : undefined,
+  };
+}
+
 /** Product pages — og:type=product for WhatsApp/Facebook link previews. */
 export function productPageMetadata(opts: {
   title: string;
