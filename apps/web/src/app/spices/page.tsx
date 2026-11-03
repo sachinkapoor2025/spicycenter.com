@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { pageMetadata } from "@/lib/seo";
+import { pageMetadata, withAbsoluteSocialTitle } from "@/lib/seo";
 import { getCatalogProducts, productMatchesCategory } from "@/lib/catalog-fallback";
 import { loadSpiceEntities, searchSpices } from "@/lib/spice-data";
 import { parseBulkHint } from "@spicycorner/shared";
@@ -24,12 +24,17 @@ export async function generateMetadata({
       noIndex: true,
     });
   }
-  return pageMetadata({
-    title: "Indian spice catalogue",
-    description:
-      "Browse whole spices, powders, Indian chillies and masalas. Pack sizes from 100 gm to 1 metric ton. Enquire worldwide.",
-    path: "/spices",
-  });
+  const title = "Whole & Ground Indian Spices Catalogue | SpicyCenter";
+  return withAbsoluteSocialTitle(
+    pageMetadata({
+      title,
+      description:
+        "Browse whole and ground Indian spices including cumin, turmeric, black pepper, cardamom and Kashmiri chilli. Enquire for bulk packs for the UK, Europe and worldwide.",
+      path: "/spices",
+      absoluteTitle: true,
+    }),
+    title,
+  );
 }
 
 export default async function SpicesIndex({

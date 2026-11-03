@@ -1,15 +1,21 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { HubBreadcrumbs } from "@/components/HubBreadcrumbs";
-import { pageMetadata } from "@/lib/seo";
+import { pageMetadata, withAbsoluteSocialTitle } from "@/lib/seo";
 import { loadKeywordMarkets, loadKeywordUniverseMeta } from "@/lib/keyword-universe";
 
-export const metadata: Metadata = pageMetadata({
-  title: "Export markets — Indian spice sourcing enquiries",
-  description:
-    "Country hubs for importers and wholesalers seeking Indian spices. Standard enquiries are free. Keywords are mapped here — we do not publish a page per search phrase.",
-  path: "/markets",
-});
+const MARKETS_META_TITLE = "Indian Spice Export Markets: UK, Europe & GCC | SpicyCenter";
+
+export const metadata: Metadata = withAbsoluteSocialTitle(
+  pageMetadata({
+    title: MARKETS_META_TITLE,
+    description:
+      "Enquiry hubs for importers and distributors in the UK, Germany, France, the Netherlands, Ireland, the Middle East and worldwide. Send a free enquiry.",
+    path: "/markets",
+    absoluteTitle: true,
+  }),
+  MARKETS_META_TITLE,
+);
 
 export default function MarketsIndexPage() {
   const markets = loadKeywordMarkets();

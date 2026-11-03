@@ -1,14 +1,21 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { pageMetadata } from "@/lib/seo";
+import { pageMetadata, withAbsoluteSocialTitle } from "@/lib/seo";
 import { regionLinks } from "@/lib/site";
 import { loadSpiceEntities } from "@/lib/spice-data";
 
-export const metadata: Metadata = pageMetadata({
-  title: "Indian spice regions",
-  description: "Kerala, Rajasthan, Gujarat, Andhra Pradesh, Kashmir and other Indian spice-growing regions.",
-  path: "/indian-spice-regions",
-});
+const REGIONS_META_TITLE = "Indian Spice Regions: Kerala, Kashmir & More | SpicyCenter";
+
+export const metadata: Metadata = withAbsoluteSocialTitle(
+  pageMetadata({
+    title: REGIONS_META_TITLE,
+    description:
+      "Explore where Indian spices grow, from Kerala pepper and cardamom to Kashmiri chilli. Region guides to help you source authentic spices.",
+    path: "/indian-spice-regions",
+    absoluteTitle: true,
+  }),
+  REGIONS_META_TITLE,
+);
 
 export default function RegionsIndex() {
   const spices = loadSpiceEntities();

@@ -130,6 +130,7 @@ export function Footer() {
                 <li><Link href="/faq" className="hover:text-white">FAQ</Link></li>
                 <li><Link href="/contact" className="hover:text-white">Contact</Link></li>
                 <li><Link href="/about" className="hover:text-white">About</Link></li>
+                <li><Link href="/about#gst-certificate" className="hover:text-white">GST certificate</Link></li>
               </ul>
             </div>
             <div>

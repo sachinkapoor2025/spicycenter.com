@@ -1,14 +1,20 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { pageMetadata } from "@/lib/seo";
+import { pageMetadata, withAbsoluteSocialTitle } from "@/lib/seo";
 import { loadRecipes } from "@/lib/recipes";
 
-export const metadata: Metadata = pageMetadata({
-  title: "Indian spice recipes for UK kitchens",
-  description:
-    "40+ Indian recipes organised by curry, dal, rice and snacks — each linked to named SpicyCenter spices. Culinary notes, not diet advice.",
-  path: "/recipes",
-});
+const RECIPES_META_TITLE = "Indian Spice Recipes: Biryani, Dal Tadka | SpicyCenter";
+
+export const metadata: Metadata = withAbsoluteSocialTitle(
+  pageMetadata({
+    title: RECIPES_META_TITLE,
+    description:
+      "Indian recipes for UK and European kitchens using whole and ground spices, from home-style biryani to dal tadka. Learn which spices to use and why.",
+    path: "/recipes",
+    absoluteTitle: true,
+  }),
+  RECIPES_META_TITLE,
+);
 
 export default function RecipesPage() {
   const recipes = loadRecipes();

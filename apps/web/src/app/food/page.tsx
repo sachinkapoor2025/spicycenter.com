@@ -1,15 +1,21 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { HubBreadcrumbs } from "@/components/HubBreadcrumbs";
-import { pageMetadata } from "@/lib/seo";
+import { pageMetadata, withAbsoluteSocialTitle } from "@/lib/seo";
 import { FOOD_FAMILIES } from "@/lib/food-families";
 
-export const metadata: Metadata = pageMetadata({
-  title: "Indian vegetarian food sourcing — spices plus enquiry families",
-  description:
-    "Spice catalogue is live. Rice, pulses, makhana and dry fruits can be requested as free sourcing enquiries. We do not invent stock we do not hold.",
-  path: "/food",
-});
+const FOOD_META_TITLE = "Indian Food Ingredients Sourcing: Rice & More | SpicyCenter";
+
+export const metadata: Metadata = withAbsoluteSocialTitle(
+  pageMetadata({
+    title: FOOD_META_TITLE,
+    description:
+      "Enquire for Indian spices, rice and other food ingredients for the UK, Europe and worldwide. Spices are in the catalogue. Other ingredients are confirmed when we reply.",
+    path: "/food",
+    absoluteTitle: true,
+  }),
+  FOOD_META_TITLE,
+);
 
 export default function FoodFamiliesPage() {
   return (

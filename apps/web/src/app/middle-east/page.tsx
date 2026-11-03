@@ -2,15 +2,21 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { HubBreadcrumbs } from "@/components/HubBreadcrumbs";
 import { FreeEnquiryCtas } from "@/components/FreeEnquiryCtas";
-import { pageMetadata } from "@/lib/seo";
+import { pageMetadata, withAbsoluteSocialTitle } from "@/lib/seo";
 import { ME_PLACES, mePlacesByKind } from "@/lib/middle-east-locations";
 
-export const metadata: Metadata = pageMetadata({
-  title: "Middle East Indian spice sourcing — UAE, GCC and nearby markets",
-  description:
-    "Country, emirate and city enquiry hubs for UAE and the wider Middle East. Standard enquiry is free. We do not invent warehouses or certificates.",
-  path: "/middle-east",
-});
+const MIDDLE_EAST_META_TITLE = "Indian Spices for Dubai, UAE & GCC Importers | SpicyCenter";
+
+export const metadata: Metadata = withAbsoluteSocialTitle(
+  pageMetadata({
+    title: MIDDLE_EAST_META_TITLE,
+    description:
+      "Free enquiry for Indian spices for importers, hotels and restaurants in Dubai, Abu Dhabi and the GCC. Tell us your quantity and destination.",
+    path: "/middle-east",
+    absoluteTitle: true,
+  }),
+  MIDDLE_EAST_META_TITLE,
+);
 
 export default function MiddleEastIndexPage() {
   const countries = mePlacesByKind("country");

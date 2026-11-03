@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { pageMetadata } from "@/lib/seo";
+import { pageMetadata, withAbsoluteSocialTitle } from "@/lib/seo";
 import { getCatalogProducts, productMatchesCategory } from "@/lib/catalog-fallback";
 import { getSpiceBySlug, loadSpiceEntities } from "@/lib/spice-data";
 import { exploreCategories } from "@/lib/site";
@@ -10,8 +10,22 @@ import { featuredBilingualName } from "@/lib/catalogue";
 
 type Props = { params: Promise<{ category: string }> };
 
+const MASALA_META_TITLE = "Indian Masala Blends: Garam Masala UK & EU | SpicyCenter";
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { category } = await params;
+  if (category === "indian-masalas") {
+    return withAbsoluteSocialTitle(
+      pageMetadata({
+        title: MASALA_META_TITLE,
+        description:
+          "Authentic Indian masala blends including garam masala, sambar and chettinad. Enquire for bulk packs for the UK, Europe and worldwide.",
+        path: `/spices/${category}`,
+        absoluteTitle: true,
+      }),
+      MASALA_META_TITLE,
+    );
+  }
   const spice = getSpiceBySlug(category);
   const cat = exploreCategories.find((c) => c.slug === category);
   const title = spice?.canonicalName ?? cat?.name ?? category;
