@@ -996,10 +996,14 @@ const flowerIds = new Set(["clove", "saffron", "mace"]);
 const premiumIds = new Set(["saffron", "green-cardamom", "vanilla"]);
 const teaIds = new Set(["green-cardamom", "clove", "cassia", "dried-ginger", "tea-masala"]);
 const pickleIds = new Set(["mustard", "fenugreek", "nigella", "fennel", "amchur"]);
+const masalaIds = new Set(
+  masalas.map((name) => name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""))
+);
 
 function categoryFor(spiceId, form) {
   if (chilliIds.has(spiceId) || spiceId.includes("chilli")) return "indian-chillies";
   if (form === "blend") return "indian-masalas";
+  if (form === "powder" && masalaIds.has(spiceId)) return "indian-masalas";
   if (rootIds.has(spiceId)) return "roots";
   if (barkIds.has(spiceId)) return "barks";
   if (flowerIds.has(spiceId)) return "flowers";

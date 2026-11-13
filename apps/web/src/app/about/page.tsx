@@ -18,40 +18,88 @@ export default function AboutPage() {
       <h1 className="font-serif text-4xl mb-6 mt-2">About {site.name}</h1>
       <div className="space-y-4 text-slate-700 leading-relaxed">
         <p>
-          {site.name} ({site.domain}) is an Indian spice catalogue and knowledge site for worldwide business enquiries:
-          spice guides and recipes. Buyers enquire from anywhere. India is the origin. Prices are not published on this website.
+          SpicyCenter is an India-based spice sourcing and knowledge platform connecting international buyers with spices
+          from India. We provide product information, spice guides and recipes to help importers, distributors, food
+          businesses and other buyers make informed sourcing decisions.
+        </p>
+        <p>
+          Buyers from around the world can enquire about our spices and sourcing opportunities. We focus on clear product
+          information and business enquiries rather than displaying fixed prices on the website.
         </p>
         <aside className="my-6 rounded-lg border border-[#e6d5bc] bg-beige/70 px-4 py-4">
-          <p className="font-semibold text-primary">Looking for proof of our business registration?</p>
-          <p className="mt-2 text-slate-700 leading-relaxed">
-            SpicyCenter is operated by Divit Global Ventures, a registered Indian business.
-          </p>
+          <div className="space-y-2 text-slate-700 leading-relaxed">
+            <p>
+              SpicyCenter is a brand operated by Divit Global Ventures, a registered proprietorship based in India.
+            </p>
+            <p>
+              Divit Global Ventures is registered under the Goods and Services Tax (GST) in India.
+            </p>
+            <p>
+              Our business registration details are available for customer verification.
+            </p>
+          </div>
           <Link href="#gst-certificate" className="mt-3 inline-block font-semibold text-nav hover:underline">
             Verify our GST registration certificate →
           </Link>
         </aside>
-        <p>
-          Importers, distributors and restaurant buyers can enquire for the same cumin, chilli or garam masala
-          with honest names: English, Hindi, Arabic on featured spices, and pack sizes from 100 gm to 1 metric ton.
-        </p>
-        <p>
-          Spices are agricultural goods. Colour, oil and aroma change with harvest, storage and grind. We do not invent
-          laboratory numbers, medical claims or fake reviews, and we do not publish a price on the website.
-        </p>
-        <p>
-          Food-information fields (ingredients, allergens, origin, instructions for use) exist so UK and EU distance-selling
-          rules can be completed properly before a line goes fully live. Some dried spices from India can face increased official
-          controls; that belongs in compliance notes, not in small print you cannot find.
-        </p>
-        <p>
-          The shop and the encyclopaedia share one catalogue. If you want to know what jeera is, how Kerala pepper differs from
-          a generic “black pepper” blend, or whether Kashmiri chilli is mostly colour or heat, the spice guide sits next to the bag.
-        </p>
-        <p>
-          Our operations address is in Ferozepur, Punjab, India. We do not pretend to operate a warehouse in every city we
-          write about.
-        </p>
       </div>
+      <section className="mt-10">
+        <h2 className="font-serif text-2xl mb-3">Spices for International Buyers</h2>
+        <p className="text-slate-700 leading-relaxed">
+          We serve importers, distributors, wholesalers and restaurant buyers looking for Indian spices such as cumin,
+          chilli, turmeric and garam masala. Product information includes commonly used names in English, Hindi and Arabic
+          where available, along with pack-size options ranging from 100 g to 1 metric ton.
+        </p>
+      </section>
+      <section className="mt-10">
+        <h2 className="font-serif text-2xl mb-3">Product Quality and Information</h2>
+        <div className="space-y-4 text-slate-700 leading-relaxed">
+          <p>
+            Spices are agricultural products, and their colour, aroma, oil content and flavour can vary depending on the
+            harvest, origin, processing and storage conditions.
+          </p>
+          <p>
+            We aim to provide clear, useful and accurate product information. We avoid unsupported laboratory claims,
+            unverified health benefits and misleading product reviews. Product prices are shared through business enquiries
+            rather than published on the website.
+          </p>
+        </div>
+      </section>
+      <section className="mt-10">
+        <h2 className="font-serif text-2xl mb-3">Product Information and Market Compliance</h2>
+        <div className="space-y-4 text-slate-700 leading-relaxed">
+          <p>
+            Product information such as ingredients, allergens, country of origin and instructions for use is important
+            for international trade. We aim to make relevant information available to support applicable market-specific
+            labelling and distance-selling requirements.
+          </p>
+          <p>
+            Some products and destinations may also be subject to additional import controls or documentation requirements.
+            These requirements depend on the product and destination market and should be assessed before shipment.
+          </p>
+        </div>
+      </section>
+      <section className="mt-10">
+        <h2 className="font-serif text-2xl mb-3">Spice Knowledge Alongside the Catalogue</h2>
+        <div className="space-y-4 text-slate-700 leading-relaxed">
+          <p>
+            SpicyCenter brings product discovery and spice education together. Our guides and articles help buyers
+            understand spice varieties, regional characteristics, culinary uses and differences between products.
+          </p>
+          <p>
+            Whether you are learning about cumin (jeera), exploring the characteristics of Kerala black pepper or comparing
+            the colour and heat of Kashmiri chilli, our knowledge resources are designed to make spice selection easier.
+          </p>
+        </div>
+      </section>
+      <section className="mt-10">
+        <h2 className="font-serif text-2xl mb-3">Our Business Location</h2>
+        <p className="text-slate-700 leading-relaxed">
+          Our business operations are based in Ferozepur, Punjab, India. India is our sourcing base, and we serve
+          international business enquiries from buyers across different markets. We aim to communicate our business
+          location and operations transparently.
+        </p>
+      </section>
       <section id="gst-certificate" className="mt-10 scroll-mt-52">
         <h2 className="font-serif text-2xl mb-3">GST Registration Certificate</h2>
         <p className="text-slate-700 leading-relaxed">
