@@ -237,23 +237,6 @@ export default async function HomePage() {
 
       <HomeBannerSlider banners={homeBanners} />
 
-      <section className="max-w-7xl mx-auto px-4 pt-8 pb-2 text-center">
-        <p className="spice-kicker tracking-[0.14em] sm:tracking-[0.16em]">{site.tagline}</p>
-        <h1 className="spice-heading text-[1.55rem] sm:text-[1.7rem] md:text-[2.05rem] lg:text-[2.15rem] mt-2 leading-[1.2] max-w-4xl mx-auto">
-          {HOME_H1}
-        </h1>
-        {HOME_INTRO.map((paragraph) => (
-          <p
-            key={paragraph}
-            className="mt-3 text-[0.9rem] sm:text-[0.95rem] md:text-[1.05rem] font-sans font-normal leading-relaxed text-primary max-w-3xl mx-auto"
-          >
-            {paragraph}
-          </p>
-        ))}
-        <p className="mt-3 text-[0.95rem] sm:text-base text-primary">{site.homepageSubline}</p>
-        <p className="mt-2 font-serif italic text-base sm:text-lg text-nav">{site.promise}</p>
-      </section>
-
       <section className="border-b border-[#e6d5bc] bg-beige/70">
         <div className="max-w-7xl mx-auto px-4 py-6 md:py-8 grid md:grid-cols-2 gap-6 md:gap-10">
           <div>
@@ -404,6 +387,23 @@ export default async function HomePage() {
             );
           })}
         </div>
+      </section>
+
+      <section className="max-w-7xl mx-auto px-4 py-12 md:py-16 text-center">
+        <p className="spice-kicker tracking-[0.14em] sm:tracking-[0.16em]">{site.tagline}</p>
+        <h1 className="spice-heading text-[1.55rem] sm:text-[1.7rem] md:text-[2.05rem] lg:text-[2.15rem] mt-2 leading-[1.2] max-w-4xl mx-auto">
+          {HOME_H1}
+        </h1>
+        {HOME_INTRO.map((paragraph) => (
+          <p
+            key={paragraph}
+            className="mt-3 text-[0.9rem] sm:text-[0.95rem] md:text-[1.05rem] font-sans font-normal leading-relaxed text-primary max-w-3xl mx-auto"
+          >
+            {paragraph}
+          </p>
+        ))}
+        <p className="mt-3 text-[0.95rem] sm:text-base text-primary">{site.homepageSubline}</p>
+        <p className="mt-2 font-serif italic text-base sm:text-lg text-nav">{site.promise}</p>
       </section>
 
       <section className="max-w-7xl mx-auto px-4 py-14">
