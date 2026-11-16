@@ -20,7 +20,7 @@ export default function AdminSeoPage() {
       <div>
         <h1 className="text-2xl font-semibold">SEO ops</h1>
         <p className="text-sm text-slate-600 mt-2">
-          Canonical host: <code>{site}</code>. Production builds default to https://www.spicycenter.com.
+          Canonical host: <code>{site}</code>. Sitemap, robots, and canonical URLs use https://spicycenter.com.
         </p>
       </div>
       <ul className="text-sm space-y-2 bg-white rounded-xl border p-4">
