@@ -1,13 +1,8 @@
 /** Production API — fallback when Amplify build env vars are missing (London stack). */
 export const PROD_API_URL = "https://5qzima7ctj.execute-api.eu-west-2.amazonaws.com/prod";
 
-/** Amplify default URL for the branch being built (dev vs main). */
-export function getAmplifyBranchUrl(): string | undefined {
-  const branch = process.env.AWS_BRANCH?.trim();
-  const appId = process.env.AWS_APP_ID?.trim();
-  if (!branch || !appId) return undefined;
-  return `https://${branch}.${appId}.amplifyapp.com`;
-}
+/** Official public origin. Sitemap, robots, and canonical URLs always use this host. */
+export const CANONICAL_SITE_URL = "https://spicycenter.com";
 
 /** Ensure execute-api URLs include the stage (e.g. /prod). */
 export function normalizeApiUrl(url: string): string {
@@ -30,21 +25,24 @@ export function getApiUrl(): string {
   return "http://localhost:3001";
 }
 
+function isOfficialSiteUrl(value: string): boolean {
+  try {
+    const host = new URL(value).hostname.toLowerCase().replace(/^www\./, "");
+    return host === "spicycenter.com";
+  } catch {
+    return false;
+  }
+}
+
 /**
  * Canonical site URL for SEO, sitemap, and Open Graph.
- * Prefer branch-specific Amplify env (main → spicycenter.com, dev → dev.*.amplifyapp.com).
- * Falls back to Amplify's AWS_BRANCH/AWS_APP_ID when NEXT_PUBLIC_SITE_URL is unset.
+ * NEXT_PUBLIC_SITE_URL is accepted only for spicycenter.com. www is normalized to the apex.
+ * Amplify, localhost, and any other host are ignored. Branch hostnames are never used.
  */
 export function getSiteUrl(): string {
-  const fromEnv = process.env.NEXT_PUBLIC_SITE_URL?.trim();
-  if (fromEnv) return fromEnv.replace(/\/$/, "");
-
-  if (process.env.NODE_ENV === "production") return "https://www.spicycenter.com";
-
-  const amplifyBranch = getAmplifyBranchUrl();
-  if (amplifyBranch) return amplifyBranch;
-
-  return "http://localhost:3000";
+  const fromEnv = process.env.NEXT_PUBLIC_SITE_URL?.trim().replace(/\/$/, "");
+  if (fromEnv && isOfficialSiteUrl(fromEnv)) return CANONICAL_SITE_URL;
+  return CANONICAL_SITE_URL;
 }
 
 /** Production CDN — S3/CloudFront mirror for product images (WordPress no longer serves media). */

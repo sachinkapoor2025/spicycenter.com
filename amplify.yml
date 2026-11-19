@@ -12,11 +12,7 @@ applications:
             - npm run sync:public-uploads
         build:
           commands:
-            - |
-              if [ "${AWS_BRANCH}" = "dev" ]; then
-                export NEXT_PUBLIC_SITE_URL="https://dev.dlvo7vcdxgylt.amplifyapp.com"
-              fi
-              npm run build -w @spicycorner/web
+            - npm run build -w @spicycorner/web
       artifacts:
         baseDirectory: apps/web/.next
         files:
@@ -28,7 +24,7 @@ applications:
     environment:
       variables:
         NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
-        NEXT_PUBLIC_SITE_URL: https://www.spicycenter.com
+        NEXT_PUBLIC_SITE_URL: https://spicycenter.com
         NEXT_PUBLIC_COGNITO_USER_POOL_ID: ${NEXT_PUBLIC_COGNITO_USER_POOL_ID}
         NEXT_PUBLIC_COGNITO_CLIENT_ID: ${NEXT_PUBLIC_COGNITO_CLIENT_ID}
         NEXT_PUBLIC_COGNITO_REGION: ${NEXT_PUBLIC_COGNITO_REGION}

@@ -159,7 +159,7 @@ export const exploreCategories = [
   { slug: "seeds", name: "Seeds & Grains", href: "/spices/seeds", image: "/images/cat-4.jpg" },
   { slug: "indian-chillies", name: "Dried Ingredients", href: "/spices/indian-chillies", image: "/images/cat-5.jpg" },
   { slug: "premium-spices", name: "Premium Range", href: "/spices/premium-spices", image: "/images/cat-6.jpg" },
-  { slug: "bulk-spices", name: "Bulk Spices", href: "/bulk-spices", image: "/images/cat-7.jpg" },
+  { slug: "bulk-spices", name: "Bulk Spices", href: "/spices/bulk-spices", image: "/images/cat-7.jpg" },
 ] as const;
 
 export const packSizes = BULK_PACK_SIZES;
