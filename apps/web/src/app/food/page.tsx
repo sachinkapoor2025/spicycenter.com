@@ -13,11 +13,11 @@ export const metadata: Metadata = pageMetadata({
 
 export default function FoodFamiliesPage() {
   return (
-    <div className="max-w-4xl mx-auto px-4 py-10">
+    <div className="max-w-7xl mx-auto px-4 py-10">
       <HubBreadcrumbs items={[{ name: "Home", path: "/" }, { name: "Food sourcing", path: "/food" }]} />
       <p className="spice-kicker">B2B sourcing</p>
       <h1 className="spice-heading text-4xl mt-2">Indian vegetarian food families</h1>
-      <p className="mt-4 text-muted leading-relaxed">
+      <p className="mt-4 text-muted leading-relaxed max-w-3xl">
         The storefront catalogue is{" "}
         <Link href="/spices" className="text-nav font-semibold hover:underline">
           Indian spices
@@ -32,7 +32,7 @@ export default function FoodFamiliesPage() {
         </Link>{" "}
         request without us publishing fake SKUs.
       </p>
-      <ul className="mt-8 grid sm:grid-cols-2 gap-3">
+      <ul className="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
         {FOOD_FAMILIES.map((f) => (
           <li key={f.slug}>
             <Link href={`/food/${f.slug}`} className="block rounded-2xl border border-[#e6d5bc] bg-white p-4">

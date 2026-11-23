@@ -42,9 +42,11 @@ export default async function BlogPostPage({ params }: Props) {
   ];
   const inlineLinks = blogPostInlineLinks[post.slug] ?? [];
   const linkBudget = createInlineLinkBudget();
+  const morePosts = listAllBlogPosts().filter((p) => p.slug !== post.slug).slice(0, 8);
 
   return (
-    <article className="max-w-3xl mx-auto px-4 py-10 overflow-x-hidden min-w-0 w-full">
+    <div className="max-w-7xl mx-auto px-4 py-10 grid lg:grid-cols-[minmax(0,42rem)_minmax(16rem,1fr)] gap-10 items-start overflow-x-hidden">
+    <article className="min-w-0 w-full">
       <JsonLd
         data={[
           articleJsonLd(post),
@@ -92,5 +94,18 @@ export default async function BlogPostPage({ params }: Props) {
       </div>
 
     </article>
+    <aside className="min-w-0">
+      <h2 className="font-serif text-2xl text-primary">More from the blog</h2>
+      <ul className="mt-4 space-y-3">
+        {morePosts.map((item) => (
+          <li key={item.slug}>
+            <Link href={`/blog/${item.slug}`} className="text-nav font-semibold hover:underline break-words">
+              {item.title}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </aside>
+    </div>
   );
 }

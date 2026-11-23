@@ -57,7 +57,7 @@ ${cats}
 - Keyword map (100k seeds, mapped not paged): ${siteUrl}/keyword-map
 - Spice guide: ${siteUrl}/spice-guide
 - Comparisons: ${siteUrl}/spice-guide/comparisons
-- Journal: ${siteUrl}/journal
+- Blogs: ${siteUrl}/blog
 - Market prices: ${siteUrl}/spice-market-prices
 - Spice Finder: ${siteUrl}/spice-finder
 - Recipes: ${siteUrl}/recipes

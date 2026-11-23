@@ -33,7 +33,7 @@ export default function SpiceGuideIndex() {
   const groups = [...GROUP_ORDER.filter((g) => grouped.has(g)), ...[...grouped.keys()].filter((g) => !GROUP_ORDER.includes(g))];
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-10">
+    <div className="max-w-7xl mx-auto px-4 py-10">
       <h1 className="spice-heading text-4xl">Spice guide</h1>
       <p className="mt-3 text-muted max-w-2xl">
         {spices.length} Indian spices, herbs, seeds and masalas. Learn names and kitchen use, then buy 100g or 25kg.
@@ -64,7 +64,7 @@ export default function SpiceGuideIndex() {
       {groups.map((group) => (
         <section key={group} className="mt-10">
           <h2 className="font-serif text-2xl text-primary">{group}</h2>
-          <div className="grid sm:grid-cols-2 gap-3 mt-4">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-4">
             {(grouped.get(group) ?? []).map((s) => (
               <Link key={s.id} href={`/spice-guide/${s.slug}`} className="card-spice p-4">
                 <p className="font-serif text-lg">{s.canonicalName}</p>

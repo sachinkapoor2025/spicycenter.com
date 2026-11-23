@@ -13,13 +13,13 @@ export const metadata: Metadata = pageMetadata({
 
 export default function FaqPage() {
   return (
-    <div className="max-w-3xl mx-auto px-4 py-12">
+    <div className="max-w-7xl mx-auto px-4 py-12">
       <JsonLd data={faqJsonLd(faqs)} />
       <h1 className="text-3xl font-bold text-primary mb-2">Frequently Asked Questions</h1>
-      <p className="text-slate-600 mb-8">
+      <p className="text-slate-600 mb-8 max-w-3xl">
         Short answers about packs, wholesale, shipping and food information with {site.name}.
       </p>
-      <div className="space-y-4">
+      <div className="grid lg:grid-cols-2 gap-4 items-start">
         {faqs.map((f) => (
           <details key={f.q} className="border border-slate-200 rounded-lg p-5 bg-white group">
             <summary className="font-semibold text-primary cursor-pointer list-none flex justify-between items-start gap-4">

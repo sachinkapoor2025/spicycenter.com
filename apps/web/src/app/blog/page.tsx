@@ -14,9 +14,9 @@ export const metadata: Metadata = pageMetadata({
 export default function BlogPage() {
   const posts = listAllBlogPosts();
   return (
-    <div className="max-w-5xl mx-auto px-4 py-12 overflow-x-hidden">
+    <div className="max-w-7xl mx-auto px-4 py-12 overflow-x-hidden">
       <h1 className="text-3xl font-bold text-primary mb-2">Spice guides and blog</h1>
-      <p className="text-slate-600 mb-8">
+      <p className="text-slate-600 mb-8 max-w-3xl">
         Culinary articles on{" "}
         <Link href="/spices/whole-spices" className="text-nav hover:underline">
           whole spices
@@ -31,7 +31,7 @@ export default function BlogPage() {
         </Link>
         .
       </p>
-      <div className="grid gap-6 sm:grid-cols-2">
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {posts.map((post) => (
           <article
             key={post.slug}

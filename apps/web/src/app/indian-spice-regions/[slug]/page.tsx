@@ -34,7 +34,7 @@ export default async function RegionPage({ params }: Props) {
   const story = regionStories[region.slug];
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-10">
+    <div className="max-w-7xl mx-auto px-4 py-10">
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Home", path: "/" },
@@ -44,7 +44,8 @@ export default async function RegionPage({ params }: Props) {
       />
       <p className="text-sm text-muted"><Link href="/indian-spice-regions">Regions</Link> / {region.label}</p>
       <h1 className="spice-heading text-4xl mt-2">{region.label} spices</h1>
-      <div className="mt-4 space-y-4 text-muted leading-relaxed">
+      <div className="mt-6 grid lg:grid-cols-2 gap-10 items-start">
+      <div className="space-y-4 text-muted leading-relaxed max-w-3xl">
         <p>{story.intro}</p>
         <h2 className="font-serif text-2xl text-primary pt-4">Growing conditions</h2>
         <p>{story.climate}</p>
@@ -70,15 +71,18 @@ export default async function RegionPage({ params }: Props) {
           . Country of origin and region on the pack must follow the lot.
         </p>
       </div>
-      <h2 className="font-serif text-2xl text-primary mt-10">Spices from this region</h2>
-      <ul className="mt-4 space-y-3">
+      <div>
+      <h2 className="font-serif text-2xl text-primary">Spices from this region</h2>
+      <ul className="mt-4 grid sm:grid-cols-2 lg:grid-cols-1 gap-3">
         {spices.map((s) => (
-          <li key={s.id}>
-            {s.canonicalName}
-            <span className="text-sm text-muted"> — {s.shortDescription}</span>
+          <li key={s.id} className="card-spice p-4">
+            <p className="font-serif text-lg text-primary">{s.canonicalName}</p>
+            <p className="text-sm text-muted mt-1">{s.shortDescription}</p>
           </li>
         ))}
       </ul>
+      </div>
+      </div>
     </div>
   );
 }

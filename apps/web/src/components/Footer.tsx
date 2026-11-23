@@ -14,6 +14,7 @@ const shopLinks = [
   { href: "/food", label: "Food sourcing" },
   { href: "/guides", label: "Sourcing guides" },
   { href: "/spice-guide", label: "Spice Guide" },
+  { href: "/blog", label: "Blogs" },
   { href: "/spice-market-prices", label: "Spice Market Prices" },
 ] as const;
 

@@ -31,7 +31,8 @@ export default async function FoodFamilyPage({ params }: Props) {
   const item = getFoodFamily(family);
   if (!item) notFound();
   return (
-    <div className="max-w-3xl mx-auto px-4 py-10">
+    <div className="max-w-7xl mx-auto px-4 py-10 grid lg:grid-cols-[minmax(0,1fr)_minmax(20rem,32rem)] gap-10 items-start">
+      <div>
       <HubBreadcrumbs
         items={[
           { name: "Home", path: "/" },
@@ -67,7 +68,8 @@ export default async function FoodFamilyPage({ params }: Props) {
       </p>
       <p className="mt-3 text-sm text-muted">Examples buyers mention: {item.examples.join(", ")}.</p>
       <FreeEnquiryCtas productName={item.name} />
-      <div className="mt-8">
+      </div>
+      <div>
         <WholesaleQuoteForm defaultProduct={item.name} />
       </div>
     </div>

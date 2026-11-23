@@ -4,7 +4,11 @@ import { blogPosts } from "@/lib/content/blog-posts";
 
 /** Compact site knowledge injected into the chatbot system prompt. */
 export function buildChatKnowledge(): string {
-  const pages = navItems.map((n) => `- ${n.label}: ${siteUrl}${n.href}`);
+  const pages = navItems.flatMap((n) => {
+    const lines = [`- ${n.label}: ${siteUrl}${n.href}`];
+    for (const child of n.children ?? []) lines.push(`  - ${child.label}: ${siteUrl}${child.href}`);
+    return lines;
+  });
 
   const faqBlock = faqs.map((f) => `Q: ${f.q}\nA: ${f.a}`).join("\n\n");
 

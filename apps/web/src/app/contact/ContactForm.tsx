@@ -72,9 +72,9 @@ export function ContactForm() {
   };
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-12">
+    <div className="max-w-7xl mx-auto px-4 py-12">
       <h1 className="text-3xl font-bold text-primary mb-6">Contact Us</h1>
-      <p className="text-slate-600 mb-4">
+      <p className="text-slate-600 mb-4 max-w-3xl">
         Retail questions stay here. Trade buyers can send a{" "}
         <Link href="/enquiry" className="text-nav font-semibold hover:underline">
           free spice enquiry
@@ -125,7 +125,7 @@ export function ContactForm() {
           </p>
         </div>
       ) : (
-        <form onSubmit={handleSubmit} className="space-y-4 border border-slate-200 rounded-xl p-6 bg-slate-50">
+        <form onSubmit={handleSubmit} className="space-y-4 border border-slate-200 rounded-xl p-6 bg-slate-50 max-w-xl">
           <label className="hidden" aria-hidden="true">
             Website
             <input tabIndex={-1} autoComplete="off" value={website} onChange={(e) => setWebsite(e.target.value)} />

@@ -1,3 +1,5 @@
+import { FOOD_FAMILIES } from "./food-families";
+
 export const site = {
   name: "SpicyCenter",
   domain: "spicycenter.com",
@@ -31,21 +33,13 @@ export const STORE_LOCATIONS = [
   },
 ] as const;
 
-export const navItems = [
-  { label: "Spices", href: "/spices" },
-  { label: "Bulk & Wholesale", href: "/bulk-enquiry" },
-  { label: "Free enquiry", href: "/enquiry" },
-  { label: "Spice Guide", href: "/spice-guide" },
-  { label: "Indian Spices", href: "/indian-spice-regions" },
-  { label: "Masalas", href: "/spices/indian-masalas" },
-  { label: "Recipes", href: "/recipes" },
-  { label: "Journal", href: "/journal" },
-  { label: "Spice Market Prices", href: "/spice-market-prices" },
-  { label: "Markets", href: "/markets" },
-  { label: "Food sourcing", href: "/food" },
-  { label: "Guides", href: "/guides" },
-  { label: "About", href: "/about" },
-] as const;
+export type NavChild = { readonly label: string; readonly href: string };
+
+export type NavItem = {
+  readonly label: string;
+  readonly href: string;
+  readonly children?: readonly NavChild[];
+};
 
 export const regionLinks = [
   { label: "Kerala", slug: "kerala" },
@@ -162,6 +156,37 @@ export const exploreCategories = [
   { slug: "premium-spices", name: "Premium Range", href: "/spices/premium-spices", image: "/images/cat-6.jpg" },
   { slug: "bulk-spices", name: "Bulk Spices", href: "/bulk-spices", image: "/images/cat-7.jpg" },
 ] as const;
+
+export const catalogNavChildren: readonly NavChild[] = [
+  { label: "All spices", href: "/spices" },
+  ...exploreCategories.map((c) => ({ label: c.name, href: c.href })),
+];
+
+export const indianSpiceNavChildren: readonly NavChild[] = [
+  { label: "All regions", href: "/indian-spice-regions" },
+  ...regionLinks.map((r) => ({ label: r.label, href: `/indian-spice-regions/${r.slug}` })),
+];
+
+export const foodSourcingNavChildren: readonly NavChild[] = [
+  { label: "All food families", href: "/food" },
+  ...FOOD_FAMILIES.map((f) => ({ label: f.name, href: `/food/${f.slug}` })),
+];
+
+export const navItems: readonly NavItem[] = [
+  { label: "Home", href: "/" },
+  { label: "Catalog", href: "/spices", children: catalogNavChildren },
+  { label: "Bulk & Wholesale", href: "/bulk-enquiry" },
+  { label: "Free enquiry", href: "/enquiry" },
+  { label: "Spice Guide", href: "/spice-guide" },
+  { label: "Indian Spices", href: "/indian-spice-regions", children: indianSpiceNavChildren },
+  { label: "Recipes", href: "/recipes" },
+  { label: "Blogs", href: "/blog" },
+  { label: "Spice Market Prices", href: "/spice-market-prices" },
+  { label: "Markets", href: "/markets" },
+  { label: "Food sourcing", href: "/food", children: foodSourcingNavChildren },
+  { label: "Guides", href: "/guides" },
+  { label: "About", href: "/about" },
+];
 
 export const packSizes = ["100g", "200g", "500g", "1kg", "5kg", "10kg", "25kg", "50kg+"] as const;
 

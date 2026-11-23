@@ -14,7 +14,7 @@ export default function RecipesPage() {
   const recipes = loadRecipes();
   const courses = [...new Set(recipes.map((r) => r.course || r.cuisine))];
   return (
-    <div className="max-w-3xl mx-auto px-4 py-10">
+    <div className="max-w-7xl mx-auto px-4 py-10">
       <h1 className="spice-heading text-4xl">Recipes</h1>
       <p className="mt-3 text-muted max-w-2xl leading-relaxed">
         {recipes.length} dishes that show how Indian spices behave in a pan: jeera in ghee, mustard in oil, garam masala
@@ -39,7 +39,7 @@ export default function RecipesPage() {
       {courses.map((course) => (
         <section key={course} className="mt-10">
           <h2 className="font-serif text-2xl text-primary">{course}</h2>
-          <ul className="mt-4 space-y-4">
+          <ul className="mt-4 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {recipes
               .filter((r) => (r.course || r.cuisine) === course)
               .map((r) => (

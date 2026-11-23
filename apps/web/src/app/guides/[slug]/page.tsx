@@ -30,7 +30,8 @@ export default async function GuidePage({ params }: Props) {
   const guide = getSourcingGuide(slug);
   if (!guide) notFound();
   return (
-    <div className="max-w-3xl mx-auto px-4 py-10">
+    <div className="max-w-7xl mx-auto px-4 py-10 grid lg:grid-cols-[minmax(0,42rem)_minmax(16rem,1fr)] gap-10 items-start">
+      <article>
       <HubBreadcrumbs
         items={[
           { name: "Home", path: "/" },
@@ -66,6 +67,19 @@ export default async function GuidePage({ params }: Props) {
         </section>
       ))}
       <FreeEnquiryCtas />
+      </article>
+      <aside>
+        <h2 className="font-serif text-2xl text-primary">More guides</h2>
+        <ul className="mt-4 space-y-3">
+          {SOURCING_GUIDES.filter((g) => g.slug !== guide.slug).map((g) => (
+            <li key={g.slug}>
+              <Link href={`/guides/${g.slug}`} className="text-nav font-semibold hover:underline">
+                {g.title}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </aside>
     </div>
   );
 }

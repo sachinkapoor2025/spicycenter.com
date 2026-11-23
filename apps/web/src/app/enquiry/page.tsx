@@ -18,7 +18,8 @@ export default async function EnquiryPage({
 }) {
   const { product = "", country = "" } = await searchParams;
   return (
-    <div className="max-w-4xl mx-auto px-4 py-10">
+    <div className="max-w-7xl mx-auto px-4 py-10 grid lg:grid-cols-[minmax(0,1fr)_minmax(20rem,32rem)] gap-10 items-start">
+      <div>
       <HubBreadcrumbs items={[{ name: "Home", path: "/" }, { name: "Free enquiry", path: "/enquiry" }]} />
       <p className="spice-kicker">B2B enquiry</p>
       <h1 className="spice-heading text-4xl mt-2">Free sourcing enquiry</h1>
@@ -37,7 +38,8 @@ export default async function EnquiryPage({
         </Link>
         .
       </p>
-      <div className="mt-8">
+      </div>
+      <div className="lg:mt-8">
         <WholesaleQuoteForm defaultProduct={product} defaultCountry={country} />
       </div>
     </div>

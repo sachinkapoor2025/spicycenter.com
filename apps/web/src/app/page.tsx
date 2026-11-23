@@ -192,7 +192,7 @@ export default async function HomePage() {
               <li><Link className="text-nav" href="/recipes">Recipe hub</Link></li>
               <li><Link className="text-nav" href="/recipes/biryani">Biryani</Link></li>
               <li><Link className="text-nav" href="/recipes/dal-tadka">Dal tadka</Link></li>
-              <li><Link className="text-nav" href="/journal">Spice journal</Link></li>
+              <li><Link className="text-nav" href="/blog">Blogs</Link></li>
               <li><Link className="text-nav" href="/spice-finder">Which spice should I use?</Link></li>
             </ul>
           </div>

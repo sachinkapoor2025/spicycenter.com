@@ -154,7 +154,7 @@ export function ProductDetailClient({
 
   return (
     <>
-    <div className="max-w-6xl mx-auto px-4 py-6 pb-24 md:pb-12">
+    <div className="max-w-7xl mx-auto px-4 py-6 pb-24 md:pb-12">
       <div className="grid md:grid-cols-2 gap-8 lg:gap-10 items-start">
         <div>
           <ProductImageGallery

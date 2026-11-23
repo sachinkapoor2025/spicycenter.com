@@ -11,10 +11,10 @@ export const metadata: Metadata = pageMetadata({
 
 export default function AboutPage() {
   return (
-    <div className="max-w-3xl mx-auto px-4 py-12">
+    <div className="max-w-7xl mx-auto px-4 py-12">
       <p className="text-xs tracking-[0.2em] text-nav font-semibold">SPICYCORNER</p>
       <h1 className="font-serif text-4xl mb-6 mt-2">About {site.name}</h1>
-      <div className="space-y-4 text-slate-700 leading-relaxed">
+      <div className="grid lg:grid-cols-2 gap-x-12 gap-y-4 text-slate-700 leading-relaxed">
         <p>
           {site.name} ({site.domain}) is an Indian spice marketplace and knowledge site: retail packs,{" "}
           <Link href="/wholesale" className="text-nav font-semibold hover:underline">

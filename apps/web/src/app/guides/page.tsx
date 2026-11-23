@@ -12,10 +12,10 @@ export const metadata: Metadata = pageMetadata({
 
 export default function GuidesPage() {
   return (
-    <div className="max-w-3xl mx-auto px-4 py-10">
+    <div className="max-w-7xl mx-auto px-4 py-10">
       <HubBreadcrumbs items={[{ name: "Home", path: "/" }, { name: "Guides", path: "/guides" }]} />
       <h1 className="spice-heading text-4xl">Sourcing guides</h1>
-      <p className="mt-4 text-muted leading-relaxed">
+      <p className="mt-4 text-muted leading-relaxed max-w-3xl">
         Practical notes for bulk buyers. Pair them with the{" "}
         <Link href="/spice-guide" className="text-nav font-semibold hover:underline">
           spice guide
@@ -30,13 +30,13 @@ export default function GuidesPage() {
         </Link>
         .
       </p>
-      <ul className="mt-6 space-y-3">
+      <ul className="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {SOURCING_GUIDES.map((g) => (
-          <li key={g.slug}>
+          <li key={g.slug} className="card-spice p-5">
             <Link href={`/guides/${g.slug}`} className="font-serif text-xl text-nav">
               {g.title}
             </Link>
-            <p className="text-sm text-muted">{g.description}</p>
+            <p className="text-sm text-muted mt-2">{g.description}</p>
           </li>
         ))}
       </ul>

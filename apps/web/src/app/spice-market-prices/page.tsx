@@ -36,7 +36,7 @@ export default async function MarketPricesPage() {
   const asOf = formatMandiDate(board?.fetchedAt ?? prices.find((p) => p.arrivalDate)?.arrivalDate);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-10">
+    <div className="max-w-7xl mx-auto px-4 py-10">
       <p className="spice-kicker">Agmarknet · India</p>
       <h1 className="spice-heading text-4xl mt-2">Live Indian spice market prices</h1>
       <div className="mt-5 max-w-3xl rounded-2xl border border-[#e6d5bc] bg-[#fdf8f1] p-5">

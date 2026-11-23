@@ -11,9 +11,9 @@ export const metadata: Metadata = pageMetadata({
 
 export default function SpiceFinderPage() {
   return (
-    <div className="max-w-4xl mx-auto px-4 py-10">
+    <div className="max-w-7xl mx-auto px-4 py-10">
       <h1 className="spice-heading text-4xl">Spice Finder</h1>
-      <p className="mt-3 text-muted leading-relaxed">
+      <p className="mt-3 text-muted leading-relaxed max-w-3xl">
         Like asking the person behind the spice counter. Then open the{" "}
         <Link href="/spice-guide" className="text-nav font-semibold hover:underline">
           spice guide

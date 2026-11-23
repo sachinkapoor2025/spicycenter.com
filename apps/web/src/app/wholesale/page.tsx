@@ -16,7 +16,8 @@ export default async function WholesalePage({
 }) {
   const { product = "" } = await searchParams;
   return (
-    <div className="max-w-4xl mx-auto px-4 py-10">
+    <div className="max-w-7xl mx-auto px-4 py-10 grid lg:grid-cols-[minmax(0,1fr)_minmax(20rem,32rem)] gap-10 items-start">
+      <div>
       <h1 className="spice-heading text-3xl sm:text-4xl">Indian spice wholesale supplier</h1>
       <p className="mt-4 text-lg text-muted">
         SpicyCenter supplies restaurants, hotels, caterers, food manufacturers, grocery stores, retailers, importers and distributors.
@@ -46,8 +47,11 @@ export default async function WholesalePage({
           for 100kg+ cargo.
         </p>
       </div>
-      <h2 className="font-serif text-2xl mt-10 mb-4">Request wholesale quote</h2>
+      </div>
+      <div>
+      <h2 className="font-serif text-2xl mb-4">Request wholesale quote</h2>
       <WholesaleQuoteForm defaultProduct={product} />
+      </div>
     </div>
   );
 }
