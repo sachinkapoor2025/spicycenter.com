@@ -3,57 +3,45 @@
 import { useState, useEffect, type ReactNode } from "react";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
-import { navItems, regionLinks, site } from "@/lib/site";
+import { navItems, site, type NavItem } from "@/lib/site";
 import { SearchBar } from "@/components/SearchBar";
 import { SiteLogoLink } from "@/components/SiteLogo";
 import { CountrySelector } from "@/components/CountrySelector";
+import { EnquireNowButton } from "@/components/EnquireNowButton";
+import { useEnquiry } from "@/lib/enquiry-context";
 
-function RegionsMenu({ onNavigate }: { onNavigate?: () => void }) {
-  const [open, setOpen] = useState(false);
+const navLinkClass = (active: boolean) =>
+  `inline-flex items-center gap-1 shrink-0 rounded-md px-3 py-1.5 text-[13px] font-semibold whitespace-nowrap transition-colors ${
+    active ? "bg-nav text-white" : "text-primary hover:bg-nav hover:text-white"
+  }`;
 
-  useEffect(() => {
-    if (!open) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(false);
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [open]);
-
+function DesktopDropdown({ item, active, align }: { item: NavItem; active: boolean; align: "left" | "right" }) {
+  const children = item.children ?? [];
   return (
-    <div className="relative shrink-0">
-      <button
-        type="button"
-        onClick={() => setOpen((v) => !v)}
-        aria-expanded={open}
-        aria-haspopup="true"
-        className={`inline-flex items-center gap-1 rounded-md px-3 py-1.5 text-[13px] font-semibold whitespace-nowrap transition-colors ${
-          open ? "bg-nav text-white" : "text-primary hover:bg-nav hover:text-white"
+    <div className="relative shrink-0 group/menu">
+      <Link href={item.href} className={navLinkClass(active)} aria-haspopup="true">
+        {item.label}
+        <span className="text-[10px] opacity-80" aria-hidden>
+          ▼
+        </span>
+      </Link>
+      <div
+        className={`absolute top-full z-[120] hidden pt-1 group-hover/menu:block group-focus-within/menu:block ${
+          align === "right" ? "right-0 left-auto" : "left-0"
         }`}
       >
-        Regions
-        <span className={`text-[10px] transition-transform ${open ? "rotate-180" : ""}`}>▼</span>
-      </button>
-      {open && (
-        <>
-          <button type="button" className="fixed inset-0 z-[90]" aria-label="Close regions menu" onClick={() => setOpen(false)} />
-          <div className="absolute top-full right-0 z-[100] mt-1 min-w-[220px] max-h-[min(70vh,360px)] overflow-y-auto rounded-md border border-[#e6d5bc] bg-paper py-1 shadow-card">
-            {regionLinks.map((c) => (
-              <Link
-                key={c.slug}
-                href={`/indian-spice-regions/${c.slug}`}
-                className="block px-4 py-2.5 text-sm text-earth hover:bg-beige hover:text-nav whitespace-nowrap"
-                onClick={() => {
-                  setOpen(false);
-                  onNavigate?.();
-                }}
-              >
-                {c.label}
-              </Link>
-            ))}
-          </div>
-        </>
-      )}
+        <div className="min-w-[220px] max-h-[min(70vh,420px)] overflow-y-auto rounded-md border border-[#e6d5bc] bg-paper py-1 shadow-card">
+          {children.map((child) => (
+            <Link
+              key={child.href}
+              href={child.href}
+              className="block px-4 py-2.5 text-sm text-earth hover:bg-beige hover:text-nav whitespace-nowrap"
+            >
+              {child.label}
+            </Link>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
@@ -111,51 +99,31 @@ function DesktopHeaderAction({
   );
 }
 
-function EnquireLink({ className = "" }: { className?: string }) {
-  return (
-    <Link href="/enquiry" className={`p-2 text-primary hover:text-nav text-xs font-semibold leading-tight whitespace-nowrap ${className}`}>
-      Enquire Now
-    </Link>
-  );
-}
-
-function DesktopEnquireAction() {
-  return (
-    <Link href="/enquiry" className="flex flex-col items-center gap-1 px-3 text-primary hover:text-nav min-w-[5rem]">
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M8 10h8M8 14h5M6 4h12a2 2 0 012 2v12l-4-3H6a2 2 0 01-2-2V6a2 2 0 012-2z" />
-      </svg>
-      <span className="text-xs font-medium leading-tight text-center">Enquire Now</span>
-    </Link>
-  );
-}
-
 export function Header() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const activeCategory = searchParams.get("category");
   const [menuOpen, setMenuOpen] = useState(false);
-  const [citiesOpen, setCitiesOpen] = useState(false);
+  const [openSection, setOpenSection] = useState<string | null>(null);
+  const { openEnquiry } = useEnquiry();
 
-  const isActive = (href: string, category?: string) => {
+  const pathMatches = (href: string) => {
     if (href === "/") return pathname === "/" && !activeCategory;
-    if (category) {
-      return (
-        (pathname === "/products" && activeCategory === category) ||
-        pathname === `/categories/${category}`
-      );
-    }
-    return pathname.startsWith(href.split("?")[0]) && href !== "/";
+    const base = href.split("?")[0];
+    return pathname === base || pathname.startsWith(`${base}/`);
   };
+
+  const isItemActive = (item: NavItem) =>
+    pathMatches(item.href) || (item.children?.some((child) => pathMatches(child.href)) ?? false);
 
   const closeMenu = () => {
     setMenuOpen(false);
-    setCitiesOpen(false);
+    setOpenSection(null);
   };
 
   useEffect(() => {
     setMenuOpen(false);
-    setCitiesOpen(false);
+    setOpenSection(null);
   }, [pathname, activeCategory]);
 
   useEffect(() => {
@@ -197,7 +165,7 @@ export function Header() {
         <div className="flex items-center shrink-0">
           <AccountLink className="p-1.5" />
           <WishlistLink className="p-1.5" />
-          <EnquireLink className="p-1.5" />
+          <EnquireNowButton variant="icon" className="p-1.5" />
         </div>
       </div>
 
@@ -229,7 +197,7 @@ export function Header() {
               />
             </svg>
           </DesktopHeaderAction>
-          <DesktopEnquireAction />
+          <EnquireNowButton variant="header" />
         </div>
       </div>
 
@@ -239,25 +207,23 @@ export function Header() {
         </div>
       </div>
 
-      {/* Desktop nav — Regions sits outside the scrolling row so the menu is not clipped */}
-      <nav className="hidden md:block border-t border-[#e6d5bc] bg-paper overflow-visible">
-        <div className="max-w-7xl mx-auto px-4 py-2 flex items-center gap-2">
-          <div className="flex flex-nowrap items-center gap-1 flex-1 min-w-0 overflow-x-auto pb-0.5 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-            {navItems.map((item) => (
-              <Link
+      {/* Desktop nav — wrap instead of scrolling so hover menus are not clipped */}
+      <nav className="hidden md:block border-t border-[#e6d5bc] bg-paper overflow-visible" aria-label="Primary">
+        <div className="max-w-7xl mx-auto px-4 py-2 flex flex-wrap items-center gap-1">
+          {navItems.map((item, index) =>
+            item.children ? (
+              <DesktopDropdown
                 key={item.href}
-                href={item.href}
-                className={`shrink-0 rounded-md px-3 py-1.5 text-[13px] font-semibold whitespace-nowrap transition-colors ${
-                  isActive(item.href)
-                    ? "bg-nav text-white"
-                    : "text-primary hover:bg-nav hover:text-white"
-                }`}
-              >
+                item={item}
+                active={isItemActive(item)}
+                align={index >= navItems.length - 3 ? "right" : "left"}
+              />
+            ) : (
+              <Link key={item.href} href={item.href} className={navLinkClass(isItemActive(item))}>
                 {item.label}
               </Link>
-            ))}
-          </div>
-          <RegionsMenu />
+            )
+          )}
         </div>
       </nav>
 
@@ -300,20 +266,54 @@ export function Header() {
               >
                 Account
               </Link>
-              {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={closeMenu}
-                className={`block rounded-lg px-4 py-3 text-sm font-semibold transition-colors ${
-                  isActive(item.href)
-                    ? "bg-nav text-white"
-                    : "text-primary hover:bg-nav hover:text-white"
-                }`}
-              >
-                {item.label}
-              </Link>
-            ))}
+              {navItems.map((item) =>
+                item.children ? (
+                  <div key={item.href}>
+                    <button
+                      type="button"
+                      aria-expanded={openSection === item.href}
+                      onClick={() => setOpenSection((current) => (current === item.href ? null : item.href))}
+                      className={`w-full flex items-center justify-between rounded-lg px-4 py-3 text-sm font-semibold transition-colors ${
+                        isItemActive(item) || openSection === item.href
+                          ? "bg-nav text-white"
+                          : "text-primary hover:bg-nav hover:text-white"
+                      }`}
+                    >
+                      {item.label}
+                      <span className={`text-xs transition-transform ${openSection === item.href ? "rotate-180" : ""}`}>▼</span>
+                    </button>
+                    {openSection === item.href && (
+                      <div className="mt-1 ml-2 border-l-2 border-[#e6d5bc] pl-2 space-y-1">
+                        {item.children.map((child) => (
+                          <Link
+                            key={child.href}
+                            href={child.href}
+                            onClick={closeMenu}
+                            className={`block rounded-md px-4 py-2.5 text-sm ${
+                              pathname === child.href.split("?")[0]
+                                ? "bg-beige text-nav font-semibold"
+                                : "text-earth hover:bg-beige hover:text-nav"
+                            }`}
+                          >
+                            {child.label}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={closeMenu}
+                    className={`block rounded-lg px-4 py-3 text-sm font-semibold transition-colors ${
+                      isItemActive(item) ? "bg-nav text-white" : "text-primary hover:bg-nav hover:text-white"
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
+                )
+              )}
 
             <Link
               href="/wishlist"
@@ -327,32 +327,16 @@ export function Header() {
               Wish Lists
             </Link>
 
-            <div>
-                <button
-                  type="button"
-                  onClick={() => setCitiesOpen((v) => !v)}
-                  className={`w-full flex items-center justify-between rounded-lg px-4 py-3 text-sm font-semibold transition-colors ${
-                    citiesOpen ? "bg-nav text-white" : "text-primary hover:bg-nav hover:text-white"
-                  }`}
-                >
-                  Regions
-                  <span className={`text-xs transition-transform ${citiesOpen ? "rotate-180" : ""}`}>▼</span>
-                </button>
-                {citiesOpen && (
-                  <div className="mt-1 ml-2 border-l-2 border-[#e6d5bc] pl-2 space-y-1">
-                    {regionLinks.map((c) => (
-                      <Link
-                        key={c.slug}
-                        href={`/indian-spice-regions/${c.slug}`}
-                        onClick={closeMenu}
-                        className="block rounded-md px-4 py-2.5 text-sm text-earth hover:bg-beige hover:text-nav"
-                      >
-                        {c.label}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
+            <button
+              type="button"
+              onClick={() => {
+                closeMenu();
+                openEnquiry();
+              }}
+              className="block w-full text-left rounded-lg px-4 py-3 text-sm font-semibold text-primary hover:bg-nav hover:text-white transition-colors"
+            >
+              Enquire Now
+            </button>
             <Link
               href="/contact"
               onClick={closeMenu}

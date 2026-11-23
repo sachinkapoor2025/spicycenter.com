@@ -6,10 +6,8 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
 import { blogPostInlineLinks } from "@/lib/content/page-inline-links";
 import { listAllBlogPosts, resolveBlogPost } from "@/lib/content/seo-blog";
-import { applyInlineLinks } from "@/lib/inline-links";
+import { applyInlineLinks, createInlineLinkBudget } from "@/lib/inline-links";
 import { articleJsonLd, breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
-import { InternalLinksSection } from "@/components/InternalLinksSection";
-import { getInternalLinkGroups } from "@spicycorner/shared";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -43,9 +41,12 @@ export default async function BlogPostPage({ params }: Props) {
     { label: post.title },
   ];
   const inlineLinks = blogPostInlineLinks[post.slug] ?? [];
+  const linkBudget = createInlineLinkBudget();
+  const morePosts = listAllBlogPosts().filter((p) => p.slug !== post.slug).slice(0, 8);
 
   return (
-    <article className="max-w-3xl mx-auto px-4 py-10 overflow-x-hidden min-w-0 w-full">
+    <div className="max-w-7xl mx-auto px-4 py-10 grid lg:grid-cols-[minmax(0,42rem)_minmax(16rem,1fr)] gap-10 items-start overflow-x-hidden">
+    <article className="min-w-0 w-full">
       <JsonLd
         data={[
           articleJsonLd(post),
@@ -85,37 +86,26 @@ export default async function BlogPostPage({ params }: Props) {
             )}
             {section.paragraphs.map((p, j) => (
               <p key={j} className="text-slate-700 leading-relaxed mb-4 break-words [overflow-wrap:anywhere]">
-                {applyInlineLinks(p, inlineLinks)}
+                {applyInlineLinks(p, inlineLinks, linkBudget)}
               </p>
             ))}
           </section>
         ))}
       </div>
 
-      {post.relatedCategory && (
-        <div className="mt-10 p-6 bg-slate-50 rounded-xl border min-w-0">
-          <h2 className="font-semibold text-primary mb-2">Shop related spice items</h2>
-          <Link href={`/categories/${post.relatedCategory}`} className="text-nav font-semibold hover:underline">
-            Browse {post.relatedCategory.replace(/-/g, " ")} →
-          </Link>
-        </div>
-      )}
-
-      <InternalLinksSection
-        groups={getInternalLinkGroups({
-          type: "blog",
-          blogSlug: post.slug,
-          relatedCategory: post.relatedCategory,
-        })}
-        title="Keep reading and shopping"
-        intro="Related guides, categories, and spice destination pages."
-      />
-
-      <div className="mt-8 pt-6 border-t">
-        <Link href="/blog" className="text-nav hover:underline text-sm">
-          ← All articles
-        </Link>
-      </div>
     </article>
+    <aside className="min-w-0">
+      <h2 className="font-serif text-2xl text-primary">More from the blog</h2>
+      <ul className="mt-4 space-y-3">
+        {morePosts.map((item) => (
+          <li key={item.slug}>
+            <Link href={`/blog/${item.slug}`} className="text-nav font-semibold hover:underline break-words">
+              {item.title}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </aside>
+    </div>
   );
 }

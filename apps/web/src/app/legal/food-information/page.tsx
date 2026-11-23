@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { legalMeta, LegalShell } from "@/components/LegalShell";
 
 export const metadata = legalMeta(
@@ -16,7 +17,19 @@ export default function Page() {
       </p>
       <p>
         Those fields are required in the data model. Values must be completed by the food business before an SKU is offered
-        for sale. This page is not legal advice.
+        for sale. See{" "}
+        <Link href="/legal/allergens" className="text-nav font-semibold hover:underline">
+          allergen notes
+        </Link>
+        , the{" "}
+        <Link href="/spice-guide" className="text-nav font-semibold hover:underline">
+          spice guide
+        </Link>
+        , and{" "}
+        <Link href="/contact" className="text-nav font-semibold hover:underline">
+          contact
+        </Link>
+        . This page is not legal advice.
       </p>
     </LegalShell>
   );

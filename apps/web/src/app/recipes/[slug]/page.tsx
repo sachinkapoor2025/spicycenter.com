@@ -5,7 +5,6 @@ import { pageMetadata, recipeJsonLd, breadcrumbJsonLd } from "@/lib/seo";
 import { JsonLd } from "@/components/JsonLd";
 import { getRecipeBySlug, loadRecipes } from "@/lib/recipes";
 import { getSpiceBySlug } from "@/lib/spice-data";
-import { getCatalogProducts } from "@/lib/catalog-fallback";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -28,9 +27,6 @@ export default async function RecipePage({ params }: Props) {
   const r = getRecipeBySlug(slug);
   if (!r) notFound();
   const spices = r.spiceIds.map((id) => getSpiceBySlug(id)).filter(Boolean);
-  const products = getCatalogProducts()
-    .filter((p) => r.spiceIds.some((id) => p.tags?.includes(`spice:${id}`)))
-    .slice(0, 10);
 
   return (
     <article className="max-w-3xl mx-auto px-4 py-10">
@@ -52,6 +48,19 @@ export default async function RecipePage({ params }: Props) {
       <p className="mt-3 text-lg text-muted">{r.summary}</p>
       <p className="mt-2 text-sm text-muted">
         Household recipes vary; this is a culinary overview for UK home cooks, not a certified restaurant method and not diet advice.
+        Browse the{" "}
+        <Link href="/spice-guide" className="text-nav font-semibold hover:underline">
+          spice guide
+        </Link>
+        , the{" "}
+        <Link href="/spices" className="text-nav font-semibold hover:underline">
+          Indian spice catalogue
+        </Link>
+        , or{" "}
+        <Link href="/enquiry" className="text-nav font-semibold hover:underline">
+          send a free spice enquiry
+        </Link>
+        .
       </p>
       <p className="mt-4 text-sm">
         {r.servings ? `${r.servings} servings` : ""}
@@ -87,32 +96,13 @@ export default async function RecipePage({ params }: Props) {
         <ul className="mt-3 space-y-2">
           {spices.map((s) => (
             <li key={s!.id}>
-              <Link className="text-nav" href={`/spice-guide/${s!.slug}`}>
-                {s!.canonicalName}
-              </Link>
+              {s!.canonicalName}
               {s!.hindiName ? <span className="text-muted text-sm"> ({s!.hindiName})</span> : null}
-              <Link className="text-nav text-sm ml-2" href={`/spices/${s!.slug}`}>
-                Shop →
-              </Link>
             </li>
           ))}
         </ul>
       </section>
 
-      {products.length > 0 && (
-        <section className="mt-10">
-          <h2 className="font-serif text-2xl text-primary">Buy the spices</h2>
-          <ul className="mt-3 space-y-1">
-            {products.map((p) => (
-              <li key={p.slug}>
-                <Link className="text-nav text-sm" href={`/products/${p.slug}`}>
-                  {p.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
     </article>
   );
 }

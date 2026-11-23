@@ -30,16 +30,28 @@ export default async function KeywordMapPage({ searchParams }: Props) {
   const hits = query.length >= 2 ? await searchKeywordUniverse(query, 40) : [];
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-10">
+    <div className="max-w-7xl mx-auto px-4 py-10">
       <p className="spice-kicker">SEO planning</p>
       <h1 className="spice-heading text-4xl mt-2">Keyword map</h1>
-      <p className="mt-4 text-muted leading-relaxed">
+      <p className="mt-4 text-muted leading-relaxed max-w-3xl">
         {meta
           ? `${meta.keywordCount.toLocaleString("en-GB")} phrases from ${meta.source}. ${meta.validation}.`
           : "Keyword universe file is not loaded."}{" "}
-        We do not publish a separate URL for each phrase.
+        We do not publish a separate URL for each phrase. Map phrases to the{" "}
+        <Link href="/markets" className="text-nav font-semibold hover:underline">
+          export markets
+        </Link>
+        hub,{" "}
+        <Link href="/wholesale" className="text-nav font-semibold hover:underline">
+          wholesale Indian spices
+        </Link>
+        , or a{" "}
+        <Link href="/enquiry" className="text-nav font-semibold hover:underline">
+          free spice enquiry
+        </Link>
+        .
       </p>
-      <form action="/keyword-map" method="get" className="mt-6 flex gap-2">
+      <form action="/keyword-map" method="get" className="mt-6 flex gap-2 max-w-3xl">
         <input
           type="search"
           name="q"
@@ -56,28 +68,16 @@ export default async function KeywordMapPage({ searchParams }: Props) {
           {hits.length} matches for “{query}”
         </p>
       )}
-      <ul className="mt-4 space-y-2">
+      <ul className="mt-4 grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
         {hits.map((h) => (
           <li key={`${h.keyword}-${h.marketSlug}`} className="rounded-xl border border-[#e6d5bc] bg-white p-3 text-sm">
             <p className="text-primary">{h.keyword}</p>
             <p className="text-xs text-muted mt-1">
-              {h.intent} · {h.country} ·{" "}
-              <Link href={h.url} className="text-nav font-semibold">
-                Open market hub
-              </Link>
-              {" · "}
-              <Link href={`/sourcing/${h.productSlug}`} className="text-nav">
-                {h.productSlug}
-              </Link>
+              {h.intent} · {h.country} · {h.url} · {h.productSlug}
             </p>
           </li>
         ))}
       </ul>
-      <p className="mt-8 text-sm">
-        <Link href="/markets" className="text-nav font-semibold">
-          Browse all export markets →
-        </Link>
-      </p>
     </div>
   );
 }

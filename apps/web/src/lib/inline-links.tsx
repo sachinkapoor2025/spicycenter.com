@@ -1,24 +1,39 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { PAGE_MAX_INTERNAL_LINKS } from "@spicycorner/shared";
 
 export const standardInlineLinkClass = "text-nav hover:underline";
 
 type InlineSpec = { phrase: string; href: string };
 
+export type InlineLinkBudget = {
+  href: Set<string>;
+  label: Set<string>;
+};
+
+export function createInlineLinkBudget(): InlineLinkBudget {
+  return { href: new Set(), label: new Set() };
+}
+
 /**
- * Apply multiple phrase→URL replacements. Longest phrase first, each href once.
- * Previously only the first match survived because the node became a React tree.
+ * Apply phrase→URL replacements. Unique href + unique anchor, capped at 3 per shared budget (page).
  */
-export function applyInlineLinks(text: string, links: readonly InlineSpec[]): ReactNode {
+export function applyInlineLinks(
+  text: string,
+  links: readonly InlineSpec[],
+  budget: InlineLinkBudget = createInlineLinkBudget()
+): ReactNode {
   if (!text || links.length === 0) return text;
 
   type Part = { type: "text"; value: string } | { type: "link"; phrase: string; href: string };
   let parts: Part[] = [{ type: "text", value: text }];
-  const usedHref = new Set<string>();
 
   const ordered = [...links].sort((a, b) => b.phrase.length - a.phrase.length);
   for (const { phrase, href } of ordered) {
-    if (!phrase || usedHref.has(href)) continue;
+    if (!phrase || budget.href.has(href)) continue;
+    if (budget.href.size >= PAGE_MAX_INTERNAL_LINKS) break;
+    const labelKey = phrase.trim().toLowerCase();
+    if (!labelKey || budget.label.has(labelKey)) continue;
     let linked = false;
     const next: Part[] = [];
     for (const part of parts) {
@@ -36,7 +51,8 @@ export function applyInlineLinks(text: string, links: readonly InlineSpec[]): Re
       const rest = part.value.slice(index + phrase.length);
       if (rest) next.push({ type: "text", value: rest });
       linked = true;
-      usedHref.add(href);
+      budget.href.add(href);
+      budget.label.add(labelKey);
     }
     parts = next;
   }

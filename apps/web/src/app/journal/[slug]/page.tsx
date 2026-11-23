@@ -66,26 +66,32 @@ export default async function JournalPostPage({ params }: Props) {
         {post.sections.map((section, i) => (
           <section key={i}>
             {section.heading && <h2 className="text-xl font-bold text-primary mb-3">{section.heading}</h2>}
-            {section.paragraphs.map((p) => (
+            {section.paragraphs.map((p, pi) => (
               <p key={p} className="text-slate-700 leading-relaxed mb-4">
-                {p}
+                {i === 0 && pi === 0 ? (
+                  <>
+                    {p}{" "}
+                    <Link href="/spice-guide" className="text-nav font-semibold hover:underline">
+                      Spice guide
+                    </Link>
+                    {", "}
+                    <Link href="/spices/whole-spices" className="text-nav font-semibold hover:underline">
+                      whole spices
+                    </Link>
+                    {" and "}
+                    <Link href="/spices/ground-spices" className="text-nav font-semibold hover:underline">
+                      ground spices
+                    </Link>
+                    {" are listed in the catalogue."}
+                  </>
+                ) : (
+                  p
+                )}
               </p>
             ))}
           </section>
         ))}
       </div>
-      {post.relatedCategory && (
-        <p className="mt-10">
-          <Link href={`/categories/${post.relatedCategory}`} className="text-nav font-semibold">
-            Shop {post.relatedCategory.replace(/-/g, " ")} →
-          </Link>
-        </p>
-      )}
-      <p className="mt-8 text-sm">
-        <Link href="/journal" className="text-nav">
-          ← All journal articles
-        </Link>
-      </p>
     </article>
   );
 }

@@ -20,32 +20,32 @@ export default function RecipesPage() {
   const recipes = loadRecipes();
   const courses = [...new Set(recipes.map((r) => r.course || r.cuisine))];
   return (
-    <div className="max-w-3xl mx-auto px-4 py-10">
+    <div className="max-w-7xl mx-auto px-4 py-10">
       <h1 className="spice-heading text-4xl">Recipes</h1>
       <p className="mt-3 text-muted max-w-2xl leading-relaxed">
         {recipes.length} dishes that show how Indian spices behave in a pan: jeera in ghee, mustard in oil, garam masala
         at the end. They are cooking notes for UK and EU home kitchens, not diet advice. Quantities assume whole or
         freshly ground spices.
       </p>
-      <p className="mt-3 text-sm">
-        Also see the{" "}
-        <Link href="/spice-guide" className="text-nav">
+      <p className="mt-3 text-sm text-muted">
+        Pair each dish with the{" "}
+        <Link href="/spice-guide" className="text-nav font-semibold hover:underline">
           spice guide
         </Link>
         ,{" "}
-        <Link href="/spice-guide/comparisons" className="text-nav">
-          comparisons
+        <Link href="/spice-guide/comparisons" className="text-nav font-semibold hover:underline">
+          spice comparisons
         </Link>
-        , and{" "}
-        <Link href="/journal" className="text-nav">
-          journal
+        , and the{" "}
+        <Link href="/spices" className="text-nav font-semibold hover:underline">
+          Indian spice catalogue
         </Link>
         .
       </p>
       {courses.map((course) => (
         <section key={course} className="mt-10">
           <h2 className="font-serif text-2xl text-primary">{course}</h2>
-          <ul className="mt-4 space-y-4">
+          <ul className="mt-4 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {recipes
               .filter((r) => (r.course || r.cuisine) === course)
               .map((r) => (

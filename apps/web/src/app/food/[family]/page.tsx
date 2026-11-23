@@ -31,7 +31,8 @@ export default async function FoodFamilyPage({ params }: Props) {
   const item = getFoodFamily(family);
   if (!item) notFound();
   return (
-    <div className="max-w-3xl mx-auto px-4 py-10">
+    <div className="max-w-7xl mx-auto px-4 py-10 grid lg:grid-cols-[minmax(0,1fr)_minmax(20rem,32rem)] gap-10 items-start">
+      <div>
       <HubBreadcrumbs
         items={[
           { name: "Home", path: "/" },
@@ -45,7 +46,21 @@ export default async function FoodFamilyPage({ params }: Props) {
         </Link>
       </p>
       <h1 className="spice-heading text-4xl mt-2">{item.name} sourcing</h1>
-      <p className="mt-4 text-muted leading-relaxed">{item.summary}</p>
+      <p className="mt-4 text-muted leading-relaxed">
+        {item.summary} See the{" "}
+        <Link href="/spice-guide" className="text-nav font-semibold hover:underline">
+          spice guide
+        </Link>
+        , request{" "}
+        <Link href="/wholesale" className="text-nav font-semibold hover:underline">
+          wholesale Indian spices
+        </Link>
+        , or send a{" "}
+        <Link href="/enquiry" className="text-nav font-semibold hover:underline">
+          free spice enquiry
+        </Link>
+        .
+      </p>
       <p className="mt-3 text-sm text-muted">
         {item.inCatalog
           ? "Some seed spices in this family are already in the shop. Use the links in the header or send a wholesale note."
@@ -53,7 +68,8 @@ export default async function FoodFamilyPage({ params }: Props) {
       </p>
       <p className="mt-3 text-sm text-muted">Examples buyers mention: {item.examples.join(", ")}.</p>
       <FreeEnquiryCtas productName={item.name} />
-      <div className="mt-8">
+      </div>
+      <div>
         <WholesaleQuoteForm defaultProduct={item.name} />
       </div>
     </div>

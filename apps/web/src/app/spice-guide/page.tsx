@@ -33,7 +33,7 @@ export default function SpiceGuideIndex() {
   const groups = [...GROUP_ORDER.filter((g) => grouped.has(g)), ...[...grouped.keys()].filter((g) => !GROUP_ORDER.includes(g))];
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-10">
+    <div className="max-w-7xl mx-auto px-4 py-10">
       <h1 className="spice-heading text-4xl">Spice guide</h1>
       <p className="mt-3 text-muted max-w-2xl">
         {spices.length} Indian spices, herbs, seeds and masalas. Explore their names and culinary uses, then choose the quantity that suits your needs.
@@ -47,16 +47,24 @@ export default function SpiceGuideIndex() {
         </p>
         <p>
           Confused in a UK supermarket aisle? Start with{" "}
-          <Link href="/spice-guide/comparisons" className="text-nav">
+          <Link href="/spice-guide/comparisons" className="text-nav font-semibold hover:underline">
             spice comparisons
-          </Link>{" "}
-          (cumin vs caraway, Kashmiri vs regular chilli, garam masala vs curry powder).
+          </Link>
+          , cook from{" "}
+          <Link href="/recipes" className="text-nav font-semibold hover:underline">
+            Indian spice recipes
+          </Link>
+          , then buy from the{" "}
+          <Link href="/spices" className="text-nav font-semibold hover:underline">
+            Indian spice catalogue
+          </Link>
+          .
         </p>
       </div>
       {groups.map((group) => (
         <section key={group} className="mt-10">
           <h2 className="font-serif text-2xl text-primary">{group}</h2>
-          <div className="grid sm:grid-cols-2 gap-3 mt-4">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-4">
             {(grouped.get(group) ?? []).map((s) => (
               <Link key={s.id} href={`/spice-guide/${s.slug}`} className="card-spice p-4">
                 <p className="font-serif text-lg">{s.canonicalName}</p>
@@ -69,19 +77,6 @@ export default function SpiceGuideIndex() {
           </div>
         </section>
       ))}
-      <p className="mt-10">
-        <Link href="/spice-guide/comparisons" className="text-nav">
-          Comparison pages →
-        </Link>
-        {" · "}
-        <Link href="/recipes" className="text-nav">
-          Recipes →
-        </Link>
-        {" · "}
-        <Link href="/journal" className="text-nav">
-          Journal →
-        </Link>
-      </p>
     </div>
   );
 }

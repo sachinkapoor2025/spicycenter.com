@@ -31,7 +31,8 @@ export default async function GuidePage({ params }: Props) {
   const guide = getSourcingGuide(slug);
   if (!guide) notFound();
   return (
-    <div className="max-w-3xl mx-auto px-4 py-10">
+    <div className="max-w-7xl mx-auto px-4 py-10 grid lg:grid-cols-[minmax(0,42rem)_minmax(16rem,1fr)] gap-10 items-start">
+      <article>
       <HubBreadcrumbs
         items={[
           { name: "Home", path: "/" },
@@ -45,7 +46,21 @@ export default async function GuidePage({ params }: Props) {
         </Link>
       </p>
       <h1 className="spice-heading text-4xl mt-2">{guide.title}</h1>
-      <p className="mt-4 text-muted">{guide.description}</p>
+      <p className="mt-4 text-muted">
+        {guide.description} Continue with the{" "}
+        <Link href="/spice-guide" className="text-nav font-semibold hover:underline">
+          spice guide
+        </Link>
+        ,{" "}
+        <Link href="/wholesale" className="text-nav font-semibold hover:underline">
+          wholesale Indian spices
+        </Link>
+        , or a{" "}
+        <Link href="/enquiry" className="text-nav font-semibold hover:underline">
+          free spice enquiry
+        </Link>
+        .
+      </p>
       {guide.sections.map((s) => (
         <section key={s.heading} className="mt-8">
           <h2 className="font-serif text-2xl text-primary">{s.heading}</h2>
@@ -73,6 +88,19 @@ export default async function GuidePage({ params }: Props) {
         </ul>
       )}
       <FreeEnquiryCtas />
+      </article>
+      <aside>
+        <h2 className="font-serif text-2xl text-primary">More guides</h2>
+        <ul className="mt-4 space-y-3">
+          {SOURCING_GUIDES.filter((g) => g.slug !== guide.slug).map((g) => (
+            <li key={g.slug}>
+              <Link href={`/guides/${g.slug}`} className="text-nav font-semibold hover:underline">
+                {g.title}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </aside>
     </div>
   );
 }

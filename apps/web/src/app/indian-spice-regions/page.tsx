@@ -20,12 +20,26 @@ export const metadata: Metadata = withAbsoluteSocialTitle(
 export default function RegionsIndex() {
   const spices = loadSpiceEntities();
   return (
-    <div className="max-w-4xl mx-auto px-4 py-10">
+    <div className="max-w-7xl mx-auto px-4 py-10">
       <h1 className="spice-heading text-4xl">Indian spice regions</h1>
       <p className="mt-3 text-muted leading-relaxed max-w-2xl">
-        Landing pages for real growing and trading regions — not doorway pages. Kerala for pepper and cardamom, Rajasthan and Gujarat for cumin and coriander, Andhra for chilli, Kashmir for colour chilli and genuine saffron, Tamil Nadu for turmeric. Open a region to read how it cooks, then shop SKUs that actually match the lot.
+        Landing pages for real growing and trading regions — not doorway pages. Kerala for pepper and cardamom,
+        Rajasthan and Gujarat for cumin and coriander, Andhra for chilli, Kashmir for colour chilli and genuine saffron,
+        Tamil Nadu for turmeric. Read the{" "}
+        <Link href="/spice-guide" className="text-nav font-semibold hover:underline">
+          spice guide
+        </Link>
+        , browse the{" "}
+        <Link href="/spices" className="text-nav font-semibold hover:underline">
+          Indian spice catalogue
+        </Link>
+        , or request{" "}
+        <Link href="/wholesale" className="text-nav font-semibold hover:underline">
+          wholesale Indian spices
+        </Link>
+        .
       </p>
-      <div className="grid sm:grid-cols-2 gap-4 mt-8">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
         {regionLinks.map((r) => {
           const local = spices.filter((s) => s.growingRegions.some((g) => g.toLowerCase().includes(r.label.toLowerCase().split(" ")[0])));
           return (

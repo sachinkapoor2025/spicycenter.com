@@ -97,7 +97,7 @@ export function SpiceFinder() {
           </button>
         ))}
       </fieldset>
-      <div className="grid gap-4 mt-8">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
         {results.map((r) => (
           <article key={r.slug} className="card-spice p-5">
             <h3 className="font-serif text-xl">{r.spice}</h3>

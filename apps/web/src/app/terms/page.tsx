@@ -46,9 +46,19 @@ export default function TermsPage() {
         </p>
         <p className="text-slate-500 text-sm">Last updated: June 2025</p>
         <p>
-          <Link href="/" className="text-nav font-semibold hover:underline">
-            ← Back to home
+          Related pages:{" "}
+          <Link href="/privacy" className="text-nav font-semibold hover:underline">
+            privacy policy
           </Link>
+          ,{" "}
+          <Link href="/legal/shipping" className="text-nav font-semibold hover:underline">
+            shipping notes
+          </Link>
+          , and{" "}
+          <Link href="/contact" className="text-nav font-semibold hover:underline">
+            contact
+          </Link>
+          .
         </p>
       </div>
     </div>

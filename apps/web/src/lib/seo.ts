@@ -77,8 +77,8 @@ export function productPageMetadata(opts: {
   seoDescription?: string;
   description: string;
   path: string;
-  price: number;
-  currency: string;
+  price?: number;
+  currency?: string;
   keywords?: string;
   ogImage?: string;
 }): Metadata {
@@ -314,27 +314,27 @@ export function howToShopspiceJsonLd() {
       {
         "@type": "HowToStep",
         position: 2,
-        name: "Add to cart",
-        text: "Select spices and pack sizes and add items to your cart.",
+        name: "Send an enquiry",
+        text: "Open Enquire Now, tell us the spice, quantity and delivery country, and wait for availability.",
       },
       {
         "@type": "HowToStep",
         position: 3,
-        name: "Enter your delivery address",
-        text: "At checkout, enter the full destination address. Confirm the product-page shipping quote first.",
+        name: "Share delivery details",
+        text: "Include your delivery country in the enquiry. We confirm shipping when we reply.",
         url: canonical("/shipping"),
       },
       {
         "@type": "HowToStep",
         position: 4,
-        name: "Pay securely",
-        text: "Complete payment with Stripe. Storefront prices display in GBP or EUR.",
+        name: "Receive a reply",
+        text: "We respond with availability and next steps. There is no online cart checkout on this site.",
       },
       {
         "@type": "HowToStep",
         position: 5,
-        name: "Check the shipping quote",
-        text: "Delivery time depends on the product and destination. Use the quote on the product page rather than a blanket nationwide SLA.",
+        name: "Confirm dispatch",
+        text: "Delivery time depends on the product and destination. Typical transit is 5–7 days after dispatch.",
       },
     ],
   };

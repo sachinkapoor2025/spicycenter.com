@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { siteUrl } from "@/lib/env";
+import { SITEMAP_ORIGIN } from "@/lib/seo/sitemap-config";
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -15,9 +15,10 @@ export default function robots(): MetadataRoute.Robots {
           "/orders/",
           "/wishlist",
           "/ses-email",
+          "/bulk-enquiry/confirm/",
+          "/unsubscribe/",
         ],
       },
-      // AI / LLM crawlers — explicitly allowed for discoverability in ChatGPT, Claude, Perplexity, etc.
       { userAgent: "GPTBot", allow: "/" },
       { userAgent: "ChatGPT-User", allow: "/" },
       { userAgent: "OAI-SearchBot", allow: "/" },
@@ -36,7 +37,7 @@ export default function robots(): MetadataRoute.Robots {
       { userAgent: "FacebookBot", allow: "/" },
       { userAgent: "Meta-ExternalAgent", allow: "/" },
     ],
-    sitemap: `${siteUrl}/sitemap.xml`,
-    host: siteUrl,
+    sitemap: `${SITEMAP_ORIGIN}/sitemap.xml`,
+    host: SITEMAP_ORIGIN,
   };
 }

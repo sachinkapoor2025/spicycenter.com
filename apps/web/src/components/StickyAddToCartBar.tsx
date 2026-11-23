@@ -1,29 +1,21 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AddToCartControl } from "@/components/AddToCartControl";
-import { useCurrency } from "@/lib/currency-context";
-import { getProductAddon, sumAddonPrices, type HamperCustomization, type Product, type ProductAddonSelection } from "@spicycorner/shared";
+import type { Product } from "@spicycorner/shared";
+import { EnquireNowButton } from "@/components/EnquireNowButton";
 
-/** Fixed bottom bar on mobile so Add to Cart stays visible while scrolling. */
+/** Fixed bottom bar on mobile so Enquire Now stays visible while scrolling. */
 export function StickyAddToCartBar({
   product,
-  getContact,
-  addons = [],
-  cjVid,
-  hamperCustomization,
-  extraUsd = 0,
-  disabled = false,
 }: {
   product: Product;
   getContact?: () => { name?: string; email?: string; phone?: string };
-  addons?: ProductAddonSelection[];
+  addons?: unknown;
   cjVid?: string;
-  hamperCustomization?: HamperCustomization;
+  hamperCustomization?: unknown;
   extraUsd?: number;
   disabled?: boolean;
 }) {
-  const { format } = useCurrency();
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -35,40 +27,17 @@ export function StickyAddToCartBar({
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  if (!visible || product.inventory <= 0) return null;
-
-  const addonsUsdTotal = sumAddonPrices(
-    addons.map((s) => {
-      const def = getProductAddon(s.id);
-      return {
-        id: s.id,
-        name: def?.name ?? s.id,
-        price: def?.priceUsd ?? 0,
-        quantity: s.quantity,
-      };
-    })
-  );
-  const showCombined = addonsUsdTotal + extraUsd > 0 && product.currency === "USD";
-  const displayPrice = showCombined ? product.price + addonsUsdTotal + extraUsd : product.price;
+  if (!visible) return null;
 
   return (
     <div className="md:hidden fixed bottom-0 inset-x-0 z-40 border-t border-slate-200 bg-white/95 backdrop-blur px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-[0_-4px_20px_rgba(0,0,0,0.08)]">
       <div className="flex items-center gap-3 max-w-6xl mx-auto">
         <div className="min-w-0 flex-1">
           <p className="text-xs text-slate-500 truncate">{product.name}</p>
-          <p className="font-bold text-primary">{format(displayPrice, product.currency)}</p>
+          <p className="text-sm font-semibold text-primary">Request availability</p>
         </div>
         <div className="w-[9.5rem] shrink-0">
-          <AddToCartControl
-            productSlug={product.slug}
-            disabled={disabled}
-            fullWidth
-            variant="detail"
-            getContact={getContact}
-            addons={addons}
-            cjVid={cjVid}
-            hamperCustomization={hamperCustomization}
-          />
+          <EnquireNowButton productName={product.name} variant="sticky" />
         </div>
       </div>
     </div>

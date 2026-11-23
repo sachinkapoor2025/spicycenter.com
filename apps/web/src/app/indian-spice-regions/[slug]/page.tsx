@@ -4,7 +4,6 @@ import { pageMetadata, breadcrumbJsonLd } from "@/lib/seo";
 import { JsonLd } from "@/components/JsonLd";
 import { regionLinks, regionStories } from "@/lib/site";
 import { loadSpiceEntities } from "@/lib/spice-data";
-import { getCatalogProducts } from "@/lib/catalog-fallback";
 import { notFound } from "next/navigation";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -33,13 +32,9 @@ export default async function RegionPage({ params }: Props) {
   );
 
   const story = regionStories[region.slug];
-  const spiceIds = new Set(spices.map((s) => s.id));
-  const products = getCatalogProducts()
-    .filter((p) => p.tags?.some((t) => t.startsWith("spice:") && spiceIds.has(t.slice(6))))
-    .slice(0, 12);
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-10">
+    <div className="max-w-7xl mx-auto px-4 py-10">
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Home", path: "/" },
@@ -49,7 +44,8 @@ export default async function RegionPage({ params }: Props) {
       />
       <p className="text-sm text-muted"><Link href="/indian-spice-regions">Regions</Link> / {region.label}</p>
       <h1 className="spice-heading text-4xl mt-2">{region.label} spices</h1>
-      <div className="mt-4 space-y-4 text-muted leading-relaxed">
+      <div className="mt-6 grid lg:grid-cols-2 gap-10 items-start">
+      <div className="space-y-4 text-muted leading-relaxed max-w-3xl">
         <p>{story.intro}</p>
         <h2 className="font-serif text-2xl text-primary pt-4">Growing conditions</h2>
         <p>{story.climate}</p>
@@ -59,37 +55,34 @@ export default async function RegionPage({ params }: Props) {
         <h2 className="font-serif text-2xl text-primary pt-4">How it cooks</h2>
         <p>{story.cooking}</p>
         <p>
-          These spices are commonly associated with {region.label}. That is a regional story, not a guarantee that every bag on this site is from that state. Country of origin and region on the pack must follow the lot.
+          These spices are commonly associated with {region.label}. That is a regional story, not a guarantee that
+          every bag on this site is from that state. Read the{" "}
+          <Link href="/spice-guide" className="text-nav font-semibold hover:underline">
+            spice guide
+          </Link>
+          , browse the{" "}
+          <Link href="/spices" className="text-nav font-semibold hover:underline">
+            Indian spice catalogue
+          </Link>
+          , or request{" "}
+          <Link href="/wholesale" className="text-nav font-semibold hover:underline">
+            wholesale Indian spices
+          </Link>
+          . Country of origin and region on the pack must follow the lot.
         </p>
       </div>
-      <h2 className="font-serif text-2xl text-primary mt-10">Spices from this region</h2>
-      <ul className="mt-4 space-y-3">
+      <div>
+      <h2 className="font-serif text-2xl text-primary">Spices from this region</h2>
+      <ul className="mt-4 grid sm:grid-cols-2 lg:grid-cols-1 gap-3">
         {spices.map((s) => (
-          <li key={s.id}>
-            <Link href={`/spice-guide/${s.slug}`} className="text-nav font-semibold">{s.canonicalName}</Link>
-            <span className="text-sm text-muted"> — {s.shortDescription}</span>
-            {" "}
-            <Link href={`/spices/${s.slug}`} className="text-nav text-sm">Shop</Link>
+          <li key={s.id} className="card-spice p-4">
+            <p className="font-serif text-lg text-primary">{s.canonicalName}</p>
+            <p className="text-sm text-muted mt-1">{s.shortDescription}</p>
           </li>
         ))}
       </ul>
-      {products.length > 0 && (
-        <>
-          <h2 className="font-serif text-2xl text-primary mt-10">Shop packs</h2>
-          <ul className="mt-3 space-y-1">
-            {products.map((p) => (
-              <li key={p.slug}>
-                <Link className="text-nav text-sm" href={`/products/${p.slug}`}>{p.name}</Link>
-              </li>
-            ))}
-          </ul>
-        </>
-      )}
-      <p className="mt-8 text-sm">
-        <Link href="/journal/seasonal-spice-harvest-india" className="text-nav">Harvest journal →</Link>
-        {" · "}
-        <Link href="/spice-guide" className="text-nav">All spice guides →</Link>
-      </p>
+      </div>
+      </div>
     </div>
   );
 }

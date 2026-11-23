@@ -1,4 +1,3 @@
-import Link from "next/link";
 import type { CityPageContent } from "@/lib/content/city-pages";
 import { site, whatsappChatUrl } from "@/lib/site";
 
@@ -83,9 +82,7 @@ export function CityContentSection({ content }: Props) {
             <ul className="space-y-3 text-sm">
               {content.relatedCategories.map((cat) => (
                 <li key={cat.href}>
-                  <Link href={cat.href} className="font-medium text-nav hover:underline">
-                    {cat.label}
-                  </Link>
+                  <p className="font-medium text-primary">{cat.label}</p>
                   <p className="text-slate-500 mt-0.5">{cat.text}</p>
                 </li>
               ))}
@@ -95,24 +92,16 @@ export function CityContentSection({ content }: Props) {
           <section className="bg-nav text-white rounded-xl p-6">
             <h3 className="text-lg font-semibold mb-2">Need help with your {content.label} order?</h3>
             <p className="text-sm text-white/90 mb-4">
-              Our team helps with delivery timing, address format, and product selection.
+              Our team helps with delivery timing, address format, and product selection. Related pages are listed below.
             </p>
-            <div className="flex flex-wrap gap-3 text-sm">
-              <Link
-                href="/contact"
-                className="bg-white text-nav px-4 py-2 rounded-lg font-medium hover:bg-slate-100"
-              >
-                Contact us
-              </Link>
-              <a
-                href={whatsappChatUrl(`Hi, I need spice delivery to ${content.label}.`)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="border border-white/60 px-4 py-2 rounded-lg hover:bg-white/10"
-              >
-                WhatsApp
-              </a>
-            </div>
+            <a
+              href={whatsappChatUrl(`Hi, I need spice delivery to ${content.label}.`)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex border border-white/60 px-4 py-2 rounded-lg hover:bg-white/10 text-sm"
+            >
+              WhatsApp
+            </a>
           </section>
         </aside>
       </div>

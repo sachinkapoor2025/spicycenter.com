@@ -45,9 +45,19 @@ export default function PrivacyPage() {
         </p>
         <p className="text-slate-500 text-sm">Last updated: June 2025</p>
         <p>
-          <Link href="/" className="text-nav font-semibold hover:underline">
-            ← Back to home
+          Related notes:{" "}
+          <Link href="/legal/privacy" className="text-nav font-semibold hover:underline">
+            legal privacy
           </Link>
+          ,{" "}
+          <Link href="/terms" className="text-nav font-semibold hover:underline">
+            terms of use
+          </Link>
+          , and{" "}
+          <Link href="/contact" className="text-nav font-semibold hover:underline">
+            contact
+          </Link>
+          .
         </p>
       </div>
     </div>

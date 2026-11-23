@@ -21,15 +21,15 @@ export default function JournalPage() {
   const journal = listJournalPosts();
   const blog = listAllBlogPosts();
   return (
-    <div className="max-w-3xl mx-auto px-4 py-12">
+    <div className="max-w-7xl mx-auto px-4 py-12">
       <h1 className="spice-heading text-4xl">Spice journal</h1>
-      <p className="mt-3 text-muted leading-relaxed">
+      <p className="mt-3 text-muted leading-relaxed max-w-3xl">
         Longer notes for UK and EU cooks: storage, substitutions, harvest calendars, and import FAQs. Articles use
         Article schema. They are culinary and operational, not medical claims and not live farm reports we have not
         filed.
       </p>
       <h2 className="font-serif text-2xl text-primary mt-10">Journal</h2>
-      <ul className="mt-4 space-y-4">
+      <ul className="mt-4 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {journal.map((post) => (
           <li key={post.slug} className="card-spice p-5">
             <Link href={`/journal/${post.slug}`} className="font-serif text-xl text-nav">
@@ -40,10 +40,10 @@ export default function JournalPage() {
         ))}
       </ul>
       <h2 className="font-serif text-2xl text-primary mt-12">From the blog</h2>
-      <ul className="mt-4 space-y-3">
+      <ul className="mt-4 grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
         {blog.map((post) => (
-          <li key={post.slug}>
-            <Link href={`/blog/${post.slug}`} className="text-nav">
+          <li key={post.slug} className="card-spice p-5">
+            <Link href={`/blog/${post.slug}`} className="font-serif text-lg text-nav">
               {post.title}
             </Link>
           </li>

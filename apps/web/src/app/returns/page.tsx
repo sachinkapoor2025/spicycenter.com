@@ -16,7 +16,19 @@ export default function ReturnsPage() {
       <div className="space-y-6 text-slate-700 leading-relaxed text-sm sm:text-base">
         <p>
           At {site.name}, we want every spice delivery to feel special. If something goes wrong with your
-          order, we will make it right.
+          order, we will make it right. See{" "}
+          <Link href="/legal/returns" className="text-nav font-semibold hover:underline">
+            legal returns
+          </Link>
+          ,{" "}
+          <Link href="/legal/shipping" className="text-nav font-semibold hover:underline">
+            shipping notes
+          </Link>
+          , or{" "}
+          <Link href="/contact" className="text-nav font-semibold hover:underline">
+            contact
+          </Link>
+          us.
         </p>
         <h2 className="text-xl font-bold text-primary">Damaged or incorrect items</h2>
         <p>
@@ -60,16 +72,8 @@ export default function ReturnsPage() {
               WhatsApp
             </a>
           </li>
-          <li>
-            <Link href="/contact" className="text-nav underline">
-              Contact form
-            </Link>
-          </li>
         </ul>
         <p className="text-slate-500 text-sm">Last updated: June 2025</p>
-        <Link href="/" className="text-nav font-semibold hover:underline inline-block">
-          ← Back to home
-        </Link>
       </div>
     </div>
   );

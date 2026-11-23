@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { legalMeta, LegalShell } from "@/components/LegalShell";
 import { STOREFRONT_SHIPPING_COPY } from "@/lib/storefront-shipping-copy";
 
@@ -10,7 +11,19 @@ export default function Page() {
       <p>{STOREFRONT_SHIPPING_COPY.eu}</p>
       <p>
         {STOREFRONT_SHIPPING_COPY.perKgAdmin} We do not claim that shipping includes customs duty or VAT unless a rule
-        says so.
+        says so. See{" "}
+        <Link href="/uk" className="text-nav font-semibold hover:underline">
+          Indian spices UK
+        </Link>
+        ,{" "}
+        <Link href="/eu" className="text-nav font-semibold hover:underline">
+          Indian spices Europe
+        </Link>
+        , or send a{" "}
+        <Link href="/enquiry" className="text-nav font-semibold hover:underline">
+          free spice enquiry
+        </Link>
+        .
       </p>
     </LegalShell>
   );

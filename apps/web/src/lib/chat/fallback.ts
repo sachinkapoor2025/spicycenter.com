@@ -9,7 +9,13 @@ const SITE_KEYWORDS =
   /\b(spice|spices|cumin|turmeric|chilli|chili|masala|wholesale|bulk|uk|eu|shipping|deliver|order|payment|stripe|razorpay|product|cart|price|track|support|spicycorner|jeera|haldi|elaichi)\b/i;
 
 function categoriesReply(): string {
-  const links = navItems.map((n) => `- [${n.label}](${siteUrl}${n.href})`).join("\n");
+  const links = navItems
+    .flatMap((n) => {
+      const lines = [`- [${n.label}](${siteUrl}${n.href})`];
+      for (const child of n.children ?? []) lines.push(`  - [${child.label}](${siteUrl}${child.href})`);
+      return lines;
+    })
+    .join("\n");
   return `Browse the Indian spice catalogue and send an enquiry:\n\n${links}\n\nPack sizes run from 100 gm to 1 metric ton. Worldwide delivery is confirmed on enquiry.`;
 }
 

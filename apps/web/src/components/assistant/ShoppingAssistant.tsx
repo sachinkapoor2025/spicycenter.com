@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import type {
   AssistantProduct,
   ChatBlock,
@@ -14,6 +14,7 @@ import { DEFAULT_CHAT_CONFIG, invitationQuickActions, welcomeQuickActions } from
 import { api } from "@/lib/api";
 import { useCart } from "@/lib/cart-context";
 import { useMarket } from "@/lib/market-context";
+import { useEnquiry } from "@/lib/enquiry-context";
 import { getOrCreateSessionId } from "@/lib/session";
 import {
   trackChatClose,
@@ -73,8 +74,8 @@ function loadPersisted(): Persisted | null {
 export function ShoppingAssistant() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const router = useRouter();
-  const { cart, addItem } = useCart();
+  const { cart } = useCart();
+  const { openEnquiry } = useEnquiry();
   const { countryCode } = useMarket();
   const [config, setConfig] = useState<ChatConfig>(DEFAULT_CHAT_CONFIG);
   const [open, setOpen] = useState(false);
@@ -267,21 +268,8 @@ export function ShoppingAssistant() {
   };
 
   const onAddToCart = async (product: AssistantProduct) => {
-    if (product.variants && product.variants.length > 1) {
-      markChatAssistedTouch(product.slug);
-      router.push(product.url);
-      return;
-    }
-    setAddingSlug(product.slug);
-    try {
-      markChatAssistedTouch(product.slug);
-      const vid = product.variants?.length === 1 ? product.variants[0]?.vid : undefined;
-      await addItem(product.slug, 1, undefined, undefined, vid, "chat");
-    } catch {
-      /* cart error is visible in header */
-    } finally {
-      setAddingSlug(null);
-    }
+    markChatAssistedTouch(product.slug);
+    openEnquiry(product.name);
   };
 
   if (hidden || !config.enabled) return null;
