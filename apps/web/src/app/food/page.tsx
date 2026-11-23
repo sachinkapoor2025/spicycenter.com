@@ -3,14 +3,16 @@ import Link from "next/link";
 import { HubBreadcrumbs } from "@/components/HubBreadcrumbs";
 import { pageMetadata, withAbsoluteSocialTitle } from "@/lib/seo";
 import { FOOD_FAMILIES } from "@/lib/food-families";
+import { SuppliedPageCopy } from "@/components/SuppliedPageCopy";
+import { FOOD_SUPPLIED_H1, FOOD_SUPPLIED_INTRO, FOOD_SUPPLIED_SECTIONS } from "@/lib/content/supplied-pages";
 
-const FOOD_META_TITLE = "Indian Food Ingredients Sourcing: Rice & More | SpicyCenter";
+const FOOD_META_TITLE = "Indian Food Ingredients for Wholesale Sourcing | SpicyCenter";
 
 export const metadata: Metadata = withAbsoluteSocialTitle(
   pageMetadata({
     title: FOOD_META_TITLE,
     description:
-      "Enquire for Indian spices, rice and other food ingredients for the UK, Europe and worldwide. Spices are in the catalogue. Other ingredients are confirmed when we reply.",
+      "Enquire for Indian rice, pulses, beans, makhana, millets, seeds and dry fruits for wholesale and international food sourcing.",
     path: "/food",
     absoluteTitle: true,
   }),
@@ -22,22 +24,12 @@ export default function FoodFamiliesPage() {
     <div className="max-w-7xl mx-auto px-4 py-10">
       <HubBreadcrumbs items={[{ name: "Home", path: "/" }, { name: "Food sourcing", path: "/food" }]} />
       <p className="spice-kicker">B2B sourcing</p>
-      <h1 className="spice-heading text-4xl mt-2">Indian vegetarian food families</h1>
-      <p className="mt-4 text-muted leading-relaxed max-w-3xl">
-        The storefront catalogue is{" "}
-        <Link href="/spices" className="text-nav font-semibold hover:underline">
-          Indian spices
-        </Link>
-        . Other vegetarian families below are enquiry hubs so buyers can send a{" "}
-        <Link href="/enquiry" className="text-nav font-semibold hover:underline">
-          free spice enquiry
-        </Link>{" "}
-        or a{" "}
-        <Link href="/wholesale" className="text-nav font-semibold hover:underline">
-          wholesale
-        </Link>{" "}
-        request without us publishing fake SKUs.
-      </p>
+      <h1 className="spice-heading text-3xl sm:text-4xl mt-2">{FOOD_SUPPLIED_H1}</h1>
+      {FOOD_SUPPLIED_INTRO.map((paragraph) => (
+        <p key={paragraph} className="mt-4 text-muted leading-relaxed max-w-3xl">
+          {paragraph}
+        </p>
+      ))}
       <ul className="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
         {FOOD_FAMILIES.map((f) => (
           <li key={f.slug}>
@@ -48,6 +40,7 @@ export default function FoodFamiliesPage() {
           </li>
         ))}
       </ul>
+      <SuppliedPageCopy sections={FOOD_SUPPLIED_SECTIONS} className="mt-12" />
     </div>
   );
 }

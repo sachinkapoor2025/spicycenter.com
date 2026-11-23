@@ -3,14 +3,16 @@ import Link from "next/link";
 import { HubBreadcrumbs } from "@/components/HubBreadcrumbs";
 import { pageMetadata, withAbsoluteSocialTitle } from "@/lib/seo";
 import { loadKeywordMarkets, loadKeywordUniverseMeta } from "@/lib/keyword-universe";
+import { SuppliedPageCopy } from "@/components/SuppliedPageCopy";
+import { MARKETS_SUPPLIED_H1, MARKETS_SUPPLIED_INTRO, MARKETS_SUPPLIED_SECTIONS } from "@/lib/content/supplied-pages";
 
-const MARKETS_META_TITLE = "Indian Spice Export Markets: UK, Europe & GCC | SpicyCenter";
+const MARKETS_META_TITLE = "Indian Spices for International Markets | SpicyCenter";
 
 export const metadata: Metadata = withAbsoluteSocialTitle(
   pageMetadata({
     title: MARKETS_META_TITLE,
     description:
-      "Enquiry hubs for importers and distributors in the UK, Germany, France, the Netherlands, Ireland, the Middle East and worldwide. Send a free enquiry.",
+      "Explore Indian spice sourcing for the UK, Europe, the USA, Canada, the UAE, the Middle East and other international markets.",
     path: "/markets",
     absoluteTitle: true,
   }),
@@ -24,30 +26,18 @@ export default function MarketsIndexPage() {
     <div className="max-w-7xl mx-auto px-4 py-10">
       <HubBreadcrumbs items={[{ name: "Home", path: "/" }, { name: "Export markets", path: "/markets" }]} />
       <p className="spice-kicker">B2B sourcing</p>
-      <h1 className="spice-heading text-4xl mt-2">Export markets</h1>
-      <p className="mt-4 text-muted max-w-3xl leading-relaxed">
-        These hubs help buyers in {markets.length} countries find the right enquiry path. Start with{" "}
-        <Link href="/uk" className="text-nav font-semibold hover:underline">
-          Indian spices UK
-        </Link>
-        , request{" "}
-        <Link href="/wholesale" className="text-nav font-semibold hover:underline">
-          wholesale Indian spices
-        </Link>
-        , or send a{" "}
-        <Link href="/enquiry" className="text-nav font-semibold hover:underline">
-          free spice enquiry
-        </Link>
-        . Retail quotes on this site cover the United Kingdom and listed EU countries. United States and Canada can
-        request a 100kg+ bulk quote. Other markets submit a free sourcing enquiry — we do not invent warehouses,
-        certifications, or shipping times.
-      </p>
+      <h1 className="spice-heading text-3xl sm:text-4xl mt-2">{MARKETS_SUPPLIED_H1}</h1>
+      {MARKETS_SUPPLIED_INTRO.map((paragraph) => (
+        <p key={paragraph} className="mt-4 text-muted max-w-3xl leading-relaxed">
+          {paragraph}
+        </p>
+      ))}
       <p className="mt-6 rounded-2xl border border-[#e6d5bc] bg-white p-4 text-sm">
-        Targeting UAE and the Middle East? Use the{" "}
+        Targeting the UAE and the Middle East? Read the{" "}
         <Link href="/middle-east" className="text-nav font-semibold">
-          Middle East country, emirate and city pages
+          Middle East market page
         </Link>{" "}
-        plus the UAE / GCC market hubs below. Other countries on this list are unchanged.
+        and use the UAE and GCC market hubs below.
       </p>
       {meta && (
         <p className="mt-3 text-xs text-muted">
@@ -69,6 +59,7 @@ export default function MarketsIndexPage() {
           </li>
         ))}
       </ul>
+      <SuppliedPageCopy sections={MARKETS_SUPPLIED_SECTIONS} className="mt-12" />
     </div>
   );
 }

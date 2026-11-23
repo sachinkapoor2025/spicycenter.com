@@ -2,8 +2,6 @@ import type { MetadataRoute } from "next";
 import { allCountrySeoSlugs } from "@/lib/content/country-pages";
 import { loadComparisons } from "@/lib/content/comparisons";
 import { listJournalPosts } from "@/lib/content/journal-posts";
-import { listAllBlogPosts } from "@/lib/content/seo-blog";
-import { WHOLESALE_SLUGS } from "@/lib/content/wholesale-landings";
 import { FOOD_FAMILIES } from "@/lib/food-families";
 import { getCatalogProducts } from "@/lib/catalog-fallback";
 import { loadKeywordMarkets, loadKeywordProducts } from "@/lib/keyword-universe";
@@ -11,7 +9,6 @@ import { loadRecipes } from "@/lib/recipes";
 import { categoryOrder, exploreCategories, regionLinks } from "@/lib/site";
 import { SOURCING_GUIDES } from "@/lib/sourcing-guides";
 import { siteUrl } from "@/lib/env";
-import { ME_PLACES } from "@/lib/middle-east-locations";
 import { loadPublishedSpiceEntities } from "@/lib/spice-data";
 
 /** Production canonical origin for sitemap and robots. Apex, matching the rest of the site. */
@@ -43,8 +40,6 @@ export const SITEMAP_STATIC_PATHS: readonly ApprovedSitemapPath[] = [
   { path: "/products", changeFrequency: "daily", priority: 0.9 },
   { path: "/spices", changeFrequency: "daily", priority: 0.95 },
   { path: "/spice-supplier", changeFrequency: "weekly", priority: 0.9 },
-  { path: "/wholesale", changeFrequency: "weekly", priority: 0.85 },
-  { path: "/bulk-enquiry", changeFrequency: "weekly", priority: 0.85 },
   { path: "/enquiry", changeFrequency: "weekly", priority: 0.85 },
   { path: "/markets", changeFrequency: "weekly", priority: 0.85 },
   { path: "/middle-east", changeFrequency: "weekly", priority: 0.85 },
@@ -59,7 +54,6 @@ export const SITEMAP_STATIC_PATHS: readonly ApprovedSitemapPath[] = [
   { path: "/legal/privacy", changeFrequency: "monthly", priority: 0.4 },
   { path: "/legal/terms", changeFrequency: "monthly", priority: 0.4 },
   { path: "/spice-guide", changeFrequency: "weekly", priority: 0.9 },
-  { path: "/spice-market-prices", changeFrequency: "daily", priority: 0.85 },
   { path: "/spice-finder", changeFrequency: "monthly", priority: 0.8 },
   { path: "/recipes", changeFrequency: "weekly", priority: 0.8 },
   { path: "/journal", changeFrequency: "weekly", priority: 0.8 },
@@ -71,7 +65,6 @@ export const SITEMAP_STATIC_PATHS: readonly ApprovedSitemapPath[] = [
   { path: "/about", changeFrequency: "monthly", priority: 0.7 },
   { path: "/shipping", changeFrequency: "monthly", priority: 0.7 },
   { path: "/faq", changeFrequency: "monthly", priority: 0.7 },
-  { path: "/blog", changeFrequency: "weekly", priority: 0.8 },
   { path: "/contact", changeFrequency: "monthly", priority: 0.6 },
   { path: "/terms", changeFrequency: "yearly", priority: 0.4 },
   { path: "/privacy", changeFrequency: "yearly", priority: 0.4 },
@@ -93,6 +86,10 @@ export const SITEMAP_EXCLUDED_PATH_PREFIXES: readonly string[] = [
   "/bulk-enquiry/confirm",
   "/unsubscribe",
   "/keyword-map",
+  "/blog",
+  "/wholesale",
+  "/bulk-enquiry",
+  "/spice-market-prices",
   "/cities",
   "/spice-guide/compare",
   "/uk/indian-spices",
@@ -181,20 +178,8 @@ export async function buildApprovedSitemapEntries(): Promise<MetadataRoute.Sitem
   });
 
   safeCollect(() => {
-    for (const slug of WHOLESALE_SLUGS) {
-      rows.push(entry(`/wholesale/${slug}`, "monthly", 0.75, now));
-    }
-  });
-
-  safeCollect(() => {
     for (const market of loadKeywordMarkets()) {
       rows.push(entry(`/markets/${market.slug}`, "monthly", 0.75, now));
-    }
-  });
-
-  safeCollect(() => {
-    for (const place of ME_PLACES) {
-      rows.push(entry(`/middle-east/${place.slug}`, "monthly", 0.8, now));
     }
   });
 
@@ -244,12 +229,6 @@ export async function buildApprovedSitemapEntries(): Promise<MetadataRoute.Sitem
   safeCollect(() => {
     for (const post of listJournalPosts()) {
       rows.push(entry(`/journal/${post.slug}`, "monthly", 0.7, sitemapDate(post.updatedAt)));
-    }
-  });
-
-  safeCollect(() => {
-    for (const post of listAllBlogPosts()) {
-      rows.push(entry(`/blog/${post.slug}`, "monthly", 0.7, sitemapDate(post.updatedAt)));
     }
   });
 

@@ -9,13 +9,27 @@ import { SpiceSkuCard } from "@/components/SpiceSkuCard";
 import { featuredBilingualName } from "@/lib/catalogue";
 import { JsonLd } from "@/components/JsonLd";
 import { getCategoryBatch1 } from "@/lib/content/category-batch1";
+import { SuppliedPageCopy } from "@/components/SuppliedPageCopy";
+import { MASALA_SUPPLIED_H1, MASALA_SUPPLIED_INTRO, MASALA_SUPPLIED_SECTIONS } from "@/lib/content/supplied-pages";
 
 type Props = { params: Promise<{ category: string }> };
 
-const MASALA_META_TITLE = "Indian Masala Blends: Garam Masala UK & EU | SpicyCenter";
+const MASALA_META_TITLE = "Indian Masala Blends for Authentic Flavours | SpicyCenter";
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { category } = await params;
+  if (category === "indian-masalas") {
+    return withAbsoluteSocialTitle(
+      pageMetadata({
+        title: MASALA_META_TITLE,
+        description:
+          "Traditional and regional Indian masala blends for home cooking and food businesses, with pack sizes from 100 grams to 1 metric ton by enquiry.",
+        path: `/spices/${category}`,
+        absoluteTitle: true,
+      }),
+      MASALA_META_TITLE,
+    );
+  }
   const batch = getCategoryBatch1(category);
   if (batch) {
     return withAbsoluteSocialTitle(
@@ -26,18 +40,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         absoluteTitle: true,
       }),
       batch.title,
-    );
-  }
-  if (category === "indian-masalas") {
-    return withAbsoluteSocialTitle(
-      pageMetadata({
-        title: MASALA_META_TITLE,
-        description:
-          "Authentic Indian masala blends including garam masala, sambar and chettinad. Enquire for bulk packs for the UK, Europe and worldwide.",
-        path: `/spices/${category}`,
-        absoluteTitle: true,
-      }),
-      MASALA_META_TITLE,
     );
   }
   const spice = getSpiceBySlug(category);
@@ -76,13 +78,19 @@ export default async function SpiceCategoryPage({ params }: Props) {
     <div className="max-w-7xl mx-auto px-4 py-10">
       {batch ? <JsonLd data={faqJsonLd(batch.faqs)} /> : null}
       <p className="text-sm text-muted"><Link href="/spices">Shop</Link> / {title}</p>
-      <h1 className="spice-heading text-4xl mt-2">{batch?.h1 ?? title}</h1>
-      {bilingual ? (
+      <h1 className="spice-heading text-3xl sm:text-4xl mt-2">{category === "indian-masalas" ? MASALA_SUPPLIED_H1 : batch?.h1 ?? title}</h1>
+      {category === "indian-masalas" ? (
+        <div className="mt-4 max-w-3xl space-y-3 text-muted leading-relaxed">
+          {MASALA_SUPPLIED_INTRO.map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
+          ))}
+        </div>
+      ) : bilingual ? (
         <p className="text-lg text-muted mt-1" lang="ar" dir="rtl">
           {bilingual.english} — {bilingual.arabic}
         </p>
       ) : null}
-      {batch ? (
+      {category === "indian-masalas" ? null : batch ? (
         <div className="mt-4 max-w-3xl space-y-4 text-muted leading-relaxed">
           {batch.paragraphs.map((paragraph) => (
             <p key={paragraph}>{paragraph}</p>
@@ -108,6 +116,7 @@ export default async function SpiceCategoryPage({ params }: Props) {
           <SpiceSkuCard key={p.slug} product={p} />
         ))}
       </div>
+      {category === "indian-masalas" ? <SuppliedPageCopy sections={MASALA_SUPPLIED_SECTIONS} className="mt-12" /> : null}
       {batch ? (
         <section className="mt-14">
           <h2 className="spice-heading text-2xl sm:text-3xl">FAQs</h2>

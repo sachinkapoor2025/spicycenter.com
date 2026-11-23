@@ -30,6 +30,13 @@ const nextConfig: NextConfig = {
       { source: "/just", destination: "/", permanent: true },
       { source: "/spice-guide/compare/:slug", destination: "/spice-guide/comparisons/:slug", permanent: true },
       { source: "/wholesale", destination: "/enquiry", permanent: true },
+      { source: "/wholesale/:path*", destination: "/enquiry", permanent: true },
+      { source: "/bulk-enquiry", destination: "/enquiry", permanent: true },
+      { source: "/bulk-enquiry/:path*", destination: "/enquiry", permanent: true },
+      { source: "/middle-east/:path*", destination: "/enquiry", permanent: true },
+      { source: "/spice-market-prices", destination: "/enquiry", permanent: true },
+      { source: "/blog", destination: "/journal", permanent: true },
+      { source: "/blog/:path*", destination: "/journal", permanent: true },
     ];
   },
   env: {

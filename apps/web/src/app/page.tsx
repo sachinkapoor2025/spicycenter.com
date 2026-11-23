@@ -12,12 +12,11 @@ import { getCatalogProducts } from "@/lib/catalog-fallback";
 import { faqJsonLd } from "@/lib/seo";
 import { featuredBilingualName, PACK_SIZE_RANGE } from "@/lib/catalogue";
 import { spiceStockImagePath } from "@/lib/spice-stock-images";
+import { HOME_SUPPLIED_H1, HOME_SUPPLIED_INTRO, HOME_SUPPLIED_SECTIONS } from "@/lib/content/supplied-pages";
+import { SuppliedPageCopy } from "@/components/SuppliedPageCopy";
 
-const HOME_H1 = "Indian Spices, Masalas & Food Ingredients, Sourced from India for the World";
-const HOME_INTRO = [
-  "Good cooking starts long before the pan gets hot. It starts with a cumin seed that actually smells like cumin, a turmeric that colours the dish properly, and a pepper that still has some bite left in it.",
-  "That is what we try to put in your hands at SpicyCenter. Spices and masalas are the main catalogue, supplied to businesses across the UK, Europe, the Middle East and beyond. Rice and other food-ingredient enquiries may be discussed separately, subject to availability. Whether you run a restaurant, a grocery chain, a distribution business or a private-label brand, you get the same thing: clear product information, sensible pack sizes and a real person replying to your enquiry.",
-] as const;
+const HOME_H1 = HOME_SUPPLIED_H1;
+const HOME_INTRO = [HOME_SUPPLIED_INTRO] as const;
 
 const SHOP_TYPE_NOTES = [
   ["Whole Spices", "Cumin, cardamom, cloves, pepper and more, with their aroma intact."],
@@ -39,9 +38,9 @@ const POPULAR_SPICES = [
   ["Clove", ""],
 ] as const;
 
-const HOME_META_TITLE = "Indian Spices Wholesale for UK & Europe | SpicyCenter";
+const HOME_META_TITLE = "Premium Indian Spices Supplier & Exporter | SpicyCenter";
 const HOME_META_DESCRIPTION =
-  "Authentic Indian spices, masalas and rice for wholesale enquiry to the UK, Europe and worldwide. Send your quantity and destination and we will reply.";
+  "SpicyCenter supplies premium Indian whole spices, ground spices, seeds and masalas for wholesale and bulk enquiry to importers, distributors and food businesses worldwide.";
 
 export const metadata: Metadata = withAbsoluteSocialTitle(
   pageMetadata({
@@ -406,6 +405,13 @@ export default async function HomePage() {
         <p className="mt-2 font-serif italic text-base sm:text-lg text-nav">{site.promise}</p>
       </section>
 
+      <section className="max-w-7xl mx-auto px-4 pb-4">
+        <SuppliedPageCopy sections={HOME_SUPPLIED_SECTIONS} />
+        <Link href="/enquiry" className="btn-primary mt-8 inline-flex !w-auto px-5 py-2.5 text-sm font-semibold">
+          Send an enquiry
+        </Link>
+      </section>
+
       <section className="max-w-7xl mx-auto px-4 py-14">
         <h2 className="spice-heading text-[1.35rem] sm:text-[1.5rem] md:text-[1.7rem] mt-2 mb-3 leading-snug">Why Buyers Enquire with Us</h2>
         <p className="text-muted max-w-3xl mb-6">
@@ -479,19 +485,6 @@ export default async function HomePage() {
           </div>
         </div>
 
-        <div className="mt-4 md:mt-5 rounded-lg border border-[#e6d5bc] bg-beige/50 p-4 sm:p-5 md:p-6">
-          <p className="spice-kicker tracking-[0.14em] sm:tracking-[0.16em]">UAE and Middle East</p>
-          <h2 className="font-serif text-[1.2rem] sm:text-[1.35rem] md:text-[1.5rem] mt-2 text-primary leading-snug">Indian Spices for the UAE and Middle East</h2>
-          <p className="mt-2.5 text-[0.9rem] md:text-[0.98rem] leading-relaxed text-muted max-w-3xl">
-            Importers, hotels and food businesses in Dubai, Abu Dhabi, Saudi Arabia, Qatar and the wider GCC can send us a bulk enquiry too.
-          </p>
-          <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2">
-            <Link href="/middle-east" className="btn-primary shrink-0 !w-auto px-5 py-2.5 text-sm font-semibold">Middle East hubs</Link>
-            <Link href="/middle-east/dubai" className="text-nav font-semibold whitespace-nowrap text-sm leading-none">Dubai</Link>
-            <Link href="/middle-east/abu-dhabi" className="text-nav font-semibold whitespace-nowrap text-sm leading-none">Abu Dhabi</Link>
-            <Link href="/markets/uae" className="text-nav font-semibold whitespace-nowrap text-sm leading-none">UAE keyword hub</Link>
-          </div>
-        </div>
       </section>
 
       <section className="max-w-7xl mx-auto px-4 py-6 md:py-8">

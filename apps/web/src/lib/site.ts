@@ -174,20 +174,16 @@ export const foodSourcingNavChildren: readonly NavChild[] = [
 export const navItems: readonly NavItem[] = [
   { label: "Home", href: "/" },
   { label: "Catalog", href: "/spices", children: catalogNavChildren },
-  { label: "Enquire Now", href: "/enquiry" },
-  { label: "Bulk & Wholesale", href: "/bulk-enquiry" },
   { label: "Spice Guide", href: "/spice-guide" },
   { label: "Indian Spices", href: "/indian-spice-regions", children: indianSpiceNavChildren },
   { label: "Masalas", href: "/spices/indian-masalas" },
   { label: "Recipes", href: "/recipes" },
   { label: "Journal", href: "/journal" },
-  { label: "Blogs", href: "/blog" },
-  { label: "Spice Market Prices", href: "/spice-market-prices" },
   { label: "Markets", href: "/markets" },
-  { label: "Middle East", href: "/middle-east" },
   { label: "Food sourcing", href: "/food", children: foodSourcingNavChildren },
   { label: "Guides", href: "/guides" },
   { label: "About", href: "/about" },
+  { label: "Enquire Now", href: "/enquiry" },
 ];
 
 export const packSizes = BULK_PACK_SIZES;

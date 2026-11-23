@@ -2,14 +2,16 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { pageMetadata, withAbsoluteSocialTitle } from "@/lib/seo";
 import { loadRecipes } from "@/lib/recipes";
+import { SuppliedPageCopy } from "@/components/SuppliedPageCopy";
+import { RECIPES_SUPPLIED_H1, RECIPES_SUPPLIED_INTRO, RECIPES_SUPPLIED_SECTIONS } from "@/lib/content/supplied-pages";
 
-const RECIPES_META_TITLE = "Indian Spice Recipes: Biryani, Dal Tadka | SpicyCenter";
+const RECIPES_META_TITLE = "Traditional Indian Recipes and Flavours | SpicyCenter";
 
 export const metadata: Metadata = withAbsoluteSocialTitle(
   pageMetadata({
     title: RECIPES_META_TITLE,
     description:
-      "Indian recipes for UK and European kitchens using whole and ground spices, from home-style biryani to dal tadka. Learn which spices to use and why.",
+      "Traditional Indian recipes for rice, dal, curries, vegetables, snacks, breakfast and desserts, with the spices used in each style of cooking.",
     path: "/recipes",
     absoluteTitle: true,
   }),
@@ -21,27 +23,12 @@ export default function RecipesPage() {
   const courses = [...new Set(recipes.map((r) => r.course || r.cuisine))];
   return (
     <div className="max-w-7xl mx-auto px-4 py-10">
-      <h1 className="spice-heading text-4xl">Recipes</h1>
-      <p className="mt-3 text-muted max-w-2xl leading-relaxed">
-        {recipes.length} dishes that show how Indian spices behave in a pan: jeera in ghee, mustard in oil, garam masala
-        at the end. They are cooking notes for UK and EU home kitchens, not diet advice. Quantities assume whole or
-        freshly ground spices.
-      </p>
-      <p className="mt-3 text-sm text-muted">
-        Pair each dish with the{" "}
-        <Link href="/spice-guide" className="text-nav font-semibold hover:underline">
-          spice guide
-        </Link>
-        ,{" "}
-        <Link href="/spice-guide/comparisons" className="text-nav font-semibold hover:underline">
-          spice comparisons
-        </Link>
-        , and the{" "}
-        <Link href="/spices" className="text-nav font-semibold hover:underline">
-          Indian spice catalogue
-        </Link>
-        .
-      </p>
+      <h1 className="spice-heading text-3xl sm:text-4xl">{RECIPES_SUPPLIED_H1}</h1>
+      {RECIPES_SUPPLIED_INTRO.map((paragraph) => (
+        <p key={paragraph} className="mt-3 text-muted max-w-3xl leading-relaxed">
+          {paragraph}
+        </p>
+      ))}
       {courses.map((course) => (
         <section key={course} className="mt-10">
           <h2 className="font-serif text-2xl text-primary">{course}</h2>
@@ -62,6 +49,7 @@ export default function RecipesPage() {
           </ul>
         </section>
       ))}
+      <SuppliedPageCopy sections={RECIPES_SUPPLIED_SECTIONS} className="mt-12" />
     </div>
   );
 }

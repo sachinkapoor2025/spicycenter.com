@@ -15,15 +15,12 @@ import {
 
 const shopLinks = [
   { href: "/spices", label: "Spices" },
-  { href: "/enquiry", label: "Enquire Now" },
   { href: "/markets", label: "Export markets" },
-  { href: "/middle-east", label: "Middle East" },
   { href: "/locations", label: "Location list" },
   { href: "/food", label: "Food sourcing" },
   { href: "/guides", label: "Sourcing guides" },
   { href: "/spice-guide", label: "Spice Guide" },
-  { href: "/blog", label: "Blogs" },
-  { href: "/spice-market-prices", label: "Spice Market Prices" },
+  { href: "/enquiry", label: "Enquire Now" },
 ] as const;
 
 const stores = [...STORE_LOCATIONS];

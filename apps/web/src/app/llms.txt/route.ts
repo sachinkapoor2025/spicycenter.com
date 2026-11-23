@@ -48,9 +48,8 @@ ${cats}
 - Home: ${siteUrl}/
 - Shop: ${siteUrl}/spices
 - Enquire Now: ${siteUrl}/enquiry
-- Wholesale hub: ${siteUrl}/wholesale (redirects to /enquiry)
 - Export markets: ${siteUrl}/markets
-- Middle East (UAE emirates + GCC cities): ${siteUrl}/middle-east
+- Middle East: ${siteUrl}/middle-east
 - Location inventory: ${siteUrl}/locations
 - Food sourcing hubs: ${siteUrl}/food
 - Sourcing guides: ${siteUrl}/guides
@@ -59,8 +58,6 @@ ${cats}
 - Spice guide: ${siteUrl}/spice-guide
 - Comparisons: ${siteUrl}/spice-guide/comparisons
 - Journal: ${siteUrl}/journal
-- Blogs: ${siteUrl}/blog
-- Market prices: ${siteUrl}/spice-market-prices
 - Spice Finder: ${siteUrl}/spice-finder
 - Recipes: ${siteUrl}/recipes
 - UK: ${siteUrl}/uk

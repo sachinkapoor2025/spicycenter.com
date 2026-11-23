@@ -167,7 +167,6 @@ export default function AdminDashboard() {
           { href: "/admin/products", title: "Products", desc: "Add, edit, bulk upload" },
           { href: "/admin/categories", title: "Categories", desc: "Organize catalog" },
           { href: "/admin/expense-settlement", title: "Expense & Settlement", desc: "Expenses & settlements" },
-          { href: "/admin/blog-images", title: "Blog Images", desc: "Hero images per article" },
         ].map((item) => (
           <Link
             key={item.href}

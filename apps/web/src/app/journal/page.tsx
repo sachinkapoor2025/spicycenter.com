@@ -3,14 +3,16 @@ import Link from "next/link";
 import { pageMetadata, withAbsoluteSocialTitle } from "@/lib/seo";
 import { listJournalPosts } from "@/lib/content/journal-posts";
 import { listAllBlogPosts } from "@/lib/content/seo-blog";
+import { SuppliedPageCopy } from "@/components/SuppliedPageCopy";
+import { JOURNAL_SUPPLIED_H1, JOURNAL_SUPPLIED_INTRO, JOURNAL_SUPPLIED_SECTIONS } from "@/lib/content/supplied-pages";
 
-const JOURNAL_META_TITLE = "Spice Journal: Guides, Storage & Cooking Notes | SpicyCenter";
+const JOURNAL_META_TITLE = "Indian Spice Journal: Tips and Sourcing | SpicyCenter";
 
 export const metadata: Metadata = withAbsoluteSocialTitle(
   pageMetadata({
     title: JOURNAL_META_TITLE,
     description:
-      "Spice guides and storage advice from SpicyCenter for UK and European kitchens. Learn how to store Indian spices and choose between whole and ground.",
+      "The SpicyCenter journal covers Indian spice varieties, storage, cooking techniques, harvests and sourcing for cooks and food businesses.",
     path: "/journal",
     absoluteTitle: true,
   }),
@@ -22,12 +24,12 @@ export default function JournalPage() {
   const blog = listAllBlogPosts();
   return (
     <div className="max-w-7xl mx-auto px-4 py-12">
-      <h1 className="spice-heading text-4xl">Spice journal</h1>
-      <p className="mt-3 text-muted leading-relaxed max-w-3xl">
-        Longer notes for UK and EU cooks: storage, substitutions, harvest calendars, and import FAQs. Articles use
-        Article schema. They are culinary and operational, not medical claims and not live farm reports we have not
-        filed.
-      </p>
+      <h1 className="spice-heading text-3xl sm:text-4xl">{JOURNAL_SUPPLIED_H1}</h1>
+      {JOURNAL_SUPPLIED_INTRO.map((paragraph) => (
+        <p key={paragraph} className="mt-3 text-muted leading-relaxed max-w-3xl">
+          {paragraph}
+        </p>
+      ))}
       <h2 className="font-serif text-2xl text-primary mt-10">Journal</h2>
       <ul className="mt-4 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {journal.map((post) => (
@@ -62,6 +64,7 @@ export default function JournalPage() {
           Comparisons
         </Link>
       </p>
+      <SuppliedPageCopy sections={JOURNAL_SUPPLIED_SECTIONS} className="mt-12" />
     </div>
   );
 }

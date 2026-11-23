@@ -10,7 +10,7 @@ export function spiceHubLinks(slug: string, name: string): SeoLinkGroup[] {
         links: [
           { href: `/spice-guide/${spice}`, label: `What is ${name}?` },
           { href: `/spices/${spice}`, label: `Shop ${name}` },
-          { href: `/wholesale/${spice}`, label: `${name} wholesale (10kg+)` },
+          { href: "/enquiry", label: `Enquire for ${name}` },
           { href: "/recipes", label: "Recipes using Indian spices" },
           { href: "/spice-guide/comparisons", label: "Spice comparisons" },
           { href: "/spices", label: "Full Indian spice catalogue" },
@@ -29,8 +29,6 @@ export function spiceHubLinks(slug: string, name: string): SeoLinkGroup[] {
         heading: "Trade buyers",
         links: [
           { href: "/enquiry", label: "Request a wholesale quote" },
-          { href: "/wholesale/restaurants", label: "Restaurant spice supply" },
-          { href: "/wholesale/food-manufacturers", label: "Food manufacturers" },
           { href: "/legal/food-information", label: "UK/EU food information" },
         ],
       },

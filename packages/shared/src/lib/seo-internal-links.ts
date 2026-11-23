@@ -31,10 +31,8 @@ export const SEO_CATEGORY_LINKS: readonly SeoLink[] = [
   { href: "/spices/ground-spices", label: "Ground spices" },
   { href: "/spices/indian-chillies", label: "Indian chillies" },
   { href: "/spices/indian-masalas", label: "Masalas" },
-  { href: "/bulk-spices", label: "Bulk spices" },
-  { href: "/wholesale", label: "Wholesale" },
+  { href: "/enquiry", label: "Enquire" },
   { href: "/spice-guide", label: "Spice guide" },
-  { href: "/spice-market-prices", label: "Market prices" },
 ];
 
 /** Countries we can quote CJ freight for — never market unquoted destinations as shippable. */
@@ -54,7 +52,7 @@ export const VERIFIED_COUNTRY_LINKS: readonly (SeoLink & { slug: string; code: s
 export const PRIORITY_CITY_LINKS: readonly SeoLink[] = [
   { href: "/uk", label: "Indian spices for the UK" },
   { href: "/eu", label: "Indian spices for Europe" },
-  { href: "/wholesale", label: "Wholesale Indian spices" },
+  { href: "/enquiry", label: "Send a spice enquiry" },
   { href: "/spice-supplier", label: "Indian spice supplier" },
 ];
 
@@ -62,14 +60,14 @@ export const PLANNING_LINKS: readonly SeoLink[] = [
   { href: "/spices", label: "Shop Indian spices" },
   { href: "/spice-guide", label: "Indian spice encyclopaedia" },
   { href: "/recipes", label: "Spice recipes" },
-  { href: "/blog", label: "Spice notes" },
+  { href: "/journal", label: "Spice journal" },
   { href: "/legal/shipping", label: "Shipping & delivery" },
 ];
 
 export const FEATURED_BLOG_LINKS: readonly SeoLink[] = [
-  { href: "/blog/indian-spices-for-curry", label: "Indian spices for curry" },
-  { href: "/blog/whole-spices-vs-ground-spices", label: "Whole vs ground spices" },
-  { href: "/blog/buy-indian-spices-in-bulk-uk", label: "Bulk spices in the UK" },
+  { href: "/journal", label: "Spice journal" },
+  { href: "/spice-guide/comparisons/whole-spices-vs-ground-spices", label: "Whole vs ground spices" },
+  { href: "/enquiry", label: "Send a spice enquiry" },
 ];
 
 const RELATED_CATEGORIES: Record<string, readonly string[]> = {
@@ -103,7 +101,7 @@ function pathFor(page: InternalLinkPage): string {
     case "events":
       return "/spice-guide/events";
     case "blog":
-      return `/blog/${page.blogSlug}`;
+      return "/journal";
     case "shipping":
       return "/shipping";
   }
@@ -182,7 +180,7 @@ export function getInternalLinkGroups(page: InternalLinkPage): SeoLinkGroup[] {
         [
           { href: "/spices", label: "Indian spice catalogue" },
           { href: "/spice-guide", label: "Indian spice guide" },
-          { href: "/wholesale", label: "wholesale Indian spices" },
+          { href: "/enquiry", label: "wholesale Indian spices" },
         ],
         current
       );
@@ -208,7 +206,7 @@ export function getInternalLinkGroups(page: InternalLinkPage): SeoLinkGroup[] {
       return relatedOnly(
         [
           { href: "/spices", label: "Indian spice catalogue" },
-          { href: "/wholesale", label: "wholesale Indian spices" },
+          { href: "/enquiry", label: "wholesale Indian spices" },
           { href: "/spice-guide", label: "Indian spice guide" },
         ],
         current
@@ -227,7 +225,7 @@ export function getInternalLinkGroups(page: InternalLinkPage): SeoLinkGroup[] {
         [
           { href: "/spices", label: "Indian spice catalogue" },
           { href: "/recipes", label: "Indian spice recipes" },
-          { href: "/wholesale", label: "wholesale Indian spices" },
+          { href: "/enquiry", label: "wholesale Indian spices" },
         ],
         current
       );

@@ -13,16 +13,15 @@ export type PhraseLink = {
 /** High-value destinations used for in-copy keyword links. */
 export const SITE_PHRASE_LINKS: readonly PhraseLink[] = [
   { phrases: ["Indian spice encyclopaedia", "spice encyclopaedia", "spice guide", "spice guides"], href: "/spice-guide", anchor: "spice guide" },
-  { phrases: ["wholesale Indian spices", "10kg+ wholesale", "wholesale"], href: "/wholesale", anchor: "wholesale Indian spices" },
+  { phrases: ["wholesale Indian spices", "10kg+ wholesale", "wholesale"], href: "/enquiry", anchor: "spice enquiry" },
   { phrases: ["Indian spices UK", "United Kingdom"], href: "/uk", anchor: "Indian spices UK" },
   { phrases: ["Indian spices Europe", "Europe"], href: "/eu", anchor: "Indian spices Europe" },
   { phrases: ["Indian spice recipes", "recipes"], href: "/recipes", anchor: "Indian spice recipes" },
   { phrases: ["free sourcing enquiry", "free enquiry"], href: "/enquiry", anchor: "free spice enquiry" },
-  { phrases: ["bulk enquiry", "100kg+"], href: "/bulk-enquiry", anchor: "bulk spice enquiry" },
+  { phrases: ["bulk enquiry", "100kg+"], href: "/enquiry", anchor: "bulk spice enquiry" },
   { phrases: ["whole spices"], href: "/spices/whole-spices", anchor: "whole spices" },
   { phrases: ["ground spices"], href: "/spices/ground-spices", anchor: "ground spices" },
   { phrases: ["Indian masalas", "masalas"], href: "/spices/indian-masalas", anchor: "Indian masalas" },
-  { phrases: ["spice market prices", "market prices"], href: "/spice-market-prices", anchor: "Indian spice market prices" },
   { phrases: ["spice finder"], href: "/spice-finder", anchor: "spice finder" },
   { phrases: ["Indian spice supplier", "spice supplier"], href: "/spice-supplier", anchor: "Indian spice supplier" },
   { phrases: ["Indian spice catalogue", "spice catalogue"], href: "/spices", anchor: "Indian spice catalogue" },

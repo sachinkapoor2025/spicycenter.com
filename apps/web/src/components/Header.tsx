@@ -326,17 +326,6 @@ export function Header() {
             >
               Wish Lists
             </Link>
-
-            <button
-              type="button"
-              onClick={() => {
-                closeMenu();
-                openEnquiry();
-              }}
-              className="block w-full text-left rounded-lg px-4 py-3 text-sm font-semibold text-primary hover:bg-nav hover:text-white transition-colors"
-            >
-              Enquire Now
-            </button>
             <Link
               href="/contact"
               onClick={closeMenu}
@@ -351,6 +340,16 @@ export function Header() {
             >
               Help / FAQ
             </Link>
+            <button
+              type="button"
+              onClick={() => {
+                closeMenu();
+                openEnquiry();
+              }}
+              className="block w-full text-left rounded-lg px-4 py-3 text-sm font-semibold text-primary hover:bg-nav hover:text-white transition-colors"
+            >
+              Enquire Now
+            </button>
             </nav>
           </aside>
         </>
