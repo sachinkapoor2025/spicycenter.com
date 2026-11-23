@@ -27,22 +27,7 @@ export default function FaqPage() {
               <span className="text-slate-400 group-open:rotate-45 transition-transform text-xl leading-none">+</span>
             </summary>
             <p className="text-slate-600 mt-3 leading-relaxed">
-              {f.q === "What is the minimum bulk order?" ? (
-                <>
-                  <Link href="/wholesale" className="text-nav font-semibold hover:underline">
-                    Wholesale Indian spices
-                  </Link>{" "}
-                  start at 10kg per bulk line. Larger bags (25kg, 50kg, 100kg+) and custom quantities can be quoted.
-                </>
-              ) : f.q === "How is UK shipping calculated?" ? (
-                <>
-                  Shipping is quoted in GBP for{" "}
-                  <Link href="/uk" className="text-nav font-semibold hover:underline">
-                    Indian spices UK
-                  </Link>{" "}
-                  deliveries (EUR where an EU country rate is configured) from a per-kilogram rule. Import duty and VAT are extra unless a rule is marked inclusive.
-                </>
-              ) : f.q === "What is the difference between whole and ground spices?" ? (
+              {f.q === "What is the difference between whole and ground spices?" ? (
                 <>
                   See{" "}
                   <Link href="/spice-guide/comparisons/whole-spices-vs-ground-spices" className="text-nav font-semibold hover:underline">

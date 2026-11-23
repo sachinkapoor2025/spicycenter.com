@@ -225,7 +225,6 @@ export async function buildApprovedSitemapEntries(): Promise<MetadataRoute.Sitem
 
   safeCollect(() => {
     for (const category of exploreCategories) {
-      if (category.href === "/bulk-spices") continue;
       rows.push(entry(category.href, "weekly", 0.85, now));
     }
   });
