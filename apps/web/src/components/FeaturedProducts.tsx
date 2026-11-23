@@ -15,7 +15,7 @@ export function FeaturedProducts({ items }: { items: FeaturedHomepageSpice[] }) 
           A short list of the spices we are asked for most often. Enquire for retail packs or bulk supply.
         </p>
       </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {items.map((item) => (
           <article key={item.slug} className="card-spice overflow-hidden flex flex-col h-full">
             <Link href={item.href} className="relative block aspect-square bg-beige">
@@ -24,7 +24,7 @@ export function FeaturedProducts({ items }: { items: FeaturedHomepageSpice[] }) 
                 alt={item.englishName}
                 fill
                 className="object-cover"
-                sizes="(max-width: 640px) 100vw, (min-width: 1024px) 20vw, 50vw"
+                sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
               />
             </Link>
             <div className="p-4 flex flex-col flex-1">

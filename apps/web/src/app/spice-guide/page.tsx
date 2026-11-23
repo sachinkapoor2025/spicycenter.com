@@ -36,31 +36,23 @@ export default function SpiceGuideIndex() {
     <div className="max-w-7xl mx-auto px-4 py-10">
       <h1 className="spice-heading text-4xl">Spice guide</h1>
       <p className="mt-3 text-muted max-w-2xl">
-        {spices.length} Indian spices, herbs, seeds and masalas. Explore their names and culinary uses, then choose the quantity that suits your needs.
-        Culinary facts and traditional uses are distinguished from scientific evidence.
+        {spices.length} Indian spices, herbs, seeds and masalas. Each guide covers the name, flavour, culinary uses and growing regions.
       </p>
-      <div className="mt-6 space-y-3 text-sm text-muted max-w-3xl leading-relaxed">
-        <p>
-          Each guide covers English and Hindi names, botanical name when it is useful, growing regions, whole vs ground,
-          and what to check on a pack. Guides are generated from the spice entity file — we do not auto-publish
-          unverified encyclopaedia essays as medical fact.
-        </p>
-        <p>
-          Confused in a UK supermarket aisle? Start with{" "}
-          <Link href="/spice-guide/comparisons" className="text-nav font-semibold hover:underline">
-            spice comparisons
-          </Link>
-          , cook from{" "}
-          <Link href="/recipes" className="text-nav font-semibold hover:underline">
-            Indian spice recipes
-          </Link>
-          , then buy from the{" "}
-          <Link href="/spices" className="text-nav font-semibold hover:underline">
-            Indian spice catalogue
-          </Link>
-          .
-        </p>
-      </div>
+      <p className="mt-4 text-sm text-muted max-w-3xl leading-relaxed">
+        Compare similar spices in the{" "}
+        <Link href="/spice-guide/comparisons" className="text-nav font-semibold hover:underline">
+          spice comparisons
+        </Link>
+        , cook from{" "}
+        <Link href="/recipes" className="text-nav font-semibold hover:underline">
+          Indian spice recipes
+        </Link>
+        , or buy from the{" "}
+        <Link href="/spices" className="text-nav font-semibold hover:underline">
+          Indian spice catalogue
+        </Link>
+        .
+      </p>
       {groups.map((group) => (
         <section key={group} className="mt-10">
           <h2 className="font-serif text-2xl text-primary">{group}</h2>

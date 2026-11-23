@@ -357,18 +357,18 @@ export default async function HomePage() {
             ? `${productCount} products from real varieties, forms and pack sizes — not thin duplicate listings.`
             : "Open the catalogue to browse cumin, turmeric, pepper and masalas, then send an enquiry."}
         </p>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {featured.map((s) => {
             const bilingual = featuredBilingualName(s.canonicalName, s.slug);
             return (
             <Link key={s.id} href={`/spices/${s.slug}`} className="card-spice overflow-hidden">
-              <span className="relative block h-40 w-full bg-beige">
+              <span className="relative block aspect-[4/3] w-full bg-beige">
                 <Image
                   src={spiceStockImagePath(`${s.slug} ${s.canonicalName}`)}
                   alt={s.canonicalName}
                   fill
                   className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 33vw"
+                  sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                 />
               </span>
               <span className="block p-5">

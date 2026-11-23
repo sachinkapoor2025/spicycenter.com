@@ -68,21 +68,6 @@ export default async function ComparisonPage({ params }: Props) {
       </p>
       <h1 className="spice-heading text-4xl mt-2">{c.title}</h1>
       <p className="mt-4 text-lg text-muted">{c.intro}</p>
-      <p className="mt-3 text-sm text-muted">
-        Culinary differences only. Traditional use is not scientific evidence of a medical effect. See the{" "}
-        <Link href="/recipes" className="text-nav font-semibold hover:underline">
-          Indian spice recipes
-        </Link>
-        , the{" "}
-        <Link href="/spices" className="text-nav font-semibold hover:underline">
-          Indian spice catalogue
-        </Link>
-        , and{" "}
-        <Link href="/wholesale" className="text-nav font-semibold hover:underline">
-          wholesale Indian spices
-        </Link>
-        .
-      </p>
 
       <div className="grid md:grid-cols-2 gap-4 mt-8">
         {uniqueSpices.map((s) => (

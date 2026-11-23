@@ -15,7 +15,7 @@ import { FreeEnquiryCtas } from "@/components/FreeEnquiryCtas";
 import { InternalLinksSection } from "@/components/InternalLinksSection";
 import { spiceHubLinks } from "@/lib/seo/spice-hub-links";
 import { recipesForSpice } from "@/lib/recipes";
-import { nutritionDisclaimer, wholeVsGroundCopy } from "@/lib/content/spice-display";
+import { displayHindiName, wholeVsGroundCopy } from "@/lib/content/spice-display";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -52,20 +52,27 @@ export default async function SpiceGuidePage({ params }: Props) {
   const products = getCatalogProducts().filter((p) => p.tags?.includes(`spice:${spice.id}`)).slice(0, 12);
   const recipes = recipesForSpice(spice.id).slice(0, 8);
 
+  const hindi = displayHindiName(spice);
+  const alsoKnown = [...new Set([...spice.commonNames, ...spice.indianNames, ...spice.regionalNames])]
+    .map((name) => name.trim())
+    .filter((name) => name && name.toLowerCase() !== spice.canonicalName.toLowerCase());
+  const heatLabel =
+    spice.heatLevel && spice.heatLevel !== "none"
+      ? { mild: "Mild", medium: "Medium", hot: "Hot", very_hot: "Very hot" }[spice.heatLevel]
+      : undefined;
   const facts = [
-    ["Common name", spice.canonicalName],
-    ["Hindi", spice.hindiName ?? "—"],
-    ["Sanskrit", spice.sanskritName ?? "—"],
-    ["Botanical name", spice.botanicalName ?? "—"],
-    ["Family", spice.botanicalFamily ?? "—"],
-    ["Origin", spice.origin],
-    ["Main producing regions", spice.growingRegions.join(", ") || "—"],
-    ["Flavour", spice.flavourProfile ?? "—"],
-    ["Aroma", spice.aromaProfile ?? "—"],
+    ["Hindi", hindi === "—" ? "" : hindi],
+    ["Also known as", alsoKnown.join(", ")],
+    ["Botanical name", spice.botanicalName ?? ""],
+    ["Flavour", spice.flavourProfile ?? ""],
+    ["Aroma", spice.aromaProfile ?? ""],
+    ["Colour", spice.colour ?? ""],
+    ["Heat", heatLabel ?? ""],
     ["Forms", spice.forms.join(", ")],
-    ["Retail packs", "100g–5kg (typical; see products)"],
-    ["Bulk", "10kg+"],
-  ];
+  ].filter(([, value]) => value);
+  const regions = spice.growingRegions.filter(Boolean);
+  const originBits = [spice.origin, spice.originRegion].filter(Boolean);
+  const faqs = (spice.faqs ?? []).filter((faq) => !/^what is\b/i.test(faq.q.trim()));
 
   return (
     <article className="max-w-3xl mx-auto px-4 py-10">
@@ -81,50 +88,42 @@ export default async function SpiceGuidePage({ params }: Props) {
             { name: "Spice guide", path: "/spice-guide" },
             { name: spice.canonicalName, path: `/spice-guide/${spice.slug}` },
           ]),
-          ...(spice.faqs?.length ? [faqJsonLd(spice.faqs)] : []),
+          ...(faqs.length ? [faqJsonLd(faqs)] : []),
         ]}
       />
       <p className="text-sm text-muted"><Link href="/spice-guide">Spice guide</Link> / {spice.canonicalName}</p>
       <h1 className="spice-heading text-4xl mt-2">What is {spice.canonicalName}?</h1>
-      <p className="mt-3 text-lg text-muted">{spice.shortDescription}</p>
-      <p className="mt-4 text-[15px] leading-relaxed">
-        <strong>Short answer:</strong> {spice.canonicalName}
-        {spice.hindiName ? ` (Hindi: ${spice.hindiName})` : ""}
-        {spice.botanicalName ? ` is ${spice.botanicalName}` : ""}. {spice.flavourProfile}. Culinary use only — not a medicine.
-      </p>
+      <p className="mt-4 text-[15px] leading-relaxed">{spice.description || spice.shortDescription}</p>
 
-      <div className="mt-8 overflow-x-auto card-spice">
-        <table className="w-full text-sm">
-          <tbody>
-            {facts.map(([k, v]) => (
-              <tr key={k} className="border-b border-[#eadfce]">
-                <th className="text-left p-3 w-48 text-earth">{k}</th>
-                <td className="p-3">{v}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      <Block title={`What is ${spice.canonicalName}?`}><p>{spice.description}</p></Block>
-      <Block title={`History of ${spice.canonicalName}`}><p>{spice.history}</p></Block>
-      <Block title="Origin"><p>{spice.origin}{spice.originRegion ? ` — ${spice.originRegion}` : ""}</p></Block>
-      <Block title="Growing regions"><p>{spice.growingRegions.join(", ")}</p></Block>
-      <Block title="How it is grown"><p>{spice.cultivation}</p></Block>
-      <Block title="Harvest"><p>{spice.harvestSeason}</p></Block>
-      <Block title="Processing"><p>{spice.processing}</p></Block>
-      <Block title="Grades">
-        <ul>
-          {spice.grades.filter((g) => g.applies).map((g) => (
-            <li key={g.gradeName}><strong>{g.gradeName}:</strong> {g.description}</li>
+      {facts.length > 0 ? (
+        <dl className="mt-8 card-spice divide-y divide-[#eadfce] text-sm">
+          {facts.map(([label, value]) => (
+            <div key={label} className="grid grid-cols-1 sm:grid-cols-[11rem_1fr] gap-1 sm:gap-4 p-3">
+              <dt className="text-earth">{label}</dt>
+              <dd>{value}</dd>
+            </div>
           ))}
-        </ul>
-        <p className="mt-2 text-sm text-muted">Only grades that apply to a lot should be shown at purchase. These are templates, not invented industry certificates.</p>
-      </Block>
-      <Block title="Flavour, aroma and colour">
-        <p>{spice.flavourProfile}. {spice.aromaProfile}. Colour: {spice.colour}. Heat: {spice.heatLevel ?? "n/a"}.</p>
-      </Block>
-      <Block title="Whole vs ground">
+        </dl>
+      ) : null}
+
+      {spice.culinaryUses.length > 0 ? (
+        <Block title={`How ${spice.canonicalName} is used`}>
+          <ul className="list-disc pl-5 space-y-1">
+            {spice.culinaryUses.map((use) => (
+              <li key={use}>{use}</li>
+            ))}
+          </ul>
+        </Block>
+      ) : null}
+
+      {regions.length > 0 || originBits.length > 0 ? (
+        <Block title={`Where ${spice.canonicalName} is grown and known`}>
+          {regions.length > 0 ? <p>Main growing regions: {regions.join(", ")}.</p> : null}
+          {originBits.length > 0 ? <p className={regions.length > 0 ? "mt-2" : ""}>{originBits.join(" — ")}</p> : null}
+        </Block>
+      ) : null}
+
+      <Block title="Whole or ground">
         <p>{wholeVsGroundCopy(spice)}</p>
         <p className="mt-2 text-sm">
           <Link className="text-nav" href="/spice-guide/comparisons/whole-spices-vs-ground-spices">
@@ -132,26 +131,20 @@ export default async function SpiceGuidePage({ params }: Props) {
           </Link>
         </p>
       </Block>
-      <Block title="Culinary uses">
-        <ul>{spice.culinaryUses.map((u) => <li key={u}>{u}</li>)}</ul>
-      </Block>
-      <Block title="Traditional uses">
-        <p>{spice.traditionalUses || "Recorded in culinary tradition. Traditional use is not scientific evidence of a medical effect."}</p>
-        <p className="text-sm text-muted mt-2">SpicyCenter does not claim that spices cure, treat or prevent disease.</p>
-      </Block>
-      <Block title="Storage and shelf life">
-        <p>{spice.storage} {spice.shelfLife}</p>
-      </Block>
-      <Block title="Nutrition">
-        <p>{nutritionDisclaimer(spice)}</p>
-      </Block>
-      <Block title="Buying guide">
-        <p>Tell us the quantity you need, from 100 gm to 1 metric ton. Prices are not published on this website. Availability is confirmed on the enquiry.</p>
+
+      {spice.storage || spice.shelfLife ? (
+        <Block title="Storage">
+          <p>{[spice.storage, spice.shelfLife].filter(Boolean).join(" ")}</p>
+        </Block>
+      ) : null}
+
+      <Block title={`Buying ${spice.canonicalName}`}>
+        <p>Tell us the quantity you need, from 100 gm to 1 metric ton. Prices are confirmed in the reply.</p>
         <FreeEnquiryCtas productName={spice.canonicalName} spiceQuery={spice.slug} />
       </Block>
-      {spice.faqs?.length ? (
+      {faqs.length > 0 ? (
         <Block title="FAQs">
-          {spice.faqs.map((f) => (
+          {faqs.map((f) => (
             <div key={f.q} className="mb-4">
               <p className="font-semibold">{f.q}</p>
               <p>{f.a}</p>
@@ -173,13 +166,15 @@ export default async function SpiceGuidePage({ params }: Props) {
         </Block>
       ) : null}
 
-      <Block title="Related spices">
-        <div className="flex flex-wrap gap-2">
-          {related.map((r) => (
-            <Link key={r.id} href={`/spice-guide/${r.slug}`} className="rounded-full border px-3 py-1 text-sm">{r.canonicalName}</Link>
-          ))}
-        </div>
-      </Block>
+      {related.length > 0 ? (
+        <Block title="Related spices">
+          <div className="flex flex-wrap gap-2">
+            {related.map((r) => (
+              <Link key={r.id} href={`/spice-guide/${r.slug}`} className="rounded-full border px-3 py-1 text-sm">{r.canonicalName}</Link>
+            ))}
+          </div>
+        </Block>
+      ) : null}
 
       <Block title="Catalogue">
         <div className="grid gap-2">

@@ -20,7 +20,7 @@ export function SpiceSkuCard({ product }: { product: Product }) {
           alt={product.name}
           fill
           className="object-cover group-hover:scale-[1.03] transition"
-          sizes="(max-width: 640px) 100vw, (min-width: 1024px) 33vw, 50vw"
+          sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
         />
       </Link>
       <div className="p-4 flex flex-col flex-1">

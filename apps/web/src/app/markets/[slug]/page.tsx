@@ -68,10 +68,9 @@ export default async function MarketPage({ params }: Props) {
   const products = loadKeywordProducts();
   const dest = bulkDestinationQuery(slug);
   const hub = existingCountryHub(slug);
-  const topIntents = Object.entries(market.intentCounts)
-    .sort((a, b) => b[1] - a[1])
-    .slice(0, 8);
   const mePlaces = isMeMarketSlug(slug) ? mePlacesForMarket(slug) : [];
+  const countryNote = mePlaces.find((place) => place.kind === "country");
+  const placeNames = mePlaces.filter((place) => place.kind !== "country").map((place) => place.name);
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
@@ -90,51 +89,29 @@ export default async function MarketPage({ params }: Props) {
       </p>
       <h1 className="spice-heading text-4xl mt-2">Indian spices for {market.name}</h1>
       <p className="mt-4 text-muted leading-relaxed">{fulfilmentCopy(slug, market.name)}</p>
-      <p className="mt-3 text-sm text-muted">{market.recommendedContent}</p>
+      {countryNote ? <p className="mt-3 text-muted leading-relaxed">{countryNote.summary}</p> : null}
+      {placeNames.length > 0 ? (
+        <p className="mt-3 text-sm text-muted leading-relaxed">Places covered: {placeNames.join(", ")}.</p>
+      ) : null}
       <FreeEnquiryCtas productName="Indian spices" spiceQuery="cumin" destination={dest} />
-      {mePlaces.length > 0 && (
-        <div className="mt-6 rounded-2xl border border-[#e6d5bc] bg-white p-4">
-          <h2 className="font-serif text-xl text-primary">Middle East places on this market</h2>
-          <ul className="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-sm">
-            {mePlaces.map((p) => (
-              <li key={p.slug}>
-                <Link href={`/middle-east/${p.slug}`} className="text-nav font-semibold">
-                  {p.name}
-                </Link>
-                <span className="text-muted"> · {p.kind}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
       {hub && (
         <p className="mt-4 text-sm">
-          Existing storefront page:{" "}
           <Link href={hub.href} className="text-nav font-semibold">
             {hub.label}
           </Link>
         </p>
       )}
 
-      <h2 className="font-serif text-2xl text-primary mt-10">Product clusters on this hub</h2>
-      <p className="text-sm text-muted mt-2">
-        {market.keywordCount.toLocaleString("en-GB")} generated keyword seeds point here. They are planning phrases, not
-        proven search volume.
-      </p>
+      <h2 className="font-serif text-2xl text-primary mt-10">Spices for this market</h2>
       <ul className="mt-4 space-y-3">
         {products.map((p) => (
           <li key={p.slug} className="rounded-xl border border-[#e6d5bc] bg-white p-4">
-            <div className="flex justify-between gap-3">
-              <Link href={`/sourcing/${p.slug}`} className="font-semibold text-primary hover:text-nav">
-                {p.name}
-              </Link>
-              <span className="text-xs text-muted">
-                {(market.productCounts[p.slug] ?? 0).toLocaleString("en-GB")} phrases
-              </span>
-            </div>
-            <div className="mt-2 flex flex-wrap gap-2 text-xs">
+            <Link href={`/sourcing/${p.slug}`} className="font-semibold text-primary hover:text-nav">
+              {p.name}
+            </Link>
+            <div className="mt-2 flex flex-wrap gap-x-4 gap-y-2 text-sm">
               {existingUrlsForProduct(p.slug).map((l) => (
-                <Link key={l.href} href={l.href} className="text-nav">
+                <Link key={`${p.slug}-${l.label}`} href={l.href} className="text-nav">
                   {l.label}
                 </Link>
               ))}
@@ -150,14 +127,6 @@ export default async function MarketPage({ params }: Props) {
           </li>
         ))}
       </ul>
-
-      <h2 className="font-serif text-2xl text-primary mt-10">Example mapped phrases</h2>
-      <ul className="mt-3 list-disc pl-5 text-sm text-muted space-y-1">
-        {market.sampleKeywords.map((k) => (
-          <li key={k}>{k}</li>
-        ))}
-      </ul>
-      <p className="mt-2 text-xs text-muted">Buyer intents in this set: {topIntents.map(([i]) => i).join(", ")}.</p>
 
       <h2 className="font-serif text-2xl text-primary mt-10">Enquire Now</h2>
       <p className="text-sm text-muted mt-2">
