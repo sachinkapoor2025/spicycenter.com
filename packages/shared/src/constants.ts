@@ -97,6 +97,9 @@ export const EVENT_TYPES = {
   ENQUIRY_FORM_START: "enquiry_form_start",
   ENQUIRY_FORM_SUBMIT: "enquiry_form_submit",
   ENQUIRY_VALIDATION_ERROR: "enquiry_validation_error",
+  WHATSAPP_CLICK: "whatsapp_click",
+  CTA_CLICK: "cta_click",
+  CONTACT_CLICK: "contact_click",
   ADDON_VIEW: "addon_view",
   ADDON_SELECT: "addon_select",
 } as const;

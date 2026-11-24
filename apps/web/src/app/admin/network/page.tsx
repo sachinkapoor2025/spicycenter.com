@@ -264,6 +264,27 @@ function NetworkAdminInner() {
               </p>
               <Field label="Name" value={vendor.name} onChange={(v) => setVendors((all) => all.map((x) => (x.vendorId === vendor.vendorId ? { ...x, name: v } : x)))} />
               <Field label="Country" value={vendor.countryCode} onChange={(v) => setVendors((all) => all.map((x) => (x.vendorId === vendor.vendorId ? { ...x, countryCode: v.toUpperCase() } : x)))} />
+              <Field label="Business location" value={vendor.location ?? ""} onChange={(v) => setVendors((all) => all.map((x) => (x.vendorId === vendor.vendorId ? { ...x, location: v } : x)))} />
+              <Field label="Contact person" value={vendor.contactPerson ?? ""} onChange={(v) => setVendors((all) => all.map((x) => (x.vendorId === vendor.vendorId ? { ...x, contactPerson: v } : x)))} />
+              <Field label="Products supplied" value={vendor.productsSupplied ?? ""} onChange={(v) => setVendors((all) => all.map((x) => (x.vendorId === vendor.vendorId ? { ...x, productsSupplied: v } : x)))} />
+              <Field label="MOQ" value={vendor.moq ?? ""} onChange={(v) => setVendors((all) => all.map((x) => (x.vendorId === vendor.vendorId ? { ...x, moq: v } : x)))} />
+              <Field label="Supply capacity" value={vendor.supplyCapacity ?? ""} onChange={(v) => setVendors((all) => all.map((x) => (x.vendorId === vendor.vendorId ? { ...x, supplyCapacity: v } : x)))} />
+              <Field label="Grades" value={vendor.grades ?? ""} onChange={(v) => setVendors((all) => all.map((x) => (x.vendorId === vendor.vendorId ? { ...x, grades: v } : x)))} />
+              <Field label="Packaging" value={vendor.packagingOptions ?? ""} onChange={(v) => setVendors((all) => all.map((x) => (x.vendorId === vendor.vendorId ? { ...x, packagingOptions: v } : x)))} />
+              <Field label="Indicative price" value={vendor.indicativePricing ?? ""} onChange={(v) => setVendors((all) => all.map((x) => (x.vendorId === vendor.vendorId ? { ...x, indicativePricing: v } : x)))} />
+              <Field label="Price validity" value={vendor.priceValidity ?? ""} onChange={(v) => setVendors((all) => all.map((x) => (x.vendorId === vendor.vendorId ? { ...x, priceValidity: v } : x)))} />
+              <Field label="Lead time" value={vendor.leadTime ?? ""} onChange={(v) => setVendors((all) => all.map((x) => (x.vendorId === vendor.vendorId ? { ...x, leadTime: v } : x)))} />
+              <Field label="Export experience" value={vendor.exportExperience ?? ""} onChange={(v) => setVendors((all) => all.map((x) => (x.vendorId === vendor.vendorId ? { ...x, exportExperience: v } : x)))} />
+              <Field label="Documents received" value={vendor.documentsReceived ?? ""} onChange={(v) => setVendors((all) => all.map((x) => (x.vendorId === vendor.vendorId ? { ...x, documentsReceived: v } : x)))} />
+              <Field label="Document expiry" value={vendor.documentExpiry ?? ""} onChange={(v) => setVendors((all) => all.map((x) => (x.vendorId === vendor.vendorId ? { ...x, documentExpiry: v } : x)))} />
+              <Field label="Last verification date" value={vendor.lastVerificationDate ?? ""} onChange={(v) => setVendors((all) => all.map((x) => (x.vendorId === vendor.vendorId ? { ...x, lastVerificationDate: v } : x)))} />
+              <label className="text-sm">Status
+                <select className="mt-1 w-full border rounded px-2 py-1" value={vendor.vendorStatus ?? "pending"} onChange={(e) => setVendors((all) => all.map((x) => (x.vendorId === vendor.vendorId ? { ...x, vendorStatus: e.target.value as VendorRecord["vendorStatus"] } : x)))}>
+                  <option value="pending">pending</option>
+                  <option value="active">active</option>
+                  <option value="inactive">inactive</option>
+                </select>
+              </label>
               <Field
                 label="Warehouse IDs (comma)"
                 value={vendor.warehouseIds.join(",")}
@@ -291,9 +312,19 @@ function NetworkAdminInner() {
                 }
               />
               {isAdmin && (
-                <div className="sm:col-span-2">
+                <div className="sm:col-span-2 flex flex-wrap gap-2">
                   <button type="submit" disabled={saving} className="rounded-lg bg-nav px-3 py-2 text-sm font-semibold text-white">
                     Save vendor
+                  </button>
+                  <button
+                    type="button"
+                    className="rounded-lg border px-3 py-2 text-sm"
+                    onClick={() => {
+                      if (!window.confirm(`Deactivate and delete ${vendor.name}? This does not mark any remaining vendor as verified.`)) return;
+                      void api(`/admin/vendors/${vendor.vendorId}`, { method: "DELETE" }).then(() => load()).catch((err) => setError(err instanceof Error ? err.message : "Delete failed"));
+                    }}
+                  >
+                    Delete vendor
                   </button>
                 </div>
               )}

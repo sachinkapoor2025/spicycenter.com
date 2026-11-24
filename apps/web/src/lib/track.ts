@@ -303,6 +303,9 @@ export function trackEnquiryEvent(
     | typeof EVENT_TYPES.ENQUIRY_FORM_START
     | typeof EVENT_TYPES.ENQUIRY_FORM_SUBMIT
     | typeof EVENT_TYPES.ENQUIRY_VALIDATION_ERROR
+    | typeof EVENT_TYPES.WHATSAPP_CLICK
+    | typeof EVENT_TYPES.CTA_CLICK
+    | typeof EVENT_TYPES.CONTACT_CLICK
     | typeof EVENT_TYPES.ADDON_VIEW
     | typeof EVENT_TYPES.ADDON_SELECT,
   metadata?: Record<string, string>

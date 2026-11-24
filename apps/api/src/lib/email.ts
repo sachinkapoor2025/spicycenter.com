@@ -403,6 +403,8 @@ function formatLeadSource(source?: string): string {
       return "Wholesale quote";
     case "catalogue-enquiry":
       return "Catalogue enquiry";
+    case "sourcing-rfq":
+      return "Sourcing requirement";
     default:
       return source ?? "Website";
   }
@@ -592,6 +594,58 @@ export async function sendCatalogueEnquiryEmails(
   });
 }
 
+export async function sendSourcingRfqEmails(
+  lead: LeadCaptureInput,
+  refs?: { leadId?: string; createdAt?: string }
+): Promise<EmailSendResult> {
+  if (!smtpConfigured()) {
+    return { ok: false, skipped: true, error: "SMTP not configured on server" };
+  }
+  const details = Object.entries(lead.metadata ?? {})
+    .filter(([key, value]) => key !== "website" && value.trim())
+    .map(([key, value]) => `${key}: ${value}`)
+    .join("\n");
+  const admin = await sendEmail({
+    to: adminNotifyAddresses(),
+    subject: `[${SITE_NAME}] New sourcing requirement — ${lead.metadata?.product || lead.name || "buyer"}`,
+    text: [
+      "A buyer submitted a sourcing requirement.",
+      refs?.leadId ? `Lead: ${refs.leadId}` : null,
+      lead.name ? `Buyer: ${lead.name}` : null,
+      lead.metadata?.company ? `Company: ${lead.metadata.company}` : null,
+      lead.email ? `Email: ${lead.email}` : null,
+      lead.phone ? `Phone: ${lead.phone}` : null,
+      lead.page ? `Page: ${lead.page}` : null,
+      details ? `\n${details}` : null,
+    ]
+      .filter(Boolean)
+      .join("\n"),
+    replyTo: lead.email,
+  });
+  if (lead.email && admin.ok) {
+    const buyer = await sendEmail({
+      to: lead.email,
+      subject: `We received your spice sourcing requirement — ${SITE_NAME}`,
+      text: [
+        `Hello ${lead.name || "there"},`,
+        "",
+        "We received your sourcing requirement. SpicyCenter will review the details and reply with any questions or available supplier options.",
+        "Product specifications, availability, certificates, pricing and transaction terms are confirmed with the selected supplier. This acknowledgement is not a quotation or a guarantee of supply.",
+        "",
+        lead.metadata?.product ? `Product: ${lead.metadata.product}` : null,
+        lead.metadata?.quantity ? `Quantity: ${lead.metadata.quantity} ${lead.metadata.unit || ""}`.trim() : null,
+        lead.metadata?.destinationCountry ? `Destination: ${lead.metadata.destinationCountry}` : null,
+      ]
+        .filter(Boolean)
+        .join("\n"),
+    });
+    if (!buyer.ok) {
+      console.error("Sourcing RFQ buyer acknowledgement failed:", buyer.error);
+    }
+  }
+  return admin;
+}
+
 export async function notifyAdminLead(
   lead: LeadCaptureInput,
   refs?: { leadId?: string; createdAt?: string }
@@ -602,6 +656,10 @@ export async function notifyAdminLead(
 
   if (lead.source === "catalogue-enquiry") {
     return sendCatalogueEnquiryEmails(lead, refs);
+  }
+
+  if (lead.source === "sourcing-rfq") {
+    return sendSourcingRfqEmails(lead, refs);
   }
 
   if (isContact && lead.name && lead.email && message) {

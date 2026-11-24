@@ -14,6 +14,7 @@ type NavItem =
 
 const navItems: NavItem[] = [
   { type: "link", href: "/admin", label: "Dashboard", exact: true, vendorAllowed: true },
+  { type: "link", href: "/admin/sourcing", label: "Sourcing RFQs" },
   { type: "link", href: "/admin/orders", label: "Orders", vendorAllowed: true },
   {
     type: "group",

@@ -16,6 +16,16 @@ export default function AboutPage() {
     <div className="max-w-3xl mx-auto px-4 py-12">
       <p className="text-xs tracking-[0.2em] text-nav font-semibold">SPICYCORNER</p>
       <h1 className="font-serif text-4xl mb-6 mt-2">About {site.name}</h1>
+      <p className="text-slate-700 leading-relaxed mb-4">
+        SpicyCenter is an independent sourcing partner. Buyers send a requirement, and SpicyCenter looks for suitable Indian suppliers, compares the quotations those suppliers provide, and connects the buyer with the supplier they choose.
+      </p>
+      <p className="text-slate-700 leading-relaxed mb-4">
+        The checks we record are described on the{" "}
+        <Link href="/vendor-qualification" className="text-nav font-semibold">vendor qualification page</Link>.
+        What SpicyCenter does and does not take on in a transaction is on the{" "}
+        <Link href="/commercial-terms" className="text-nav font-semibold">commercial terms page</Link>.
+        Questions and complaints go to {site.contactEmail} or the <Link href="/contact" className="text-nav font-semibold">contact form</Link>.
+      </p>
       <div className="space-y-4 text-slate-700 leading-relaxed">
         <p>
           SpicyCenter is an India-based spice sourcing and knowledge platform connecting international buyers with spices

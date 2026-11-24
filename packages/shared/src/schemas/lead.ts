@@ -11,6 +11,7 @@ export const LEAD_SOURCES = [
   "review",
   "wholesale",
   "catalogue-enquiry",
+  "sourcing-rfq",
 ] as const;
 
 export type LeadSource = (typeof LEAD_SOURCES)[number];
@@ -50,6 +51,10 @@ export const LEAD_STATUS = {
   QUALIFIED: "qualified",
   QUOTATION_SENT: "quotation_sent",
   NEGOTIATION: "negotiation",
+  UNDER_REVIEW: "under_review",
+  VENDOR_SEARCH: "vendor_search",
+  QUOTES_RECEIVED: "quotes_received",
+  QUOTE_SENT: "quote_sent",
   CONVERTED: "converted",
   WON: "won",
   LOST: "lost",
@@ -66,6 +71,10 @@ export const leadStatusSchema = z.enum([
   LEAD_STATUS.QUALIFIED,
   LEAD_STATUS.QUOTATION_SENT,
   LEAD_STATUS.NEGOTIATION,
+  LEAD_STATUS.UNDER_REVIEW,
+  LEAD_STATUS.VENDOR_SEARCH,
+  LEAD_STATUS.QUOTES_RECEIVED,
+  LEAD_STATUS.QUOTE_SENT,
   LEAD_STATUS.CONVERTED,
   LEAD_STATUS.WON,
   LEAD_STATUS.LOST,
@@ -79,6 +88,12 @@ export const updateLeadSchema = z.object({
   leadStatus: leadStatusSchema.optional(),
   adminNotes: z.string().max(2000).optional(),
   assignedTo: z.string().max(120).optional(),
+  followUpOn: z.string().max(40).optional(),
+  vendorsApproached: z.string().max(2000).optional(),
+  quotesJson: z.string().max(8000).optional(),
+  lostReason: z.string().max(500).optional(),
+  orderValue: z.string().max(40).optional(),
+  commissionEarned: z.string().max(40).optional(),
 });
 
 /** Identifies a stored lead by its DynamoDB key: PK SESSION#sessionId / SK LEAD#createdAt. */
@@ -97,6 +112,12 @@ export type Lead = LeadCaptureInput & {
   leadStatus?: LeadStatus;
   adminNotes?: string;
   assignedTo?: string;
+  followUpOn?: string;
+  vendorsApproached?: string;
+  quotesJson?: string;
+  lostReason?: string;
+  orderValue?: string;
+  commissionEarned?: string;
   notifyEmailStatus?: LeadNotifyStatus;
   notifyEmailAt?: string;
   notifyEmailError?: string;
@@ -109,6 +130,7 @@ export function isLeadAdminNotifyRequired(source: string, hasBuyerEmail: boolean
     source === "review" ||
     source === "wholesale" ||
     source === "catalogue-enquiry" ||
+    source === "sourcing-rfq" ||
     (source === "newsletter" && hasBuyerEmail)
   );
 }
@@ -121,7 +143,7 @@ export function leadHasRetryableNotifyPayload(lead: {
   metadata?: Record<string, string>;
 }): boolean {
   const message = lead.metadata?.message?.trim();
-  if (lead.source === "catalogue-enquiry") return true;
+  if (lead.source === "catalogue-enquiry" || lead.source === "sourcing-rfq") return true;
   if (lead.source === "wholesale" && lead.email?.trim()) return true;
   if (lead.source === "contact" && lead.name?.trim() && lead.email?.trim() && message) return true;
   if (lead.source === "review" && message) return true;

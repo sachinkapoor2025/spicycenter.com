@@ -6,6 +6,7 @@ import { api } from "@/lib/api";
 import { WishlistButton } from "@/components/WishlistButton";
 import { ApprovedReviewList } from "@/components/ApprovedReviewList";
 import { EnquireNowLink } from "@/components/EnquireNowLink";
+import { SourcingQuoteLinks } from "@/components/SourcingQuoteLinks";
 import { useSessionId, useDebouncedLeadCapture } from "@/lib/session";
 import { trackProductView } from "@/lib/track";
 import { LeadCaptureInput } from "@/components/LeadCaptureInput";
@@ -243,6 +244,7 @@ export function ProductDetailClient({
           <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-stretch">
             <div className="min-w-0 flex-1">
               <EnquireNowLink productName={displayName} className="btn-primary w-full justify-center min-h-12" />
+              <SourcingQuoteLinks productName={displayName} />
             </div>
             <div className="flex shrink-0 items-stretch gap-2">
               <WishlistButton product={product} variant="toolbar" />

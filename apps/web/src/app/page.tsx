@@ -14,6 +14,7 @@ import { featuredBilingualName, PACK_SIZE_RANGE } from "@/lib/catalogue";
 import { spiceStockImagePath } from "@/lib/spice-stock-images";
 import { HOME_SUPPLIED_H1, HOME_SUPPLIED_INTRO, HOME_SUPPLIED_SECTIONS } from "@/lib/content/supplied-pages";
 import { SuppliedPageCopy } from "@/components/SuppliedPageCopy";
+import { RfqForm } from "@/components/RfqForm";
 
 const HOME_H1 = HOME_SUPPLIED_H1;
 const HOME_INTRO = [HOME_SUPPLIED_INTRO] as const;
@@ -38,9 +39,9 @@ const POPULAR_SPICES = [
   ["Clove", ""],
 ] as const;
 
-const HOME_META_TITLE = "Premium Indian Spices Supplier & Exporter | SpicyCenter";
+const HOME_META_TITLE = "Your Sourcing Partner for Indian Spices | SpicyCenter";
 const HOME_META_DESCRIPTION =
-  "SpicyCenter supplies premium Indian whole spices, ground spices, seeds and masalas for wholesale and bulk enquiry to importers, distributors and food businesses worldwide.";
+  "Share a spice sourcing requirement with SpicyCenter. We identify suitable independent Indian suppliers, compare available quotations and help connect you with the right option.";
 
 export const metadata: Metadata = withAbsoluteSocialTitle(
   pageMetadata({
@@ -234,6 +235,62 @@ export default async function HomePage() {
     <div>
       <JsonLd data={faqJsonLd(homeFaqs)} />
 
+      <section className="bg-primary text-paper">
+        <div className="max-w-7xl mx-auto px-4 py-12 md:py-16 grid lg:grid-cols-[1.2fr_0.8fr] gap-8 items-center">
+          <div>
+            <p className="text-xs tracking-[0.18em] uppercase text-[#f3d7b0]">Independent Indian spice sourcing</p>
+            <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl mt-3 leading-tight">Your Sourcing Partner for Indian Spices</h1>
+            <p className="mt-4 max-w-2xl text-base sm:text-lg leading-relaxed text-paper/90">
+              Share your spice sourcing requirements with us. We identify suitable Indian suppliers, compare available quotations and help connect you with the right sourcing options.
+            </p>
+            <p className="mt-3 max-w-2xl text-sm leading-relaxed text-paper/80">
+              SpicyCenter does not manufacture spices or hold them as its own stock. Availability, specifications, certificates and prices are confirmed with the selected supplier.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <a href="#requirement" className="btn-primary !w-auto bg-nav px-5 py-2.5 text-sm font-semibold">Submit Your Requirement</a>
+              <Link href="/spices" className="inline-flex items-center rounded-lg border border-paper/40 px-5 py-2.5 text-sm font-semibold">Explore Our Products</Link>
+            </div>
+          </div>
+          <div className="rounded-2xl bg-paper/10 p-5 text-sm leading-relaxed">
+            <p className="font-serif text-xl">What you can expect</p>
+            <ul className="mt-3 space-y-2 text-paper/90">
+              <li>A written requirement, not a published list price.</li>
+              <li>Supplier options compared only where quotations exist.</li>
+              <li>Unknown details marked as pending confirmation.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section className="max-w-7xl mx-auto px-4 py-12">
+        <h2 className="font-serif text-2xl sm:text-3xl text-primary">How sourcing works</h2>
+        <ol className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-5">
+          {[
+            ["1", "Share Your Requirement", "Tell us the product, quantity and specification."],
+            ["2", "Confirm Specifications", "We clarify grade, quality, packaging and destination."],
+            ["3", "Find Suitable Vendors", "We look for relevant independent suppliers."],
+            ["4", "Compare Available Quotations", "We compare price, MOQ, specifications and timelines that suppliers actually provide."],
+            ["5", "Connect and Coordinate", "We connect you with the selected vendor and coordinate only the agreed scope."],
+          ].map(([step, title, text]) => (
+            <li key={step} className="card-spice p-4">
+              <p className="font-serif text-2xl text-nav">{step}</p>
+              <h3 className="mt-2 font-semibold text-primary">{title}</h3>
+              <p className="mt-2 text-sm text-muted leading-relaxed">{text}</p>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section id="requirement" className="bg-beige/60 border-y border-[#e6d5bc]">
+        <div className="max-w-4xl mx-auto px-4 py-12">
+          <h2 className="font-serif text-2xl sm:text-3xl text-primary">Submit your requirement</h2>
+          <p className="mt-3 text-muted leading-relaxed">Use this form or WhatsApp. We reply after the requirement is clear enough to approach suitable suppliers.</p>
+          <div className="mt-6">
+            <RfqForm products={spices.map((spice) => spice.canonicalName)} />
+          </div>
+        </div>
+      </section>
+
       <HomeBannerSlider banners={homeBanners} />
 
       <section className="border-b border-[#e6d5bc] bg-beige/70">
@@ -390,9 +447,9 @@ export default async function HomePage() {
 
       <section className="max-w-7xl mx-auto px-4 py-12 md:py-16 text-center">
         <p className="spice-kicker tracking-[0.14em] sm:tracking-[0.16em]">{site.tagline}</p>
-        <h1 className="spice-heading text-[1.55rem] sm:text-[1.7rem] md:text-[2.05rem] lg:text-[2.15rem] mt-2 leading-[1.2] max-w-4xl mx-auto">
+        <h2 className="spice-heading text-[1.55rem] sm:text-[1.7rem] md:text-[2.05rem] lg:text-[2.15rem] mt-2 leading-[1.2] max-w-4xl mx-auto">
           {HOME_H1}
-        </h1>
+        </h2>
         {HOME_INTRO.map((paragraph) => (
           <p
             key={paragraph}
@@ -401,7 +458,7 @@ export default async function HomePage() {
             {paragraph}
           </p>
         ))}
-        <p className="mt-3 text-[0.95rem] sm:text-base text-primary">{site.homepageSubline}</p>
+        <p className="mt-3 text-[0.95rem] sm:text-base text-primary">Indian spices sourced through independent suppliers.</p>
         <p className="mt-2 font-serif italic text-base sm:text-lg text-nav">{site.promise}</p>
       </section>
 

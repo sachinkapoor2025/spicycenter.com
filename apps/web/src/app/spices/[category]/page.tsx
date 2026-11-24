@@ -111,6 +111,11 @@ export default async function SpiceCategoryPage({ params }: Props) {
           </Link>
         </div>
       )}
+      <p className="mt-6 text-sm">
+        <Link href={`/rfq?product=${encodeURIComponent(title)}`} className="text-nav font-semibold">
+          Submit a sourcing requirement for {title}
+        </Link>
+      </p>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-8">
         {products.map((p) => (
           <SpiceSkuCard key={p.slug} product={p} />

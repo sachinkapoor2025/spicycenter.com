@@ -141,6 +141,102 @@ export const SOURCING_GUIDES: SourcingGuide[] = [
       },
     ],
   },
+  {
+    slug: "how-to-source-bulk-spices",
+    title: "How to Source Bulk Spices from India",
+    listingTitle: "How to Source Bulk Spices from India",
+    listingDescription: "A practical sequence for importers who need an Indian spice supplier rather than a retail pack.",
+    description: "How a buyer can brief a sourcing partner, compare supplier quotations and keep unconfirmed details marked as pending.",
+    sections: [
+      { heading: "Start with the requirement", body: "Name the spice, form, quantity, destination and the grade you need. A catalogue photo is not a confirmation of stock." },
+      { heading: "Compare what comes back", body: "Ask for price, MOQ, packaging, lead time and documents. If a supplier has not answered a field, leave it pending rather than filling it in." },
+      { heading: "Agree the roles", body: "Confirm who invoices, who ships and who is the exporter of record before anyone treats a quotation as an order." },
+    ],
+  },
+  {
+    slug: "questions-for-a-spice-supplier",
+    title: "Questions to Ask Before Selecting an Indian Spice Supplier",
+    listingTitle: "Questions to Ask a Spice Supplier",
+    listingDescription: "Questions that help a buyer compare suppliers without treating a directory listing as a guarantee.",
+    description: "A short list of questions for product capability, documents, samples and the date a supplier was last reviewed.",
+    sections: [
+      { heading: "Capability", body: "Which products and forms can you offer for this destination, and what is the usual MOQ?" },
+      { heading: "Evidence", body: "Which documents can you provide for this lot, and when do they expire? A document received is not the same as an independent inspection." },
+      { heading: "Commercial terms", body: "What is the quotation validity, the lead time and who pays for a sample?" },
+    ],
+  },
+  {
+    slug: "compare-cumin-grades",
+    title: "How to Compare Different Grades of Cumin",
+    listingTitle: "Comparing Cumin Grades",
+    listingDescription: "What to ask when two cumin quotations use different grade names.",
+    description: "Cumin grades should be compared from the supplier's specification for the lot, not from a generic label on a website.",
+    sections: [
+      { heading: "Ask for the specification", body: "Compare purity, seed size, admixture and whether the offer is whole seed or powder. Do not assume two sellers mean the same thing by premium." },
+      { heading: "Match the use", body: "A kitchen, a packer and an extractor may need different forms. Say which one you are buying for." },
+      { heading: "Keep unknowns pending", body: "If origin, test results or price validity are missing, record them as pending confirmation." },
+    ],
+  },
+  {
+    slug: "rfq-checklist",
+    title: "Complete RFQ Checklist for Bulk Spice Buyers",
+    listingTitle: "RFQ Checklist for Spice Buyers",
+    listingDescription: "The details that make a bulk spice requirement clear enough to send to suppliers.",
+    description: "Use this checklist before asking SpicyCenter or a supplier for a quotation.",
+    sections: [
+      { heading: "Product", body: "Product name, form, grade or specification, and any test or document you need." },
+      { heading: "Quantity and packing", body: "Quantity, unit, packaging and whether the target price is a firm limit or only a guide." },
+      { heading: "Destination", body: "Country, port if known, and the delivery timeline. Do not assume a route is available until it is confirmed." },
+    ],
+  },
+  {
+    slug: "sample-to-order",
+    title: "Understanding the Sample-to-Order Process",
+    listingTitle: "From Sample to Order",
+    listingDescription: "How a spice sample should be requested and what it does not prove.",
+    description: "A sample shows the lot that was sent. It does not by itself prove later production, a certificate or a shipping date.",
+    sections: [
+      { heading: "Request it in writing", body: "Say which product, which specification and who pays for the sample and the courier." },
+      { heading: "Review the sample against the brief", body: "Check form, colour and aroma against the requirement you sent. Ask for the specification that belongs to that sample." },
+      { heading: "Separate the order", body: "A later order still needs its own price, quantity, documents and delivery terms." },
+    ],
+  },
+  {
+    slug: "export-documents",
+    title: "Important Export Documents for International Spice Buyers",
+    listingTitle: "Export Documents for Spice Buyers",
+    listingDescription: "Documents buyers often ask about, and why they must be confirmed for the shipment.",
+    description: "Commercial invoices, packing lists and extra health or residue papers depend on the product and the destination. This page does not publish a universal document list.",
+    sections: [
+      { heading: "Ask for the shipment, not a generic pack", body: "A document that applied to an earlier lot may not apply to the next one." },
+      { heading: "Separate received from verified", body: "A file received from a supplier is not the same as a check by SpicyCenter or by the destination authority." },
+      { heading: "Confirm who prepares it", body: "The exporter, the importer and any inspection company should be named in the order, not assumed from this website." },
+    ],
+  },
+  {
+    slug: "evaluate-turmeric-suppliers",
+    title: "How to Evaluate Bulk Turmeric Suppliers",
+    listingTitle: "Evaluating Turmeric Suppliers",
+    listingDescription: "What to compare when more than one supplier offers turmeric.",
+    description: "Compare turmeric offers on form, curcumin or colour only when the supplier states them, plus price, MOQ, packing and lead time.",
+    sections: [
+      { heading: "Form", body: "Say whether you need fingers or powder. Do not treat them as interchangeable." },
+      { heading: "Specification", body: "If a curcumin or colour value matters, ask the supplier to state it for the lot. Do not copy a number from another listing." },
+      { heading: "Commercial comparison", body: "Put price, currency, MOQ, packaging, lead time and validity side by side. Leave blanks as pending." },
+    ],
+  },
+  {
+    slug: "factors-when-sourcing",
+    title: "Factors to Consider When Sourcing Indian Spices",
+    listingTitle: "Factors in Indian Spice Sourcing",
+    listingDescription: "The commercial points that change a spice requirement from one buyer to the next.",
+    description: "Quantity, grade, packaging, destination rules and who carries the shipment all change the quotation. None of them is fixed on a product page.",
+    sections: [
+      { heading: "The lot", body: "Agricultural products vary. Ask which season and process the offer refers to." },
+      { heading: "The destination", body: "Import papers and labelling depend on the country. Confirm them for that destination." },
+      { heading: "The commercial role", body: "A sourcing introduction is not the same as owning the stock or being the exporter. Agree the role in writing." },
+    ],
+  },
 ];
 
 export function getSourcingGuide(slug: string): SourcingGuide | undefined {
