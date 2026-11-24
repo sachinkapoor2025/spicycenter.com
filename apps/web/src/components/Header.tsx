@@ -137,7 +137,7 @@ export function Header() {
     <header className="border-b border-[#e6d5bc] bg-cream sticky top-0 z-[90] shadow-card overflow-visible">
       <div className="text-[#f6efe3]" style={{ backgroundColor: "#2c1810" }}>
         <div className="relative max-w-7xl mx-auto px-3 sm:px-4 py-3 flex items-center justify-end gap-4 min-h-[3.25rem]">
-          <p className="flex-1 min-w-0 text-center text-[13px] sm:text-base font-semibold leading-snug text-[#f6efe3] px-2">
+          <p className="flex-1 min-w-0 text-center text-xs sm:text-base font-semibold leading-snug text-[#f6efe3] px-1">
             {site.tagline}
           </p>
           <div className="hidden sm:flex items-center gap-4 shrink-0 text-[13px] font-semibold text-[#f6efe3]/90 relative z-10">
@@ -266,7 +266,7 @@ export function Header() {
               >
                 Account
               </Link>
-              {navItems.map((item) =>
+              {navItems.filter((item) => item.href !== "/enquiry").map((item) =>
                 item.children ? (
                   <div key={item.href}>
                     <button

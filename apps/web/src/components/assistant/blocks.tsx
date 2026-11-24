@@ -33,30 +33,17 @@ export function QuickActionRow({
   onAction: (action: ChatQuickAction) => void;
 }) {
   return (
-    <div className="flex flex-wrap gap-1.5">
-      {actions.map((action) =>
-        action.href ? (
-          <Link
-            key={action.id}
-            href={action.href}
-            target={action.href.startsWith("http") ? "_blank" : undefined}
-            rel={action.href.startsWith("http") ? "noopener noreferrer" : undefined}
-            className="rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-medium text-white hover:bg-white/20 transition"
-            onClick={() => onAction(action)}
-          >
-            {action.label}
-          </Link>
-        ) : (
-          <button
-            key={action.id}
-            type="button"
-            onClick={() => onAction(action)}
-            className="rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-medium text-white hover:bg-white/20 transition"
-          >
-            {action.label}
-          </button>
-        )
-      )}
+    <div className="relative z-10 flex flex-wrap gap-1.5">
+      {actions.map((action) => (
+        <button
+          key={action.id}
+          type="button"
+          onClick={() => onAction(action)}
+          className="min-h-9 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-medium text-white hover:bg-white/20 transition"
+        >
+          {action.label}
+        </button>
+      ))}
     </div>
   );
 }
@@ -64,11 +51,13 @@ export function QuickActionRow({
 function AssistantProductCard({
   product,
   position,
+  onNavigate,
 }: {
   product: AssistantProduct;
   position: number;
   onAddToCart?: (product: AssistantProduct) => void;
   adding?: boolean;
+  onNavigate?: () => void;
 }) {
   useEffect(() => {
     trackChatProductImpression(product.slug, position);
@@ -82,6 +71,7 @@ function AssistantProductCard({
         onClick={() => {
           markChatAssistedTouch(product.slug);
           trackChatProductClick(product.slug, position);
+          onNavigate?.();
         }}
       >
         <div className="relative aspect-square bg-slate-100">
@@ -103,6 +93,7 @@ function AssistantProductCard({
           onClick={() => {
             markChatAssistedTouch(product.slug);
             trackChatProductClick(product.slug, position);
+            onNavigate?.();
           }}
           className="flex-1 rounded-lg bg-primary px-2 py-1.5 text-center text-[10px] font-semibold text-white"
         >
@@ -110,6 +101,7 @@ function AssistantProductCard({
         </Link>
         <Link
           href={enquiryHref(product.name)}
+          onClick={() => onNavigate?.()}
           className="flex-1 rounded-lg bg-nav px-2 py-1.5 text-center text-[10px] font-semibold text-white"
         >
           Enquire
@@ -123,11 +115,13 @@ export function ChatBlocks({
   blocks,
   onAction,
   onAddToCart,
+  onNavigate,
   addingSlug,
 }: {
   blocks: ChatBlock[];
   onAction: (action: ChatQuickAction) => void;
   onAddToCart: (product: AssistantProduct) => void;
+  onNavigate?: () => void;
   addingSlug?: string | null;
 }) {
   return (
@@ -154,6 +148,7 @@ export function ChatBlocks({
                     product={product}
                     position={idx + 1}
                     onAddToCart={onAddToCart}
+                    onNavigate={onNavigate}
                     adding={addingSlug === product.slug}
                   />
                 ))}
@@ -162,7 +157,10 @@ export function ChatBlocks({
                 <Link
                   href={block.viewAllHref}
                   className="inline-flex rounded-full bg-white/15 px-3 py-1.5 text-xs font-medium text-white hover:bg-white/25"
-                  onClick={() => markChatAssistedTouch()}
+                  onClick={() => {
+                    markChatAssistedTouch();
+                    onNavigate?.();
+                  }}
                 >
                   {block.viewAllLabel ?? "View all"}
                 </Link>
@@ -177,6 +175,7 @@ export function ChatBlocks({
               product={block.product}
               position={1}
               onAddToCart={onAddToCart}
+              onNavigate={onNavigate}
               adding={addingSlug === block.product.slug}
             />
           );
@@ -189,7 +188,10 @@ export function ChatBlocks({
               key={i}
               href={href}
               className="block rounded-xl border border-white/15 bg-white/10 px-3 py-2 text-sm text-white hover:bg-white/15"
-              onClick={() => markChatAssistedTouch()}
+              onClick={() => {
+                markChatAssistedTouch();
+                onNavigate?.();
+              }}
             >
               {label}
               {block.type === "category_card" && block.subtitle && (
@@ -209,6 +211,7 @@ export function ChatBlocks({
                     product={product}
                     position={idx + 1}
                     onAddToCart={onAddToCart}
+                    onNavigate={onNavigate}
                     adding={addingSlug === product.slug}
                   />
                 ))}
@@ -221,7 +224,7 @@ export function ChatBlocks({
             <div key={i} className="rounded-xl bg-white/10 px-3 py-2 text-sm text-white/90">
               <p>{block.text}</p>
               {block.href && (
-                <Link href={block.href} className="mt-2 inline-block text-xs font-semibold text-orange-200 underline">
+                <Link href={block.href} onClick={() => onNavigate?.()} className="mt-2 inline-block text-xs font-semibold text-orange-200 underline">
                   {block.hrefLabel ?? "Browse spice"}
                 </Link>
               )}

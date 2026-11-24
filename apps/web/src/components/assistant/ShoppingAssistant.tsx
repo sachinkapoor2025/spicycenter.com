@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import type {
   AssistantProduct,
   ChatBlock,
@@ -73,6 +73,7 @@ function loadPersisted(): Persisted | null {
 
 export function ShoppingAssistant() {
   const pathname = usePathname();
+  const router = useRouter();
   const searchParams = useSearchParams();
   const { cart } = useCart();
   const { openEnquiry } = useEnquiry();
@@ -261,10 +262,22 @@ export function ShoppingAssistant() {
     void handleOpen(undefined, true);
   };
 
+  const openHref = (href: string) => {
+    if (href.startsWith("http")) {
+      window.open(href, "_blank", "noopener,noreferrer");
+      return;
+    }
+    setOpen(false);
+    router.push(href);
+  };
+
   const onAction = (action: ChatQuickAction) => {
-    if (action.href && !action.message) return;
-    if (action.href?.startsWith("http")) return;
-    void send(action.message);
+    const href = action.href?.trim();
+    if (href) {
+      openHref(href);
+      return;
+    }
+    if (action.message?.trim()) void send(action.message);
   };
 
   const onAddToCart = async (product: AssistantProduct) => {
@@ -308,9 +321,9 @@ export function ShoppingAssistant() {
         <section
           role="dialog"
           aria-label="SpicyCenter personal shopping assistant"
-          className="fixed z-[80] flex flex-col overflow-hidden border border-white/10 bg-primary shadow-2xl max-md:inset-x-0 max-md:bottom-0 max-md:top-[max(0.5rem,env(safe-area-inset-top))] max-md:rounded-t-2xl md:bottom-[5.5rem] md:right-5 md:h-[min(700px,calc(100vh-7rem))] md:w-[min(100vw-2rem,420px)] md:rounded-2xl"
+          className="fixed z-[110] flex flex-col overflow-hidden border border-white/10 bg-primary shadow-2xl max-md:inset-0 max-md:rounded-none md:bottom-[5.5rem] md:right-5 md:h-[min(700px,calc(100vh-7rem))] md:w-[min(100vw-2rem,420px)] md:rounded-2xl"
         >
-          <header className="flex items-center justify-between gap-2 border-b border-white/10 px-4 py-3">
+          <header className="flex items-center justify-between gap-2 border-b border-white/10 px-4 py-3 pt-[max(0.75rem,env(safe-area-inset-top))] md:pt-3">
             <div className="min-w-0">
               <p className="text-sm font-semibold text-white">SpicyCenter</p>
               <p className="truncate text-xs text-white/60">Personal spice Assistant</p>
@@ -362,6 +375,7 @@ export function ShoppingAssistant() {
                       blocks={m.blocks}
                       onAction={onAction}
                       onAddToCart={onAddToCart}
+                      onNavigate={() => setOpen(false)}
                       addingSlug={addingSlug}
                     />
                   ) : (
@@ -419,7 +433,7 @@ export function ShoppingAssistant() {
           onClick={() => (open && !minimized ? setMinimized(true) : void handleOpen())}
           aria-label={open && !minimized ? "Minimize spice assistant" : "Find your spice look"}
           aria-expanded={open && !minimized}
-          className="fixed right-3 z-[80] flex h-11 w-11 md:right-4 md:w-auto items-center justify-center gap-1.5 rounded-xl bg-primary px-0 md:px-3.5 text-white shadow-[0_4px_12px_rgba(44,24,16,0.45)] ring-2 ring-white/20 hover:scale-105 active:scale-95 transition-transform bottom-[max(0.5rem,env(safe-area-inset-bottom))] md:bottom-[4.75rem]"
+          className="fixed right-3 z-[100] flex h-11 w-11 md:right-4 md:w-auto items-center justify-center gap-1.5 rounded-xl bg-primary px-0 md:px-3.5 text-white shadow-[0_4px_12px_rgba(44,24,16,0.45)] ring-2 ring-white/20 hover:scale-105 active:scale-95 transition-transform bottom-[max(0.5rem,env(safe-area-inset-bottom))] md:bottom-[4.75rem]"
         >
           {open && !minimized ? (
             <svg className="h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

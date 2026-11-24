@@ -246,9 +246,9 @@ export default async function HomePage() {
             <p className="mt-3 max-w-2xl text-sm leading-relaxed text-paper/80">
               SpicyCenter does not manufacture spices or hold them as its own stock. Availability, specifications, certificates and prices are confirmed with the selected supplier.
             </p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <a href="#requirement" className="btn-primary !w-auto bg-nav px-5 py-2.5 text-sm font-semibold">Submit Your Requirement</a>
-              <Link href="/spices" className="inline-flex items-center rounded-lg border border-paper/40 px-5 py-2.5 text-sm font-semibold">Explore Our Products</Link>
+            <div className="mt-6 flex flex-col sm:flex-row flex-wrap gap-3">
+              <a href="#requirement" className="btn-primary w-full sm:!w-auto justify-center bg-nav px-5 py-3 text-sm font-semibold">Submit Your Requirement</a>
+              <Link href="/spices" className="inline-flex w-full sm:w-auto items-center justify-center rounded-lg border border-paper/40 px-5 py-3 text-sm font-semibold">Explore Our Products</Link>
             </div>
           </div>
           <div className="rounded-2xl bg-paper/10 p-5 text-sm leading-relaxed">
@@ -344,7 +344,7 @@ export default async function HomePage() {
                   <Image src={c.image} alt="" fill className="object-cover" sizes="96px" />
                 )}
               </span>
-              <span className="mt-2 text-[10px] md:text-xs font-semibold text-primary leading-tight">{c.name}</span>
+              <span className="mt-2 text-[11px] md:text-xs font-semibold text-primary leading-tight break-words">{c.name}</span>
             </Link>
             );
           })}

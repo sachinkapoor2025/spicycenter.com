@@ -133,7 +133,7 @@ export function RfqForm({
       </label>
       <label className="block text-sm sm:col-span-2">
         Product
-        <input list="rfq-products" required value={product} onChange={(e) => setProduct(e.target.value)} onFocus={markStarted} className="mt-1 w-full rounded-lg border border-[#e6d5bc] bg-white px-3 py-2" />
+        <input list="rfq-products" required value={product} onChange={(e) => setProduct(e.target.value)} onFocus={markStarted} className="mt-1 w-full min-h-11 rounded-lg border border-[#e6d5bc] bg-white px-3 py-2 text-base" />
         <datalist id="rfq-products">
           {options.map((name) => (
             <option key={name} value={name} />
@@ -142,11 +142,11 @@ export function RfqForm({
       </label>
       <label className="block text-sm">
         Quantity
-        <input required inputMode="decimal" value={quantity} onChange={(e) => setQuantity(e.target.value)} onFocus={markStarted} className="mt-1 w-full rounded-lg border border-[#e6d5bc] bg-white px-3 py-2" />
+        <input required inputMode="decimal" value={quantity} onChange={(e) => setQuantity(e.target.value)} onFocus={markStarted} className="mt-1 w-full min-h-11 rounded-lg border border-[#e6d5bc] bg-white px-3 py-2 text-base" />
       </label>
       <label className="block text-sm">
         Unit
-        <select value={unit} onChange={(e) => setUnit(e.target.value)} className="mt-1 w-full rounded-lg border border-[#e6d5bc] bg-white px-3 py-2">
+        <select value={unit} onChange={(e) => setUnit(e.target.value)} className="mt-1 w-full min-h-11 rounded-lg border border-[#e6d5bc] bg-white px-3 py-2 text-base">
           {UNITS.map((item) => (
             <option key={item}>{item}</option>
           ))}
@@ -154,19 +154,19 @@ export function RfqForm({
       </label>
       <label className="block text-sm">
         Destination country
-        <input required value={destinationCountry} onChange={(e) => setDestinationCountry(e.target.value)} className="mt-1 w-full rounded-lg border border-[#e6d5bc] bg-white px-3 py-2" />
+        <input required value={destinationCountry} onChange={(e) => setDestinationCountry(e.target.value)} className="mt-1 w-full min-h-11 rounded-lg border border-[#e6d5bc] bg-white px-3 py-2 text-base" />
       </label>
       <label className="block text-sm">
         Destination port (optional)
-        <input value={destinationPort} onChange={(e) => setDestinationPort(e.target.value)} className="mt-1 w-full rounded-lg border border-[#e6d5bc] bg-white px-3 py-2" />
+        <input value={destinationPort} onChange={(e) => setDestinationPort(e.target.value)} className="mt-1 w-full min-h-11 rounded-lg border border-[#e6d5bc] bg-white px-3 py-2 text-base" />
       </label>
       <label className="block text-sm">
         Grade or specification
-        <input required value={grade} onChange={(e) => setGrade(e.target.value)} className="mt-1 w-full rounded-lg border border-[#e6d5bc] bg-white px-3 py-2" />
+        <input required value={grade} onChange={(e) => setGrade(e.target.value)} className="mt-1 w-full min-h-11 rounded-lg border border-[#e6d5bc] bg-white px-3 py-2 text-base" />
       </label>
       <label className="block text-sm">
         Product form
-        <select value={form} onChange={(e) => setForm(e.target.value)} className="mt-1 w-full rounded-lg border border-[#e6d5bc] bg-white px-3 py-2">
+        <select value={form} onChange={(e) => setForm(e.target.value)} className="mt-1 w-full min-h-11 rounded-lg border border-[#e6d5bc] bg-white px-3 py-2 text-base">
           {FORMS.map((item) => (
             <option key={item}>{item}</option>
           ))}
@@ -174,43 +174,43 @@ export function RfqForm({
       </label>
       <label className="block text-sm sm:col-span-2">
         Packaging
-        <input required value={packaging} onChange={(e) => setPackaging(e.target.value)} className="mt-1 w-full rounded-lg border border-[#e6d5bc] bg-white px-3 py-2" />
+        <input required value={packaging} onChange={(e) => setPackaging(e.target.value)} className="mt-1 w-full min-h-11 rounded-lg border border-[#e6d5bc] bg-white px-3 py-2 text-base" />
       </label>
       <label className="block text-sm">
         Target price (optional)
-        <input value={targetPrice} onChange={(e) => setTargetPrice(e.target.value)} className="mt-1 w-full rounded-lg border border-[#e6d5bc] bg-white px-3 py-2" />
+        <input value={targetPrice} onChange={(e) => setTargetPrice(e.target.value)} className="mt-1 w-full min-h-11 rounded-lg border border-[#e6d5bc] bg-white px-3 py-2 text-base" />
       </label>
       <label className="block text-sm">
         Delivery timeline
-        <input required value={timeline} onChange={(e) => setTimeline(e.target.value)} className="mt-1 w-full rounded-lg border border-[#e6d5bc] bg-white px-3 py-2" />
+        <input required value={timeline} onChange={(e) => setTimeline(e.target.value)} className="mt-1 w-full min-h-11 rounded-lg border border-[#e6d5bc] bg-white px-3 py-2 text-base" />
       </label>
       <label className="block text-sm">
         Company
-        <input required value={company} onChange={(e) => setCompany(e.target.value)} className="mt-1 w-full rounded-lg border border-[#e6d5bc] bg-white px-3 py-2" />
+        <input required value={company} onChange={(e) => setCompany(e.target.value)} className="mt-1 w-full min-h-11 rounded-lg border border-[#e6d5bc] bg-white px-3 py-2 text-base" />
       </label>
       <label className="block text-sm">
         Your name
-        <input required value={name} onChange={(e) => setName(e.target.value)} className="mt-1 w-full rounded-lg border border-[#e6d5bc] bg-white px-3 py-2" />
+        <input required value={name} onChange={(e) => setName(e.target.value)} className="mt-1 w-full min-h-11 rounded-lg border border-[#e6d5bc] bg-white px-3 py-2 text-base" />
       </label>
       <label className="block text-sm">
         Business email
-        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="mt-1 w-full rounded-lg border border-[#e6d5bc] bg-white px-3 py-2" />
+        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="mt-1 w-full min-h-11 rounded-lg border border-[#e6d5bc] bg-white px-3 py-2 text-base" />
       </label>
       <label className="block text-sm">
         WhatsApp or phone
-        <input value={phone} onChange={(e) => setPhone(e.target.value)} className="mt-1 w-full rounded-lg border border-[#e6d5bc] bg-white px-3 py-2" />
+        <input value={phone} onChange={(e) => setPhone(e.target.value)} className="mt-1 w-full min-h-11 rounded-lg border border-[#e6d5bc] bg-white px-3 py-2 text-base" />
       </label>
       <label className="block text-sm sm:col-span-2">
         Specification link (optional)
-        <input value={specLink} onChange={(e) => setSpecLink(e.target.value)} placeholder="Link to a specification file" className="mt-1 w-full rounded-lg border border-[#e6d5bc] bg-white px-3 py-2" />
+        <input value={specLink} onChange={(e) => setSpecLink(e.target.value)} placeholder="Link to a specification file" className="mt-1 w-full min-h-11 rounded-lg border border-[#e6d5bc] bg-white px-3 py-2 text-base" />
       </label>
       <label className="block text-sm sm:col-span-2">
         Additional requirements
-        <textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows={4} className="mt-1 w-full rounded-lg border border-[#e6d5bc] bg-white px-3 py-2" />
+        <textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows={4} className="mt-1 w-full min-h-11 rounded-lg border border-[#e6d5bc] bg-white px-3 py-2 text-base" />
       </label>
       {error ? <p className="sm:col-span-2 text-sm text-red-700">{error}</p> : null}
       <div className="sm:col-span-2 flex flex-wrap items-center gap-4">
-        <button type="submit" disabled={loading} className="btn-primary !w-auto px-5 py-2.5 text-sm font-semibold disabled:opacity-60">
+        <button type="submit" disabled={loading} className="btn-primary w-full sm:!w-auto justify-center px-5 py-3 text-sm font-semibold disabled:opacity-60">
           {loading ? "Sending…" : "Submit Your Requirement"}
         </button>
         <a
