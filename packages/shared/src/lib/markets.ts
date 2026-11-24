@@ -139,6 +139,7 @@ export const DEFAULT_VENDORS: VendorRecord[] = [
     users: [],
     contactEmail: "support@spicycorner.com",
     contactPhone: "+1 (669) 236-1526",
+    vendorStatus: "active",
     priority: 10,
   },
   {
@@ -154,6 +155,7 @@ export const DEFAULT_VENDORS: VendorRecord[] = [
     contactEmail: "",
     contactPhone: "",
     notes: "Existing US hamper fulfillment partner. Isolated via vendorSlug on orders.",
+    vendorStatus: "active",
     priority: 20,
   },
 ];
