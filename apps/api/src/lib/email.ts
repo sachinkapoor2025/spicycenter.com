@@ -630,6 +630,7 @@ export async function sendSourcingRfqEmails(
         `Hello ${lead.name || "there"},`,
         "",
         "We received your sourcing requirement. SpicyCenter will review the details and reply with any questions or available supplier options.",
+        refs?.leadId ? `Reference: ${refs.leadId}` : null,
         "Product specifications, availability, certificates, pricing and transaction terms are confirmed with the selected supplier. This acknowledgement is not a quotation or a guarantee of supply.",
         "",
         lead.metadata?.product ? `Product: ${lead.metadata.product}` : null,

@@ -241,7 +241,7 @@ export default async function HomePage() {
             <p className="text-xs tracking-[0.18em] uppercase text-[#f3d7b0]">Independent Indian spice sourcing</p>
             <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl mt-3 leading-tight">Your Sourcing Partner for Indian Spices</h1>
             <p className="mt-4 max-w-2xl text-base sm:text-lg leading-relaxed text-paper/90">
-              Share your spice sourcing requirements with us. We identify suitable Indian suppliers, compare available quotations and help connect you with the right sourcing options.
+              Share your requirements, discover suitable Indian spice suppliers, compare available quotations and connect with the right sourcing partners.
             </p>
             <p className="mt-3 max-w-2xl text-sm leading-relaxed text-paper/80">
               SpicyCenter does not manufacture spices or hold them as its own stock. Availability, specifications, certificates and prices are confirmed with the selected supplier.

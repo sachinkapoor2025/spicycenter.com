@@ -2,7 +2,7 @@
 
 import { useMemo, useState, type FormEvent } from "react";
 import { EVENT_TYPES } from "@spicycorner/shared";
-import { api } from "@/lib/api";
+import { ApiError, api } from "@/lib/api";
 import { getOrCreateSessionId } from "@/lib/session";
 import { trackEnquiryEvent } from "@/lib/track";
 import { whatsappChatUrl } from "@/lib/site";
@@ -39,6 +39,7 @@ export function RfqForm({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [done, setDone] = useState(false);
+  const [reference, setReference] = useState("");
 
   const options = useMemo(() => [...new Set(products.filter(Boolean))].sort((a, b) => a.localeCompare(b)), [products]);
 
@@ -77,7 +78,7 @@ export function RfqForm({
     setLoading(true);
     try {
       const sessionId = getOrCreateSessionId();
-      await api("/leads", {
+      const result = await api<{ leadId?: string }>("/leads", {
         method: "POST",
         sessionId,
         body: JSON.stringify({
@@ -106,8 +107,18 @@ export function RfqForm({
         }),
       });
       trackEnquiryEvent(EVENT_TYPES.ENQUIRY_FORM_SUBMIT, { form: "sourcing-rfq", product: product.trim() });
+      setReference(result.leadId ?? "");
       setDone(true);
     } catch (err) {
+      const savedId = err instanceof ApiError && err.body && typeof err.body === "object" && "leadId" in err.body
+        ? String((err.body as { leadId?: string }).leadId ?? "")
+        : "";
+      if (savedId) {
+        setReference(savedId);
+        setError(err instanceof Error ? err.message : "Your requirement was saved, but the email could not be sent.");
+        setDone(true);
+        return;
+      }
       setError(err instanceof Error ? err.message : "Could not send your requirement. Please try again.");
     } finally {
       setLoading(false);
@@ -118,6 +129,8 @@ export function RfqForm({
     return (
       <div className="rounded-lg border border-green-200 bg-green-50 px-4 py-5 text-green-900">
         <p className="font-semibold">Your requirement has been received.</p>
+        {reference ? <p className="mt-2 text-sm font-semibold">Reference: {reference}</p> : null}
+        {error ? <p className="mt-2 text-sm">{error}</p> : null}
         <p className="mt-2 text-sm leading-relaxed">
           We will review the details and reply with questions or available supplier options. Specifications, price and availability are confirmed with the selected supplier.
         </p>

@@ -38,7 +38,21 @@ type Lead = {
   metadata?: Record<string, string>;
 };
 
-const STATUSES = ["new", "under_review", "vendor_search", "quotes_received", "quote_sent", "negotiation", "won", "lost"];
+const STATUSES = [
+  ["new", "New enquiry"],
+  ["under_review", "Under review"],
+  ["requirement_clarification", "Requirement clarification"],
+  ["vendor_search", "Vendor search"],
+  ["sent_to_vendors", "Sent to vendors"],
+  ["quotes_received", "Quotations received"],
+  ["comparison_in_progress", "Comparison in progress"],
+  ["quote_sent", "Quote sent"],
+  ["quote_shared", "Quote shared with buyer"],
+  ["negotiation", "Negotiation"],
+  ["converted", "Converted"],
+  ["won", "Won"],
+  ["lost", "Lost"],
+] as const;
 const EMPTY_QUOTE: Quote = {
   vendorName: "",
   product: "",
@@ -64,6 +78,7 @@ export default function AdminSourcingPage() {
   const [selected, setSelected] = useState<Lead | null>(null);
   const [quotes, setQuotes] = useState<Quote[]>([]);
   const [query, setQuery] = useState("");
+  const [destination, setDestination] = useState("");
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
 
@@ -81,18 +96,62 @@ export default function AdminSourcingPage() {
   }, []);
 
   const counts = useMemo(() => {
-    const byStatus = Object.fromEntries(STATUSES.map((status) => [status, 0]));
+    const byStatus = Object.fromEntries(STATUSES.map(([status]) => [status, 0]));
     for (const lead of leads) byStatus[lead.leadStatus || "new"] = (byStatus[lead.leadStatus || "new"] ?? 0) + 1;
     return byStatus;
   }, [leads]);
 
+  const breakdown = useMemo(() => {
+    const products = new Map<string, number>();
+    const countries = new Map<string, number>();
+    for (const lead of leads) {
+      const product = lead.metadata?.product?.trim() || "Unspecified product";
+      const country = lead.metadata?.destinationCountry?.trim() || "Unspecified country";
+      products.set(product, (products.get(product) ?? 0) + 1);
+      countries.set(country, (countries.get(country) ?? 0) + 1);
+    }
+    return {
+      products: [...products.entries()].sort((a, b) => b[1] - a[1]).slice(0, 8),
+      countries: [...countries.entries()].sort((a, b) => b[1] - a[1]).slice(0, 8),
+    };
+  }, [leads]);
+
   const matches = useMemo(() => {
     const needle = (selected?.metadata?.product || query).trim().toLowerCase();
-    if (!needle) return [];
-    return vendors.filter((vendor) =>
-      `${vendor.name} ${vendor.productsSupplied ?? ""} ${vendor.location ?? ""} ${vendor.countryCode}`.toLowerCase().includes(needle)
-    );
-  }, [vendors, selected, query]);
+    const place = (destination || selected?.metadata?.destinationCountry || "").trim().toLowerCase();
+    if (!needle && !place) return [];
+    return vendors.filter((vendor) => {
+      const haystack = `${vendor.name} ${vendor.productsSupplied ?? ""} ${vendor.grades ?? ""} ${vendor.location ?? ""} ${vendor.countryCode}`.toLowerCase();
+      return (!needle || haystack.includes(needle)) && (!place || haystack.includes(place));
+    });
+  }, [vendors, selected, query, destination]);
+
+  const summary = useMemo(() => {
+    if (!selected) return "";
+    const lines = [
+      `Requirement: ${show(selected.metadata?.product)}`,
+      `Quantity: ${show(selected.metadata?.quantity)} ${selected.metadata?.unit || ""}`.trim(),
+      `Destination: ${show(selected.metadata?.destinationCountry)}`,
+      "",
+      ...quotes.map((quote, index) =>
+        [
+          `Option ${index + 1}: ${show(quote.vendorName)}`,
+          `Price: ${show(quote.price)} ${quote.currency || ""}`.trim(),
+          `Incoterm: ${show(quote.incoterms)}`,
+          `MOQ: ${show(quote.moq)}`,
+          `Grade: ${show(quote.grade)}`,
+          `Packaging: ${show(quote.packaging)}`,
+          `Lead time: ${show(quote.leadTime)}`,
+          `Sample: ${show(quote.sampleAvailability)}`,
+          `Documents: ${show(quote.documents)}`,
+          `Validity: ${show(quote.quoteValidity)}`,
+        ].join("\n")
+      ),
+      "",
+      "Blank fields are pending confirmation. This summary is not a quotation until a supplier confirms it.",
+    ];
+    return lines.join("\n");
+  }, [quotes, selected]);
 
   function openLead(lead: Lead) {
     setSelected(lead);
@@ -139,7 +198,17 @@ export default function AdminSourcingPage() {
         <div className="rounded-lg border p-3">Total RFQs: {leads.length}</div>
         <div className="rounded-lg border p-3">Won: {counts.won ?? 0}</div>
         <div className="rounded-lg border p-3">Lost: {counts.lost ?? 0}</div>
-        <div className="rounded-lg border p-3">Quotes sent: {counts.quote_sent ?? 0}</div>
+        <div className="rounded-lg border p-3">Quotes sent: {(counts.quote_sent ?? 0) + (counts.quote_shared ?? 0)}</div>
+      </div>
+      <div className="mt-4 grid md:grid-cols-2 gap-4 text-sm">
+        <div className="rounded-lg border p-3">
+          <p className="font-semibold">Product-wise enquiries</p>
+          <ul className="mt-2 space-y-1">{breakdown.products.length ? breakdown.products.map(([name, count]) => <li key={name}>{name}: {count}</li>) : <li>No stored enquiries yet.</li>}</ul>
+        </div>
+        <div className="rounded-lg border p-3">
+          <p className="font-semibold">Country-wise enquiries</p>
+          <ul className="mt-2 space-y-1">{breakdown.countries.length ? breakdown.countries.map(([name, count]) => <li key={name}>{name}: {count}</li>) : <li>No stored enquiries yet.</li>}</ul>
+        </div>
       </div>
       {error ? <p className="mt-3 text-sm text-red-700">{error}</p> : null}
       {message ? <p className="mt-3 text-sm text-emerald-700">{message}</p> : null}
@@ -163,7 +232,7 @@ export default function AdminSourcingPage() {
             <p>Grade: {show(selected.metadata?.grade)} · Packaging: {show(selected.metadata?.packaging)}</p>
             <label className="block">Status
               <select className="mt-1 w-full border rounded px-2 py-1" value={selected.leadStatus || "new"} onChange={(e) => setSelected({ ...selected, leadStatus: e.target.value })}>
-                {STATUSES.map((status) => <option key={status}>{status}</option>)}
+                {STATUSES.map(([status, label]) => <option key={status} value={status}>{label}</option>)}
               </select>
             </label>
             <label className="block">Assigned to
@@ -189,6 +258,9 @@ export default function AdminSourcingPage() {
               </div>
             ))}
             <button type="button" className="text-nav" onClick={() => setQuotes([...quotes, { ...EMPTY_QUOTE }])}>Add quotation</button>
+            <label className="block">Buyer comparison summary
+              <textarea readOnly className="mt-1 w-full border rounded px-2 py-1" rows={8} value={summary} />
+            </label>
             <div className="overflow-x-auto">
               <table className="min-w-full text-xs">
                 <thead><tr>{Object.keys(EMPTY_QUOTE).map((key) => <th key={key} className="p-1 text-left">{key}</th>)}</tr></thead>
@@ -199,8 +271,11 @@ export default function AdminSourcingPage() {
                 </tbody>
               </table>
             </div>
-            <label className="block">Match vendors for
+            <label className="block">Match vendors for product
               <input className="mt-1 w-full border rounded px-2 py-1" value={query} placeholder={selected.metadata?.product || "Product"} onChange={(e) => setQuery(e.target.value)} />
+            </label>
+            <label className="block">Destination or location
+              <input className="mt-1 w-full border rounded px-2 py-1" value={destination} placeholder={selected.metadata?.destinationCountry || "Country or city"} onChange={(e) => setDestination(e.target.value)} />
             </label>
             <ul>
               {matches.map((vendor) => (
