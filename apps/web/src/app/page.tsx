@@ -245,27 +245,27 @@ export default async function HomePage() {
           className="object-cover object-[center_42%]"
         />
         <div
-          className="absolute inset-0 bg-gradient-to-b from-[#2c1810]/62 via-[#2c1810]/42 to-[#2c1810]/58 md:bg-gradient-to-r md:from-[#2c1810]/72 md:via-[#2c1810]/46 md:to-[#2c1810]/28"
+          className="absolute inset-0 bg-[#2c1810]/45 md:bg-gradient-to-r md:from-[#2c1810]/55 md:via-[#2c1810]/35 md:to-[#2c1810]/25"
           aria-hidden="true"
         />
-        <div className="relative max-w-7xl mx-auto px-4 py-12 sm:py-14 md:py-16 lg:py-20 grid lg:grid-cols-[1.2fr_0.8fr] gap-8 lg:gap-10 items-center">
-          <div>
+        <div className="relative max-w-7xl mx-auto px-4 py-10 sm:py-12 md:py-16 lg:py-20 grid lg:grid-cols-[1.15fr_0.85fr] gap-5 sm:gap-6 lg:gap-8 items-center">
+          <div className="rounded-2xl bg-[#2c1810]/95 p-5 sm:p-6 md:p-8 shadow-[0_16px_40px_rgba(20,10,6,0.35)]">
             <p className="text-xs tracking-[0.18em] uppercase text-[#f3d7b0]">Independent Indian spice sourcing</p>
-            <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl mt-3 leading-tight">Your Sourcing Partner for Indian Spices</h1>
-            <p className="mt-4 max-w-2xl text-base sm:text-lg leading-relaxed text-paper/90">
+            <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl mt-3 leading-tight text-paper">Your Sourcing Partner for Indian Spices</h1>
+            <p className="mt-4 max-w-2xl text-base sm:text-lg leading-relaxed text-paper">
               Share your requirements, discover suitable Indian spice suppliers, compare available quotations and connect with the right sourcing partners.
             </p>
-            <p className="mt-3 max-w-2xl text-sm leading-relaxed text-paper/80">
+            <p className="mt-3 max-w-2xl text-sm leading-relaxed text-paper">
               SpicyCenter does not manufacture spices or hold them as its own stock. Availability, specifications, certificates and prices are confirmed with the selected supplier.
             </p>
             <div className="mt-6 flex flex-col sm:flex-row flex-wrap gap-3">
               <a href="#requirement" className="btn-primary w-full sm:!w-auto justify-center bg-nav px-5 py-3 text-sm font-semibold">Submit Your Requirement</a>
-              <Link href="/spices" className="inline-flex w-full sm:w-auto items-center justify-center rounded-lg border border-paper/40 px-5 py-3 text-sm font-semibold">Explore Our Products</Link>
+              <Link href="/spices" className="inline-flex w-full sm:w-auto items-center justify-center rounded-lg border border-paper/70 bg-[#2c1810] px-5 py-3 text-sm font-semibold text-paper">Explore Our Products</Link>
             </div>
           </div>
-          <div className="rounded-2xl border border-paper/25 bg-[#2c1810]/40 p-5 text-sm leading-relaxed backdrop-blur-[2px]">
-            <p className="font-serif text-xl">What you can expect</p>
-            <ul className="mt-3 space-y-2 text-paper/90">
+          <div className="rounded-2xl border border-paper/30 bg-[#2c1810]/95 p-5 sm:p-6 text-sm leading-relaxed shadow-[0_16px_40px_rgba(20,10,6,0.35)]">
+            <p className="font-serif text-xl text-paper">What you can expect</p>
+            <ul className="mt-3 space-y-2 text-paper">
               <li>A written requirement, not a published list price.</li>
               <li>Supplier options compared only where quotations exist.</li>
               <li>Unknown details marked as pending confirmation.</li>
