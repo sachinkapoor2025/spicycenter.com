@@ -30,12 +30,14 @@ function countryFromUnknown(data: unknown): string | undefined {
   return /^[A-Z]{2}$/.test(normalized) ? normalized : undefined;
 }
 
-/** Best-effort ISO country from a public IP (used when CDN geo headers are missing). */
+/** Best-effort ISO country from a public IP. An empty IP asks the provider for the caller. */
 export async function lookupCountryFromIp(ip: string): Promise<string | undefined> {
-  const urls = [
-    `https://ipwho.is/${encodeURIComponent(ip)}?fields=success,country_code`,
-    `https://ipapi.co/${encodeURIComponent(ip)}/json/`,
-  ];
+  const urls = ip
+    ? [
+        `https://ipwho.is/${encodeURIComponent(ip)}?fields=success,country_code`,
+        `https://ipapi.co/${encodeURIComponent(ip)}/json/`,
+      ]
+    : ["https://ipwho.is/?fields=success,country_code", "https://ipapi.co/json/"];
   for (const url of urls) {
     try {
       const res = await fetch(url, {
@@ -55,18 +57,19 @@ export async function lookupCountryFromIp(ip: string): Promise<string | undefine
 
 /** Browser-side lookup using the visitor's public IP (works on localhost). */
 export async function detectCountryFromClientIp(): Promise<string | undefined> {
-  const signal = AbortSignal.timeout(2500);
-  try {
-    const res = await fetch("https://ipwho.is/?fields=success,country_code", {
-      signal,
-      cache: "no-store",
-    });
-    if (res.ok) {
+  const urls = ["https://ipwho.is/?fields=success,country_code", "https://ipapi.co/json/"];
+  for (const url of urls) {
+    try {
+      const res = await fetch(url, {
+        signal: AbortSignal.timeout(2500),
+        cache: "no-store",
+      });
+      if (!res.ok) continue;
       const code = countryFromUnknown(await res.json());
       if (code) return code;
+    } catch {
+      /* try the next provider */
     }
-  } catch {
-    /* fall through */
   }
   return undefined;
 }

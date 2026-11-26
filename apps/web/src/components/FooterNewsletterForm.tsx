@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from "react";
 import { api } from "@/lib/api";
 import { getOrCreateSessionId } from "@/lib/session";
+import { EMAIL_INPUT_PATTERN, EMAIL_INPUT_TITLE, isStrictEmail } from "@/lib/email";
 
 export function FooterNewsletterForm() {
   const [email, setEmail] = useState("");
@@ -12,7 +13,7 @@ export function FooterNewsletterForm() {
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
     const trimmed = email.trim();
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) {
+    if (!isStrictEmail(trimmed)) {
       setError("Enter a valid email address.");
       setStatus("err");
       return;
@@ -53,6 +54,8 @@ export function FooterNewsletterForm() {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="Enter your email address"
+        pattern={EMAIL_INPUT_PATTERN}
+        title={EMAIL_INPUT_TITLE}
         className="flex-1 md:w-72 rounded-md border border-[#e6d5bc] bg-paper px-4 py-2.5 text-base md:text-sm text-primary"
       />
       <button

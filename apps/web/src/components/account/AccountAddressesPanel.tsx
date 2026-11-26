@@ -3,6 +3,7 @@
 import { useState } from "react";
 import type { AccountAddress } from "@spicycorner/shared";
 import { AddressFormFields } from "./AddressFormFields";
+import { isStrictEmail } from "@/lib/email";
 import { LeadCaptureInput } from "@/components/LeadCaptureInput";
 import { emptyShippingAddress, formatAddressLine } from "@/lib/shipping-address";
 import {
@@ -88,6 +89,10 @@ export function AccountAddressesPanel({
 
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (form.email?.trim() && !isStrictEmail(form.email)) {
+      setError("Enter a valid email address.");
+      return;
+    }
     setLoading(true);
     setError("");
     setMessage("");

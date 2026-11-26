@@ -7,6 +7,7 @@ import { api } from "@/lib/api";
 import { getAttributionSnapshotForCheckout } from "@/lib/attribution-store";
 import { EVENT_TYPES } from "@spicycorner/shared";
 import { trackEnquiryEvent } from "@/lib/track";
+import { EMAIL_INPUT_PATTERN, EMAIL_INPUT_TITLE, isStrictEmail } from "@/lib/email";
 import {
   TRACKED_COMMODITIES,
   BULK_ODOR_SEGREGATION_NOTE,
@@ -252,6 +253,10 @@ export function BulkEnquiryForm() {
 
   async function submit(e: FormEvent) {
     e.preventDefault();
+    if (!isStrictEmail(email)) {
+      setSubmitError("Enter a valid email address.");
+      return;
+    }
     if (!qtyInput.trim() || qtyError || qtyKg < (quotePack?.minQtyKg ?? 100)) return;
     setSubmitting(true);
     setSubmitError("");
@@ -588,7 +593,7 @@ export function BulkEnquiryForm() {
             Website
             <input tabIndex={-1} autoComplete="off" value={website} onChange={(e) => setWebsite(e.target.value)} />
           </label>
-          <input required type="email" className="border rounded-lg px-3 py-2" placeholder="Email *" value={email} onChange={(e) => setEmail(e.target.value)} />
+          <input required type="email" pattern={EMAIL_INPUT_PATTERN} title={EMAIL_INPUT_TITLE} className="border rounded-lg px-3 py-2" placeholder="Email *" value={email} onChange={(e) => setEmail(e.target.value)} />
           <input required className="border rounded-lg px-3 py-2" placeholder="Phone *" value={phone} onChange={(e) => setPhone(e.target.value)} />
           <input required className="border rounded-lg px-3 py-2" placeholder="Country *" value={country} onChange={(e) => setCountry(e.target.value)} />
           <input className="border rounded-lg px-3 py-2" placeholder="Company (optional)" value={companyName} onChange={(e) => setCompanyName(e.target.value)} />

@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { strictEmailSchema } from "../lib/email-address";
 import { shippingAddressSchema } from "./order";
 
 export const accountAddressSchema = shippingAddressSchema.extend({
@@ -9,7 +10,7 @@ export const accountAddressSchema = shippingAddressSchema.extend({
 
 export const accountProfileSchema = z.object({
   userId: z.string(),
-  email: z.string().email(),
+  email: strictEmailSchema,
   name: z.string().optional(),
   phone: z.string().optional(),
   preferredPaymentMethod: z.enum(["stripe", "razorpay"]).optional(),

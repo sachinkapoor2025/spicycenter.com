@@ -1,9 +1,10 @@
 import { z } from "zod";
 import { USER_ROLES } from "../constants";
+import { strictEmailSchema } from "../lib/email-address";
 
 export const userProfileSchema = z.object({
   userId: z.string(),
-  email: z.string().email(),
+  email: strictEmailSchema,
   name: z.string().optional(),
   phone: z.string().optional(),
   role: z.enum([USER_ROLES.CUSTOMER, USER_ROLES.ADMIN]).default(USER_ROLES.CUSTOMER),

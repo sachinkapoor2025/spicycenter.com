@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { pageMetadata, withAbsoluteSocialTitle } from "@/lib/seo";
 import { listJournalPosts } from "@/lib/content/journal-posts";
@@ -33,20 +34,28 @@ export default function JournalPage() {
       <h2 className="font-serif text-2xl text-primary mt-10">Journal</h2>
       <ul className="mt-4 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {journal.map((post) => (
-          <li key={post.slug} className="card-spice p-5">
-            <Link href={`/journal/${post.slug}`} className="font-serif text-xl text-nav">
-              {post.title}
+          <li key={post.slug} className="card-spice overflow-hidden">
+            <Link href={`/journal/${post.slug}`} className="block">
+              <div className="relative aspect-[16/9] bg-[#f6efe3]">
+                <Image src={post.image} alt="" fill className="object-cover" sizes="(max-width: 768px) 100vw, 33vw" />
+              </div>
+              <span className="block p-5">
+                <span className="font-serif text-xl text-nav">{post.title}</span>
+                <p className="text-sm text-muted mt-1">{post.excerpt}</p>
+              </span>
             </Link>
-            <p className="text-sm text-muted mt-1">{post.excerpt}</p>
           </li>
         ))}
       </ul>
       <h2 className="font-serif text-2xl text-primary mt-12">From the blog</h2>
       <ul className="mt-4 grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
         {blog.map((post) => (
-          <li key={post.slug} className="card-spice p-5">
-            <Link href={`/blog/${post.slug}`} className="font-serif text-lg text-nav">
-              {post.title}
+          <li key={post.slug} className="card-spice overflow-hidden">
+            <Link href={`/journal/${post.slug}`} className="block">
+              <div className="relative aspect-[16/9] bg-[#f6efe3]">
+                <Image src={post.image} alt="" fill className="object-cover" sizes="(max-width: 768px) 100vw, 33vw" />
+              </div>
+              <span className="block p-5 font-serif text-lg text-nav">{post.title}</span>
             </Link>
           </li>
         ))}

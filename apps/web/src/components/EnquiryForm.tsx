@@ -5,8 +5,7 @@ import { EVENT_TYPES } from "@spicycorner/shared";
 import { api } from "@/lib/api";
 import { getOrCreateSessionId } from "@/lib/session";
 import { trackEnquiryEvent } from "@/lib/track";
-
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+import { EMAIL_INPUT_PATTERN, EMAIL_INPUT_TITLE, isStrictEmail } from "@/lib/email";
 
 export function EnquiryForm({
   defaultProduct = "",
@@ -58,7 +57,7 @@ export function EnquiryForm({
       setError("Please enter an email address or a phone number.");
       return;
     }
-    if (trimmedEmail && !EMAIL_RE.test(trimmedEmail)) {
+    if (trimmedEmail && !isStrictEmail(trimmedEmail)) {
       setError("Please enter a valid email address.");
       return;
     }
@@ -157,6 +156,8 @@ export function EnquiryForm({
             }}
             className="w-full border border-[#e6d5bc] rounded-lg px-3 py-2.5 text-base bg-white"
             placeholder="you@email.com"
+            pattern={EMAIL_INPUT_PATTERN}
+            title={EMAIL_INPUT_TITLE}
             autoComplete="email"
           />
         </div>

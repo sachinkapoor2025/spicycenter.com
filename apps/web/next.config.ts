@@ -35,8 +35,8 @@ const nextConfig: NextConfig = {
       { source: "/bulk-enquiry/:path*", destination: "/enquiry", permanent: true },
       { source: "/middle-east/:path*", destination: "/enquiry", permanent: true },
       { source: "/spice-market-prices", destination: "/enquiry", permanent: true },
-      { source: "/blog", destination: "/journal", permanent: true },
-      { source: "/blog/:path*", destination: "/journal", permanent: true },
+      { source: "/blog", destination: "/journal", permanent: false },
+      { source: "/blog/:path*", destination: "/journal/:path*", permanent: false },
     ];
   },
   env: {

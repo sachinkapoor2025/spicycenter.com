@@ -693,15 +693,20 @@ Resources:
         EmailSendingAccount: COGNITO_DEFAULT
       VerificationMessageTemplate:
         DefaultEmailOption: CONFIRM_WITH_CODE
-        EmailSubject: Verify your SpicyCorner account
+        EmailSubject: Your SpicyCenter verification code
         EmailMessage: |
-          Welcome to SpicyCorner!
+          SpicyCenter
 
-          Your verification code is {####}.
+          Your verification code is:
 
-          This code expires in 24 hours. If you did not create an account, you can ignore this email.
+          {####}
 
-          — SpicyCorner Team
+          Copy the code above and enter it on spicycenter.com to activate your account.
+          This code expires in 24 hours.
+
+          If you did not create a SpicyCenter account, you can ignore this email.
+
+          SpicyCenter
           https://www.spicycenter.com
       Policies:
         PasswordPolicy:

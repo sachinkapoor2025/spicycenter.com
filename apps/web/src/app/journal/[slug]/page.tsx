@@ -4,12 +4,15 @@ import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
 import { articleJsonLd, breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
+import { blogPosts } from "@/lib/content/blog-posts";
 import { getJournalPost, listJournalPosts } from "@/lib/content/journal-posts";
+import Image from "next/image";
 
 type Props = { params: Promise<{ slug: string }> };
 
 export function generateStaticParams() {
-  return listJournalPosts().map((p) => ({ slug: p.slug }));
+  const slugs = new Set([...listJournalPosts(), ...blogPosts].map((p) => p.slug));
+  return [...slugs].map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -59,7 +62,12 @@ export default async function JournalPostPage({ params }: Props) {
             day: "numeric",
           })}
         </time>
-        <h1 className="text-2xl sm:text-3xl font-bold text-primary mt-2 mb-3">{post.title}</h1>
+        {post.image ? (
+          <div className="relative mt-4 aspect-[16/9] overflow-hidden rounded-xl bg-[#f6efe3]">
+            <Image src={post.image} alt={post.title} fill className="object-cover" sizes="(max-width: 768px) 100vw, 720px" />
+          </div>
+        ) : null}
+        <h1 className="text-2xl sm:text-3xl font-bold text-primary mt-4 mb-3">{post.title}</h1>
         <p className="text-lg text-slate-600">{post.excerpt}</p>
       </header>
       <div className="space-y-8">

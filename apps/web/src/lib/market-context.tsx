@@ -6,6 +6,7 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
   type ReactNode,
 } from "react";
@@ -143,6 +144,7 @@ async function detectVisitorCountry(): Promise<string | undefined> {
 export function MarketProvider({ children }: { children: ReactNode }) {
   const { setDisplayCurrency } = useCurrency();
   const [countryCode, setCountryCode] = useState<string>(STOREFRONT_DEFAULT_COUNTRY);
+  const manualLock = useRef(false);
   const [postalCode, setPostalCode] = useState("");
   const [markets, setMarkets] = useState<PublicMarket[]>(() => fallbackPublicMarkets());
   const [loading, setLoading] = useState(false);
@@ -175,6 +177,7 @@ export function MarketProvider({ children }: { children: ReactNode }) {
         localStorage.setItem(COUNTRY_KEY, code);
         if (source === "manual") {
           localStorage.setItem(MANUAL_KEY, "true");
+          manualLock.current = true;
           setManualOverride(true);
         }
         if (nextPostal !== undefined) {
@@ -190,6 +193,17 @@ export function MarketProvider({ children }: { children: ReactNode }) {
   );
 
   useEffect(() => {
+    let cancelled = false;
+    const storedNow = readStoredCountry();
+    const manualNow = typeof window !== "undefined" && localStorage.getItem(MANUAL_KEY) === "true";
+    const storedPostal = typeof window !== "undefined" ? localStorage.getItem(POSTAL_KEY) ?? "" : "";
+    if (storedPostal) setPostalCode(storedPostal);
+    if (storedNow) setCountryCode(storedNow);
+    if (manualNow) {
+      manualLock.current = true;
+      setManualOverride(true);
+    }
+
     const init = async () => {
       try {
         let list = fallbackPublicMarkets();
@@ -203,13 +217,11 @@ export function MarketProvider({ children }: { children: ReactNode }) {
         } catch {
           /* keep bundled markets so Delivering to still has a country list */
         }
+        if (cancelled) return;
         setMarkets(list);
 
-        const manual = typeof window !== "undefined" && localStorage.getItem(MANUAL_KEY) === "true";
+        const manual = manualLock.current || localStorage.getItem(MANUAL_KEY) === "true";
         const stored = readStoredCountry();
-        const storedPostal = typeof window !== "undefined" ? localStorage.getItem(POSTAL_KEY) ?? "" : "";
-        if (storedPostal) setPostalCode(storedPostal);
-
         if (manual && stored) {
           setManualOverride(true);
           setCountryCode(stored);
@@ -219,26 +231,31 @@ export function MarketProvider({ children }: { children: ReactNode }) {
 
         setManualOverride(false);
         const detected = await detectVisitorCountry();
+        if (cancelled || manualLock.current || localStorage.getItem(MANUAL_KEY) === "true") return;
         const allowed = pickAllowedCountry(detected, list, stored || STOREFRONT_DEFAULT_COUNTRY);
         setCountryCode(allowed);
         localStorage.setItem(COUNTRY_KEY, allowed);
         applyCheckoutCurrency(detected ?? allowed, list);
       } finally {
-        setLoading(false);
+        if (!cancelled) setLoading(false);
       }
     };
     void init();
+    return () => {
+      cancelled = true;
+    };
   }, [applyCheckoutCurrency]);
 
   const resetToDetectedLocation = useCallback(async () => {
     if (typeof window !== "undefined") {
       localStorage.removeItem(MANUAL_KEY);
     }
+    manualLock.current = false;
     setManualOverride(false);
     setLoading(true);
     try {
       const detected = await detectVisitorCountry();
-      const allowed = pickAllowedCountry(detected, markets, STOREFRONT_DEFAULT_COUNTRY);
+      const allowed = pickAllowedCountry(detected, markets, readStoredCountry());
       setCountryCode(allowed);
       localStorage.setItem(COUNTRY_KEY, allowed);
       applyCheckoutCurrency(detected ?? allowed, markets);

@@ -321,7 +321,7 @@ export function ShoppingAssistant() {
         <section
           role="dialog"
           aria-label="SpicyCenter personal shopping assistant"
-          className="fixed z-[110] flex flex-col overflow-hidden border border-white/10 bg-primary shadow-2xl max-md:inset-0 max-md:rounded-none md:bottom-[5.5rem] md:right-5 md:h-[min(700px,calc(100vh-7rem))] md:w-[min(100vw-2rem,420px)] md:rounded-2xl"
+          className="fixed z-[80] flex flex-col overflow-hidden border border-white/10 bg-primary shadow-2xl max-md:inset-x-0 max-md:bottom-0 max-md:top-[10.75rem] max-md:rounded-none md:bottom-24 md:right-5 md:h-[min(640px,calc(100vh-12rem))] md:w-[min(100vw-2rem,420px)] md:rounded-2xl"
         >
           <header className="flex items-center justify-between gap-2 border-b border-white/10 px-4 py-3 pt-[max(0.75rem,env(safe-area-inset-top))] md:pt-3">
             <div className="min-w-0">
@@ -433,7 +433,7 @@ export function ShoppingAssistant() {
           onClick={() => (open && !minimized ? setMinimized(true) : void handleOpen())}
           aria-label={open && !minimized ? "Minimize spice assistant" : "Find your spice look"}
           aria-expanded={open && !minimized}
-          className="fixed right-3 z-[100] flex h-11 w-11 md:right-4 md:w-auto items-center justify-center gap-1.5 rounded-xl bg-primary px-0 md:px-3.5 text-white shadow-[0_4px_12px_rgba(44,24,16,0.45)] ring-2 ring-white/20 hover:scale-105 active:scale-95 transition-transform bottom-[max(0.5rem,env(safe-area-inset-bottom))] md:bottom-[4.75rem]"
+          className="fixed right-3 z-[85] flex h-11 w-11 md:right-4 md:w-auto items-center justify-center gap-1.5 rounded-xl bg-primary px-0 md:px-3.5 text-white shadow-[0_4px_12px_rgba(44,24,16,0.45)] ring-2 ring-white/20 hover:scale-105 active:scale-95 transition-transform bottom-[max(0.5rem,env(safe-area-inset-bottom))] md:bottom-6"
         >
           {open && !minimized ? (
             <svg className="h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

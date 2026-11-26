@@ -10,6 +10,7 @@ import { api } from "@/lib/api";
 import { StoreLocations } from "@/components/StoreLocations";
 import { PhoneInput, buildPhoneValue } from "@/components/PhoneInput";
 import { DEFAULT_COUNTRY_ISO } from "@/lib/country-codes";
+import { EMAIL_INPUT_PATTERN, EMAIL_INPUT_TITLE, isStrictEmail } from "@/lib/email";
 
 export function ContactForm() {
   const sessionId = useSessionId();
@@ -36,6 +37,9 @@ export function ContactForm() {
     try {
       const sid = sessionId;
       if (!sid) throw new Error("Session not ready");
+      if (!isStrictEmail(email)) {
+        throw new Error("Enter a valid email address.");
+      }
       const phone = buildPhoneValue(countryIso, phoneLocal);
       if (phoneLocal.replace(/\D/g, "").length < 6) {
         throw new Error("Please enter a valid phone number");
@@ -158,6 +162,8 @@ export function ContactForm() {
             <label className="block text-sm font-medium mb-1">Email</label>
             <input
               type="email"
+              pattern={EMAIL_INPUT_PATTERN}
+              title={EMAIL_INPUT_TITLE}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full border border-slate-300 rounded-lg px-3 py-2 text-base"

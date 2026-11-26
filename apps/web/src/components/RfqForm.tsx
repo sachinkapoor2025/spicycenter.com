@@ -6,8 +6,7 @@ import { ApiError, api } from "@/lib/api";
 import { getOrCreateSessionId } from "@/lib/session";
 import { trackEnquiryEvent } from "@/lib/track";
 import { whatsappChatUrl } from "@/lib/site";
-
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+import { EMAIL_INPUT_PATTERN, EMAIL_INPUT_TITLE, isStrictEmail } from "@/lib/email";
 const UNITS = ["KG", "MT", "Tons", "Bags", "Cartons"];
 const FORMS = ["Whole", "Seeds", "Powder", "Flakes", "Crushed", "Blend", "Other"];
 
@@ -62,7 +61,7 @@ export function RfqForm({
       setError("Please enter a business email or a WhatsApp number.");
       return;
     }
-    if (email.trim() && !EMAIL_RE.test(email.trim())) {
+    if (email.trim() && !isStrictEmail(email.trim())) {
       setError("Please enter a valid business email.");
       return;
     }
@@ -207,7 +206,7 @@ export function RfqForm({
       </label>
       <label className="block text-sm">
         Business email
-        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="mt-1 w-full min-h-11 rounded-lg border border-[#e6d5bc] bg-white px-3 py-2 text-base" />
+        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} pattern={EMAIL_INPUT_PATTERN} title={EMAIL_INPUT_TITLE} className="mt-1 w-full min-h-11 rounded-lg border border-[#e6d5bc] bg-white px-3 py-2 text-base" />
       </label>
       <label className="block text-sm">
         WhatsApp or phone

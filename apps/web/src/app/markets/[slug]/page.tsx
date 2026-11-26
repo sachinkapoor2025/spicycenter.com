@@ -88,7 +88,41 @@ export default async function MarketPage({ params }: Props) {
         · {market.marketCode}
       </p>
       <h1 className="spice-heading text-4xl mt-2">Indian spices for {market.name}</h1>
-      <p className="mt-4 text-muted leading-relaxed">{fulfilmentCopy(slug, market.name)}</p>
+      {slug === "usa" ? (
+        <div className="mt-4 space-y-4 text-muted leading-relaxed">
+          <p>
+            SpicyCenter helps importers, distributors, restaurants and food manufacturers in the United States source
+            Indian spices. This page is a sourcing guide. It is not a United States warehouse or a retail checkout.
+          </p>
+          <p>
+            Tell us the spice, the quantity and the delivery destination. We reply with availability. Shipping cost,
+            documents and timing are confirmed in that reply. We do not promise a delivery date here.
+          </p>
+          <p>Buyers usually ask about these groups:</p>
+          <ul className="list-disc pl-5 space-y-1">
+            <li>
+              <Link href="/spices/whole-spices" className="text-nav font-semibold">
+                Whole spices
+              </Link>{" "}
+              such as cumin, coriander, cardamom, clove and black pepper.
+            </li>
+            <li>
+              <Link href="/spices/ground-spices" className="text-nav font-semibold">
+                Ground spices
+              </Link>{" "}
+              such as turmeric, chilli and cumin powder.
+            </li>
+            <li>
+              <Link href="/spices/indian-masalas" className="text-nav font-semibold">
+                Masala blends
+              </Link>{" "}
+              such as garam masala and biryani masala.
+            </li>
+          </ul>
+        </div>
+      ) : (
+        <p className="mt-4 text-muted leading-relaxed">{fulfilmentCopy(slug, market.name)}</p>
+      )}
       {countryNote ? <p className="mt-3 text-muted leading-relaxed">{countryNote.summary}</p> : null}
       {placeNames.length > 0 ? (
         <p className="mt-3 text-sm text-muted leading-relaxed">Places covered: {placeNames.join(", ")}.</p>
@@ -102,6 +136,8 @@ export default async function MarketPage({ params }: Props) {
         </p>
       )}
 
+      {slug === "usa" ? null : (
+      <>
       <h2 className="font-serif text-2xl text-primary mt-10">Spices for this market</h2>
       <ul className="mt-4 space-y-3">
         {products.map((p) => (
@@ -127,11 +163,14 @@ export default async function MarketPage({ params }: Props) {
           </li>
         ))}
       </ul>
+      </>
+      )}
 
       <h2 className="font-serif text-2xl text-primary mt-10">Enquire Now</h2>
       <p className="text-sm text-muted mt-2">
-        No payment is required to submit. Say the spice, kilograms, and destination. Paid add-ons apply only if you
-        select them on a UK/EU 100kg+ quote.
+        {slug === "usa"
+          ? "No payment is required to submit. Tell us the spice, the quantity in kilograms, and the United States destination."
+          : "No payment is required to submit. Say the spice, kilograms, and destination. Paid add-ons apply only if you select them on a UK/EU 100kg+ quote."}
       </p>
       <div className="mt-4">
         <WholesaleQuoteForm defaultProduct="Indian spices" defaultCountry={dest === "US" ? "US" : dest === "CA" ? "CA" : dest === "UK" ? "GB" : ""} />

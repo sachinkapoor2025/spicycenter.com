@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { api } from "@/lib/api";
+import { EMAIL_INPUT_PATTERN, EMAIL_INPUT_TITLE, isStrictEmail } from "@/lib/email";
 
 export function PendingPaymentUnsubscribeForm({ initialEmail = "" }: { initialEmail?: string }) {
   const [email, setEmail] = useState(initialEmail);
@@ -11,6 +12,10 @@ export function PendingPaymentUnsubscribeForm({ initialEmail = "" }: { initialEm
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!isStrictEmail(email)) {
+      setError("Enter a valid email address.");
+      return;
+    }
     setLoading(true);
     setError("");
     try {
@@ -45,6 +50,8 @@ export function PendingPaymentUnsubscribeForm({ initialEmail = "" }: { initialEm
         <span className="font-medium text-slate-700">Email address</span>
         <input
           type="email"
+          pattern={EMAIL_INPUT_PATTERN}
+          title={EMAIL_INPUT_TITLE}
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}

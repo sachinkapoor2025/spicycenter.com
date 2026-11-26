@@ -88,5 +88,6 @@ export * from "./lib/bulk-quote";
 export * from "./lib/freight-tiers";
 export * from "./lib/bulk-destination";
 export * from "./db/keys";
+export * from "./lib/email-address";
 export * from "./constants";
 export * from "./currency";

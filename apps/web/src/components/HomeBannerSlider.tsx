@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type TouchEvent } from "react";
 import Image from "next/image";
 import Link from "next/link";
 export type HomeBannerSlide = {
@@ -12,6 +12,8 @@ export type HomeBannerSlide = {
 export function HomeBannerSlider({ banners }: { banners: readonly HomeBannerSlide[] }) {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
+  const touchStartX = useRef<number | null>(null);
+  const swiped = useRef(false);
 
   const goTo = useCallback(
     (next: number) => {
@@ -27,6 +29,24 @@ export function HomeBannerSlider({ banners }: { banners: readonly HomeBannerSlid
     return () => clearInterval(timer);
   }, [banners.length, paused, index, goTo]);
 
+  const onTouchStart = (event: TouchEvent) => {
+    touchStartX.current = event.changedTouches[0]?.clientX ?? null;
+    swiped.current = false;
+    setPaused(true);
+  };
+
+  const onTouchEnd = (event: TouchEvent) => {
+    const start = touchStartX.current;
+    touchStartX.current = null;
+    setPaused(false);
+    if (start == null || banners.length <= 1) return;
+    const end = event.changedTouches[0]?.clientX ?? start;
+    const delta = end - start;
+    if (Math.abs(delta) < 40) return;
+    swiped.current = true;
+    goTo(index + (delta < 0 ? 1 : -1));
+  };
+
   if (banners.length === 0) return null;
 
   return (
@@ -38,11 +58,20 @@ export function HomeBannerSlider({ banners }: { banners: readonly HomeBannerSlid
     >
       <div className="max-w-7xl mx-auto px-3 sm:px-4 pt-4 sm:pt-5">
         <div className="relative overflow-hidden rounded-2xl bg-[#1a1008] shadow-card">
-          <div className="relative w-full aspect-[8/3]">
+          <div
+            className="relative w-full aspect-[8/3] touch-pan-y"
+            onTouchStart={onTouchStart}
+            onTouchEnd={onTouchEnd}
+          >
             {banners.map((b, i) => (
               <Link
                 key={b.src}
                 href={b.href}
+                onClick={(event) => {
+                  if (!swiped.current) return;
+                  event.preventDefault();
+                  swiped.current = false;
+                }}
                 className={`absolute inset-0 transition-opacity duration-700 ${
                   i === index ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
                 }`}

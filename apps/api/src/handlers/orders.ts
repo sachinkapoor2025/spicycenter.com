@@ -96,8 +96,8 @@ function buildOrderItem(order: Order, userKey: string): StoredOrder {
 
 function normalizeEmail(email?: string): string | undefined {
   const trimmed = email?.trim();
-  if (!trimmed || !trimmed.includes("@")) return undefined;
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed) ? trimmed : undefined;
+  if (!trimmed) return undefined;
+  return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(trimmed) ? trimmed : undefined;
 }
 
 export async function captureLead(event: APIGatewayProxyEventV2) {
@@ -116,7 +116,11 @@ export async function captureLead(event: APIGatewayProxyEventV2) {
 
   const timestamp = now();
   const sessionId = parsed.data.sessionId;
-  const email = normalizeEmail(parsed.data.email);
+  const rawEmail = parsed.data.email?.trim();
+  if (rawEmail?.includes("@") && !normalizeEmail(rawEmail)) {
+    return badRequest("Enter a valid email address.");
+  }
+  const email = normalizeEmail(rawEmail);
 
   let welcomeCoupon:
     | {
@@ -130,29 +134,36 @@ export async function captureLead(event: APIGatewayProxyEventV2) {
   let leadPayload = parsed.data;
   if (parsed.data.source === "newsletter") {
     const phone = parsed.data.phone?.trim();
-    if (!phone) return badRequest("Enter a valid mobile number to spin");
-    const requested = Number(parsed.data.metadata?.discountPercent);
-    try {
-      welcomeCoupon = await issueWelcomeCoupon({
-        phone,
-        email,
-        sessionId,
-        discountPercent: Number.isFinite(requested) ? requested : undefined,
-      });
-    } catch (err) {
-      return badRequest(err instanceof Error ? err.message : "Could not issue discount coupon");
+    const isSpin =
+      parsed.data.metadata?.trigger === "daily_deal_wheel" ||
+      parsed.data.metadata?.offer === "discount_of_the_day";
+    if (!isSpin) {
+      if (!email) return badRequest("Enter a valid email address.");
+    } else {
+      if (!phone) return badRequest("Enter a valid mobile number to spin");
+      const requested = Number(parsed.data.metadata?.discountPercent);
+      try {
+        welcomeCoupon = await issueWelcomeCoupon({
+          phone,
+          email,
+          sessionId,
+          discountPercent: Number.isFinite(requested) ? requested : undefined,
+        });
+      } catch (err) {
+        return badRequest(err instanceof Error ? err.message : "Could not issue discount coupon");
+      }
+      leadPayload = {
+        ...parsed.data,
+        metadata: {
+          ...parsed.data.metadata,
+          couponCode: welcomeCoupon.code,
+          couponExpiresAt: welcomeCoupon.expiresAt,
+          discountPercent: String(welcomeCoupon.discountPercent),
+          alreadyClaimedToday: welcomeCoupon.alreadyClaimedToday ? "true" : "false",
+          offer: "discount_of_the_day",
+        },
+      };
     }
-    leadPayload = {
-      ...parsed.data,
-      metadata: {
-        ...parsed.data.metadata,
-        couponCode: welcomeCoupon.code,
-        couponExpiresAt: welcomeCoupon.expiresAt,
-        discountPercent: String(welcomeCoupon.discountPercent),
-        alreadyClaimedToday: welcomeCoupon.alreadyClaimedToday ? "true" : "false",
-        offer: "discount_of_the_day",
-      },
-    };
   }
 
   if (leadPayload.source === "catalogue-enquiry") {

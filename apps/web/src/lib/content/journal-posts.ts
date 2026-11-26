@@ -1,4 +1,4 @@
-import type { BlogPost } from "./blog-posts";
+import { blogPosts, type BlogPost } from "./blog-posts";
 
 export const journalPosts: BlogPost[] = [
   {
@@ -10,7 +10,7 @@ export const journalPosts: BlogPost[] = [
       "Spices do not ‘go off’ like milk, but they go flat. Here’s how to keep jeera, chilli and cardamom usable in a British cupboard.",
     publishedAt: "2026-09-15",
     updatedAt: "2026-09-15",
-    image: "/brand-logo.png",
+    image: "/images/spices/turmeric.jpg",
     relatedCategory: "whole-spices",
     sections: [
       {
@@ -49,7 +49,7 @@ export const journalPosts: BlogPost[] = [
       "Indian household cooks measure by eye. These starting points help a UK cook who is staring at four tins.",
     publishedAt: "2026-09-15",
     updatedAt: "2026-09-15",
-    image: "/brand-logo.png",
+    image: "/images/spices/chilli.jpg",
     relatedCategory: "ground-spices",
     sections: [
       {
@@ -82,7 +82,7 @@ export const journalPosts: BlogPost[] = [
       "A substitution is a workaround. It will not fool a Hyderabadi grandmother, but it will get dinner on the table.",
     publishedAt: "2026-09-15",
     updatedAt: "2026-09-15",
-    image: "/brand-logo.png",
+    image: "/images/spices/curry-leaf.jpg",
     relatedCategory: "ground-spices",
     sections: [
       {
@@ -115,7 +115,7 @@ export const journalPosts: BlogPost[] = [
       "Spices are agricultural. Harvest windows explain why a lot’s aroma changes through the year. This is a calendar, not a farm diary we did not write.",
     publishedAt: "2026-09-15",
     updatedAt: "2026-09-15",
-    image: "/brand-logo.png",
+    image: "/images/spices/green-cardamom.jpg",
     relatedCategory: "whole-spices",
     sections: [
       {
@@ -149,7 +149,7 @@ export const journalPosts: BlogPost[] = [
       "Origin is a legal food-information field. It is also trust. Here is how we describe sourcing without inventing a farmer’s first name.",
     publishedAt: "2026-09-15",
     updatedAt: "2026-09-15",
-    image: "/brand-logo.png",
+    image: "/images/spices/black-pepper.jpg",
     relatedCategory: "bulk-spices",
     sections: [
       {
@@ -181,7 +181,7 @@ export const journalPosts: BlogPost[] = [
       "Repeat buyers ask about parcels, VAT and paperwork. Here is the honest version: shipping rules are configurable; duty is not a slogan.",
     publishedAt: "2026-09-15",
     updatedAt: "2026-09-15",
-    image: "/brand-logo.png",
+    image: "/images/global-shipping-banner.jpg",
     relatedCategory: "bulk-spices",
     sections: [
       {
@@ -212,7 +212,7 @@ export const journalPosts: BlogPost[] = [
     excerpt: "You do not need 88 tins. You need a small whole-spice tadka set and a few fresh powders.",
     publishedAt: "2026-09-15",
     updatedAt: "2026-09-15",
-    image: "/brand-logo.png",
+    image: "/images/spices/coriander-powder.jpg",
     relatedCategory: "whole-spices",
     sections: [
       {
@@ -238,5 +238,5 @@ export function listJournalPosts(): BlogPost[] {
 }
 
 export function getJournalPost(slug: string): BlogPost | undefined {
-  return journalPosts.find((p) => p.slug === slug);
+  return journalPosts.find((p) => p.slug === slug) ?? blogPosts.find((p) => p.slug === slug);
 }

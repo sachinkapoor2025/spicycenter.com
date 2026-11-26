@@ -16,6 +16,7 @@ import {
 } from "@/lib/cognito";
 import { AccountDashboard } from "@/components/account/AccountDashboard";
 import { PasswordInput } from "@/components/PasswordInput";
+import { EMAIL_INPUT_PATTERN, EMAIL_INPUT_TITLE, isStrictEmail } from "@/lib/email";
 
 type AuthMode = "login" | "register" | "confirm" | "forgot" | "reset" | "new-password";
 
@@ -77,6 +78,10 @@ function AccountLoginForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (mode !== "new-password" && !isStrictEmail(email)) {
+      setError("Enter a valid email address.");
+      return;
+    }
     setError("");
     setMessage("");
     setLoading(true);
@@ -140,14 +145,18 @@ function AccountLoginForm() {
         return;
       }
 
-      const { userConfirmed } = await register(email, password, name);
-      if (userConfirmed) {
-        setMessage("Account created! Signing you in...");
-        await finishLogin();
+      const result = await register(email, password, name);
+      setConfirmCode("");
+      if (result.userConfirmed) {
+        setMode("login");
+        setMessage("This email is already verified. Log in with your password. A new account is not activated until the verification code is entered.");
       } else {
         setMode("confirm");
-        setConfirmCode("");
-        setMessage(`We sent a verification code to ${email}. Enter it below to activate your account. Check your spam or junk folder if you don't see it within a few minutes.`);
+        setMessage(
+          result.devCode
+            ? `Dev mode verification code: ${result.devCode}. Enter it below. The account is not created until this code is accepted.`
+            : `We sent a verification code to ${email}. Enter it below to activate your account. Check your spam or junk folder if you don't see it within a few minutes.`
+        );
       }
     } catch (err) {
       if (mode === "login" && isUnconfirmedError(err)) {
@@ -184,8 +193,12 @@ function AccountLoginForm() {
         }
         setMessage(RESET_CODE_SENT);
       } else {
-        await resendConfirmationCode(email);
-        setMessage(`A new verification code was sent to ${email}.`);
+        const resent = await resendConfirmationCode(email);
+        setMessage(
+          typeof resent === "string"
+            ? `Dev verification code: ${resent}. Enter it below.`
+            : `A new verification code was sent to ${email}.`
+        );
       }
     } catch (err) {
       if (mode === "confirm" && isAlreadyConfirmedError(err)) {
@@ -318,7 +331,7 @@ function AccountLoginForm() {
         {(mode === "login" || mode === "register") && (
           <>
             <input
-              type="email"
+              type="email" pattern={EMAIL_INPUT_PATTERN} title={EMAIL_INPUT_TITLE}
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -339,7 +352,7 @@ function AccountLoginForm() {
 
         {mode === "forgot" && (
           <input
-            type="email"
+            type="email" pattern={EMAIL_INPUT_PATTERN} title={EMAIL_INPUT_TITLE}
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -352,7 +365,7 @@ function AccountLoginForm() {
         {mode === "confirm" && (
           <>
             <input
-              type="email"
+              type="email" pattern={EMAIL_INPUT_PATTERN} title={EMAIL_INPUT_TITLE}
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -386,7 +399,7 @@ function AccountLoginForm() {
         {mode === "reset" && (
           <>
             <input
-              type="email"
+              type="email" pattern={EMAIL_INPUT_PATTERN} title={EMAIL_INPUT_TITLE}
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -420,7 +433,7 @@ function AccountLoginForm() {
         {mode === "new-password" && (
           <>
             <input
-              type="email"
+              type="email" pattern={EMAIL_INPUT_PATTERN} title={EMAIL_INPUT_TITLE}
               placeholder="Email"
               value={email}
               readOnly

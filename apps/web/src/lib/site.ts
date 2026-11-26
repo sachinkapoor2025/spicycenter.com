@@ -211,8 +211,8 @@ export const testimonials: readonly {
 
 export const faqs = [
   {
-    q: "Which pack sizes can I enquire about?",
-    a: `Catalogue pack sizes are ${packSizes.join(", ")}. These are pack sizes, not prices. 1 metric ton is 1,000 kg.`,
+    q: "How do I tell you the quantity?",
+    a: "Tell us the quantity you need in the enquiry. The usual range is 100 gm to 1 metric ton. The website does not have a custom pack-size builder or fixed pack buttons. Larger requirements can be discussed and are not a standard pack size.",
   },
   {
     q: "Do you show prices on the website?",

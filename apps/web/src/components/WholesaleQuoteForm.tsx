@@ -423,7 +423,7 @@ export function WholesaleQuoteForm({
         </label>
         <label className="text-sm min-w-0">
           <span className="block mb-1 font-medium">Email*</span>
-          <input type="email" className={fieldClass} autoComplete="email" value={form.email} onChange={(e) => patch({ email: e.target.value })} />
+          <input type="email" className={fieldClass} autoComplete="email" pattern="[^\\s@]+@[^\\s@]+\\.[^\\s@]{2,}" title="Enter a valid email address." value={form.email} onChange={(e) => patch({ email: e.target.value })} />
           {enquiryIssueMessage(issues, "email") ? (
             <span className="block mt-1 text-xs text-red-800">{enquiryIssueMessage(issues, "email")}</span>
           ) : null}

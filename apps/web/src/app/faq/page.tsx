@@ -5,7 +5,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { faqJsonLd, pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-    title: "FAQ — Indian spices, bulk orders and UK shipping",
+    title: "FAQ — Indian spices, quantities and worldwide delivery",
   description:
     "Questions about quantities, business enquiries and worldwide delivery.",
   path: "/faq",

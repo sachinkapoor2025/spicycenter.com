@@ -2,13 +2,21 @@
 
 import { useState } from "react";
 import { ALL_SPICE_ENTITIES } from "@/lib/spice/entities";
+import { EMAIL_INPUT_PATTERN, EMAIL_INPUT_TITLE, isStrictEmail } from "@/lib/email";
 
 export function WholesaleQuoteForm() {
   const [status, setStatus] = useState<"idle" | "ok" | "err">("idle");
+  const [error, setError] = useState("");
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
     const data = Object.fromEntries(new FormData(form).entries());
+    if (!isStrictEmail(String(data.email ?? ""))) {
+      setError("Enter a valid email address.");
+      setStatus("err");
+      return;
+    }
+    setError("");
     const res = await fetch("/api/wholesale-quote", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -21,7 +29,7 @@ export function WholesaleQuoteForm() {
     <form onSubmit={onSubmit} className="grid gap-3 card-spice p-6">
       <input required name="company" placeholder="Company name" className="border rounded px-3 py-2" />
       <input required name="contactName" placeholder="Contact name" className="border rounded px-3 py-2" />
-      <input required type="email" name="email" placeholder="Email" className="border rounded px-3 py-2" />
+      <input required type="email" name="email" placeholder="Email" pattern={EMAIL_INPUT_PATTERN} title={EMAIL_INPUT_TITLE} className="border rounded px-3 py-2" />
       <input name="phone" placeholder="Phone" className="border rounded px-3 py-2" />
       <input required name="country" placeholder="Country" className="border rounded px-3 py-2" />
       <input name="vatNumber" placeholder="VAT / business number" className="border rounded px-3 py-2" />
@@ -38,7 +46,7 @@ export function WholesaleQuoteForm() {
       <textarea name="message" placeholder="Message" className="border rounded px-3 py-2 min-h-24" />
       <button className="btn-primary" type="submit">Request wholesale quote</button>
       {status === "ok" && <p className="text-sm text-green-800">Quote request received. We will reply by email.</p>}
-      {status === "err" && <p className="text-sm text-red-800">Could not send. Email enquiry@spicycenter.com.</p>}
+      {status === "err" && <p className="text-sm text-red-800">{error || "Could not send. Email enquiry@spicycenter.com."}</p>}
     </form>
   );
 }

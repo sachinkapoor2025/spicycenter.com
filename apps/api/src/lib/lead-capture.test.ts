@@ -15,6 +15,39 @@ function event(body: unknown): APIGatewayProxyEventV2 {
   return { body: typeof body === "string" ? body : JSON.stringify(body) } as APIGatewayProxyEventV2;
 }
 
+describe("captureLead newsletter and email", () => {
+  it("asks for an email on a newsletter signup and does not ask for a mobile number", async () => {
+    const res = httpResult(await captureLead(event({ sessionId: "sess-1", source: "newsletter", page: "/" })));
+    assert.equal(res.statusCode, 400);
+    assert.match(String(res.body), /Enter a valid email address/);
+    assert.doesNotMatch(String(res.body), /mobile number to spin/);
+  });
+
+  it("rejects an email that has no dot in the domain", async () => {
+    const res = httpResult(
+      await captureLead(event({ sessionId: "sess-1", source: "newsletter", email: "buyer@example", page: "/" }))
+    );
+    assert.equal(res.statusCode, 400);
+    assert.match(String(res.body), /Enter a valid email address/);
+    assert.doesNotMatch(String(res.body), /mobile number to spin/);
+  });
+
+  it("still requires a mobile number for the discount wheel", async () => {
+    const res = httpResult(
+      await captureLead(
+        event({
+          sessionId: "sess-1",
+          source: "newsletter",
+          email: "buyer@example.com",
+          metadata: { trigger: "daily_deal_wheel" },
+        })
+      )
+    );
+    assert.equal(res.statusCode, 400);
+    assert.match(String(res.body), /Enter a valid mobile number to spin/);
+  });
+});
+
 describe("captureLead catalogue enquiry contract", () => {
   it("rejects oversized bodies before persist", async () => {
     const res = httpResult(await captureLead(event("x".repeat(LEAD_CAPTURE_MAX_BODY_BYTES + 1))));

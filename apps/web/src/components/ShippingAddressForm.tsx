@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import type { ShippingAddress } from "@spicycorner/shared";
 import { LeadCaptureInput } from "@/components/LeadCaptureInput";
+import { EMAIL_INPUT_PATTERN, EMAIL_INPUT_TITLE } from "@/lib/email";
 import { PhoneInput, buildPhoneValue } from "@/components/PhoneInput";
 import {
   DEFAULT_COUNTRY_ISO,
@@ -226,6 +227,8 @@ export function ShippingAddressForm({
           <LeadCaptureInput
             label="Email"
             type="email"
+            pattern={EMAIL_INPUT_PATTERN}
+            title={EMAIL_INPUT_TITLE}
             value={value.email}
             onChange={(e) => update("email", e.target.value)}
             required

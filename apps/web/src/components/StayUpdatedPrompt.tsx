@@ -4,13 +4,10 @@ import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { api } from "@/lib/api";
 import { getOrCreateSessionId } from "@/lib/session";
+import { EMAIL_INPUT_PATTERN, EMAIL_INPUT_TITLE, isStrictEmail } from "@/lib/email";
 
 const DISMISS_KEY = "spicycorner_stay_updated_dismissed";
 const SUBSCRIBED_KEY = "spicycorner_stay_updated_subscribed";
-
-function isValidEmail(value: string): boolean {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
-}
 
 /**
  * Compact “Stay Updated” control for the festival banner (not the sticky header).
@@ -83,7 +80,7 @@ export function StayUpdatedPrompt() {
   const subscribe = async (e: React.FormEvent) => {
     e.preventDefault();
     const trimmed = email.trim();
-    if (!isValidEmail(trimmed)) {
+    if (!isStrictEmail(trimmed)) {
       setError("Enter a valid email address.");
       return;
     }
@@ -169,6 +166,8 @@ export function StayUpdatedPrompt() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@email.com"
+                pattern={EMAIL_INPUT_PATTERN}
+                title={EMAIL_INPUT_TITLE}
                 autoComplete="email"
                 required
                 className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-nav"

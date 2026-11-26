@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { strictEmailSchema } from "../lib/email-address";
 import { cartItemSchema } from "./cart";
 import { ORDER_STATUS } from "../constants";
 import { checkoutAttributionSchema, orderAttributionSchema } from "./attribution";
@@ -29,7 +30,7 @@ export const shippingAddressSchema = z.object({
   postalCode: z.string().min(1),
   country: z.string().min(2).max(2),
   phone: phoneSchema,
-  email: z.string().email(),
+  email: strictEmailSchema,
   /** Buyer / sender name — shown on the shipping label. */
   senderName: z.string().trim().max(80).optional(),
   /** Personal note from sister — printed on the shipping label. */

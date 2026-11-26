@@ -16,6 +16,7 @@ import { trackSessionHeartbeat } from "@/lib/track";
 import { DEFAULT_COUNTRY_ISO } from "@/lib/country-codes";
 import { ConfettiBurst } from "@/components/ConfettiBurst";
 import { PhoneInput, buildPhoneValue } from "@/components/PhoneInput";
+import { EMAIL_INPUT_PATTERN, EMAIL_INPUT_TITLE, isStrictEmail } from "@/lib/email";
 
 const STORAGE_KEY = "spicycorner_daily_deal_shown";
 const SHOW_AFTER_MS = 10_000;
@@ -33,10 +34,6 @@ const SEGMENT_COLORS = [
   "#1a0a2e",
   "#e11d48",
 ];
-
-function isValidEmail(value: string): boolean {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
-}
 
 function isValidPhone(value: string): boolean {
   const digits = value.replace(/\D/g, "");
@@ -154,7 +151,7 @@ export function ExitIntentPopup() {
       setError("Enter a valid mobile number to spin");
       return;
     }
-    if (trimmedEmail && !isValidEmail(trimmedEmail)) {
+    if (trimmedEmail && !isStrictEmail(trimmedEmail)) {
       setError("Enter a valid email, or leave it blank.");
       return;
     }
@@ -443,6 +440,8 @@ export function ExitIntentPopup() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Email for coupon (optional)"
+                    pattern={EMAIL_INPUT_PATTERN}
+                    title={EMAIL_INPUT_TITLE}
                     disabled={phase === "spinning"}
                     className="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-nav disabled:opacity-60"
                   />

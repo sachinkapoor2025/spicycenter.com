@@ -34,6 +34,28 @@ export interface RegisterResult {
   userConfirmed: boolean;
   deliveryDestination?: string;
   deliveryMedium?: string;
+  /** Shown only when local dev auth is on, so the OTP step can be tested without email. */
+  devCode?: string;
+}
+
+const DEV_OTP_KEY = "hr_dev_signup_otp";
+
+function rememberDevOtp(email: string): string {
+  const code = String(Math.floor(100000 + Math.random() * 900000));
+  sessionStorage.setItem(DEV_OTP_KEY, JSON.stringify({ email: email.trim().toLowerCase(), code }));
+  return code;
+}
+
+function readDevOtp(email: string): string | undefined {
+  try {
+    const raw = sessionStorage.getItem(DEV_OTP_KEY);
+    if (!raw) return undefined;
+    const parsed = JSON.parse(raw) as { email?: string; code?: string };
+    if (parsed.email !== email.trim().toLowerCase()) return undefined;
+    return parsed.code;
+  } catch {
+    return undefined;
+  }
 }
 
 const STORAGE_KEY = "hr_ecom_auth";
@@ -203,7 +225,7 @@ export function register(
   name?: string
 ): Promise<RegisterResult> {
   if (!userPool && devAuth) {
-    return Promise.resolve({ userConfirmed: true });
+    return Promise.resolve({ userConfirmed: false, devCode: rememberDevOtp(email) });
   }
 
   if (!userPool) {
@@ -331,7 +353,14 @@ export function formatAuthError(err: unknown): string {
 }
 
 export function confirmSignUp(email: string, code: string): Promise<void> {
-  if (!userPool && devAuth) return Promise.resolve();
+  if (!userPool && devAuth) {
+    const expected = readDevOtp(email);
+    if (!expected || expected !== code.trim()) {
+      return Promise.reject(Object.assign(new Error("That code is invalid or expired. Request a new code and try again."), { code: "CodeMismatchException" }));
+    }
+    sessionStorage.removeItem(DEV_OTP_KEY);
+    return Promise.resolve();
+  }
   if (!userPool) return Promise.reject(new Error("Auth not configured."));
 
   return new Promise((resolve, reject) => {
@@ -343,8 +372,8 @@ export function confirmSignUp(email: string, code: string): Promise<void> {
   });
 }
 
-export function resendConfirmationCode(email: string): Promise<void> {
-  if (!userPool && devAuth) return Promise.resolve();
+export function resendConfirmationCode(email: string): Promise<string | void> {
+  if (!userPool && devAuth) return Promise.resolve(rememberDevOtp(email));
   if (!userPool) return Promise.reject(new Error("Auth not configured."));
 
   return new Promise((resolve, reject) => {

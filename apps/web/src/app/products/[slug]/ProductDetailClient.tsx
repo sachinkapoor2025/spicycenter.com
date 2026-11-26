@@ -7,9 +7,9 @@ import { WishlistButton } from "@/components/WishlistButton";
 import { ApprovedReviewList } from "@/components/ApprovedReviewList";
 import { EnquireNowLink } from "@/components/EnquireNowLink";
 import { SourcingQuoteLinks } from "@/components/SourcingQuoteLinks";
-import { useSessionId, useDebouncedLeadCapture } from "@/lib/session";
+import { useSessionId } from "@/lib/session";
 import { trackProductView } from "@/lib/track";
-import { LeadCaptureInput } from "@/components/LeadCaptureInput";
+import { EMAIL_INPUT_PATTERN, EMAIL_INPUT_TITLE, isStrictEmail } from "@/lib/email";
 import { HomeProductCard } from "@/components/HomeProductCard";
 import { productPageFaqs } from "@/lib/content/product-faqs";
 import { looksLikeHtml, stripHtml, shortPlainDescription } from "@/lib/html-text";
@@ -95,6 +95,24 @@ function galleryForVariant(images: string[], variantImage?: string): string[] {
   return [featured, ...images.filter((url) => url !== featured)];
 }
 
+function ProductFaqAccordion() {
+  return (
+    <div className="max-w-2xl divide-y divide-[#e6d5bc] overflow-hidden rounded-xl border border-[#e6d5bc] bg-white">
+      {productPageFaqs.map((faq) => (
+        <details key={faq.q} className="group">
+          <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-4 py-3 font-semibold text-primary">
+            <span>{faq.q}</span>
+            <span className="text-xl leading-none text-nav transition-transform group-open:rotate-45" aria-hidden>
+              +
+            </span>
+          </summary>
+          <p className="px-4 pb-4 text-sm leading-relaxed text-slate-600">{faq.a}</p>
+        </details>
+      ))}
+    </div>
+  );
+}
+
 function ShareButton({ title, url }: { title: string; url: string }) {
   const [copied, setCopied] = useState(false);
 
@@ -139,10 +157,12 @@ export function ProductDetailClient({
   relatedProducts?: Product[];
 }) {
   const sessionId = useSessionId();
-  const captureLead = useDebouncedLeadCapture(sessionId);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [enquiryNote, setEnquiryNote] = useState("");
+  const [enquiryError, setEnquiryError] = useState("");
+  const [enquirySending, setEnquirySending] = useState(false);
   const [tab, setTab] = useState<Tab>("description");
   const [productUrl, setProductUrl] = useState("");
   const variants = product.cjVariants ?? [];
@@ -189,6 +209,49 @@ export function ProductDetailClient({
         [...(product.images ?? []), ...extraImages.filter((url) => !(product.images ?? []).includes(url))],
         selectedVariant?.image
       );
+
+  const submitProductEnquiry = async (event: React.FormEvent) => {
+    event.preventDefault();
+    setEnquiryError("");
+    setEnquiryNote("");
+    if (!name.trim()) {
+      setEnquiryError("Enter your name.");
+      return;
+    }
+    if (!isStrictEmail(email)) {
+      setEnquiryError("Enter a valid email address.");
+      return;
+    }
+    if (!sessionId) {
+      setEnquiryError("Session not ready. Refresh and try again.");
+      return;
+    }
+    setEnquirySending(true);
+    try {
+      await api("/leads", {
+        method: "POST",
+        sessionId,
+        body: JSON.stringify({
+          sessionId,
+          name: name.trim(),
+          email: email.trim(),
+          phone: phone.trim() || undefined,
+          page: `/products/${product.slug}`,
+          productSlug: product.slug,
+          source: "product",
+          metadata: { product: product.name },
+        }),
+      });
+      setEnquiryNote("Enquiry sent. We will reply with availability.");
+      setName("");
+      setEmail("");
+      setPhone("");
+    } catch (err) {
+      setEnquiryError(err instanceof Error ? err.message : "Could not send the enquiry.");
+    } finally {
+      setEnquirySending(false);
+    }
+  };
 
   const summary = shortPlainDescription(catalogueDescription(product.description));
   const displayName = enquiryProductName(product.name);
@@ -317,58 +380,44 @@ export function ProductDetailClient({
                 ))}
             </article>
 
-            <div className="max-w-md space-y-3">
-              <LeadCaptureInput
-                label="Your name (helps us assist you)"
-                placeholder="Start typing your name..."
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                onDebouncedChange={(value) =>
-                  captureLead({
-                    name: value,
-                    email: email || undefined,
-                    phone: phone || undefined,
-                    page: `/products/${product.slug}`,
-                    productSlug: product.slug,
-                    source: "product",
-                  })
-                }
-              />
-              <LeadCaptureInput
-                label="Email (optional — for enquiry updates)"
-                placeholder="you@example.com"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                onDebouncedChange={(value) =>
-                  captureLead({
-                    name: name || undefined,
-                    email: value,
-                    phone: phone || undefined,
-                    page: `/products/${product.slug}`,
-                    productSlug: product.slug,
-                    source: "product",
-                  })
-                }
-              />
-              <LeadCaptureInput
-                label="Phone (optional — WhatsApp support)"
-                placeholder="+1 555 000 0000"
-                type="tel"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                onDebouncedChange={(value) =>
-                  captureLead({
-                    name: name || undefined,
-                    email: email || undefined,
-                    phone: value,
-                    page: `/products/${product.slug}`,
-                    productSlug: product.slug,
-                    source: "product",
-                  })
-                }
-              />
-            </div>
+            <form onSubmit={(event) => void submitProductEnquiry(event)} className="max-w-md space-y-3" noValidate>
+              <label className="block text-sm font-medium text-primary">
+                Your name
+                <input
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                  className="mt-1 w-full rounded-lg border border-[#e6d5bc] px-3 py-2 text-sm"
+                />
+              </label>
+              <label className="block text-sm font-medium text-primary">
+                Email
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  pattern={EMAIL_INPUT_PATTERN}
+                  title={EMAIL_INPUT_TITLE}
+                  placeholder="you@example.com"
+                  className="mt-1 w-full rounded-lg border border-[#e6d5bc] px-3 py-2 text-sm"
+                />
+              </label>
+              <label className="block text-sm font-medium text-primary">
+                Phone (optional)
+                <input
+                  type="tel"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  className="mt-1 w-full rounded-lg border border-[#e6d5bc] px-3 py-2 text-sm"
+                />
+              </label>
+              <button type="submit" disabled={enquirySending} className="btn-primary !w-auto px-5 py-2.5 text-sm font-semibold disabled:opacity-60">
+                {enquirySending ? "Sending..." : "Send enquiry"}
+              </button>
+              {enquiryError ? <p className="text-sm text-red-700">{enquiryError}</p> : null}
+              {enquiryNote ? <p className="text-sm text-green-800">{enquiryNote}</p> : null}
+            </form>
 
             {relatedProducts.length > 0 && (
               <div>
@@ -381,31 +430,14 @@ export function ProductDetailClient({
               </div>
             )}
 
-            <div className="max-w-2xl">
-              <h3 className="text-sm font-bold text-primary mb-3">Common questions</h3>
-              <dl className="space-y-4">
-                {productPageFaqs.map((f) => (
-                  <div key={f.q}>
-                    <dt className="font-semibold text-slate-800 text-sm">{f.q}</dt>
-                    <dd className="text-sm text-slate-600 mt-1 leading-relaxed">{f.a}</dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
+            <ProductFaqAccordion />
           </div>
         ) : tab === "reviews" ? (
           <div className="space-y-4">
             <ApprovedReviewList productSlug={product.slug} productName={product.name} />
           </div>
         ) : (
-          <dl className="space-y-5 max-w-2xl">
-            {productPageFaqs.map((f) => (
-              <div key={f.q}>
-                <dt className="font-semibold text-slate-900">{f.q}</dt>
-                <dd className="text-slate-600 mt-2 leading-relaxed">{f.a}</dd>
-              </div>
-            ))}
-          </dl>
+          <ProductFaqAccordion />
         )}
       </section>
     </div>

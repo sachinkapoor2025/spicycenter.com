@@ -1,8 +1,9 @@
 import { z } from "zod";
+import { strictEmailSchema } from "../lib/email-address";
 
 export const contactFormSchema = z.object({
   name: z.string().min(1).max(120),
-  email: z.string().email().max(254),
+  email: strictEmailSchema,
   phone: z.string().min(6).max(30).optional(),
   message: z.string().min(1).max(5000),
   sessionId: z.string().max(64).optional(),

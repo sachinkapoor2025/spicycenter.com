@@ -10,6 +10,7 @@ import {
   serializeEnquiryProductsJson,
   shouldShowOverseasContainerDisclaimer,
   shouldShowSampleNotice,
+  isStrictEmail,
   validateCatalogueEnquiry,
   type CatalogueEnquiryIssue,
   type EnquiryMarket,
@@ -128,6 +129,7 @@ export function validateEnquiryContact(values: Pick<EnquiryFormValues, "firstNam
   const issues: CatalogueEnquiryIssue[] = [];
   if (!values.firstName.trim()) issues.push({ field: "firstName", message: "Enter your name." });
   if (!values.email.trim()) issues.push({ field: "email", message: "Enter your email." });
+  else if (!isStrictEmail(values.email)) issues.push({ field: "email", message: "Enter a valid email address." });
   if (!values.phone.trim()) issues.push({ field: "phone", message: "Enter your phone number." });
   if (!values.company.trim()) issues.push({ field: "company", message: "Enter your company name." });
   return issues;

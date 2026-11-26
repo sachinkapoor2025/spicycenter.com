@@ -1,6 +1,7 @@
 "use client";
 
 import type { ShippingAddress } from "@spicycorner/shared";
+import { EMAIL_INPUT_PATTERN, EMAIL_INPUT_TITLE } from "@/lib/email";
 import { LeadCaptureInput } from "@/components/LeadCaptureInput";
 import {
   CountrySelectField,
@@ -32,6 +33,8 @@ export function AddressFormFields({
       <LeadCaptureInput
         label="Email"
         type="email"
+        pattern={EMAIL_INPUT_PATTERN}
+        title={EMAIL_INPUT_TITLE}
         value={value.email}
         onChange={(e) => update("email", e.target.value)}
         required

@@ -12,15 +12,22 @@ export async function detectViewerGeo(): Promise<ViewerGeo & { country: string; 
     record[key.toLowerCase()] = value;
   });
   const geo = parseViewerGeoFromHeaders(record);
-  if (geo.country) return { country: geo.country, source: "header", ...geo };
+  if (geo.country) return { ...geo, country: geo.country, source: "header" };
 
   const ip = publicClientIp(h);
   if (ip) {
     const fromIp = await lookupCountryFromIp(ip);
-    if (fromIp) return { country: fromIp, source: "ip", ...geo };
+    if (fromIp) return { ...geo, country: fromIp, source: "ip" };
   }
 
-  return { country: "US", source: "default", ...geo };
+  const host = (h.get("host") ?? "").toLowerCase();
+  const loopback = host.startsWith("localhost") || host.startsWith("127.") || host.startsWith("[::1]");
+  if (loopback) {
+    const fromCaller = await lookupCountryFromIp("");
+    if (fromCaller) return { ...geo, country: fromCaller, source: "ip" };
+  }
+
+  return { ...geo, country: "", source: "default" };
 }
 
 /** ISO 3166-1 alpha-2 country from CDN / edge headers (CloudFront on Amplify). */

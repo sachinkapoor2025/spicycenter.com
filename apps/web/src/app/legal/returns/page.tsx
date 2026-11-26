@@ -1,24 +1,21 @@
 import Link from "next/link";
 import { legalMeta, LegalShell } from "@/components/LegalShell";
+import { ReturnsPolicy } from "@/components/ReturnsPolicy";
 
-export const metadata = legalMeta("/legal/returns", "Returns", "Returns for food products.");
+export const metadata = legalMeta(
+  "/legal/returns",
+  "Returns",
+  "SpicyCenter returns policy for damaged, incorrect or missing spice orders.",
+);
 
 export default function Page() {
   return (
-    <LegalShell title="Returns">
-      <p>
-        Opened food cannot usually be restocked. Unopened, unused packs may be discussed with support if they arrived damaged
-        or incorrect. Wholesale returns follow the quote terms. See{" "}
+    <LegalShell title="Returns policy">
+      <ReturnsPolicy />
+      <p className="mt-6">
+        The same policy is also published on{" "}
         <Link href="/returns" className="text-nav font-semibold hover:underline">
-          customer returns
-        </Link>
-        ,{" "}
-        <Link href="/contact" className="text-nav font-semibold hover:underline">
-          contact
-        </Link>
-        , and{" "}
-        <Link href="/enquiry" className="text-nav font-semibold hover:underline">
-          free spice enquiry
+          the customer returns page
         </Link>
         . This is not a statutory-rights substitute.
       </p>
