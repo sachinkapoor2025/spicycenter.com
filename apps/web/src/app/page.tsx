@@ -235,8 +235,20 @@ export default async function HomePage() {
     <div>
       <JsonLd data={faqJsonLd(homeFaqs)} />
 
-      <section className="bg-primary text-paper">
-        <div className="max-w-7xl mx-auto px-4 py-12 md:py-16 grid lg:grid-cols-[1.2fr_0.8fr] gap-8 items-center">
+      <section className="relative isolate overflow-hidden text-paper">
+        <Image
+          src={homeBanners[0].src}
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-[center_42%]"
+        />
+        <div
+          className="absolute inset-0 bg-gradient-to-b from-[#2c1810]/62 via-[#2c1810]/42 to-[#2c1810]/58 md:bg-gradient-to-r md:from-[#2c1810]/72 md:via-[#2c1810]/46 md:to-[#2c1810]/28"
+          aria-hidden="true"
+        />
+        <div className="relative max-w-7xl mx-auto px-4 py-12 sm:py-14 md:py-16 lg:py-20 grid lg:grid-cols-[1.2fr_0.8fr] gap-8 lg:gap-10 items-center">
           <div>
             <p className="text-xs tracking-[0.18em] uppercase text-[#f3d7b0]">Independent Indian spice sourcing</p>
             <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl mt-3 leading-tight">Your Sourcing Partner for Indian Spices</h1>
@@ -251,7 +263,7 @@ export default async function HomePage() {
               <Link href="/spices" className="inline-flex w-full sm:w-auto items-center justify-center rounded-lg border border-paper/40 px-5 py-3 text-sm font-semibold">Explore Our Products</Link>
             </div>
           </div>
-          <div className="rounded-2xl bg-paper/10 p-5 text-sm leading-relaxed">
+          <div className="rounded-2xl border border-paper/25 bg-[#2c1810]/40 p-5 text-sm leading-relaxed backdrop-blur-[2px]">
             <p className="font-serif text-xl">What you can expect</p>
             <ul className="mt-3 space-y-2 text-paper/90">
               <li>A written requirement, not a published list price.</li>
