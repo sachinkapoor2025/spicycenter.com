@@ -29,7 +29,7 @@ export default async function RecipePage({ params }: Props) {
   const spices = r.spiceIds.map((id) => getSpiceBySlug(id)).filter(Boolean);
 
   return (
-    <article className="max-w-3xl mx-auto px-4 py-10">
+    <article className="w-full px-4 py-10">
       <JsonLd
         data={[
           recipeJsonLd(r),

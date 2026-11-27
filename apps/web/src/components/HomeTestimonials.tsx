@@ -42,7 +42,7 @@ export function HomeTestimonials() {
 
   return (
     <section className="bg-beige/50 border-y border-[#e6d5bc]">
-      <div className="max-w-7xl mx-auto px-4 py-14">
+      <div className="w-full px-4 py-14">
         <p className="spice-kicker">Testimonials</p>
         <h2 className="spice-heading text-2xl sm:text-3xl mt-2 mb-3">Customer reviews</h2>
         {usingPlaceholders ? (

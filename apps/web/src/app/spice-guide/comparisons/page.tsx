@@ -13,7 +13,7 @@ export const metadata: Metadata = pageMetadata({
 export default function ComparisonsIndex() {
   const items = loadComparisons();
   return (
-    <div className="max-w-7xl mx-auto px-4 py-10">
+    <div className="w-full px-4 py-10">
       <p className="text-sm text-muted">
         <Link href="/spice-guide">Spice guide</Link>
       </p>

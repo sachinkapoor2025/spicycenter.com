@@ -46,7 +46,7 @@ export default async function LegalPage({ params }: { params: Promise<{ slug: st
   const page = PAGES[slug as keyof typeof PAGES];
   if (!page) notFound();
   return (
-    <article className="max-w-3xl mx-auto px-4 py-10">
+    <article className="w-full px-4 py-10">
       <h1 className="font-serif text-4xl">{page.title}</h1>
       <p className="mt-4 leading-relaxed">{page.body}</p>
       <p className="mt-6 text-sm text-muted">

@@ -136,7 +136,7 @@ export function Header() {
   return (
     <header className="border-b border-[#e6d5bc] bg-cream sticky top-0 z-[90] shadow-card overflow-visible">
       <div className="text-[#f6efe3]" style={{ backgroundColor: "#2c1810" }}>
-        <div className="relative max-w-7xl mx-auto px-3 sm:px-4 py-3 flex items-center justify-end gap-4 min-h-[3.25rem]">
+        <div className="relative w-full px-3 sm:px-4 py-3 flex items-center justify-end gap-4 min-h-[3.25rem]">
           <p className="flex-1 min-w-0 text-center text-xs sm:text-base font-semibold leading-snug text-[#f6efe3] px-1">
             {site.tagline}
           </p>
@@ -147,7 +147,7 @@ export function Header() {
         </div>
       </div>
       {/* Mobile top bar */}
-      <div className="md:hidden max-w-7xl mx-auto px-3 py-2.5 flex items-center gap-2 min-w-0">
+      <div className="md:hidden w-full px-3 py-2.5 flex items-center gap-2 min-w-0">
         <button
           type="button"
           className="p-1.5 text-nav hover:text-primary shrink-0"
@@ -170,7 +170,7 @@ export function Header() {
       </div>
 
       {/* Desktop top bar */}
-      <div className="hidden md:grid max-w-7xl mx-auto px-4 py-2.5 grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-4">
+      <div className="hidden md:grid w-full px-4 py-2.5 grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-4">
         <SiteLogoLink size="desktop" priority />
 
         <div className="w-full max-w-2xl mx-auto">
@@ -202,14 +202,14 @@ export function Header() {
       </div>
 
       <div className="md:hidden border-t border-[#e6d5bc] bg-paper px-4 py-2.5">
-        <div className="max-w-7xl mx-auto">
+        <div className="w-full">
           <SearchBar />
         </div>
       </div>
 
       {/* Desktop nav — wrap instead of scrolling so hover menus are not clipped */}
       <nav className="hidden md:block border-t border-[#e6d5bc] bg-paper overflow-visible" aria-label="Primary">
-        <div className="max-w-7xl mx-auto px-4 py-2 flex flex-wrap items-center gap-1">
+        <div className="w-full px-4 py-2 flex flex-wrap items-center gap-1">
           {navItems.map((item, index) =>
             item.children ? (
               <DesktopDropdown

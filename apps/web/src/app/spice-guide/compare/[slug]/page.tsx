@@ -24,7 +24,7 @@ export default async function ComparePage({ params }: { params: Promise<{ slug: 
   const b = getSpiceBySlug(cmp.b);
   if (!a || !b) notFound();
   return (
-    <article className="max-w-3xl mx-auto px-4 py-10">
+    <article className="w-full px-4 py-10">
       <h1 className="font-serif text-4xl">{cmp.title}</h1>
       <p className="mt-3 text-slate-600">These are different spices (or forms). Use this table to choose; then buy retail or bulk from the linked products.</p>
       <table className="mt-6 w-full text-sm border">

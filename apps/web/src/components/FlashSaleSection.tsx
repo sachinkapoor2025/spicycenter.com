@@ -151,7 +151,7 @@ export function FlashSaleSection({ product }: { product: Product | null }) {
             "radial-gradient(circle at 20% 20%, #e11d48 0, transparent 40%), radial-gradient(circle at 80% 0%, #d97706 0, transparent 35%)",
         }}
       />
-      <div className="relative max-w-7xl mx-auto px-4 py-8 sm:py-10">
+      <div className="relative w-full px-4 py-8 sm:py-10">
         {/* Mobile: heading → image+timer → details. Desktop: image | details (unchanged). */}
         <div className="grid lg:grid-cols-[minmax(280px,420px)_1fr] gap-5 lg:gap-10 items-center">
           {/* Mobile-only headline above image */}

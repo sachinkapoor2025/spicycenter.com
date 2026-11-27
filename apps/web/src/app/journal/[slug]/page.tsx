@@ -38,7 +38,7 @@ export default async function JournalPostPage({ params }: Props) {
   ];
 
   return (
-    <article className="max-w-3xl mx-auto px-4 py-10">
+    <article className="w-full px-4 py-10">
       <JsonLd
         data={[
           articleJsonLd({

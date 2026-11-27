@@ -24,7 +24,7 @@ export default function JournalPage() {
   const journal = listJournalPosts();
   const blog = listAllBlogPosts();
   return (
-    <div className="max-w-7xl mx-auto px-4 py-12">
+    <div className="w-full px-4 py-12">
       <h1 className="spice-heading text-3xl sm:text-4xl">{JOURNAL_SUPPLIED_H1}</h1>
       {JOURNAL_SUPPLIED_INTRO.map((paragraph) => (
         <p key={paragraph} className="mt-3 text-muted leading-relaxed max-w-3xl">

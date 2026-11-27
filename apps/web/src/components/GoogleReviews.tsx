@@ -132,7 +132,7 @@ export function GoogleReviews({ data, hideHeader = false }: GoogleReviewsProps) 
 
   return (
     <section className="border-t border-slate-100 bg-[#f7f8fa] py-10 md:py-14">
-      <div className="mx-auto max-w-7xl px-4">
+      <div className="w-full px-4">
         {!hideHeader ? (
           <div className="mb-5 flex items-center justify-between gap-3">
             <div className="min-w-0">

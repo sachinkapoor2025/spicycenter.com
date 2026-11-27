@@ -18,9 +18,9 @@ module.exports = {
         beige: "#efe4d2",
       },
       fontFamily: {
-        serif: ['"Source Serif 4"', "Georgia", "serif"],
-        sans: ['"Source Sans 3"', "system-ui", "sans-serif"],
-        quote: ['"Cormorant Garamond"', "Georgia", "serif"],
+        serif: ["var(--font-serif)", "Georgia", "serif"],
+        sans: ["var(--font-sans)", "system-ui", "sans-serif"],
+        quote: ["var(--font-quote)", "Georgia", "serif"],
       },
       boxShadow: {
         card: "0 10px 28px rgba(44, 24, 16, 0.08)",

@@ -9,7 +9,7 @@ export function HomeSeoSection() {
 
   return (
     <section className="bg-slate-50 border-y border-slate-200" aria-labelledby="home-seo-heading">
-      <div className="max-w-7xl mx-auto px-4 py-12 sm:py-16">
+      <div className="w-full px-4 py-12 sm:py-16">
         <div className="grid lg:grid-cols-2 gap-10 xl:gap-14">
           {/* Left — editorial */}
           <article className="space-y-8 text-slate-700 leading-relaxed">

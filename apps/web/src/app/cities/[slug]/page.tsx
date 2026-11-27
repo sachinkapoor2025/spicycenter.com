@@ -53,7 +53,7 @@ export default async function CityPage({ params }: Props) {
     { label: loc.label },
   ];
   return (
-    <div className="max-w-7xl mx-auto px-4 py-10">
+    <div className="w-full px-4 py-10">
       <JsonLd
         data={[
           breadcrumbJsonLd(crumbs.map((c) => ({ name: c.label, path: c.href ?? `/cities/${slug}` }))),

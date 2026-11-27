@@ -17,7 +17,7 @@ export const metadata: Metadata = withAbsoluteSocialTitle(
 
 export default function SourcingPartnerPage() {
   return (
-    <article className="max-w-3xl mx-auto px-4 py-10">
+    <article className="w-full px-4 py-10">
       <h1 className="spice-heading text-3xl sm:text-4xl">An independent sourcing partner for Indian spices</h1>
       <p className="mt-4 text-muted leading-relaxed">
         Buyers use SpicyCenter when they want help finding an Indian spice supplier, not a shop that claims to own the stock. A requirement can cover bulk cumin, bulk turmeric, mixed spice procurement or another named product.

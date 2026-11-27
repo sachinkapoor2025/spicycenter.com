@@ -240,9 +240,21 @@ export function MarketProvider({ children }: { children: ReactNode }) {
         if (!cancelled) setLoading(false);
       }
     };
-    void init();
+    let idleId = 0;
+    let timer = 0;
+    const win = window as Window & {
+      requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
+      cancelIdleCallback?: (id: number) => void;
+    };
+    if (typeof win.requestIdleCallback === "function") {
+      idleId = win.requestIdleCallback(() => void init(), { timeout: 1800 });
+    } else {
+      timer = window.setTimeout(() => void init(), 700);
+    }
     return () => {
       cancelled = true;
+      if (idleId) win.cancelIdleCallback?.(idleId);
+      if (timer) window.clearTimeout(timer);
     };
   }, [applyCheckoutCurrency]);
 

@@ -7,7 +7,7 @@ export function FeaturedProducts({ items }: { items: FeaturedHomepageSpice[] }) 
   if (items.length === 0) return null;
 
   return (
-    <section className="max-w-7xl mx-auto px-4 py-14">
+    <section className="w-full px-4 py-14">
       <div className="text-center mb-8">
         <p className="spice-kicker">Featured spices</p>
         <h2 className="font-serif text-2xl sm:text-3xl text-primary mt-2">Main spices from our collection</h2>

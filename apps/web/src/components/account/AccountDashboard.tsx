@@ -107,7 +107,7 @@ export function AccountDashboard({
 
   return (
     <div className="bg-slate-50 min-h-[70vh]">
-      <div className="max-w-5xl mx-auto px-4 py-8 sm:py-10">
+      <div className="w-full px-4 py-8 sm:py-10">
         <div className="rounded-xl bg-gradient-to-r from-blue-600 via-violet-600 to-violet-800 text-white px-6 py-8 sm:px-10 sm:py-10 mb-6 shadow-md text-center sm:text-left">
           <p className="text-lg sm:text-xl font-medium leading-relaxed max-w-3xl mx-auto sm:mx-0">
             Welcome back to your account. Manage orders, addresses and profile details easily.

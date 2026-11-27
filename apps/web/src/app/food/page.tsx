@@ -21,7 +21,7 @@ export const metadata: Metadata = withAbsoluteSocialTitle(
 
 export default function FoodFamiliesPage() {
   return (
-    <div className="max-w-7xl mx-auto px-4 py-10">
+    <div className="w-full px-4 py-10">
       <HubBreadcrumbs items={[{ name: "Home", path: "/" }, { name: "Food sourcing", path: "/food" }]} />
       <p className="spice-kicker">B2B sourcing</p>
       <h1 className="spice-heading text-3xl sm:text-4xl mt-2">{FOOD_SUPPLIED_H1}</h1>

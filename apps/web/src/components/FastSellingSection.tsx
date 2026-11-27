@@ -16,7 +16,7 @@ export function FastSellingSection({ products, limit = 10 }: FastSellingSectionP
 
   return (
     <section className="bg-gradient-to-br from-orange-50 via-amber-50/80 to-white border-y border-orange-100/80">
-      <div className="max-w-7xl mx-auto px-4 py-10">
+      <div className="w-full px-4 py-10">
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-6">
           <div>
             <p className="text-xs font-bold uppercase tracking-widest text-orange-600 mb-1">Trending now</p>

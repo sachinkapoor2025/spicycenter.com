@@ -31,7 +31,7 @@ export default async function GuidePage({ params }: Props) {
   const guide = getSourcingGuide(slug);
   if (!guide) notFound();
   return (
-    <div className="max-w-7xl mx-auto px-4 py-10 grid lg:grid-cols-[minmax(0,42rem)_minmax(16rem,1fr)] gap-10 items-start">
+    <div className="w-full px-4 py-10 grid lg:grid-cols-[minmax(0,42rem)_minmax(16rem,1fr)] gap-10 items-start">
       <article>
       <HubBreadcrumbs
         items={[

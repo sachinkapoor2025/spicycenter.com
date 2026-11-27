@@ -7,6 +7,10 @@ import {
   CognitoUserAttribute,
   type CognitoUserSession,
 } from "amazon-cognito-identity-js";
+import { storeAuth, type AuthUser } from "./auth-session";
+
+export type { AuthUser };
+export { loadStoredAuth, storeAuth } from "./auth-session";
 
 const poolId = process.env.NEXT_PUBLIC_COGNITO_USER_POOL_ID;
 const clientId = process.env.NEXT_PUBLIC_COGNITO_CLIENT_ID;
@@ -16,19 +20,6 @@ const userPool =
   poolId && clientId
     ? new CognitoUserPool({ UserPoolId: poolId, ClientId: clientId })
     : null;
-
-export interface AuthUser {
-  email: string;
-  name?: string;
-  token: string;
-  isAdmin: boolean;
-  isSuperAdmin: boolean;
-  /** Cognito `email` group — /ses-email module */
-  isEmailMarketer: boolean;
-  /** Cognito `vendor` group — vendor portal with server-side isolation */
-  isVendor: boolean;
-  vendorSlug?: string;
-}
 
 export interface RegisterResult {
   userConfirmed: boolean;
@@ -56,29 +47,6 @@ function readDevOtp(email: string): string | undefined {
   } catch {
     return undefined;
   }
-}
-
-const STORAGE_KEY = "hr_ecom_auth";
-
-export function loadStoredAuth(): AuthUser | null {
-  if (typeof window === "undefined") return null;
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return null;
-    const parsed = JSON.parse(raw) as AuthUser;
-    return {
-      ...parsed,
-      isEmailMarketer: Boolean(parsed.isEmailMarketer ?? parsed.isSuperAdmin),
-      isVendor: Boolean(parsed.isVendor),
-    };
-  } catch {
-    return null;
-  }
-}
-
-export function storeAuth(user: AuthUser | null) {
-  if (user) localStorage.setItem(STORAGE_KEY, JSON.stringify(user));
-  else localStorage.removeItem(STORAGE_KEY);
 }
 
 export class NewPasswordRequiredError extends Error {

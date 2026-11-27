@@ -8,7 +8,7 @@ export function legalMeta(path: string, title: string, description: string): Met
 
 export function LegalShell({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <article className="max-w-3xl mx-auto px-4 py-10 prose">
+    <article className="w-full px-4 sm:px-6 lg:px-8 py-10 prose max-w-none">
       <h1 className="spice-heading text-4xl not-prose">{title}</h1>
       <div className="mt-6 space-y-4 text-[15px] leading-relaxed text-charcoal">{children}</div>
     </article>

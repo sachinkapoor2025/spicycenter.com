@@ -42,7 +42,7 @@ export default async function ComparisonPage({ params }: Props) {
   const recipes = (c.relatedRecipes ?? []).map(getRecipeBySlug).filter(Boolean);
 
   return (
-    <article className="max-w-3xl mx-auto px-4 py-10">
+    <article className="w-full px-4 py-10">
       <JsonLd
         data={[
           articleJsonLd({

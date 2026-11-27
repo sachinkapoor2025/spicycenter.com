@@ -22,7 +22,7 @@ export default function RecipesPage() {
   const recipes = loadRecipes();
   const courses = [...new Set(recipes.map((r) => r.course || r.cuisine))];
   return (
-    <div className="max-w-7xl mx-auto px-4 py-10">
+    <div className="w-full px-4 py-10">
       <h1 className="spice-heading text-3xl sm:text-4xl">{RECIPES_SUPPLIED_H1}</h1>
       {RECIPES_SUPPLIED_INTRO.map((paragraph) => (
         <p key={paragraph} className="mt-3 text-muted max-w-3xl leading-relaxed">

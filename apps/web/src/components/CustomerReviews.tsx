@@ -42,7 +42,7 @@ type CustomerReviewsProps = {
 export function CustomerReviews({ showIntro = true }: CustomerReviewsProps) {
   return (
     <section className="bg-white border-t border-slate-100 py-12 md:py-16">
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="w-full px-4">
         <h2 className="text-2xl md:text-3xl font-bold text-primary mb-3 md:mb-4">
           Customer reviews
         </h2>

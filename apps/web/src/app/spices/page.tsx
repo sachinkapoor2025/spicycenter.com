@@ -83,7 +83,7 @@ export default async function SpicesIndex({
   const shown = products.slice(0, 48);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-10">
+    <div className="w-full px-4 py-10">
       <p className="text-sm text-muted"><Link href="/">Home</Link> / Shop spices</p>
       <h1 className="spice-heading text-3xl sm:text-4xl mt-2">Indian spice catalogue</h1>
       <p className="mt-3 text-muted max-w-2xl">

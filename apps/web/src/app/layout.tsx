@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Cormorant_Garamond, Source_Sans_3, Source_Serif_4 } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/lib/auth-context";
 import { CartProvider } from "@/lib/cart-context";
@@ -20,6 +21,30 @@ import { site } from "@/lib/site";
 import { organizationJsonLd, webSiteJsonLd, onlineStoreJsonLd, localBusinessJsonLd, defaultKeywords, canonical } from "@/lib/seo";
 
 const siteVerification = getSiteVerification();
+
+const sans = Source_Sans_3({
+  subsets: ["latin"],
+  weight: ["400", "600", "700"],
+  display: "swap",
+  variable: "--font-sans",
+});
+
+const serif = Source_Serif_4({
+  subsets: ["latin"],
+  weight: ["600", "700"],
+  style: ["normal", "italic"],
+  display: "swap",
+  variable: "--font-serif",
+});
+
+const quote = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["600", "700"],
+  style: ["normal", "italic"],
+  display: "swap",
+  preload: false,
+  variable: "--font-quote",
+});
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -78,14 +103,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs.txt — AI site summary" />
         <link rel="alternate" type="text/plain" href="/llms-full.txt" title="LLMs-full.txt — product catalog for AI" />
         <link rel="help" type="text/plain" href="/llms.txt" title="Information for AI assistants" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,600;0,8..60,700;1,8..60,600;1,8..60,700&display=swap"
-          rel="stylesheet"
-        />
       </head>
-      <body className="min-h-screen antialiased flex flex-col bg-cream text-charcoal font-sans overflow-x-clip">
+      <body className={`${sans.variable} ${serif.variable} ${quote.variable} min-h-screen antialiased flex flex-col bg-cream text-charcoal font-sans overflow-x-clip`}>
         <GoogleAnalytics />
         <AnalyticsScripts />
         <JsonLd data={[organizationJsonLd(), webSiteJsonLd(), onlineStoreJsonLd(), ...localBusinessJsonLd()]} />

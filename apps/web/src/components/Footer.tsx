@@ -62,9 +62,9 @@ export function Footer() {
   return (
     <div className="mt-auto">
       <section className="relative overflow-hidden border-t border-[#e6d5bc]">
-        <Image src="/images/footer-spices.jpg" alt="" fill className="object-cover object-center" sizes="100vw" />
+        <Image src="/images/footer-spices.jpg" alt="" fill quality={40} className="object-cover object-center" sizes="100vw" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#f3eadc] via-[#f3eadc]/88 to-[#f3eadc]/55" />
-        <div className="relative max-w-7xl mx-auto px-4 py-10 flex flex-col md:flex-row md:items-center gap-6">
+        <div className="relative w-full px-4 py-10 flex flex-col md:flex-row md:items-center gap-6">
           <div className="flex-1">
             <p className="spice-kicker">The spice kitchen list</p>
             <h2 className="font-serif text-3xl text-primary mt-2">Join the SpicyCenter Family</h2>
@@ -81,12 +81,13 @@ export function Footer() {
           src="/images/footer-spices.jpg"
           alt=""
           fill
+          quality={40}
           className="object-cover object-[70%_center]"
           sizes="100vw"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-[#1f140c] via-[#2c1810]/92 to-[#2c1810]/45" />
 
-        <div className="relative max-w-6xl mx-auto px-4 pt-6 pb-4 md:pt-8 md:pb-6">
+        <div className="relative w-full px-4 pt-6 pb-4 md:pt-8 md:pb-6">
           <p className="text-center text-[10px] sm:text-[11px] tracking-[0.12em] sm:tracking-[0.22em] uppercase text-accent/90 mb-4 md:mb-6 px-2">
             Cinnamon · Cardamom · Pepper · Chilli · Turmeric
           </p>
@@ -226,7 +227,7 @@ export function Footer() {
         </div>
 
         <div className="relative">
-          <div className="max-w-6xl mx-auto px-4 pt-3 pb-28 md:pb-4 grid gap-2 sm:grid-cols-[1fr_auto_1fr] sm:items-center text-xs text-white/55">
+          <div className="w-full px-4 pt-3 pb-28 md:pb-4 grid gap-2 sm:grid-cols-[1fr_auto_1fr] sm:items-center text-xs text-white/55">
             <p>© {new Date().getFullYear()} {site.name}. All rights reserved.</p>
             <p className="font-serif italic text-accent/90 text-sm sm:text-center">Good Food · Better Tomorrow</p>
             <p className="flex flex-wrap gap-x-3 gap-y-1 sm:justify-end">

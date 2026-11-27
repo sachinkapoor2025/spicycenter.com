@@ -116,7 +116,7 @@ export function HomepageCatalog({
   const hamperAt = Math.min(HOMEPAGE_HAMPERS_AFTER_FEATURED_GROUPS, featuredBlocks.length);
 
   const renderGroup = (group: SnapshotGroup & { items: Product[] }, groupIndex: number) => (
-    <section key={group.id} className="max-w-7xl mx-auto px-4 py-8">
+    <section key={group.id} className="w-full px-4 py-8">
       <div className="flex items-center justify-between mb-5">
         <h2 className="spice-heading text-xl md:text-2xl">{group.title}</h2>
         <Link href="/products" className="text-nav font-semibold text-sm hover:underline">
@@ -147,7 +147,7 @@ export function HomepageCatalog({
       {children}
 
       {(remainder.length > 0 || hasMore) && (
-        <section className="max-w-7xl mx-auto px-4 py-8">
+        <section className="w-full px-4 py-8">
           <div className="flex items-center justify-between mb-5">
             <h2 className="spice-heading text-xl md:text-2xl">More spice picks</h2>
             <p className="text-xs text-slate-500">

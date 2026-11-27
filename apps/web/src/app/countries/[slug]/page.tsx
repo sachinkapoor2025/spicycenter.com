@@ -67,7 +67,7 @@ export default async function CountryLandingPage({ params }: Props) {
   const isNorthAmerica = slug === "us" || slug === "ca";
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-10">
+    <div className="w-full px-4 py-10">
       <JsonLd
         data={[
           breadcrumbJsonLd(crumbs.map((c) => ({ name: c.label, path: c.href ?? `/countries/${slug}` }))),

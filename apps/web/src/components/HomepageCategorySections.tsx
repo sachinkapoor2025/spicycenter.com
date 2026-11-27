@@ -23,7 +23,7 @@ function LazyCategoryRow({
   const [products, setProducts] = useState<Product[]>(initialProducts);
   const [requested, setRequested] = useState(eager || initialProducts.length > 0);
   const [empty, setEmpty] = useState(false);
-  const sectionClass = contained ? "py-8" : "max-w-7xl mx-auto px-4 py-8";
+  const sectionClass = contained ? "py-8" : "w-full px-4 py-8";
 
   useEffect(() => {
     const node = ref.current;

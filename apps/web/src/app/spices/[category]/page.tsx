@@ -75,7 +75,7 @@ export default async function SpiceCategoryPage({ params }: Props) {
   const bilingual = featuredBilingualName(title, spice?.slug ?? category);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-10">
+    <div className="w-full px-4 py-10">
       {batch ? <JsonLd data={faqJsonLd(batch.faqs)} /> : null}
       <p className="text-sm text-muted"><Link href="/spices">Shop</Link> / {title}</p>
       <h1 className="spice-heading text-3xl sm:text-4xl mt-2">{category === "indian-masalas" ? MASALA_SUPPLIED_H1 : batch?.h1 ?? title}</h1>

@@ -33,7 +33,7 @@ export default function SpiceGuideIndex() {
   const groups = [...GROUP_ORDER.filter((g) => grouped.has(g)), ...[...grouped.keys()].filter((g) => !GROUP_ORDER.includes(g))];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-10">
+    <div className="w-full px-4 py-10">
       <h1 className="spice-heading text-4xl">Spice guide</h1>
       <p className="mt-3 text-muted max-w-2xl">
         {spices.length} Indian spices, herbs, seeds and masalas. Each guide covers the name, flavour, culinary uses and growing regions.

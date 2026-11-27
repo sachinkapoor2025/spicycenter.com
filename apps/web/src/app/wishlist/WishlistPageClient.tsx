@@ -22,7 +22,7 @@ export function WishlistPageClient() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-10">
+    <div className="w-full px-4 py-10">
       <h1 className="text-3xl font-bold text-primary mb-2">Saved products</h1>
       <p className="text-slate-600 mb-8">{items.length} saved {items.length === 1 ? "item" : "items"}</p>
 

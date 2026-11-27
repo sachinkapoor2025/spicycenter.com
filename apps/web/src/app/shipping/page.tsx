@@ -11,7 +11,7 @@ export const metadata: Metadata = pageMetadata({
 
 export default function ShippingPage() {
   return (
-    <div className="max-w-3xl mx-auto px-4 py-12">
+    <div className="w-full px-4 py-12">
       <h1 className="font-serif text-4xl mb-6">Shipping worldwide</h1>
       <div className="space-y-4 text-slate-700 leading-relaxed">
         <p>

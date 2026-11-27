@@ -3,8 +3,7 @@ import { getAnalyticsIds } from "@/lib/analytics-config";
 
 /**
  * Google tag (gtag.js) — GA4 + Google Ads in one loader (no duplicate Google tags).
- * Use afterInteractive (NOT beforeInteractive): beforeInteractive blocked LCP by ~4s+
- * of load-delay on mobile (gtag competed with the hero image request).
+ * Use lazyOnload so the tag does not compete with the hero image on a phone.
  */
 export function GoogleAnalytics() {
   const { ga4Id, googleAdsId } = getAnalyticsIds();
@@ -24,9 +23,9 @@ export function GoogleAnalytics() {
       <Script
         id="gtag-loader"
         src={`https://www.googletagmanager.com/gtag/js?id=${loaderId}`}
-        strategy="afterInteractive"
+        strategy="lazyOnload"
       />
-      <Script id="gtag-config" strategy="afterInteractive">{`
+      <Script id="gtag-config" strategy="lazyOnload">{`
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());

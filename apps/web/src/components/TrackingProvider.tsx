@@ -19,12 +19,33 @@ export function TrackingProvider() {
   const pathname = usePathname();
 
   useEffect(() => {
-    captureAttributionFromLocation();
-    void ensureVisitorGeo().then(() => {
-      trackPageLeave();
-      trackPageView(pathname);
-      trackLivePresence();
-    });
+    let cancelled = false;
+    const start = () => {
+      if (cancelled) return;
+      captureAttributionFromLocation();
+      void ensureVisitorGeo().then(() => {
+        if (cancelled) return;
+        trackPageLeave();
+        trackPageView(pathname);
+        trackLivePresence();
+      });
+    };
+    let idleId = 0;
+    let timer = 0;
+    const win = window as Window & {
+      requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
+      cancelIdleCallback?: (id: number) => void;
+    };
+    if (typeof win.requestIdleCallback === "function") {
+      idleId = win.requestIdleCallback(start, { timeout: 1800 });
+    } else {
+      timer = window.setTimeout(start, 700);
+    }
+    return () => {
+      cancelled = true;
+      if (idleId) win.cancelIdleCallback?.(idleId);
+      if (timer) window.clearTimeout(timer);
+    };
   }, [pathname]);
 
   useEffect(() => {

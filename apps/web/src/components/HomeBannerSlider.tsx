@@ -56,7 +56,7 @@ export function HomeBannerSlider({ banners }: { banners: readonly HomeBannerSlid
       onMouseLeave={() => setPaused(false)}
       aria-label="Homepage banners"
     >
-      <div className="max-w-7xl mx-auto px-3 sm:px-4 pt-4 sm:pt-5">
+      <div className="w-full px-3 sm:px-4 pt-4 sm:pt-5">
         <div className="relative overflow-hidden rounded-2xl bg-[#1a1008] shadow-card">
           <div
             className="relative w-full aspect-[8/3] touch-pan-y"

@@ -48,7 +48,7 @@ export default async function DestinationSourcingPage({ params }: { params: Prom
   const page = PAGES[market as Market];
   if (!page) notFound();
   return (
-    <article className="max-w-3xl mx-auto px-4 py-10">
+    <article className="w-full px-4 py-10">
       <h1 className="spice-heading text-3xl sm:text-4xl">{page.h1}</h1>
       <p className="mt-4 text-muted leading-relaxed">{page.intro}</p>
       <h2 className="font-serif text-2xl text-primary mt-8">What to include</h2>

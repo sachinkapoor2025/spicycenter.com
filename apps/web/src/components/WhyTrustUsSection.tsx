@@ -5,7 +5,7 @@ import { TrustBadges } from "@/components/TrustBadges";
 export function WhyTrustUsSection() {
   return (
     <section className="bg-white border-y border-slate-100" aria-labelledby="why-trust-heading">
-      <div className="max-w-7xl mx-auto px-4 py-12 md:py-14">
+      <div className="w-full px-4 py-12 md:py-14">
         <div className="text-center max-w-2xl mx-auto mb-10">
           <p className="text-xs font-bold uppercase tracking-widest text-nav mb-2">{trustFacts.seasonLabel}</p>
           <h2 id="why-trust-heading" className="text-2xl md:text-3xl font-bold text-primary mb-3">

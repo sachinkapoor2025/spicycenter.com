@@ -117,7 +117,7 @@ function ChevronIcon() {
 
 export default function GuidesPage() {
   return (
-    <div className="max-w-5xl mx-auto px-4 pt-6 md:pt-8 pb-[calc(5.5rem+env(safe-area-inset-bottom))] md:pb-12">
+    <div className="w-full px-4 pt-6 md:pt-8 pb-[calc(5.5rem+env(safe-area-inset-bottom))] md:pb-12">
       <HubBreadcrumbs items={[{ name: "Home", path: "/" }, { name: "Guides", path: "/guides" }]} />
 
       <section className="relative overflow-hidden">

@@ -8,20 +8,12 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import {
-  type AuthUser,
-  type RegisterResult,
-  type ForgotPasswordDelivery,
-  loadStoredAuth,
-  login as cognitoLogin,
-  completeNewPassword as cognitoCompleteNewPassword,
-  logout as cognitoLogout,
-  register as cognitoRegister,
-  confirmSignUp as cognitoConfirmSignUp,
-  resendConfirmationCode as cognitoResendCode,
-  forgotPassword as cognitoForgotPassword,
-  confirmForgotPassword as cognitoConfirmForgotPassword,
-} from "./cognito";
+import type { AuthUser, ForgotPasswordDelivery, RegisterResult } from "./cognito";
+import { loadStoredAuth } from "./auth-session";
+
+function loadCognito() {
+  return import("./cognito");
+}
 
 interface AuthContextValue {
   user: AuthUser | null;
@@ -55,43 +47,52 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const login = useCallback(async (email: string, password: string) => {
+    const { login: cognitoLogin } = await loadCognito();
     const authUser = await cognitoLogin(email, password);
     setUser(authUser);
     return authUser;
   }, []);
 
   const completeNewPassword = useCallback(async (newPassword: string) => {
+    const { completeNewPassword: cognitoCompleteNewPassword } = await loadCognito();
     const authUser = await cognitoCompleteNewPassword(newPassword);
     setUser(authUser);
     return authUser;
   }, []);
 
   const register = useCallback(async (email: string, password: string, name?: string) => {
+    const { register: cognitoRegister } = await loadCognito();
     return cognitoRegister(email, password, name);
   }, []);
 
   const confirmSignUp = useCallback(async (email: string, code: string) => {
+    const { confirmSignUp: cognitoConfirmSignUp } = await loadCognito();
     await cognitoConfirmSignUp(email, code);
   }, []);
 
   const resendConfirmationCode = useCallback(async (email: string) => {
+    const { resendConfirmationCode: cognitoResendCode } = await loadCognito();
     await cognitoResendCode(email);
   }, []);
 
   const forgotPassword = useCallback(async (email: string) => {
+    const { forgotPassword: cognitoForgotPassword } = await loadCognito();
     return cognitoForgotPassword(email);
   }, []);
 
   const confirmForgotPassword = useCallback(
     async (email: string, code: string, newPassword: string) => {
+      const { confirmForgotPassword: cognitoConfirmForgotPassword } = await loadCognito();
       await cognitoConfirmForgotPassword(email, code, newPassword);
     },
     []
   );
 
   const logout = useCallback(() => {
-    cognitoLogout();
-    setUser(null);
+    void loadCognito().then(({ logout: cognitoLogout }) => {
+      cognitoLogout();
+      setUser(null);
+    });
   }, []);
 
   return (

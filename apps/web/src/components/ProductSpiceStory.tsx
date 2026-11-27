@@ -16,7 +16,7 @@ export function ProductSpiceStory({ product }: { product: Product }) {
   const applyingGrades = spice.grades.filter((g) => g.applies);
 
   return (
-    <section className="max-w-6xl mx-auto px-4 pb-8">
+    <section className="w-full px-4 pb-8">
       <div className="border border-[#eadfce] rounded-xl p-6 bg-[#fffaf3] space-y-6">
         <div>
           <h2 className="font-serif text-2xl text-primary">How to use this spice</h2>

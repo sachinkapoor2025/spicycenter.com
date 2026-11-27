@@ -31,7 +31,7 @@ export function StickyAddToCartBar({
 
   return (
     <div className="md:hidden fixed bottom-0 inset-x-0 z-40 border-t border-slate-200 bg-white/95 backdrop-blur px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-[0_-4px_20px_rgba(0,0,0,0.08)]">
-      <div className="flex items-center gap-3 max-w-6xl mx-auto">
+      <div className="flex items-center gap-3 w-full">
         <div className="min-w-0 flex-1">
           <p className="text-xs text-slate-500 truncate">{product.name}</p>
           <p className="text-sm font-semibold text-primary">Request availability</p>

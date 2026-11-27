@@ -19,7 +19,7 @@ export default function LocationsInventoryPage() {
   const usCities = allSeoLocationSlugs();
   const countrySeo = allCountrySeoSlugs();
   return (
-    <div className="max-w-4xl mx-auto px-4 py-10">
+    <div className="w-full px-4 py-10">
       <HubBreadcrumbs items={[{ name: "Home", path: "/" }, { name: "Locations", path: "/locations" }]} />
       <h1 className="spice-heading text-4xl">Location coverage</h1>
       <p className="mt-4 text-muted leading-relaxed">

@@ -75,12 +75,12 @@ export default async function ProductPage({ params }: Props) {
           faqJsonLd(productPageFaqs),
         ]}
       />
-      <div className="max-w-6xl mx-auto px-4 pt-6">
+      <div className="w-full px-4 pt-6">
         <Breadcrumbs items={crumbs} />
       </div>
       <ProductDetailClient product={product} relatedProducts={relatedProducts} />
       <ProductSpiceStory product={product} />
-      <div className="max-w-6xl mx-auto px-4 pb-12">
+      <div className="w-full px-4 pb-12">
         <InternalLinksSection
           groups={getInternalLinkGroups({
             type: "product",

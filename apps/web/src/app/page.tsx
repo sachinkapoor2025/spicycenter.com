@@ -11,7 +11,7 @@ import { getCatalogProducts } from "@/lib/catalog-fallback";
 import { faqJsonLd } from "@/lib/seo";
 import { featuredBilingualName, PACK_SIZE_RANGE } from "@/lib/catalogue";
 import { spiceStockImagePath } from "@/lib/spice-stock-images";
-import { RfqForm } from "@/components/RfqForm";
+import { DeferredHomeRfq } from "@/components/DeferredHomeRfq";
 
 const SHOP_TYPE_NOTES = [
   ["Whole Spices", "Cumin, cardamom, cloves, pepper and more, with their aroma intact."],
@@ -47,7 +47,9 @@ export const metadata: Metadata = withAbsoluteSocialTitle(
   HOME_META_TITLE,
 );
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600;
+
+const BELOW_FOLD = "[content-visibility:auto] [contain-intrinsic-size:auto_28rem]";
 
 /**
  * Subject center (0–1) of each 240×240 category photo, measured from non-background pixels.
@@ -229,46 +231,48 @@ export default async function HomePage() {
     <div>
       <JsonLd data={faqJsonLd(homeFaqs)} />
 
-      <section className="relative isolate flex h-[calc(100svh-10.75rem)] items-center overflow-hidden bg-[#2c1810] text-paper md:h-[calc(100svh-12.25rem)]">
-        <Image
-          src={homeBanners[0].src}
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="object-contain object-center"
-        />
-        <div
-          className="absolute inset-0 bg-[#2c1810]/35 md:bg-gradient-to-r md:from-[#2c1810]/50 md:via-[#2c1810]/28 md:to-[#2c1810]/18"
-          aria-hidden="true"
-        />
-        <div className="relative max-h-full w-full max-w-7xl mx-auto overflow-y-auto px-4 py-4 sm:py-5 md:py-6 grid lg:grid-cols-[1.15fr_0.85fr] gap-4 sm:gap-5 lg:gap-6 items-center">
-          <div className="rounded-2xl bg-[#2c1810]/95 p-4 sm:p-5 md:p-6 shadow-[0_16px_40px_rgba(20,10,6,0.35)]">
-            <p className="text-xs tracking-[0.18em] uppercase text-[#f3d7b0]">Independent Indian spice sourcing</p>
-            <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl mt-2 leading-tight text-paper">Your Sourcing Partner for Indian Spices</h1>
-            <p className="mt-3 max-w-2xl text-sm sm:text-base leading-relaxed text-paper">
+      <section className="border-b border-[#e6d5bc] bg-cream">
+        <div className="w-full px-4 py-6 sm:py-8 lg:py-10 grid items-center gap-6 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:gap-10">
+          <div className="order-2 lg:order-1">
+            <p className="text-xs font-semibold tracking-[0.18em] uppercase text-nav">Independent Indian spice sourcing</p>
+            <h1 className="mt-3 font-serif text-3xl sm:text-4xl lg:text-[2.7rem] leading-[1.15] text-primary">
+              Your Sourcing Partner for Indian Spices
+            </h1>
+            <p className="mt-4 text-base sm:text-lg leading-relaxed text-earth">
               Share your requirements, discover suitable Indian spice suppliers, compare available quotations and connect with the right sourcing partners.
             </p>
-            <p className="mt-2 max-w-2xl text-sm leading-relaxed text-paper">
+            <p className="mt-3 text-sm leading-relaxed text-muted">
               SpicyCenter does not manufacture spices or hold them as its own stock. Availability, specifications, certificates and prices are confirmed with the selected supplier.
             </p>
-            <div className="mt-4 flex flex-col sm:flex-row flex-wrap gap-3">
+            <div className="mt-6 flex flex-col sm:flex-row flex-wrap gap-3">
               <a href="#requirement" className="btn-primary w-full sm:!w-auto justify-center bg-nav px-5 py-3 text-sm font-semibold">Submit Your Requirement</a>
-              <Link href="/spices" className="inline-flex w-full sm:w-auto items-center justify-center rounded-lg border border-paper/70 bg-[#2c1810] px-5 py-3 text-sm font-semibold text-paper">Explore Our Products</Link>
+              <Link href="/spices" className="inline-flex w-full sm:w-auto items-center justify-center rounded-lg border border-primary/30 bg-paper px-5 py-3 text-sm font-semibold text-primary hover:border-nav hover:text-nav">Explore Our Products</Link>
+            </div>
+            <div className="mt-6 rounded-2xl border border-[#e6d5bc] bg-paper p-5 shadow-card">
+              <p className="font-serif text-xl text-primary">What you can expect</p>
+              <ul className="mt-3 space-y-2 text-sm leading-relaxed text-earth">
+                <li>A written requirement, not a published list price.</li>
+                <li>Supplier options compared only where quotations exist.</li>
+                <li>Unknown details marked as pending confirmation.</li>
+              </ul>
             </div>
           </div>
-          <div className="rounded-2xl border border-paper/30 bg-[#2c1810]/95 p-4 sm:p-5 text-sm leading-relaxed shadow-[0_16px_40px_rgba(20,10,6,0.35)]">
-            <p className="font-serif text-xl text-paper">What you can expect</p>
-            <ul className="mt-3 space-y-2 text-paper">
-              <li>A written requirement, not a published list price.</li>
-              <li>Supplier options compared only where quotations exist.</li>
-              <li>Unknown details marked as pending confirmation.</li>
-            </ul>
+          <div className="order-1 lg:order-2 overflow-hidden rounded-2xl bg-[#2c1810] shadow-card ring-1 ring-[#e6d5bc]">
+            <Image
+              src={homeBanners[0].src}
+              alt={homeBanners[0].alt}
+              width={1600}
+              height={640}
+              priority
+              sizes="(max-width: 1024px) 100vw, 56vw"
+              quality={70}
+              className="h-auto w-full object-contain"
+            />
           </div>
         </div>
       </section>
 
-      <section className="max-w-7xl mx-auto px-4 py-12">
+      <section className="w-full px-4 py-12">
         <h2 className="font-serif text-2xl sm:text-3xl text-primary">How sourcing works</h2>
         <ol className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-5">
           {[
@@ -292,13 +296,13 @@ export default async function HomePage() {
           <h2 className="font-serif text-2xl sm:text-3xl text-primary">Submit your requirement</h2>
           <p className="mt-3 text-muted leading-relaxed">Use this form or WhatsApp. We reply after the requirement is clear enough to approach suitable suppliers.</p>
           <div className="mt-6">
-            <RfqForm products={spices.map((spice) => spice.canonicalName)} />
+            <DeferredHomeRfq products={spices.map((spice) => spice.canonicalName)} />
           </div>
         </div>
       </section>
 
-      <section className="border-b border-[#e6d5bc] bg-beige/70">
-        <div className="max-w-7xl mx-auto px-4 py-6 md:py-8 grid md:grid-cols-2 gap-6 md:gap-10">
+      <section className={`border-b border-[#e6d5bc] bg-beige/70 ${BELOW_FOLD}`}>
+        <div className="w-full px-4 py-6 md:py-8 grid md:grid-cols-2 gap-6 md:gap-10">
           <div>
             <h2 className="font-serif text-[1.35rem] sm:text-[1.5rem] md:text-[1.7rem] text-primary leading-snug">
               Single Spices and Traditional Blends
@@ -318,11 +322,11 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="max-w-7xl mx-auto px-4 py-10 md:py-14">
+      <section className={`w-full px-4 py-10 md:py-14 ${BELOW_FOLD}`}>
         <div className="text-center mb-8">
           <p className="spice-kicker">Spice-market collection</p>
           <h2 className="font-serif text-[1.35rem] sm:text-[1.5rem] md:text-[1.7rem] text-primary mt-2 leading-snug">Shop by Spice Type</h2>
-          <p className="mt-3 text-sm md:text-base text-muted max-w-3xl mx-auto leading-relaxed">
+          <p className="mt-3 text-sm md:text-base text-muted leading-relaxed">
             {productCount > 0
               ? `Browse ${productCount} spices by category.`
               : "Browse the catalogue by category."}
@@ -374,8 +378,8 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="bg-beige/50 border-y border-[#e6d5bc]">
-        <div className="max-w-7xl mx-auto px-4 py-14">
+      <section className={`bg-beige/50 border-y border-[#e6d5bc] ${BELOW_FOLD}`}>
+        <div className="w-full px-4 py-14">
         <h2 className="font-serif text-[1.35rem] sm:text-[1.5rem] md:text-[1.7rem] text-primary text-center mb-8 leading-snug">
           Indian masalas, bulk packs and recipes
         </h2>
@@ -387,7 +391,7 @@ export default async function HomePage() {
         ].map((card) => (
           <Link key={card.href} href={card.href} className="card-spice overflow-hidden group">
             <span className="relative block h-44 sm:h-56">
-              <Image src={card.img} alt="" fill className="object-cover group-hover:scale-[1.03] transition" sizes="(max-width: 640px) 100vw, (min-width: 768px) 33vw, 100vw" />
+              <Image src={card.img} alt="" fill quality={55} className="object-cover group-hover:scale-[1.03] transition" sizes="(max-width: 768px) 100vw, 33vw" />
               <span className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent" />
               <h3 className="absolute bottom-3 left-4 right-4 font-serif text-2xl font-normal text-paper">{card.title}</h3>
             </span>
@@ -401,7 +405,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="max-w-7xl mx-auto px-4 py-14">
+      <section className={`w-full px-4 py-14 ${BELOW_FOLD}`}>
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 mb-3">
           <div>
             <p className="spice-kicker">From the spice kitchen</p>
@@ -423,6 +427,7 @@ export default async function HomePage() {
                   src={spiceStockImagePath(`${s.slug} ${s.canonicalName}`)}
                   alt={s.canonicalName}
                   fill
+                  quality={60}
                   className="object-cover"
                   sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                 />
@@ -444,9 +449,9 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="max-w-7xl mx-auto px-4 py-14">
+      <section className={`w-full px-4 py-14 ${BELOW_FOLD}`}>
         <h2 className="spice-heading text-[1.35rem] sm:text-[1.5rem] md:text-[1.7rem] mt-2 mb-3 leading-snug">Why Buyers Enquire with Us</h2>
-        <p className="text-muted max-w-3xl mb-6">
+        <p className="text-muted mb-6">
           Most spice websites show one price for one pack size and leave you to guess the rest. We do it differently, because real wholesale does not work that way.
         </p>
         <TrustBadges className="mb-8" />
@@ -466,13 +471,14 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="max-w-7xl mx-auto px-4 py-6 md:py-8">
+      <section className={`w-full px-4 py-6 md:py-8 ${BELOW_FOLD}`}>
         <div className="card-spice relative overflow-hidden">
           <div className="pointer-events-none absolute inset-0 z-0 md:hidden" aria-hidden="true">
             <Image
               src="/images/global-shipping-banner.jpg"
               alt=""
               fill
+              quality={45}
               className="object-cover object-[82%_center]"
               sizes="100vw"
             />
@@ -506,6 +512,7 @@ export default async function HomePage() {
                 src="/images/global-shipping-banner.jpg"
                 alt=""
                 fill
+                quality={45}
                 className="object-cover object-[68%_center]"
                 sizes="45vw"
               />
@@ -519,12 +526,12 @@ export default async function HomePage() {
 
       </section>
 
-      <section className="max-w-7xl mx-auto px-4 py-6 md:py-8">
+      <section className={`w-full px-4 py-6 md:py-8 ${BELOW_FOLD}`}>
         <div className="card-spice overflow-hidden">
           <div className="grid grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)] md:grid-cols-2 items-stretch">
             <div className="relative z-10 flex flex-col items-start justify-center bg-[#fbf6ee] px-4 py-4 sm:px-5 sm:py-5 md:px-8 md:py-6 min-w-0">
               <h2 className="spice-heading text-[1.2rem] sm:text-[1.35rem] md:text-[1.5rem] leading-snug">Ready to Order? Tell Us What You Need</h2>
-              <p className="mt-2.5 max-w-xl text-[0.9rem] md:text-[0.98rem] leading-[1.5] md:leading-relaxed text-primary">
+              <p className="mt-2.5 text-[0.9rem] md:text-[0.98rem] leading-[1.5] md:leading-relaxed text-primary">
                 Send us your requirements: the spices you want, the quantity, and where it needs to go. Our team will get back to you with availability and details.
               </p>
               <Link href="/enquiry" className="btn-primary mt-3 md:mt-4 !w-auto px-4 py-2 md:px-5 md:py-2.5 text-sm font-semibold">Request a Wholesale Quote →</Link>
@@ -534,6 +541,7 @@ export default async function HomePage() {
                 src="/images/tell-us-what-you-need-spices.png"
                 alt=""
                 fill
+                quality={60}
                 className="object-cover object-[80%_center] md:object-[82%_center]"
                 sizes="(max-width: 768px) 45vw, 50vw"
               />
@@ -550,7 +558,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="max-w-7xl mx-auto px-4 py-14">
+      <section className={`w-full px-4 py-14 ${BELOW_FOLD}`}>
         <h2 className="spice-heading text-[1.35rem] sm:text-[1.5rem] md:text-[1.7rem] leading-snug">Frequently Asked Questions</h2>
         <div className="mt-6 grid md:grid-cols-2 gap-4">
           {homeFaqs.map((faq) => (
@@ -562,7 +570,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="max-w-7xl mx-auto px-4 pb-[calc(5.25rem+env(safe-area-inset-bottom))] md:pb-14">
+      <section className={`w-full px-4 pb-[calc(5.25rem+env(safe-area-inset-bottom))] md:pb-14 ${BELOW_FOLD}`}>
         <h2 className="spice-heading text-2xl sm:text-3xl mb-4">Customer reviews</h2>
         <ProductReviewsPreview />
       </section>

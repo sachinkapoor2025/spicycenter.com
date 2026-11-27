@@ -31,7 +31,7 @@ export default async function FoodFamilyPage({ params }: Props) {
   const item = getFoodFamily(family);
   if (!item) notFound();
   return (
-    <div className="max-w-7xl mx-auto px-4 py-10 grid lg:grid-cols-[minmax(0,1fr)_minmax(20rem,32rem)] gap-10 items-start">
+    <div className="w-full px-4 py-10 grid lg:grid-cols-[minmax(0,1fr)_minmax(20rem,32rem)] gap-10 items-start">
       <div>
       <HubBreadcrumbs
         items={[

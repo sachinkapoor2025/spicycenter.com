@@ -30,7 +30,7 @@ export default async function KeywordMapPage({ searchParams }: Props) {
   const hits = query.length >= 2 ? await searchKeywordUniverse(query, 40) : [];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-10">
+    <div className="w-full px-4 py-10">
       <p className="spice-kicker">SEO planning</p>
       <h1 className="spice-heading text-4xl mt-2">Keyword map</h1>
       <p className="mt-4 text-muted leading-relaxed max-w-3xl">

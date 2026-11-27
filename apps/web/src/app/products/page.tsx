@@ -134,7 +134,7 @@ export default async function ProductsPage({ searchParams }: Props) {
     : [];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-10">
+    <div className="w-full px-4 py-10">
       {search ? <SearchTracker query={search} resultCount={total} /> : null}
       <Breadcrumbs
         items={[

@@ -13,7 +13,7 @@ export const metadata: Metadata = pageMetadata({
 
 export default function FaqPage() {
   return (
-    <div className="max-w-7xl mx-auto px-4 py-12">
+    <div className="w-full px-4 py-12">
       <JsonLd data={faqJsonLd(faqs)} />
       <h1 className="text-3xl font-bold text-primary mb-2">Frequently Asked Questions</h1>
       <p className="text-slate-600 mb-8 max-w-3xl">

@@ -13,7 +13,7 @@ export const metadata: Metadata = pageMetadata({
 
 export default function AboutPage() {
   return (
-    <div className="max-w-3xl mx-auto px-4 py-12">
+    <div className="w-full px-4 py-12">
       <p className="text-xs tracking-[0.2em] text-nav font-semibold">SPICYCORNER</p>
       <h1 className="font-serif text-4xl mb-6 mt-2">About {site.name}</h1>
       <p className="text-slate-700 leading-relaxed mb-4">

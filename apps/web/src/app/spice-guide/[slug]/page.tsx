@@ -75,7 +75,7 @@ export default async function SpiceGuidePage({ params }: Props) {
   const faqs = (spice.faqs ?? []).filter((faq) => !/^what is\b/i.test(faq.q.trim()));
 
   return (
-    <article className="max-w-3xl mx-auto px-4 py-10">
+    <article className="w-full px-4 py-10">
       <JsonLd
         data={[
           spiceGuideArticleJsonLd({

@@ -34,7 +34,7 @@ export default async function RegionPage({ params }: Props) {
   const story = regionStories[region.slug];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-10">
+    <div className="w-full px-4 py-10">
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Home", path: "/" },
