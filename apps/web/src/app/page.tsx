@@ -4,7 +4,6 @@ import Link from "next/link";
 import { pageMetadata, withAbsoluteSocialTitle } from "@/lib/seo";
 import { JsonLd } from "@/components/JsonLd";
 import { exploreCategories, site, homeBanners } from "@/lib/site";
-import { HomeBannerSlider } from "@/components/HomeBannerSlider";
 import { ProductReviewsPreview } from "@/components/ProductReviewsPreview";
 import { TrustBadges } from "@/components/TrustBadges";
 import { loadSpiceEntities } from "@/lib/spice-data";
@@ -235,35 +234,35 @@ export default async function HomePage() {
     <div>
       <JsonLd data={faqJsonLd(homeFaqs)} />
 
-      <section className="relative isolate overflow-hidden text-paper">
+      <section className="relative isolate flex h-[calc(100svh-10.75rem)] items-center overflow-hidden bg-[#2c1810] text-paper md:h-[calc(100svh-12.25rem)]">
         <Image
           src={homeBanners[0].src}
           alt=""
           fill
           priority
           sizes="100vw"
-          className="object-cover object-[center_42%]"
+          className="object-contain object-center"
         />
         <div
-          className="absolute inset-0 bg-[#2c1810]/45 md:bg-gradient-to-r md:from-[#2c1810]/55 md:via-[#2c1810]/35 md:to-[#2c1810]/25"
+          className="absolute inset-0 bg-[#2c1810]/35 md:bg-gradient-to-r md:from-[#2c1810]/50 md:via-[#2c1810]/28 md:to-[#2c1810]/18"
           aria-hidden="true"
         />
-        <div className="relative max-w-7xl mx-auto px-4 py-10 sm:py-12 md:py-16 lg:py-20 grid lg:grid-cols-[1.15fr_0.85fr] gap-5 sm:gap-6 lg:gap-8 items-center">
-          <div className="rounded-2xl bg-[#2c1810]/95 p-5 sm:p-6 md:p-8 shadow-[0_16px_40px_rgba(20,10,6,0.35)]">
+        <div className="relative max-h-full w-full max-w-7xl mx-auto overflow-y-auto px-4 py-4 sm:py-5 md:py-6 grid lg:grid-cols-[1.15fr_0.85fr] gap-4 sm:gap-5 lg:gap-6 items-center">
+          <div className="rounded-2xl bg-[#2c1810]/95 p-4 sm:p-5 md:p-6 shadow-[0_16px_40px_rgba(20,10,6,0.35)]">
             <p className="text-xs tracking-[0.18em] uppercase text-[#f3d7b0]">Independent Indian spice sourcing</p>
-            <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl mt-3 leading-tight text-paper">Your Sourcing Partner for Indian Spices</h1>
-            <p className="mt-4 max-w-2xl text-base sm:text-lg leading-relaxed text-paper">
+            <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl mt-2 leading-tight text-paper">Your Sourcing Partner for Indian Spices</h1>
+            <p className="mt-3 max-w-2xl text-sm sm:text-base leading-relaxed text-paper">
               Share your requirements, discover suitable Indian spice suppliers, compare available quotations and connect with the right sourcing partners.
             </p>
-            <p className="mt-3 max-w-2xl text-sm leading-relaxed text-paper">
+            <p className="mt-2 max-w-2xl text-sm leading-relaxed text-paper">
               SpicyCenter does not manufacture spices or hold them as its own stock. Availability, specifications, certificates and prices are confirmed with the selected supplier.
             </p>
-            <div className="mt-6 flex flex-col sm:flex-row flex-wrap gap-3">
+            <div className="mt-4 flex flex-col sm:flex-row flex-wrap gap-3">
               <a href="#requirement" className="btn-primary w-full sm:!w-auto justify-center bg-nav px-5 py-3 text-sm font-semibold">Submit Your Requirement</a>
               <Link href="/spices" className="inline-flex w-full sm:w-auto items-center justify-center rounded-lg border border-paper/70 bg-[#2c1810] px-5 py-3 text-sm font-semibold text-paper">Explore Our Products</Link>
             </div>
           </div>
-          <div className="rounded-2xl border border-paper/30 bg-[#2c1810]/95 p-5 sm:p-6 text-sm leading-relaxed shadow-[0_16px_40px_rgba(20,10,6,0.35)]">
+          <div className="rounded-2xl border border-paper/30 bg-[#2c1810]/95 p-4 sm:p-5 text-sm leading-relaxed shadow-[0_16px_40px_rgba(20,10,6,0.35)]">
             <p className="font-serif text-xl text-paper">What you can expect</p>
             <ul className="mt-3 space-y-2 text-paper">
               <li>A written requirement, not a published list price.</li>
@@ -302,8 +301,6 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
-
-      <HomeBannerSlider banners={homeBanners} />
 
       <section className="border-b border-[#e6d5bc] bg-beige/70">
         <div className="max-w-7xl mx-auto px-4 py-6 md:py-8 grid md:grid-cols-2 gap-6 md:gap-10">
