@@ -11,12 +11,7 @@ import { getCatalogProducts } from "@/lib/catalog-fallback";
 import { faqJsonLd } from "@/lib/seo";
 import { featuredBilingualName, PACK_SIZE_RANGE } from "@/lib/catalogue";
 import { spiceStockImagePath } from "@/lib/spice-stock-images";
-import { HOME_SUPPLIED_H1, HOME_SUPPLIED_INTRO, HOME_SUPPLIED_SECTIONS } from "@/lib/content/supplied-pages";
-import { SuppliedPageCopy } from "@/components/SuppliedPageCopy";
 import { RfqForm } from "@/components/RfqForm";
-
-const HOME_H1 = HOME_SUPPLIED_H1;
-const HOME_INTRO = [HOME_SUPPLIED_INTRO] as const;
 
 const SHOP_TYPE_NOTES = [
   ["Whole Spices", "Cumin, cardamom, cloves, pepper and more, with their aroma intact."],
@@ -202,7 +197,7 @@ export default async function HomePage() {
     },
     {
       q: "What quantities can I order?",
-      a: `Listed pack sizes range from ${PACK_SIZE_RANGE}. Tell us the quantity you need in the enquiry form and we will reply with the options. Larger requirements may be discussed separately, and are not a standard or guaranteed pack size.`,
+      a: `Tell us the quantity in the enquiry. Listed packs run from ${PACK_SIZE_RANGE}.`,
     },
     {
       q: "Do you deliver to the UK and Europe?",
@@ -214,7 +209,7 @@ export default async function HomePage() {
     },
     {
       q: "How are single spices and blends described?",
-      a: "A single spice is sold as that spice. Traditional blends are named as blends. We do not describe a blend as a single spice.",
+      a: "A single spice is sold as that spice. A blend is named as a blend.",
     },
     {
       q: "Where do your spices come from?",
@@ -329,8 +324,8 @@ export default async function HomePage() {
           <h2 className="font-serif text-[1.35rem] sm:text-[1.5rem] md:text-[1.7rem] text-primary mt-2 leading-snug">Shop by Spice Type</h2>
           <p className="mt-3 text-sm md:text-base text-muted max-w-3xl mx-auto leading-relaxed">
             {productCount > 0
-              ? `Our catalogue has ${productCount} Indian spice products, each a real variety, form or pack size and not a thin duplicate listing. Browse by category:`
-              : "Browse the catalogue by category. Each listing is a real variety, form or pack size, not a thin duplicate."}
+              ? `Browse ${productCount} spices by category.`
+              : "Browse the catalogue by category."}
           </p>
         </div>
         <div className="grid grid-cols-4 md:grid-cols-8 gap-2 sm:gap-4">
@@ -418,12 +413,7 @@ export default async function HomePage() {
           </div>
           <Link href="/spices" className="text-nav font-semibold shrink-0">View catalogue →</Link>
         </div>
-        <p className="text-muted mb-6">
-          {productCount > 0
-            ? `${productCount} products from real varieties, forms and pack sizes — not thin duplicate listings.`
-            : "Open the catalogue to browse cumin, turmeric, pepper and masalas, then send an enquiry."}
-        </p>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="mt-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {featured.map((s) => {
             const bilingual = featuredBilingualName(s.canonicalName, s.slug);
             return (
@@ -454,30 +444,6 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="max-w-7xl mx-auto px-4 py-12 md:py-16 text-center">
-        <p className="spice-kicker tracking-[0.14em] sm:tracking-[0.16em]">{site.tagline}</p>
-        <h2 className="spice-heading text-[1.55rem] sm:text-[1.7rem] md:text-[2.05rem] lg:text-[2.15rem] mt-2 leading-[1.2] max-w-4xl mx-auto">
-          {HOME_H1}
-        </h2>
-        {HOME_INTRO.map((paragraph) => (
-          <p
-            key={paragraph}
-            className="mt-3 text-[0.9rem] sm:text-[0.95rem] md:text-[1.05rem] font-sans font-normal leading-relaxed text-primary max-w-3xl mx-auto"
-          >
-            {paragraph}
-          </p>
-        ))}
-        <p className="mt-3 text-[0.95rem] sm:text-base text-primary">Indian spices sourced through independent suppliers.</p>
-        <p className="mt-2 font-serif italic text-base sm:text-lg text-nav">{site.promise}</p>
-      </section>
-
-      <section className="max-w-7xl mx-auto px-4 pb-4">
-        <SuppliedPageCopy sections={HOME_SUPPLIED_SECTIONS} />
-        <Link href="/enquiry" className="btn-primary mt-8 inline-flex !w-auto px-5 py-2.5 text-sm font-semibold">
-          Send an enquiry
-        </Link>
-      </section>
-
       <section className="max-w-7xl mx-auto px-4 py-14">
         <h2 className="spice-heading text-[1.35rem] sm:text-[1.5rem] md:text-[1.7rem] mt-2 mb-3 leading-snug">Why Buyers Enquire with Us</h2>
         <p className="text-muted max-w-3xl mb-6">
@@ -486,7 +452,7 @@ export default async function HomePage() {
         <TrustBadges className="mb-8" />
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {[
-            ["Tell us your quantity", `You do not pick from fixed pack buttons. Cumin is one product, and you tell us how much you need, from ${PACK_SIZE_RANGE}. Larger requirements may be discussed separately, and are not a standard or guaranteed pack size.`],
+            ["Tell us your quantity", "Say how much you need in the enquiry. We reply with the options for that order."],
             ["Your price is for your order", "Grade, crop, packaging and destination all change the final number, so we confirm it in our reply instead of showing a list price that will not match your lot."],
             ["We know who we are talking to", "The enquiry asks for your company and the type of request — a commercial order, a sample request or a generic product enquiry — so the reply fits that enquiry."],
             ["Whole spices and masalas, one catalogue", "Single spices and traditional blends sit together, each with its own photograph."],
@@ -577,46 +543,6 @@ export default async function HomePage() {
               />
               <span
                 className="pointer-events-none absolute inset-y-0 left-0 hidden w-[42%] bg-gradient-to-r from-[#fbf6ee] via-[#fbf6ee]/55 to-transparent md:block"
-                aria-hidden="true"
-              />
-            </div>
-          </div>
-        </div>
-
-        <div className="card-spice overflow-hidden mt-4 md:mt-5">
-          <div className="grid grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)] md:grid-cols-2 items-stretch">
-            <div className="relative z-10 flex flex-col justify-center bg-[#fbf6ee] px-4 py-4 sm:px-5 sm:py-5 md:px-8 md:py-6 min-w-0">
-              <p className="spice-kicker tracking-[0.14em] sm:tracking-[0.16em] flex items-center gap-3">
-                Wholesale Enquiries
-                <span className="hidden sm:block h-px w-10 bg-nav" aria-hidden="true" />
-              </p>
-              <h2 className="font-serif text-[1.2rem] sm:text-[1.35rem] md:text-[1.5rem] text-primary mt-2 leading-snug">
-                Request a Wholesale Quote
-              </h2>
-              <p className="mt-2.5 text-[0.9rem] md:text-[0.98rem] leading-[1.5] md:leading-relaxed text-primary max-w-md">
-                Send us the spices you want, the quantity, and where it needs to go. Our team will reply with availability and details.
-              </p>
-              <Link href="/enquiry" className="btn-primary mt-3 md:mt-4 self-start !w-auto rounded-xl px-4 py-2 md:px-5 md:py-2.5 text-sm font-semibold">
-                Enquire Now →
-              </Link>
-              <Link href="/markets" className="text-nav font-semibold mt-2.5 self-start inline-flex items-center text-sm leading-snug">
-                Explore Export Markets →
-              </Link>
-            </div>
-            <div className="relative min-h-[11rem] md:min-h-[13.5rem] lg:min-h-[15rem] overflow-hidden bg-[#fbf6ee]">
-              <Image
-                src="/images/wholesale-enquiries-card.png"
-                alt=""
-                fill
-                className="object-cover object-[72%_center] md:object-[center_52%]"
-                sizes="(max-width: 768px) 45vw, 50vw"
-              />
-              <span
-                className="pointer-events-none absolute inset-y-0 left-0 w-[48%] bg-gradient-to-r from-[#fbf6ee] via-[#fbf6ee]/65 to-transparent md:hidden"
-                aria-hidden="true"
-              />
-              <span
-                className="pointer-events-none absolute inset-y-0 left-0 hidden w-[38%] bg-gradient-to-r from-[#fbf6ee] via-[#fbf6ee]/50 to-transparent md:block"
                 aria-hidden="true"
               />
             </div>
